@@ -5,8 +5,8 @@ management:
   docVersion: 0.0.1
   speakeasyVersion: 1.460.3
   generationVersion: 2.484.0
-  releaseVersion: 0.0.2
-  configChecksum: 26ed1fcc92dcad734a660b48898d2e02
+  releaseVersion: 0.0.3
+  configChecksum: ef03c0330ef1435e1f01d10d73becb68
   repoURL: https://github.com/firehydrant/firehydrant-terraform-sdk-speakeasy.git
 features:
   terraform:
