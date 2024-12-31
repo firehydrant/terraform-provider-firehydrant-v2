@@ -34,6 +34,7 @@ It has been generated successfully based on your OpenAPI spec. However, it is no
   * [Testing the provider locally](#testing-the-provider-locally)
 * [Development](#development)
   * [Contributions](#contributions)
+* [firehydrant-terraform-sdk-speakeasy](#firehydrant-terraform-sdk-speakeasy)
 
 <!-- End Table of Contents [toc] -->
 
@@ -47,7 +48,7 @@ terraform {
   required_providers {
     firehydrant-terraform-sdk = {
       source  = "speakeasy/firehydrant-terraform-sdk"
-      version = "0.0.1"
+      version = "0.0.2"
     }
   }
 }
