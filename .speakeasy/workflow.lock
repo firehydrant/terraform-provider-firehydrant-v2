@@ -1,0 +1,27 @@
+speakeasyVersion: 1.460.3
+sources:
+    firehydrant-terraform-sdk-OAS:
+        sourceNamespace: firehydrant-terraform-sdk-oas
+        sourceRevisionDigest: sha256:c7d0011194e8963eb9f8e18a54a21f82a9fc6e53c638b143385ca5aaabc232b5
+        sourceBlobDigest: sha256:f6ffe4d71cbc8f195cf28218fe7c5a6212053a7fa58a4e0aa275374cfcf3c675
+        tags:
+            - latest
+targets:
+    firehydrant-terraform-sdk:
+        source: firehydrant-terraform-sdk-OAS
+        sourceNamespace: firehydrant-terraform-sdk-oas
+        sourceRevisionDigest: sha256:c7d0011194e8963eb9f8e18a54a21f82a9fc6e53c638b143385ca5aaabc232b5
+        sourceBlobDigest: sha256:f6ffe4d71cbc8f195cf28218fe7c5a6212053a7fa58a4e0aa275374cfcf3c675
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        firehydrant-terraform-sdk-OAS:
+            inputs:
+                - location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-oas:main
+            registry:
+                location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-terraform-sdk-oas
+    targets:
+        firehydrant-terraform-sdk:
+            target: terraform
+            source: firehydrant-terraform-sdk-OAS

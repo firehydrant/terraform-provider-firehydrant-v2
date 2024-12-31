@@ -1,0 +1,12 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    firehydrant-terraform-sdk-OAS:
+        inputs:
+            - location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-oas:main
+        registry:
+            location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-terraform-sdk-oas
+targets:
+    firehydrant-terraform-sdk:
+        target: terraform
+        source: firehydrant-terraform-sdk-OAS
