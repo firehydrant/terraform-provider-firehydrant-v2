@@ -10,3 +10,7 @@ targets:
     firehydrant-terraform-sdk:
         target: terraform
         source: firehydrant-terraform-sdk-OAS
+        publish:
+            terraform:
+                gpgPrivateKey: $terraform_gpg_private_key
+                gpgPassPhrase: $terraform_gpg_passphrase
