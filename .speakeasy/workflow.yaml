@@ -1,6 +1,7 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
-firehydrant-oas:
+sources:
+    firehydrant-oas:
         inputs:
             - location: ./openapi.yaml
         overlays:
