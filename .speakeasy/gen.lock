@@ -3,11 +3,11 @@ id: 74a1a2a8-f6b2-4a51-9f9c-8b04f085a82b
 management:
   docChecksum: 01a84b52196091b86184a626604eba83
   docVersion: 0.0.1
-  speakeasyVersion: 1.465.0
-  generationVersion: 2.486.6
-  releaseVersion: 0.0.6
-  configChecksum: 873c0adfe0348b810901e041ec31ffd4
-  repoURL: https://github.com/firehydrant/firehydrant-terraform-sdk-speakeasy.git
+  speakeasyVersion: 1.465.1
+  generationVersion: 2.488.4
+  releaseVersion: 0.0.7
+  configChecksum: 932e04ce816778ace6b7836b8f49aeeb
+  repoURL: https://github.com/firehydrant/terraform-provider-firehydrant-v2.git
   published: true
 features:
   terraform:

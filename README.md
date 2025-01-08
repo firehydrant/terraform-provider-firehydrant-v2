@@ -27,7 +27,7 @@ It has been generated successfully based on your OpenAPI spec. However, it is no
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [firehydrant-terraform-sdk](#firehydrant-terraform-sdk)
+* [terraform-provider-firehydrant-v2](#terraform-provider-firehydrant-v2)
   * [🏗 **Welcome to your new Terraform Provider!** 🏗](#welcome-to-your-new-terraform-provider)
   * [Installation](#installation)
   * [Available Resources and Data Sources](#available-resources-and-data-sources)
@@ -48,7 +48,7 @@ terraform {
   required_providers {
     firehydrant-terraform-sdk = {
       source  = "speakeasy/firehydrant-terraform-sdk"
-      version = "0.0.6"
+      version = "0.0.7"
     }
   }
 }
