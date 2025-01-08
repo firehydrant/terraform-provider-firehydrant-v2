@@ -6,7 +6,7 @@ sources:
         sourceBlobDigest: sha256:f6ffe4d71cbc8f195cf28218fe7c5a6212053a7fa58a4e0aa275374cfcf3c675
         tags:
             - latest
-            - speakeasy-sdk-regen-1736358439
+            - speakeasy-sdk-regen-1736359114
 targets:
     firehydrant-terraform-sdk:
         source: firehydrant-terraform-sdk-OAS
