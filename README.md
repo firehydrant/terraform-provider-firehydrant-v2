@@ -119,4 +119,4 @@ While we value open-source contributions to this terraform provider, this librar
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
 ### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=firehydrant-terraform-sdk&utm_campaign=terraform)
-# firehydrant-terraform-sdk-speakeasy
+# terraform-provider-firehydrant-v2
