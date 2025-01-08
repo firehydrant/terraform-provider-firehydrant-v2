@@ -1,4 +1,4 @@
-# firehydrant-terraform-sdk
+# terraform-provider-firehydrant-v2
 
 Developer-friendly & type-safe Terraform SDK specifically catered to leverage *firehydrant-terraform-sdk* API.
 
