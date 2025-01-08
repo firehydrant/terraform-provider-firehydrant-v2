@@ -1,4 +1,4 @@
-speakeasyVersion: 1.465.0
+speakeasyVersion: 1.465.1
 sources:
     firehydrant-terraform-sdk-OAS:
         sourceNamespace: firehydrant-terraform-sdk-oas
@@ -6,7 +6,7 @@ sources:
         sourceBlobDigest: sha256:f6ffe4d71cbc8f195cf28218fe7c5a6212053a7fa58a4e0aa275374cfcf3c675
         tags:
             - latest
-            - speakeasy-sdk-regen-1735862491
+            - speakeasy-sdk-regen-1736358439
 targets:
     firehydrant-terraform-sdk:
         source: firehydrant-terraform-sdk-OAS
