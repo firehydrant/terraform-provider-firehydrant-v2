@@ -48,7 +48,7 @@ terraform {
   required_providers {
     firehydrant-terraform-sdk = {
       source  = "speakeasy/firehydrant-terraform-sdk"
-      version = "0.0.1"
+      version = "0.0.2"
     }
   }
 }

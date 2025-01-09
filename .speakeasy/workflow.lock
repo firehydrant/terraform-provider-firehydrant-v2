@@ -1,5 +1,13 @@
 speakeasyVersion: 1.465.1
 sources:
+    firehydrant-oas:
+        sourceNamespace: firehydrant-oas
+        sourceRevisionDigest: sha256:50132199c5d95d88c7b4f374457991ef16007ce7849a203bad8dd9094b4a263f
+        sourceBlobDigest: sha256:f6ffe4d71cbc8f195cf28218fe7c5a6212053a7fa58a4e0aa275374cfcf3c675
+        tags:
+            - latest
+            - speakeasy-sdk-regen-1736380894
+            - 0.0.1
     firehydrant-terraform-sdk-OAS:
         sourceNamespace: firehydrant-terraform-sdk-oas
         sourceRevisionDigest: sha256:c7d0011194e8963eb9f8e18a54a21f82a9fc6e53c638b143385ca5aaabc232b5
@@ -9,23 +17,26 @@ sources:
             - speakeasy-sdk-regen-1736359114
 targets:
     firehydrant-terraform-sdk:
-        source: firehydrant-terraform-sdk-OAS
-        sourceNamespace: firehydrant-terraform-sdk-oas
-        sourceRevisionDigest: sha256:c7d0011194e8963eb9f8e18a54a21f82a9fc6e53c638b143385ca5aaabc232b5
+        source: firehydrant-oas
+        sourceNamespace: firehydrant-oas
+        sourceRevisionDigest: sha256:50132199c5d95d88c7b4f374457991ef16007ce7849a203bad8dd9094b4a263f
         sourceBlobDigest: sha256:f6ffe4d71cbc8f195cf28218fe7c5a6212053a7fa58a4e0aa275374cfcf3c675
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
-        firehydrant-terraform-sdk-OAS:
+        firehydrant-oas:
             inputs:
-                - location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-oas:main
+                - location: ./openapi.yaml
+            overlays:
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
+                - location: errors-overlay.yaml
             registry:
-                location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-terraform-sdk-oas
+                location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-oas
     targets:
         firehydrant-terraform-sdk:
             target: terraform
-            source: firehydrant-terraform-sdk-OAS
+            source: firehydrant-oas
             publish:
                 terraform:
                     gpgPrivateKey: $terraform_gpg_private_key
