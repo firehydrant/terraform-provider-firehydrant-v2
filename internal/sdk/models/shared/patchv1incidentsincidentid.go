@@ -2,10 +2,6 @@
 
 package shared
 
-// PatchV1IncidentsIncidentIDLabels - Key:value pairs to track custom data for the incident
-type PatchV1IncidentsIncidentIDLabels struct {
-}
-
 // PatchV1IncidentsIncidentID - Updates an incident with provided parameters
 type PatchV1IncidentsIncidentID struct {
 	Name                  *string `json:"name,omitempty"`
@@ -13,11 +9,11 @@ type PatchV1IncidentsIncidentID struct {
 	CustomerImpactSummary *string `json:"customer_impact_summary,omitempty"`
 	Description           *string `json:"description,omitempty"`
 	// Key:value pairs to track custom data for the incident
-	Labels              *PatchV1IncidentsIncidentIDLabels `json:"labels,omitempty"`
-	Priority            *string                           `json:"priority,omitempty"`
-	Severity            *string                           `json:"severity,omitempty"`
-	SeverityConditionID *string                           `json:"severity_condition_id,omitempty"`
-	SeverityImpactID    *string                           `json:"severity_impact_id,omitempty"`
+	Labels              map[string]string `json:"labels,omitempty"`
+	Priority            *string           `json:"priority,omitempty"`
+	Severity            *string           `json:"severity,omitempty"`
+	SeverityConditionID *string           `json:"severity_condition_id,omitempty"`
+	SeverityImpactID    *string           `json:"severity_impact_id,omitempty"`
 	// List of tags for the incident
 	TagList []string `json:"tag_list,omitempty"`
 }
@@ -50,7 +46,7 @@ func (o *PatchV1IncidentsIncidentID) GetDescription() *string {
 	return o.Description
 }
 
-func (o *PatchV1IncidentsIncidentID) GetLabels() *PatchV1IncidentsIncidentIDLabels {
+func (o *PatchV1IncidentsIncidentID) GetLabels() map[string]string {
 	if o == nil {
 		return nil
 	}

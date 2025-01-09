@@ -2,21 +2,21 @@
 
 package shared
 
-type PatchV1PostMortemsReportsReportIDQuestions struct {
+type Questions struct {
 	// ID of a question
 	ID *string `json:"id,omitempty"`
 	// Answer to question
 	Body *string `json:"body,omitempty"`
 }
 
-func (o *PatchV1PostMortemsReportsReportIDQuestions) GetID() *string {
+func (o *Questions) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *PatchV1PostMortemsReportsReportIDQuestions) GetBody() *string {
+func (o *Questions) GetBody() *string {
 	if o == nil {
 		return nil
 	}
@@ -25,10 +25,10 @@ func (o *PatchV1PostMortemsReportsReportIDQuestions) GetBody() *string {
 
 // PatchV1PostMortemsReportsReportID - Update a report
 type PatchV1PostMortemsReportsReportID struct {
-	Name              *string                                      `json:"name,omitempty"`
-	Summary           *string                                      `json:"summary,omitempty"`
-	AdditionalDetails *string                                      `json:"additional_details,omitempty"`
-	Questions         []PatchV1PostMortemsReportsReportIDQuestions `json:"questions,omitempty"`
+	Name              *string     `json:"name,omitempty"`
+	Summary           *string     `json:"summary,omitempty"`
+	AdditionalDetails *string     `json:"additional_details,omitempty"`
+	Questions         []Questions `json:"questions,omitempty"`
 }
 
 func (o *PatchV1PostMortemsReportsReportID) GetName() *string {
@@ -52,7 +52,7 @@ func (o *PatchV1PostMortemsReportsReportID) GetAdditionalDetails() *string {
 	return o.AdditionalDetails
 }
 
-func (o *PatchV1PostMortemsReportsReportID) GetQuestions() []PatchV1PostMortemsReportsReportIDQuestions {
+func (o *PatchV1PostMortemsReportsReportID) GetQuestions() []Questions {
 	if o == nil {
 		return nil
 	}

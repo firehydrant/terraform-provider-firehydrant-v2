@@ -2,43 +2,43 @@
 
 package shared
 
-// PutV1ScimV2UsersIDName - The components of the user's name
-type PutV1ScimV2UsersIDName struct {
+// Name - The components of the user's name
+type Name struct {
 	// The family name of the User, or last name in most Western languages
 	GivenName string `json:"givenName"`
 	// The given name of the User, or first name in most Western languages
 	FamilyName string `json:"familyName"`
 }
 
-func (o *PutV1ScimV2UsersIDName) GetGivenName() string {
+func (o *Name) GetGivenName() string {
 	if o == nil {
 		return ""
 	}
 	return o.GivenName
 }
 
-func (o *PutV1ScimV2UsersIDName) GetFamilyName() string {
+func (o *Name) GetFamilyName() string {
 	if o == nil {
 		return ""
 	}
 	return o.FamilyName
 }
 
-type PutV1ScimV2UsersIDEmails struct {
+type Emails struct {
 	// String that represents an email address for the User
 	Value string `json:"value"`
 	// Boolean which signifies if an email is intended as the primary email for the User
 	Primary *bool `json:"primary,omitempty"`
 }
 
-func (o *PutV1ScimV2UsersIDEmails) GetValue() string {
+func (o *Emails) GetValue() string {
 	if o == nil {
 		return ""
 	}
 	return o.Value
 }
 
-func (o *PutV1ScimV2UsersIDEmails) GetPrimary() *bool {
+func (o *Emails) GetPrimary() *bool {
 	if o == nil {
 		return nil
 	}
@@ -50,9 +50,9 @@ type PutV1ScimV2UsersID struct {
 	// A service provider's unique identifier for the user
 	UserName *string `json:"userName,omitempty"`
 	// The components of the user's name
-	Name *PutV1ScimV2UsersIDName `json:"name,omitempty"`
+	Name *Name `json:"name,omitempty"`
 	// Email addresses for the User
-	Emails []PutV1ScimV2UsersIDEmails `json:"emails,omitempty"`
+	Emails []Emails `json:"emails,omitempty"`
 	// Roles for the User
 	Roles []string `json:"roles,omitempty"`
 	// Boolean that represents whether user is active
@@ -66,14 +66,14 @@ func (o *PutV1ScimV2UsersID) GetUserName() *string {
 	return o.UserName
 }
 
-func (o *PutV1ScimV2UsersID) GetName() *PutV1ScimV2UsersIDName {
+func (o *PutV1ScimV2UsersID) GetName() *Name {
 	if o == nil {
 		return nil
 	}
 	return o.Name
 }
 
-func (o *PutV1ScimV2UsersID) GetEmails() []PutV1ScimV2UsersIDEmails {
+func (o *PutV1ScimV2UsersID) GetEmails() []Emails {
 	if o == nil {
 		return nil
 	}

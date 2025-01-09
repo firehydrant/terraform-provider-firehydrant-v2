@@ -9,19 +9,19 @@ import (
 	"time"
 )
 
-type TicketingTicketEntityState string
+type State string
 
 const (
-	TicketingTicketEntityStateOpen       TicketingTicketEntityState = "open"
-	TicketingTicketEntityStateInProgress TicketingTicketEntityState = "in_progress"
-	TicketingTicketEntityStateCancelled  TicketingTicketEntityState = "cancelled"
-	TicketingTicketEntityStateDone       TicketingTicketEntityState = "done"
+	StateOpen       State = "open"
+	StateInProgress State = "in_progress"
+	StateCancelled  State = "cancelled"
+	StateDone       State = "done"
 )
 
-func (e TicketingTicketEntityState) ToPointer() *TicketingTicketEntityState {
+func (e State) ToPointer() *State {
 	return &e
 }
-func (e *TicketingTicketEntityState) UnmarshalJSON(data []byte) error {
+func (e *State) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -34,10 +34,10 @@ func (e *TicketingTicketEntityState) UnmarshalJSON(data []byte) error {
 	case "cancelled":
 		fallthrough
 	case "done":
-		*e = TicketingTicketEntityState(v)
+		*e = State(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for TicketingTicketEntityState: %v", v)
+		return fmt.Errorf("invalid value for State: %v", v)
 	}
 }
 
@@ -70,25 +70,25 @@ func (e *TicketingTicketEntityType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type TicketingTicketEntityAttachments struct {
+type Attachments struct {
 }
 
 // TicketingTicketEntity - Ticketing_TicketEntity model
 type TicketingTicketEntity struct {
-	ID          *string                     `json:"id,omitempty"`
-	Summary     *string                     `json:"summary,omitempty"`
-	Description *string                     `json:"description,omitempty"`
-	State       *TicketingTicketEntityState `json:"state,omitempty"`
-	Type        *TicketingTicketEntityType  `json:"type,omitempty"`
-	Assignees   []AuthorEntity              `json:"assignees,omitempty"`
+	ID          *string                    `json:"id,omitempty"`
+	Summary     *string                    `json:"summary,omitempty"`
+	Description *string                    `json:"description,omitempty"`
+	State       *State                     `json:"state,omitempty"`
+	Type        *TicketingTicketEntityType `json:"type,omitempty"`
+	Assignees   []AuthorEntity             `json:"assignees,omitempty"`
 	// Ticketing_PriorityEntity model
 	Priority  *TicketingPriorityEntity `json:"priority,omitempty"`
 	CreatedBy *AuthorEntity            `json:"created_by,omitempty"`
 	// A list of objects attached to this item. Can be one of: LinkEntity, CustomerSupportIssueEntity, or GenericAttachmentEntity
-	Attachments []TicketingTicketEntityAttachments `json:"attachments,omitempty"`
-	CreatedAt   *time.Time                         `json:"created_at,omitempty"`
-	UpdatedAt   *time.Time                         `json:"updated_at,omitempty"`
-	TagList     []string                           `json:"tag_list,omitempty"`
+	Attachments []Attachments `json:"attachments,omitempty"`
+	CreatedAt   *time.Time    `json:"created_at,omitempty"`
+	UpdatedAt   *time.Time    `json:"updated_at,omitempty"`
+	TagList     []string      `json:"tag_list,omitempty"`
 	// ID of incident that this ticket is related to
 	IncidentID *string `json:"incident_id,omitempty"`
 	// Name of incident that this ticket is related to
@@ -134,7 +134,7 @@ func (o *TicketingTicketEntity) GetDescription() *string {
 	return o.Description
 }
 
-func (o *TicketingTicketEntity) GetState() *TicketingTicketEntityState {
+func (o *TicketingTicketEntity) GetState() *State {
 	if o == nil {
 		return nil
 	}
@@ -169,7 +169,7 @@ func (o *TicketingTicketEntity) GetCreatedBy() *AuthorEntity {
 	return o.CreatedBy
 }
 
-func (o *TicketingTicketEntity) GetAttachments() []TicketingTicketEntityAttachments {
+func (o *TicketingTicketEntity) GetAttachments() []Attachments {
 	if o == nil {
 		return nil
 	}

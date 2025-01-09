@@ -65,21 +65,21 @@ func (o *Targets) GetID() string {
 	return o.ID
 }
 
-type PostV1TeamsTeamIDEscalationPoliciesSteps struct {
+type Steps struct {
 	// A list of targets that the step will notify. You can specify up to 15 targets per step.
 	Targets []Targets `json:"targets"`
 	// An ISO8601 duration string specifying how long to wait before moving on to the next step. For the last step, this value specifies how long to wait before the escalation policy should repeat, if it repeats.
 	Timeout string `json:"timeout"`
 }
 
-func (o *PostV1TeamsTeamIDEscalationPoliciesSteps) GetTargets() []Targets {
+func (o *Steps) GetTargets() []Targets {
 	if o == nil {
 		return []Targets{}
 	}
 	return o.Targets
 }
 
-func (o *PostV1TeamsTeamIDEscalationPoliciesSteps) GetTimeout() string {
+func (o *Steps) GetTimeout() string {
 	if o == nil {
 		return ""
 	}
@@ -146,7 +146,7 @@ type PostV1TeamsTeamIDEscalationPolicies struct {
 	// Whether this escalation policy should be the default for the team.
 	Default *bool `default:"false" json:"default"`
 	// A list of steps that define how an alert should escalate through the policy.
-	Steps []PostV1TeamsTeamIDEscalationPoliciesSteps `json:"steps"`
+	Steps []Steps `json:"steps"`
 	// A step that defines where an alert should be sent when the policy is exhausted and the alert is still unacknowledged.
 	HandoffStep *HandoffStep `json:"handoff_step,omitempty"`
 }
@@ -190,9 +190,9 @@ func (o *PostV1TeamsTeamIDEscalationPolicies) GetDefault() *bool {
 	return o.Default
 }
 
-func (o *PostV1TeamsTeamIDEscalationPolicies) GetSteps() []PostV1TeamsTeamIDEscalationPoliciesSteps {
+func (o *PostV1TeamsTeamIDEscalationPolicies) GetSteps() []Steps {
 	if o == nil {
-		return []PostV1TeamsTeamIDEscalationPoliciesSteps{}
+		return []Steps{}
 	}
 	return o.Steps
 }

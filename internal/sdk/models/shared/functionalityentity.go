@@ -7,10 +7,6 @@ import (
 	"time"
 )
 
-// FunctionalityEntityLabels - An object of label key and values
-type FunctionalityEntityLabels struct {
-}
-
 // FunctionalityEntity model
 type FunctionalityEntity struct {
 	ID          *string    `json:"id,omitempty"`
@@ -20,21 +16,22 @@ type FunctionalityEntity struct {
 	CreatedAt   *time.Time `json:"created_at,omitempty"`
 	UpdatedAt   *time.Time `json:"updated_at,omitempty"`
 	// An object of label key and values
-	Labels *FunctionalityEntityLabels `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty"`
 	// List of active incident guids
 	ActiveIncidents []string `json:"active_incidents,omitempty"`
 	// List of links attached to this functionality.
-	Links                 []LinksEntity   `json:"links,omitempty"`
-	Owner                 *TeamEntityLite `json:"owner,omitempty"`
-	AlertOnAdd            *bool           `json:"alert_on_add,omitempty"`
-	AutoAddRespondingTeam *bool           `json:"auto_add_responding_team,omitempty"`
-	UpdatedBy             *AuthorEntity   `json:"updated_by,omitempty"`
+	Links []LinksEntity `json:"links,omitempty"`
+	// TeamEntity model
+	Owner                 *TeamEntity   `json:"owner,omitempty"`
+	AlertOnAdd            *bool         `json:"alert_on_add,omitempty"`
+	AutoAddRespondingTeam *bool         `json:"auto_add_responding_team,omitempty"`
+	UpdatedBy             *AuthorEntity `json:"updated_by,omitempty"`
 	// Services this functionality provides
-	Services []ServiceEntityLite `json:"services,omitempty"`
+	Services []ServiceEntity `json:"services,omitempty"`
 	// Information about known linkages to representations of services outside of FireHydrant.
 	ExternalResources []ExternalResourceEntity `json:"external_resources,omitempty"`
 	// List of teams attached to the functionality
-	Teams []TeamEntityLite `json:"teams,omitempty"`
+	Teams []TeamEntity `json:"teams,omitempty"`
 }
 
 func (f FunctionalityEntity) MarshalJSON() ([]byte, error) {
@@ -90,7 +87,7 @@ func (o *FunctionalityEntity) GetUpdatedAt() *time.Time {
 	return o.UpdatedAt
 }
 
-func (o *FunctionalityEntity) GetLabels() *FunctionalityEntityLabels {
+func (o *FunctionalityEntity) GetLabels() map[string]string {
 	if o == nil {
 		return nil
 	}
@@ -111,7 +108,7 @@ func (o *FunctionalityEntity) GetLinks() []LinksEntity {
 	return o.Links
 }
 
-func (o *FunctionalityEntity) GetOwner() *TeamEntityLite {
+func (o *FunctionalityEntity) GetOwner() *TeamEntity {
 	if o == nil {
 		return nil
 	}
@@ -139,7 +136,7 @@ func (o *FunctionalityEntity) GetUpdatedBy() *AuthorEntity {
 	return o.UpdatedBy
 }
 
-func (o *FunctionalityEntity) GetServices() []ServiceEntityLite {
+func (o *FunctionalityEntity) GetServices() []ServiceEntity {
 	if o == nil {
 		return nil
 	}
@@ -153,7 +150,7 @@ func (o *FunctionalityEntity) GetExternalResources() []ExternalResourceEntity {
 	return o.ExternalResources
 }
 
-func (o *FunctionalityEntity) GetTeams() []TeamEntityLite {
+func (o *FunctionalityEntity) GetTeams() []TeamEntity {
 	if o == nil {
 		return nil
 	}

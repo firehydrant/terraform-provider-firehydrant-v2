@@ -7,24 +7,24 @@ import (
 	"time"
 )
 
-type RunbooksExecutionStepEntityConfig struct {
+type Config struct {
 }
 
-type RunbooksExecutionStepEntityStepElements struct {
+type StepElements struct {
 }
 
 type RunbooksExecutionStepEntity struct {
-	ID              *string                                   `json:"id,omitempty"`
-	Name            *string                                   `json:"name,omitempty"`
-	ActionSlug      *string                                   `json:"action_slug,omitempty"`
-	ActionType      *string                                   `json:"action_type,omitempty"`
-	IntegrationName *string                                   `json:"integration_name,omitempty"`
-	IntegrationSlug *string                                   `json:"integration_slug,omitempty"`
-	Automatic       *bool                                     `json:"automatic,omitempty"`
-	Config          *RunbooksExecutionStepEntityConfig        `json:"config,omitempty"`
-	StepElements    []RunbooksExecutionStepEntityStepElements `json:"step_elements,omitempty"`
-	Executable      *bool                                     `json:"executable,omitempty"`
-	Repeats         *bool                                     `json:"repeats,omitempty"`
+	ID              *string        `json:"id,omitempty"`
+	Name            *string        `json:"name,omitempty"`
+	ActionSlug      *string        `json:"action_slug,omitempty"`
+	ActionType      *string        `json:"action_type,omitempty"`
+	IntegrationName *string        `json:"integration_name,omitempty"`
+	IntegrationSlug *string        `json:"integration_slug,omitempty"`
+	Automatic       *bool          `json:"automatic,omitempty"`
+	Config          *Config        `json:"config,omitempty"`
+	StepElements    []StepElements `json:"step_elements,omitempty"`
+	Executable      *bool          `json:"executable,omitempty"`
+	Repeats         *bool          `json:"repeats,omitempty"`
 	// ISO8601 formatted duration string
 	RepeatsDuration *string                               `json:"repeats_duration,omitempty"`
 	RepeatsAt       *time.Time                            `json:"repeats_at,omitempty"`
@@ -95,14 +95,14 @@ func (o *RunbooksExecutionStepEntity) GetAutomatic() *bool {
 	return o.Automatic
 }
 
-func (o *RunbooksExecutionStepEntity) GetConfig() *RunbooksExecutionStepEntityConfig {
+func (o *RunbooksExecutionStepEntity) GetConfig() *Config {
 	if o == nil {
 		return nil
 	}
 	return o.Config
 }
 
-func (o *RunbooksExecutionStepEntity) GetStepElements() []RunbooksExecutionStepEntityStepElements {
+func (o *RunbooksExecutionStepEntity) GetStepElements() []StepElements {
 	if o == nil {
 		return nil
 	}

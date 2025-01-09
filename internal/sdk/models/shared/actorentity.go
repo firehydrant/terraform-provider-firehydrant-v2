@@ -7,52 +7,52 @@ import (
 	"fmt"
 )
 
-type ActorEntityType string
+type Type string
 
 const (
-	ActorEntityTypeFirehydrantUser  ActorEntityType = "firehydrant_user"
-	ActorEntityTypeFirehydrantBot   ActorEntityType = "firehydrant_bot"
-	ActorEntityTypeAlertmanager     ActorEntityType = "alertmanager"
-	ActorEntityTypeAsana            ActorEntityType = "asana"
-	ActorEntityTypeAws              ActorEntityType = "aws"
-	ActorEntityTypeBugsnag          ActorEntityType = "bugsnag"
-	ActorEntityTypeCheckly          ActorEntityType = "checkly"
-	ActorEntityTypeCustomAlerts     ActorEntityType = "custom_alerts"
-	ActorEntityTypeDatadog          ActorEntityType = "datadog"
-	ActorEntityTypeShortcut         ActorEntityType = "shortcut"
-	ActorEntityTypeNewRelic         ActorEntityType = "new_relic"
-	ActorEntityTypeNunc             ActorEntityType = "nunc"
-	ActorEntityTypeGithub           ActorEntityType = "github"
-	ActorEntityTypeGiphy            ActorEntityType = "giphy"
-	ActorEntityTypeGoogleMeet       ActorEntityType = "google_meet"
-	ActorEntityTypeGoogleCalendar   ActorEntityType = "google_calendar"
-	ActorEntityTypeMicrosoftTeams   ActorEntityType = "microsoft_teams"
-	ActorEntityTypeMicrosoftTeamsV2 ActorEntityType = "microsoft_teams_v2"
-	ActorEntityTypeWebex            ActorEntityType = "webex"
-	ActorEntityTypeJiraCloud        ActorEntityType = "jira_cloud"
-	ActorEntityTypeJiraOnprem       ActorEntityType = "jira_onprem"
-	ActorEntityTypeOpsgenie         ActorEntityType = "opsgenie"
-	ActorEntityTypePagerDuty        ActorEntityType = "pager_duty"
-	ActorEntityTypeHoneycomb        ActorEntityType = "honeycomb"
-	ActorEntityTypePatchy           ActorEntityType = "patchy"
-	ActorEntityTypeServiceNow       ActorEntityType = "service_now"
-	ActorEntityTypeSignals          ActorEntityType = "signals"
-	ActorEntityTypeSlack            ActorEntityType = "slack"
-	ActorEntityTypeStatuspage       ActorEntityType = "statuspage"
-	ActorEntityTypeVictorops        ActorEntityType = "victorops"
-	ActorEntityTypeZendesk          ActorEntityType = "zendesk"
-	ActorEntityTypeZoom             ActorEntityType = "zoom"
-	ActorEntityTypeConfluenceCloud  ActorEntityType = "confluence_cloud"
-	ActorEntityTypeGoogleDocs       ActorEntityType = "google_docs"
-	ActorEntityTypeZoomV2           ActorEntityType = "zoom_v2"
-	ActorEntityTypeLinear           ActorEntityType = "linear"
-	ActorEntityTypeCortex           ActorEntityType = "cortex"
+	TypeFirehydrantUser  Type = "firehydrant_user"
+	TypeFirehydrantBot   Type = "firehydrant_bot"
+	TypeAlertmanager     Type = "alertmanager"
+	TypeAsana            Type = "asana"
+	TypeAws              Type = "aws"
+	TypeBugsnag          Type = "bugsnag"
+	TypeCheckly          Type = "checkly"
+	TypeCustomAlerts     Type = "custom_alerts"
+	TypeDatadog          Type = "datadog"
+	TypeShortcut         Type = "shortcut"
+	TypeNewRelic         Type = "new_relic"
+	TypeNunc             Type = "nunc"
+	TypeGithub           Type = "github"
+	TypeGiphy            Type = "giphy"
+	TypeGoogleMeet       Type = "google_meet"
+	TypeGoogleCalendar   Type = "google_calendar"
+	TypeMicrosoftTeams   Type = "microsoft_teams"
+	TypeMicrosoftTeamsV2 Type = "microsoft_teams_v2"
+	TypeWebex            Type = "webex"
+	TypeJiraCloud        Type = "jira_cloud"
+	TypeJiraOnprem       Type = "jira_onprem"
+	TypeOpsgenie         Type = "opsgenie"
+	TypePagerDuty        Type = "pager_duty"
+	TypeHoneycomb        Type = "honeycomb"
+	TypePatchy           Type = "patchy"
+	TypeServiceNow       Type = "service_now"
+	TypeSignals          Type = "signals"
+	TypeSlack            Type = "slack"
+	TypeStatuspage       Type = "statuspage"
+	TypeVictorops        Type = "victorops"
+	TypeZendesk          Type = "zendesk"
+	TypeZoom             Type = "zoom"
+	TypeConfluenceCloud  Type = "confluence_cloud"
+	TypeGoogleDocs       Type = "google_docs"
+	TypeZoomV2           Type = "zoom_v2"
+	TypeLinear           Type = "linear"
+	TypeCortex           Type = "cortex"
 )
 
-func (e ActorEntityType) ToPointer() *ActorEntityType {
+func (e Type) ToPointer() *Type {
 	return &e
 }
-func (e *ActorEntityType) UnmarshalJSON(data []byte) error {
+func (e *Type) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -131,18 +131,18 @@ func (e *ActorEntityType) UnmarshalJSON(data []byte) error {
 	case "linear":
 		fallthrough
 	case "cortex":
-		*e = ActorEntityType(v)
+		*e = Type(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for ActorEntityType: %v", v)
+		return fmt.Errorf("invalid value for Type: %v", v)
 	}
 }
 
 type ActorEntity struct {
-	ID    *string          `json:"id,omitempty"`
-	Name  *string          `json:"name,omitempty"`
-	Email *string          `json:"email,omitempty"`
-	Type  *ActorEntityType `json:"type,omitempty"`
+	ID    *string `json:"id,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Email *string `json:"email,omitempty"`
+	Type  *Type   `json:"type,omitempty"`
 }
 
 func (o *ActorEntity) GetID() *string {
@@ -166,7 +166,7 @@ func (o *ActorEntity) GetEmail() *string {
 	return o.Email
 }
 
-func (o *ActorEntity) GetType() *ActorEntityType {
+func (o *ActorEntity) GetType() *Type {
 	if o == nil {
 		return nil
 	}

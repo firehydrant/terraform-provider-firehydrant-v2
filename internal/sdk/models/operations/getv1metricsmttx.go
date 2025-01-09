@@ -98,25 +98,25 @@ func (e *SortBy) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type GetV1MetricsMttxGroupBy string
+type GroupBy string
 
 const (
-	GetV1MetricsMttxGroupByServices        GetV1MetricsMttxGroupBy = "services"
-	GetV1MetricsMttxGroupByEnvironments    GetV1MetricsMttxGroupBy = "environments"
-	GetV1MetricsMttxGroupByFunctionalities GetV1MetricsMttxGroupBy = "functionalities"
-	GetV1MetricsMttxGroupByTeams           GetV1MetricsMttxGroupBy = "teams"
-	GetV1MetricsMttxGroupBySeverities      GetV1MetricsMttxGroupBy = "severities"
-	GetV1MetricsMttxGroupByUsers           GetV1MetricsMttxGroupBy = "users"
-	GetV1MetricsMttxGroupByStartedDay      GetV1MetricsMttxGroupBy = "started_day"
-	GetV1MetricsMttxGroupByStartedWeek     GetV1MetricsMttxGroupBy = "started_week"
-	GetV1MetricsMttxGroupByStartedMonth    GetV1MetricsMttxGroupBy = "started_month"
-	GetV1MetricsMttxGroupByCustomFields    GetV1MetricsMttxGroupBy = "custom_fields"
+	GroupByServices        GroupBy = "services"
+	GroupByEnvironments    GroupBy = "environments"
+	GroupByFunctionalities GroupBy = "functionalities"
+	GroupByTeams           GroupBy = "teams"
+	GroupBySeverities      GroupBy = "severities"
+	GroupByUsers           GroupBy = "users"
+	GroupByStartedDay      GroupBy = "started_day"
+	GroupByStartedWeek     GroupBy = "started_week"
+	GroupByStartedMonth    GroupBy = "started_month"
+	GroupByCustomFields    GroupBy = "custom_fields"
 )
 
-func (e GetV1MetricsMttxGroupBy) ToPointer() *GetV1MetricsMttxGroupBy {
+func (e GroupBy) ToPointer() *GroupBy {
 	return &e
 }
-func (e *GetV1MetricsMttxGroupBy) UnmarshalJSON(data []byte) error {
+func (e *GroupBy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -141,18 +141,18 @@ func (e *GetV1MetricsMttxGroupBy) UnmarshalJSON(data []byte) error {
 	case "started_month":
 		fallthrough
 	case "custom_fields":
-		*e = GetV1MetricsMttxGroupBy(v)
+		*e = GroupBy(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GetV1MetricsMttxGroupBy: %v", v)
+		return fmt.Errorf("invalid value for GroupBy: %v", v)
 	}
 }
 
 type GetV1MetricsMttxRequestBody struct {
-	GroupBy []GetV1MetricsMttxGroupBy `multipartForm:"name=group_by"`
+	GroupBy []GroupBy `form:"name=group_by"`
 }
 
-func (o *GetV1MetricsMttxRequestBody) GetGroupBy() []GetV1MetricsMttxGroupBy {
+func (o *GetV1MetricsMttxRequestBody) GetGroupBy() []GroupBy {
 	if o == nil {
 		return nil
 	}
@@ -222,7 +222,7 @@ type GetV1MetricsMttxRequest struct {
 	SortBy         *SortBy `queryParam:"style=form,explode=true,name=sort_by"`
 	// Comma-separated list of measurements to include in the response
 	Measurements *string                      `queryParam:"style=form,explode=true,name=measurements"`
-	RequestBody  *GetV1MetricsMttxRequestBody `request:"mediaType=multipart/form-data"`
+	RequestBody  *GetV1MetricsMttxRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
 }
 
 func (g GetV1MetricsMttxRequest) MarshalJSON() ([]byte, error) {
@@ -483,18 +483,6 @@ type GetV1MetricsMttxResponse struct {
 	RawResponse *http.Response
 	// Fetch infrastructure metrics based on custom query
 	MetricsMttxDataEntity *shared.MetricsMttxDataEntity
-	// A collection of codes that generally means the end user got something wrong in making the request
-	BadRequest *shared.BadRequest
-	// A collection of codes that generally means the client was not authenticated correctly for the request they want to make
-	Unauthorized *shared.Unauthorized
-	// Status codes relating to the resource/entity they are requesting not being found or endpoints/routes not existing
-	NotFound *shared.NotFound
-	// Status codes relating to the client being rate limited by the server
-	RateLimited *shared.RateLimited
-	// A collection of status codes that generally mean the server failed in an unexpected way
-	InternalServerError *shared.InternalServerError
-	// Timeouts occurred with the request
-	Timeout *shared.Timeout
 }
 
 func (o *GetV1MetricsMttxResponse) GetContentType() string {
@@ -523,46 +511,4 @@ func (o *GetV1MetricsMttxResponse) GetMetricsMttxDataEntity() *shared.MetricsMtt
 		return nil
 	}
 	return o.MetricsMttxDataEntity
-}
-
-func (o *GetV1MetricsMttxResponse) GetBadRequest() *shared.BadRequest {
-	if o == nil {
-		return nil
-	}
-	return o.BadRequest
-}
-
-func (o *GetV1MetricsMttxResponse) GetUnauthorized() *shared.Unauthorized {
-	if o == nil {
-		return nil
-	}
-	return o.Unauthorized
-}
-
-func (o *GetV1MetricsMttxResponse) GetNotFound() *shared.NotFound {
-	if o == nil {
-		return nil
-	}
-	return o.NotFound
-}
-
-func (o *GetV1MetricsMttxResponse) GetRateLimited() *shared.RateLimited {
-	if o == nil {
-		return nil
-	}
-	return o.RateLimited
-}
-
-func (o *GetV1MetricsMttxResponse) GetInternalServerError() *shared.InternalServerError {
-	if o == nil {
-		return nil
-	}
-	return o.InternalServerError
-}
-
-func (o *GetV1MetricsMttxResponse) GetTimeout() *shared.Timeout {
-	if o == nil {
-		return nil
-	}
-	return o.Timeout
 }

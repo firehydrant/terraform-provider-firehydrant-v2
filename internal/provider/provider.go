@@ -38,7 +38,7 @@ func (p *FirehydrantTerraformSDKProvider) Schema(ctx context.Context, req provid
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"server_url": schema.StringAttribute{
-				MarkdownDescription: "Server URL (defaults to https://api.firehydrant.io/)",
+				MarkdownDescription: "Server URL (defaults to https://api.firehydrant.io)",
 				Optional:            true,
 				Required:            false,
 			},
@@ -62,7 +62,7 @@ func (p *FirehydrantTerraformSDKProvider) Configure(ctx context.Context, req pro
 	ServerURL := data.ServerURL.ValueString()
 
 	if ServerURL == "" {
-		ServerURL = "https://api.firehydrant.io/"
+		ServerURL = "https://api.firehydrant.io"
 	}
 
 	apiKey := new(string)
@@ -75,13 +75,10 @@ func (p *FirehydrantTerraformSDKProvider) Configure(ctx context.Context, req pro
 		APIKey: apiKey,
 	}
 
-	httpClient := http.DefaultClient
-	httpClient.Transport = NewLoggingHTTPTransport(http.DefaultTransport)
-
 	opts := []sdk.SDKOption{
 		sdk.WithServerURL(ServerURL),
 		sdk.WithSecurity(security),
-		sdk.WithClient(httpClient),
+		sdk.WithClient(http.DefaultClient),
 	}
 	client := sdk.New(opts...)
 
@@ -90,11 +87,55 @@ func (p *FirehydrantTerraformSDKProvider) Configure(ctx context.Context, req pro
 }
 
 func (p *FirehydrantTerraformSDKProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{}
+	return []func() resource.Resource{
+		NewChecklistTemplateResource,
+		NewEnvironmentResource,
+		NewFunctionalityResource,
+		NewIncidentRoleResource,
+		NewIncidentTypeResource,
+		NewPriorityResource,
+		NewRunbookResource,
+		NewServiceResource,
+		NewServiceDependencyResource,
+		NewSeverityResource,
+		NewStatusUpdateTemplateResource,
+		NewTaskListResource,
+		NewTeamResource,
+		NewWebhookResource,
+	}
 }
 
 func (p *FirehydrantTerraformSDKProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{}
+	return []func() datasource.DataSource{
+		NewChecklistTemplateDataSource,
+		NewChecklistTemplatesDataSource,
+		NewEnvironmentDataSource,
+		NewEnvironmentsDataSource,
+		NewFunctionalitiesDataSource,
+		NewFunctionalityDataSource,
+		NewIncidentRoleDataSource,
+		NewIncidentTypeDataSource,
+		NewIncidentTypesDataSource,
+		NewPrioritiesDataSource,
+		NewPriorityDataSource,
+		NewRunbookDataSource,
+		NewRunbooksDataSource,
+		NewServiceDataSource,
+		NewServiceDependencyDataSource,
+		NewServicesDataSource,
+		NewSeveritiesDataSource,
+		NewSeverityDataSource,
+		NewStatusUpdateTemplateDataSource,
+		NewStatusUpdateTemplatesDataSource,
+		NewTaskListDataSource,
+		NewTaskListsDataSource,
+		NewTeamDataSource,
+		NewTeamsDataSource,
+		NewUsersDataSource,
+		NewWebhookDataSource,
+		NewWebhooksDataSource,
+		NewWebhookTargetDataSource,
+	}
 }
 
 func New(version string) func() provider.Provider {

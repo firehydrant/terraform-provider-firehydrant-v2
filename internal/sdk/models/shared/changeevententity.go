@@ -10,10 +10,6 @@ import (
 type ChangeEventEntityAttachments struct {
 }
 
-// ChangeEventEntityLabels - An object of label key and values
-type ChangeEventEntityLabels struct {
-}
-
 // ChangeEventEntity model
 type ChangeEventEntity struct {
 	ID              *string                  `json:"id,omitempty"`
@@ -33,8 +29,8 @@ type ChangeEventEntity struct {
 	// A list of objects attached to this item. Can be one of: LinkEntity, CustomerSupportIssueEntity, or GenericAttachmentEntity
 	Attachments []ChangeEventEntityAttachments `json:"attachments,omitempty"`
 	// An object of label key and values
-	Labels   *ChangeEventEntityLabels `json:"labels,omitempty"`
-	Services []ServiceEntityLite      `json:"services,omitempty"`
+	Labels   map[string]string `json:"labels,omitempty"`
+	Services []ServiceEntity   `json:"services,omitempty"`
 }
 
 func (c ChangeEventEntity) MarshalJSON() ([]byte, error) {
@@ -153,14 +149,14 @@ func (o *ChangeEventEntity) GetAttachments() []ChangeEventEntityAttachments {
 	return o.Attachments
 }
 
-func (o *ChangeEventEntity) GetLabels() *ChangeEventEntityLabels {
+func (o *ChangeEventEntity) GetLabels() map[string]string {
 	if o == nil {
 		return nil
 	}
 	return o.Labels
 }
 
-func (o *ChangeEventEntity) GetServices() []ServiceEntityLite {
+func (o *ChangeEventEntity) GetServices() []ServiceEntity {
 	if o == nil {
 		return nil
 	}

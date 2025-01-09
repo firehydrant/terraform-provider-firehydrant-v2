@@ -14,27 +14,27 @@ func (o *Services) GetID() string {
 	return o.ID
 }
 
-type ExternalResources struct {
+type PostV1FunctionalitiesExternalResources struct {
 	RemoteID string `json:"remote_id"`
 	// The integration slug for the external resource. Can be one of: github, opsgenie, pager_duty, statuspage, victorops. Not required if the resource has already been imported.
 	ConnectionType *string `json:"connection_type,omitempty"`
 }
 
-func (o *ExternalResources) GetRemoteID() string {
+func (o *PostV1FunctionalitiesExternalResources) GetRemoteID() string {
 	if o == nil {
 		return ""
 	}
 	return o.RemoteID
 }
 
-func (o *ExternalResources) GetConnectionType() *string {
+func (o *PostV1FunctionalitiesExternalResources) GetConnectionType() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ConnectionType
 }
 
-type Links struct {
+type PostV1FunctionalitiesLinks struct {
 	// Short name used to display and identify this link
 	Name string `json:"name"`
 	// URL
@@ -43,44 +43,44 @@ type Links struct {
 	IconURL *string `json:"icon_url,omitempty"`
 }
 
-func (o *Links) GetName() string {
+func (o *PostV1FunctionalitiesLinks) GetName() string {
 	if o == nil {
 		return ""
 	}
 	return o.Name
 }
 
-func (o *Links) GetHrefURL() string {
+func (o *PostV1FunctionalitiesLinks) GetHrefURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.HrefURL
 }
 
-func (o *Links) GetIconURL() *string {
+func (o *PostV1FunctionalitiesLinks) GetIconURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IconURL
 }
 
-// Owner - An object representing a Team that owns the service
-type Owner struct {
+// PostV1FunctionalitiesOwner - An object representing a Team that owns the service
+type PostV1FunctionalitiesOwner struct {
 	ID string `json:"id"`
 }
 
-func (o *Owner) GetID() string {
+func (o *PostV1FunctionalitiesOwner) GetID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ID
 }
 
-type Teams struct {
+type PostV1FunctionalitiesTeams struct {
 	ID string `json:"id"`
 }
 
-func (o *Teams) GetID() string {
+func (o *PostV1FunctionalitiesTeams) GetID() string {
 	if o == nil {
 		return ""
 	}
@@ -97,13 +97,13 @@ type PostV1Functionalities struct {
 	AlertOnAdd            *bool             `json:"alert_on_add,omitempty"`
 	AutoAddRespondingTeam *bool             `json:"auto_add_responding_team,omitempty"`
 	// An array of external resources to attach to this service.
-	ExternalResources []ExternalResources `json:"external_resources,omitempty"`
+	ExternalResources []PostV1FunctionalitiesExternalResources `json:"external_resources,omitempty"`
 	// An array of links to associate with this service
-	Links []Links `json:"links,omitempty"`
+	Links []PostV1FunctionalitiesLinks `json:"links,omitempty"`
 	// An object representing a Team that owns the service
-	Owner *Owner `json:"owner,omitempty"`
+	Owner *PostV1FunctionalitiesOwner `json:"owner,omitempty"`
 	// An array of teams to attach to this service.
-	Teams []Teams `json:"teams,omitempty"`
+	Teams []PostV1FunctionalitiesTeams `json:"teams,omitempty"`
 }
 
 func (o *PostV1Functionalities) GetName() string {
@@ -148,28 +148,28 @@ func (o *PostV1Functionalities) GetAutoAddRespondingTeam() *bool {
 	return o.AutoAddRespondingTeam
 }
 
-func (o *PostV1Functionalities) GetExternalResources() []ExternalResources {
+func (o *PostV1Functionalities) GetExternalResources() []PostV1FunctionalitiesExternalResources {
 	if o == nil {
 		return nil
 	}
 	return o.ExternalResources
 }
 
-func (o *PostV1Functionalities) GetLinks() []Links {
+func (o *PostV1Functionalities) GetLinks() []PostV1FunctionalitiesLinks {
 	if o == nil {
 		return nil
 	}
 	return o.Links
 }
 
-func (o *PostV1Functionalities) GetOwner() *Owner {
+func (o *PostV1Functionalities) GetOwner() *PostV1FunctionalitiesOwner {
 	if o == nil {
 		return nil
 	}
 	return o.Owner
 }
 
-func (o *PostV1Functionalities) GetTeams() []Teams {
+func (o *PostV1Functionalities) GetTeams() []PostV1FunctionalitiesTeams {
 	if o == nil {
 		return nil
 	}

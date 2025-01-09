@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-// ImportsImportErrorEntityData - Additional error data
-type ImportsImportErrorEntityData struct {
+// Data - Additional error data
+type Data struct {
 }
 
 type ImportsImportErrorEntity struct {
@@ -16,7 +16,7 @@ type ImportsImportErrorEntity struct {
 	Message   *string    `json:"message,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Additional error data
-	Data     *ImportsImportErrorEntityData           `json:"data,omitempty"`
+	Data     *Data                                   `json:"data,omitempty"`
 	Resource *ImportsImportErrorEntityResourceEntity `json:"resource,omitempty"`
 }
 
@@ -52,7 +52,7 @@ func (o *ImportsImportErrorEntity) GetCreatedAt() *time.Time {
 	return o.CreatedAt
 }
 
-func (o *ImportsImportErrorEntity) GetData() *ImportsImportErrorEntityData {
+func (o *ImportsImportErrorEntity) GetData() *Data {
 	if o == nil {
 		return nil
 	}

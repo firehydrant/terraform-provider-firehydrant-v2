@@ -26,16 +26,10 @@ It has been generated successfully based on your OpenAPI spec. However, it is no
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
-<!-- $toc-max-depth=2 -->
-* [terraform-provider-firehydrant-v2](#terraform-provider-firehydrant-v2)
-  * [🏗 **Welcome to your new Terraform Provider!** 🏗](#welcome-to-your-new-terraform-provider)
-  * [Installation](#installation)
-  * [Available Resources and Data Sources](#available-resources-and-data-sources)
-  * [Testing the provider locally](#testing-the-provider-locally)
-* [Development](#development)
-  * [Contributions](#contributions)
-* [terraform-provider-firehydrant-v2](#terraform-provider-firehydrant-v2-1)
 
+* [Installation](#installation)
+* [Available Resources and Data Sources](#available-resources-and-data-sources)
+* [Testing the provider locally](#testing-the-provider-locally)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start Installation [installation] -->
@@ -48,7 +42,7 @@ terraform {
   required_providers {
     firehydrant-terraform-sdk = {
       source  = "speakeasy/firehydrant-terraform-sdk"
-      version = "0.0.2"
+      version = "0.1.0"
     }
   }
 }
@@ -64,7 +58,50 @@ provider "firehydrant-terraform-sdk" {
 
 ### Resources
 
+* [firehydrant-terraform-sdk_checklist_template](docs/resources/checklist_template.md)
+* [firehydrant-terraform-sdk_environment](docs/resources/environment.md)
+* [firehydrant-terraform-sdk_functionality](docs/resources/functionality.md)
+* [firehydrant-terraform-sdk_incident_role](docs/resources/incident_role.md)
+* [firehydrant-terraform-sdk_incident_type](docs/resources/incident_type.md)
+* [firehydrant-terraform-sdk_priority](docs/resources/priority.md)
+* [firehydrant-terraform-sdk_runbook](docs/resources/runbook.md)
+* [firehydrant-terraform-sdk_service](docs/resources/service.md)
+* [firehydrant-terraform-sdk_service_dependency](docs/resources/service_dependency.md)
+* [firehydrant-terraform-sdk_severity](docs/resources/severity.md)
+* [firehydrant-terraform-sdk_status_update_template](docs/resources/status_update_template.md)
+* [firehydrant-terraform-sdk_task_list](docs/resources/task_list.md)
+* [firehydrant-terraform-sdk_team](docs/resources/team.md)
+* [firehydrant-terraform-sdk_webhook](docs/resources/webhook.md)
 ### Data Sources
+
+* [firehydrant-terraform-sdk_checklist_template](docs/data-sources/checklist_template.md)
+* [firehydrant-terraform-sdk_checklist_templates](docs/data-sources/checklist_templates.md)
+* [firehydrant-terraform-sdk_environment](docs/data-sources/environment.md)
+* [firehydrant-terraform-sdk_environments](docs/data-sources/environments.md)
+* [firehydrant-terraform-sdk_functionalities](docs/data-sources/functionalities.md)
+* [firehydrant-terraform-sdk_functionality](docs/data-sources/functionality.md)
+* [firehydrant-terraform-sdk_incident_role](docs/data-sources/incident_role.md)
+* [firehydrant-terraform-sdk_incident_type](docs/data-sources/incident_type.md)
+* [firehydrant-terraform-sdk_incident_types](docs/data-sources/incident_types.md)
+* [firehydrant-terraform-sdk_priorities](docs/data-sources/priorities.md)
+* [firehydrant-terraform-sdk_priority](docs/data-sources/priority.md)
+* [firehydrant-terraform-sdk_runbook](docs/data-sources/runbook.md)
+* [firehydrant-terraform-sdk_runbooks](docs/data-sources/runbooks.md)
+* [firehydrant-terraform-sdk_service](docs/data-sources/service.md)
+* [firehydrant-terraform-sdk_service_dependency](docs/data-sources/service_dependency.md)
+* [firehydrant-terraform-sdk_services](docs/data-sources/services.md)
+* [firehydrant-terraform-sdk_severities](docs/data-sources/severities.md)
+* [firehydrant-terraform-sdk_severity](docs/data-sources/severity.md)
+* [firehydrant-terraform-sdk_status_update_template](docs/data-sources/status_update_template.md)
+* [firehydrant-terraform-sdk_status_update_templates](docs/data-sources/status_update_templates.md)
+* [firehydrant-terraform-sdk_task_list](docs/data-sources/task_list.md)
+* [firehydrant-terraform-sdk_task_lists](docs/data-sources/task_lists.md)
+* [firehydrant-terraform-sdk_team](docs/data-sources/team.md)
+* [firehydrant-terraform-sdk_teams](docs/data-sources/teams.md)
+* [firehydrant-terraform-sdk_users](docs/data-sources/users.md)
+* [firehydrant-terraform-sdk_webhook](docs/data-sources/webhook.md)
+* [firehydrant-terraform-sdk_webhooks](docs/data-sources/webhooks.md)
+* [firehydrant-terraform-sdk_webhook_target](docs/data-sources/webhook_target.md)
 <!-- End Available Resources and Data Sources [operations] -->
 
 <!-- Start Testing the provider locally [usage] -->
