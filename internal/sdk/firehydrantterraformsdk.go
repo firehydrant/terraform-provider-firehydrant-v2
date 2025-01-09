@@ -198,9 +198,9 @@ func New(opts ...SDKOption) *FirehydrantTerraformSDK {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "0.0.1",
-			SDKVersion:        "0.0.1",
+			SDKVersion:        "0.0.2",
 			GenVersion:        "2.488.4",
-			UserAgent:         "speakeasy-sdk/terraform 0.0.1 2.488.4 0.0.1 github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk",
+			UserAgent:         "speakeasy-sdk/terraform 0.0.2 2.488.4 0.0.1 github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk",
 			Hooks:             hooks.New(),
 		},
 	}
