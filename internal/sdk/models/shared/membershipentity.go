@@ -3,10 +3,8 @@
 package shared
 
 type MembershipEntity struct {
-	// UserEntity model
-	User                  *UserEntity     `json:"user,omitempty"`
-	Schedule              *ScheduleEntity `json:"schedule,omitempty"`
-	SignalsOnCallSchedule *SuccinctEntity `json:"signals_on_call_schedule,omitempty"`
+	User     *UserEntity     `json:"user,omitempty"`
+	Schedule *ScheduleEntity `json:"schedule,omitempty"`
 	// IncidentRoleEntity model
 	DefaultIncidentRole *IncidentRoleEntity `json:"default_incident_role,omitempty"`
 }
@@ -23,13 +21,6 @@ func (o *MembershipEntity) GetSchedule() *ScheduleEntity {
 		return nil
 	}
 	return o.Schedule
-}
-
-func (o *MembershipEntity) GetSignalsOnCallSchedule() *SuccinctEntity {
-	if o == nil {
-		return nil
-	}
-	return o.SignalsOnCallSchedule
 }
 
 func (o *MembershipEntity) GetDefaultIncidentRole() *IncidentRoleEntity {

@@ -7,10 +7,6 @@ import (
 	"time"
 )
 
-// IncidentEntityLabels - A key/value of labels
-type IncidentEntityLabels struct {
-}
-
 type RetroExports struct {
 }
 
@@ -51,7 +47,7 @@ type IncidentEntity struct {
 	LifecycleMeasurements []IncidentsLifecycleMeasurementEntity `json:"lifecycle_measurements,omitempty"`
 	Active                *bool                                 `json:"active,omitempty"`
 	// A key/value of labels
-	Labels               *IncidentEntityLabels           `json:"labels,omitempty"`
+	Labels               map[string]string               `json:"labels,omitempty"`
 	RoleAssignments      []IncidentsRoleAssignmentEntity `json:"role_assignments,omitempty"`
 	StatusPages          []IncidentsStatusPageEntity     `json:"status_pages,omitempty"`
 	IncidentURL          *string                         `json:"incident_url,omitempty"`
@@ -83,7 +79,7 @@ type IncidentEntity struct {
 	RetroExports      []RetroExports                         `json:"retro_exports,omitempty"`
 	CreatedBy         *AuthorEntity                          `json:"created_by,omitempty"`
 	ContextObject     *IncidentsContextObjectEntity          `json:"context_object,omitempty"`
-	TeamAssignments   []IncidentsTeamAssignmentEntityLite    `json:"team_assignments,omitempty"`
+	TeamAssignments   []IncidentsTeamAssignmentEntity        `json:"team_assignments,omitempty"`
 	Conversations     []ConversationsAPIEntitiesReference    `json:"conversations,omitempty"`
 	CustomFields      []CustomFieldsFieldValue               `json:"custom_fields,omitempty"`
 	FieldRequirements []IncidentEntityFieldRequirementEntity `json:"field_requirements,omitempty"`
@@ -268,7 +264,7 @@ func (o *IncidentEntity) GetActive() *bool {
 	return o.Active
 }
 
-func (o *IncidentEntity) GetLabels() *IncidentEntityLabels {
+func (o *IncidentEntity) GetLabels() map[string]string {
 	if o == nil {
 		return nil
 	}
@@ -464,7 +460,7 @@ func (o *IncidentEntity) GetContextObject() *IncidentsContextObjectEntity {
 	return o.ContextObject
 }
 
-func (o *IncidentEntity) GetTeamAssignments() []IncidentsTeamAssignmentEntityLite {
+func (o *IncidentEntity) GetTeamAssignments() []IncidentsTeamAssignmentEntity {
 	if o == nil {
 		return nil
 	}

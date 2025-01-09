@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-type PostV1TeamsTeamIDOnCallSchedulesMembers struct {
+type Members struct {
 	// The ID of a user who should be added to the schedule's rotation. You can add a user to the schedule
 	// multiple times to construct more complex rotations, and you can specify a `null` user ID to create
 	// unassigned slots in the rotation.
@@ -15,7 +15,7 @@ type PostV1TeamsTeamIDOnCallSchedulesMembers struct {
 	UserID *string `json:"user_id,omitempty"`
 }
 
-func (o *PostV1TeamsTeamIDOnCallSchedulesMembers) GetUserID() *string {
+func (o *Members) GetUserID() *string {
 	if o == nil {
 		return nil
 	}
@@ -268,7 +268,7 @@ type PostV1TeamsTeamIDOnCallSchedules struct {
 	// The ID of a Slack user group for syncing purposes. If provided, we will automatically sync whoever is on call to the user group in Slack.
 	SlackUserGroupID *string `json:"slack_user_group_id,omitempty"`
 	// An ordered list of objects that specify members of the on-call schedule's rotation.
-	Members []PostV1TeamsTeamIDOnCallSchedulesMembers `json:"members,omitempty"`
+	Members []Members `json:"members,omitempty"`
 	// An object that specifies how the schedule's on-call shifts should be generated.
 	Strategy Strategy `json:"strategy"`
 	// A list of objects that restrict the schedule to speccific on-call periods.
@@ -309,7 +309,7 @@ func (o *PostV1TeamsTeamIDOnCallSchedules) GetSlackUserGroupID() *string {
 	return o.SlackUserGroupID
 }
 
-func (o *PostV1TeamsTeamIDOnCallSchedules) GetMembers() []PostV1TeamsTeamIDOnCallSchedulesMembers {
+func (o *PostV1TeamsTeamIDOnCallSchedules) GetMembers() []Members {
 	if o == nil {
 		return nil
 	}

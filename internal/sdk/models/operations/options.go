@@ -12,18 +12,30 @@ import (
 var ErrUnsupportedOption = errors.New("unsupported option")
 
 const (
+	SupportedOptionServerURL            = "serverURL"
 	SupportedOptionRetries              = "retries"
 	SupportedOptionTimeout              = "timeout"
 	SupportedOptionAcceptHeaderOverride = "acceptHeaderOverride"
 	SupportedOptionURLOverride          = "urlOverride"
 )
 
+type AcceptHeaderEnum string
+
+const (
+	AcceptHeaderEnumApplicationJson  AcceptHeaderEnum = "application/json"
+	AcceptHeaderEnumWildcardWildcard AcceptHeaderEnum = "*/*"
+)
+
+func (e AcceptHeaderEnum) ToPointer() *AcceptHeaderEnum {
+	return &e
+}
+
 type Options struct {
-	ServerURL   *string
-	Retries     *retry.Config
-	Timeout     *time.Duration
-	URLOverride *string
-	SetHeaders  map[string]string
+	ServerURL            *string
+	Retries              *retry.Config
+	Timeout              *time.Duration
+	AcceptHeaderOverride *AcceptHeaderEnum
+	URLOverride          *string
 }
 
 type Option func(*Options, ...string) error
@@ -31,6 +43,10 @@ type Option func(*Options, ...string) error
 // WithServerURL allows providing an alternative server URL.
 func WithServerURL(serverURL string) Option {
 	return func(opts *Options, supportedOptions ...string) error {
+		if !utils.Contains(supportedOptions, SupportedOptionServerURL) {
+			return ErrUnsupportedOption
+		}
+
 		opts.ServerURL = &serverURL
 		return nil
 	}
@@ -39,6 +55,10 @@ func WithServerURL(serverURL string) Option {
 // WithTemplatedServerURL allows providing an alternative server URL with templated parameters.
 func WithTemplatedServerURL(serverURL string, params map[string]string) Option {
 	return func(opts *Options, supportedOptions ...string) error {
+		if !utils.Contains(supportedOptions, SupportedOptionServerURL) {
+			return ErrUnsupportedOption
+		}
+
 		if params != nil {
 			serverURL = utils.ReplaceParameters(serverURL, params)
 		}
@@ -72,6 +92,17 @@ func WithOperationTimeout(timeout time.Duration) Option {
 	}
 }
 
+func WithAcceptHeaderOverride(acceptHeaderOverride AcceptHeaderEnum) Option {
+	return func(opts *Options, supportedOptions ...string) error {
+		if !utils.Contains(supportedOptions, SupportedOptionAcceptHeaderOverride) {
+			return ErrUnsupportedOption
+		}
+
+		opts.AcceptHeaderOverride = &acceptHeaderOverride
+		return nil
+	}
+}
+
 // WithURLOverride allows overriding the URL.
 func WithURLOverride(urlOverride string) Option {
 	return func(opts *Options, supportedOptions ...string) error {
@@ -80,15 +111,6 @@ func WithURLOverride(urlOverride string) Option {
 		}
 
 		opts.URLOverride = &urlOverride
-		return nil
-	}
-}
-
-// WithSetHeaders takes a map of headers that will applied to a request. If the
-// request contains headers that are in the map then they will be overwritten.
-func WithSetHeaders(hdrs map[string]string) Option {
-	return func(opts *Options, supportedOptions ...string) error {
-		opts.SetHeaders = hdrs
 		return nil
 	}
 }

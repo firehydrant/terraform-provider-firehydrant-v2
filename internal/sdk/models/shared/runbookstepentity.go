@@ -7,14 +7,14 @@ import (
 	"time"
 )
 
-// Config - An unstructured object of key/value pairs describing the config settings for the step.
-type Config struct {
+// RunbookStepEntityConfig - An unstructured object of key/value pairs describing the config settings for the step.
+type RunbookStepEntityConfig struct {
 }
 
 type ActionElements struct {
 }
 
-type StepElements struct {
+type RunbookStepEntityStepElements struct {
 }
 
 type RunbookStepEntity struct {
@@ -22,17 +22,17 @@ type RunbookStepEntity struct {
 	ActionID *string `json:"action_id,omitempty"`
 	StepID   *string `json:"step_id,omitempty"`
 	// An unstructured object of key/value pairs describing the config settings for the step.
-	Config *Config `json:"config,omitempty"`
+	Config *RunbookStepEntityConfig `json:"config,omitempty"`
 	// A list of action elements
 	ActionElements []ActionElements `json:"action_elements,omitempty"`
 	// A list of step elements
-	StepElements    []StepElements         `json:"step_elements,omitempty"`
-	Automatic       *bool                  `json:"automatic,omitempty"`
-	DelayDuration   *time.Time             `json:"delay_duration,omitempty"`
-	Action          *RunbooksActionsEntity `json:"action,omitempty"`
-	Reruns          *bool                  `json:"reruns,omitempty"`
-	Repeats         *bool                  `json:"repeats,omitempty"`
-	RepeatsDuration *time.Time             `json:"repeats_duration,omitempty"`
+	StepElements    []RunbookStepEntityStepElements `json:"step_elements,omitempty"`
+	Automatic       *bool                           `json:"automatic,omitempty"`
+	DelayDuration   *time.Time                      `json:"delay_duration,omitempty"`
+	Action          *RunbooksActionsEntity          `json:"action,omitempty"`
+	Reruns          *bool                           `json:"reruns,omitempty"`
+	Repeats         *bool                           `json:"repeats,omitempty"`
+	RepeatsDuration *time.Time                      `json:"repeats_duration,omitempty"`
 	// VotesEntity model
 	Votes *VotesEntity     `json:"votes,omitempty"`
 	Rule  *RulesRuleEntity `json:"rule,omitempty"`
@@ -70,7 +70,7 @@ func (o *RunbookStepEntity) GetStepID() *string {
 	return o.StepID
 }
 
-func (o *RunbookStepEntity) GetConfig() *Config {
+func (o *RunbookStepEntity) GetConfig() *RunbookStepEntityConfig {
 	if o == nil {
 		return nil
 	}
@@ -84,7 +84,7 @@ func (o *RunbookStepEntity) GetActionElements() []ActionElements {
 	return o.ActionElements
 }
 
-func (o *RunbookStepEntity) GetStepElements() []StepElements {
+func (o *RunbookStepEntity) GetStepElements() []RunbookStepEntityStepElements {
 	if o == nil {
 		return nil
 	}

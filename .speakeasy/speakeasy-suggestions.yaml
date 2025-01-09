@@ -1,0 +1,2676 @@
+overlay: 1.0.0
+info:
+  title: Speakeasy Suggestions - FireHydrant API
+  version: 0.0.1
+actions:
+  - target: $["paths"]["/v1/service_dependencies/{service_dependency_id}"]["patch"]
+    update:
+      x-speakeasy-group: serviceDependencies
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.serviceDependencies.update()
+      before: sdk.service_dependencies.patchV1ServiceDependenciesServiceDependencyId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/alerts"]["post"]
+    update:
+      x-speakeasy-name-override: attachAlert
+    x-speakeasy-metadata:
+      after: sdk.incidents.attachAlert()
+      before: sdk.incidents.postV1IncidentsIncidentIdAlerts()
+      type: method-name
+  - target: $["paths"]["/v1/form_configurations/{slug}"]["get"]
+    update:
+      x-speakeasy-group: formConfigurations
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.formConfigurations.get()
+      before: sdk.form_configurations.getV1FormConfigurationsSlug()
+      type: method-name
+  - target: $["paths"]["/v1/infrastructures"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.infrastructures.list()
+      before: sdk.infrastructures.getV1Infrastructures()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.nunc_connections.create()
+      before: sdk.nunc_connections.postV1NuncConnections()
+      type: method-name
+  - target: $["paths"]["/v1/change_types"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.change_types.list()
+      before: sdk.change_types.getV1ChangeTypes()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/conditions"]["get"]
+    update:
+      x-speakeasy-group: severity_matrix.conditions
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.conditions.get()
+      before: sdk.severity_matrix.getV1SeverityMatrixConditions()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/related_change_events/{related_change_event_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateRelatedChangeEvent
+    x-speakeasy-metadata:
+      after: sdk.incidents.updateRelatedChangeEvent()
+      before: sdk.incidents.patchV1IncidentsIncidentIdRelatedChangeEventsRelatedChangeEventId()
+      type: method-name
+  - target: $["paths"]["/v1/ai/summarize_incident/{incident_id}/{generated_summary_id}/voted"]["get"]
+    update:
+      x-speakeasy-name-override: getSummaryVote
+    x-speakeasy-metadata:
+      after: sdk.ai.getSummaryVote()
+      before: sdk.ai.getV1AiSummarizeIncidentIncidentIdGeneratedSummaryIdVoted()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/transcript"]["get"]
+    update:
+      x-speakeasy-name-override: getTranscript
+    x-speakeasy-metadata:
+      after: sdk.incidents.getTranscript()
+      before: sdk.incidents.getV1IncidentsIncidentIdTranscript()
+      type: method-name
+  - target: $["paths"]["/v1/saved_searches/{resource_type}/{saved_search_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.saved_searches.update()
+      before: sdk.saved_searches.patchV1SavedSearchesResourceTypeSavedSearchId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/slack/usergroups"]["get"]
+    update:
+      x-speakeasy-name-override: getSlackUserGroups
+    x-speakeasy-metadata:
+      after: sdk.integrations.getSlackUserGroups()
+      before: sdk.integrations.getV1IntegrationsSlackUsergroups()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/alerts"]["get"]
+    update:
+      x-speakeasy-name-override: listAlerts
+    x-speakeasy-metadata:
+      after: sdk.incidents.listAlerts()
+      before: sdk.incidents.getV1IncidentsIncidentIdAlerts()
+      type: method-name
+  - target: $["paths"]["/v1/services/{service_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.services.get()
+      before: sdk.services.getV1ServicesServiceId()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions"]["get"]
+    update:
+      x-speakeasy-name-override: listExecutions
+    x-speakeasy-metadata:
+      after: sdk.runbooks.listExecutions()
+      before: sdk.runbooks.getV1RunbooksExecutions()
+      type: method-name
+  - target: $["paths"]["/v1/saved_searches/{resource_type}"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.saved_searches.create()
+      before: sdk.saved_searches.postV1SavedSearchesResourceType()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/role_assignments"]["post"]
+    update:
+      x-speakeasy-name-override: assignRole
+    x-speakeasy-metadata:
+      after: sdk.incidents.assignRole()
+      before: sdk.incidents.postV1IncidentsIncidentIdRoleAssignments()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/impacts"]["get"]
+    update:
+      x-speakeasy-group: severityMatrix
+      x-speakeasy-name-override: listImpacts
+    x-speakeasy-metadata:
+      after: sdk.severityMatrix.listImpacts()
+      before: sdk.severity_matrix.getV1SeverityMatrixImpacts()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}/steps/{step_id}/script/{state}"]["put"]
+    update:
+      x-speakeasy-name-override: updateScriptState
+      x-speakeasy-group: runbooks.executions.steps
+    x-speakeasy-metadata:
+      after: sdk.runbooks.executions.steps.updateScriptState()
+      before: sdk.runbooks.putV1RunbooksExecutionsExecutionIdStepsStepIdScriptState()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/tasks/{task_id}/convert"]["post"]
+    update:
+      x-speakeasy-name-override: convertTask
+    x-speakeasy-metadata:
+      after: sdk.incidents.convertTask()
+      before: sdk.incidents.postV1IncidentsIncidentIdTasksTaskIdConvert()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/measurement_definitions/{measurement_definition_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getMeasurementDefinition
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.getMeasurementDefinition()
+      before: sdk.lifecycles.getV1LifecyclesMeasurementDefinitionsMeasurementDefinitionId()
+      type: method-name
+  - target: $["paths"]["/v1/metrics/incidents"]["get"]
+    update:
+      x-speakeasy-name-override: listIncidentMetrics
+    x-speakeasy-metadata:
+      after: sdk.metrics.listIncidentMetrics()
+      before: sdk.metrics.getV1MetricsIncidents()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/field_maps/{map_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getFieldMap
+    x-speakeasy-metadata:
+      after: sdk.ticketing.getFieldMap()
+      before: sdk.ticketing.getV1TicketingProjectsTicketingProjectIdFieldMapsMapId()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}/reasons/order"]["put"]
+    update:
+      x-speakeasy-name-override: reorderContributingFactor
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.reorderContributingFactor()
+      before: sdk.post_mortems.putV1PostMortemsReportsReportIdReasonsOrder()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: archive
+    x-speakeasy-metadata:
+      after: sdk.teams.archive()
+      before: sdk.teams.deleteV1TeamsTeamId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}"]["get"]
+    update:
+      x-speakeasy-group: ticketing.projects
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.ticketing.projects.get()
+      before: sdk.ticketing.getV1TicketingProjectsTicketingProjectId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/generic_chat_messages/{message_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateGenericChatMessage
+    x-speakeasy-metadata:
+      after: sdk.incidents.updateGenericChatMessage()
+      before: sdk.incidents.patchV1IncidentsIncidentIdGenericChatMessagesMessageId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/users/{user_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getUserRole
+    x-speakeasy-metadata:
+      after: sdk.incidents.getUserRole()
+      before: sdk.incidents.getV1IncidentsIncidentIdUsersUserId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/relationships"]["get"]
+    update:
+      x-speakeasy-name-override: listRelationships
+    x-speakeasy-metadata:
+      after: sdk.incidents.listRelationships()
+      before: sdk.incidents.getV1IncidentsIncidentIdRelationships()
+      type: method-name
+  - target: $["paths"]["/v1/priorities"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.priorities.list()
+      before: sdk.priorities.getV1Priorities()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules/{schedule_id}"]["get"]
+    update:
+      x-speakeasy-group: teams.on_call_schedules
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.teams.on_call_schedules.get()
+      before: sdk.teams.getV1TeamsTeamIdOnCallSchedulesScheduleId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/role_assignments/{role_assignment_id}"]["delete"]
+    update:
+      x-speakeasy-group: incidents.role_assignments
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.incidents.role_assignments.delete()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdRoleAssignmentsRoleAssignmentId()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}/steps/{step_id}"]["put"]
+    update:
+      x-speakeasy-name-override: updateStepExecution
+    x-speakeasy-metadata:
+      after: sdk.runbooks.updateStepExecution()
+      before: sdk.runbooks.putV1RunbooksExecutionsExecutionIdStepsStepId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/tickets"]["get"]
+    update:
+      x-speakeasy-name-override: listTickets
+    x-speakeasy-metadata:
+      after: sdk.ticketing.listTickets()
+      before: sdk.ticketing.getV1TicketingTickets()
+      type: method-name
+  - target: $["paths"]["/v1/signals/event_sources"]["get"]
+    update:
+      x-speakeasy-name-override: listEventSources
+    x-speakeasy-metadata:
+      after: sdk.signals.listEventSources()
+      before: sdk.signals.getV1SignalsEventSources()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/select_options/{integration_slug}/{action_slug}/{field}"]["get"]
+    update:
+      x-speakeasy-name-override: getSelectOptions
+    x-speakeasy-metadata:
+      after: sdk.runbooks.getSelectOptions()
+      before: sdk.runbooks.getV1RunbooksSelectOptionsIntegrationSlugActionSlugField()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/subscribers"]["get"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: getSubscribers
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.getSubscribers()
+      before: sdk.nunc_connections.getV1NuncConnectionsNuncConnectionIdSubscribers()
+      type: method-name
+  - target: $["paths"]["/v1/teams"]["post"]
+    update:
+      x-speakeasy-name-override: post
+    x-speakeasy-metadata:
+      after: sdk.teams.post()
+      before: sdk.teams.postV1Teams()
+      type: method-name
+  - target: $["paths"]["/v1/services"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.services.create()
+      before: sdk.services.postV1Services()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}/votes/status"]["get"]
+    update:
+      x-speakeasy-name-override: getVoteStatus
+    x-speakeasy-metadata:
+      after: sdk.runbooks.getVoteStatus()
+      before: sdk.runbooks.getV1RunbooksExecutionsExecutionIdVotesStatus()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/images/{type}"]["put"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: updateImage
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.updateImage()
+      before: sdk.nunc_connections.putV1NuncConnectionsNuncConnectionIdImagesType()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions"]["post"]
+    update:
+      x-speakeasy-name-override: execute
+    x-speakeasy-metadata:
+      after: sdk.runbooks.execute()
+      before: sdk.runbooks.postV1RunbooksExecutions()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/tickets/{ticket_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getTicket
+    x-speakeasy-metadata:
+      after: sdk.ticketing.getTicket()
+      before: sdk.ticketing.getV1TicketingTicketsTicketId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/milestones/bulk_update"]["put"]
+    update:
+      x-speakeasy-name-override: updateMilestonesBulk
+    x-speakeasy-metadata:
+      after: sdk.incidents.updateMilestonesBulk()
+      before: sdk.incidents.putV1IncidentsIncidentIdMilestonesBulkUpdate()
+      type: method-name
+  - target: $["paths"]["/v1/services/service_links"]["post"]
+    update:
+      x-speakeasy-name-override: createServiceLinks
+    x-speakeasy-metadata:
+      after: sdk.services.createServiceLinks()
+      before: sdk.services.postV1ServicesServiceLinks()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/measurement_definitions"]["get"]
+    update:
+      x-speakeasy-group: lifecycles.measurement_definitions
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.measurement_definitions.list()
+      before: sdk.lifecycles.getV1LifecyclesMeasurementDefinitions()
+      type: method-name
+  - target: $["paths"]["/v1/custom_fields/definitions/{field_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateDefinition
+    x-speakeasy-metadata:
+      after: sdk.custom_fields.updateDefinition()
+      before: sdk.custom_fields.patchV1CustomFieldsDefinitionsFieldId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/events/{event_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getEvent
+    x-speakeasy-metadata:
+      after: sdk.incidents.getEvent()
+      before: sdk.incidents.getV1IncidentsIncidentIdEventsEventId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/team_assignments"]["post"]
+    update:
+      x-speakeasy-name-override: assignTeam
+    x-speakeasy-metadata:
+      after: sdk.incidents.assignTeam()
+      before: sdk.incidents.postV1IncidentsIncidentIdTeamAssignments()
+      type: method-name
+  - target: $["paths"]["/v1/status_update_templates"]["post"]
+    update:
+      x-speakeasy-group: statusUpdateTemplates
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.statusUpdateTemplates.create()
+      before: sdk.status_update_templates.postV1StatusUpdateTemplates()
+      type: method-name
+  - target: $["paths"]["/v1/signals_on_call"]["get"]
+    update:
+      x-speakeasy-name-override: listSchedules
+    x-speakeasy-metadata:
+      after: sdk.signals_on_call.listSchedules()
+      before: sdk.signals_on_call.getV1SignalsOnCall()
+      type: method-name
+  - target: $["paths"]["/v1/metrics/milestone_funnel"]["get"]
+    update:
+      x-speakeasy-name-override: listFunnel
+    x-speakeasy-metadata:
+      after: sdk.metrics.listFunnel()
+      before: sdk.metrics.getV1MetricsMilestoneFunnel()
+      type: method-name
+  - target: $["paths"]["/v1/functionalities"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.functionalities.create()
+      before: sdk.functionalities.postV1Functionalities()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/role_assignments"]["get"]
+    update:
+      x-speakeasy-name-override: listRoleAssignments
+    x-speakeasy-metadata:
+      after: sdk.incidents.listRoleAssignments()
+      before: sdk.incidents.getV1IncidentsIncidentIdRoleAssignments()
+      type: method-name
+  - target: $["paths"]["/v1/metrics/mttx"]["get"]
+    update:
+      x-speakeasy-name-override: getMttx
+    x-speakeasy-metadata:
+      after: sdk.metrics.getMttx()
+      before: sdk.metrics.getV1MetricsMttx()
+      type: method-name
+  - target: $["paths"]["/v1/changes/events/{change_event_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateEvent
+    x-speakeasy-metadata:
+      after: sdk.changes.updateEvent()
+      before: sdk.changes.patchV1ChangesEventsChangeEventId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/transposers"]["get"]
+    update:
+      x-speakeasy-name-override: getTransposers
+    x-speakeasy-metadata:
+      after: sdk.signals.getTransposers()
+      before: sdk.signals.getV1SignalsTransposers()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/priorities/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: getPriority
+    x-speakeasy-metadata:
+      after: sdk.ticketing.getPriority()
+      before: sdk.ticketing.getV1TicketingPrioritiesId()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Groups/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: getGroup
+    x-speakeasy-metadata:
+      after: sdk.scim.getGroup()
+      before: sdk.scim.getV1ScimV2GroupsId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/slack/connections/{connection_id}/emoji_actions"]["get"]
+    update:
+      x-speakeasy-name-override: listSlackEmojiActions
+    x-speakeasy-metadata:
+      after: sdk.integrations.listSlackEmojiActions()
+      before: sdk.integrations.getV1IntegrationsSlackConnectionsConnectionIdEmojiActions()
+      type: method-name
+  - target: $["paths"]["/v1/services/{service_id}/available_downstream_dependencies"]["get"]
+    update:
+      x-speakeasy-name-override: listAvailableDownstreamDependencies
+    x-speakeasy-metadata:
+      after: sdk.services.listAvailableDownstreamDependencies()
+      before: sdk.services.getV1ServicesServiceIdAvailableDownstreamDependencies()
+      type: method-name
+  - target: $["paths"]["/v1/saved_searches/{resource_type}/{saved_search_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.saved_searches.delete()
+      before: sdk.saved_searches.deleteV1SavedSearchesResourceTypeSavedSearchId()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules/{schedule_id}/shifts/{id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateShift
+    x-speakeasy-metadata:
+      after: sdk.teams.updateShift()
+      before: sdk.teams.patchV1TeamsTeamIdOnCallSchedulesScheduleIdShiftsId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/tasks/{task_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getTask
+    x-speakeasy-metadata:
+      after: sdk.incidents.getTask()
+      before: sdk.incidents.getV1IncidentsIncidentIdTasksTaskId()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.teams.update()
+      before: sdk.teams.patchV1TeamsTeamId()
+      type: method-name
+  - target: $["paths"]["/v1/functionalities/{functionality_id}/services"]["get"]
+    update:
+      x-speakeasy-name-override: listServices
+    x-speakeasy-metadata:
+      after: sdk.functionalities.listServices()
+      before: sdk.functionalities.getV1FunctionalitiesFunctionalityIdServices()
+      type: method-name
+  - target: $["paths"]["/v1/services"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.services.list()
+      before: sdk.services.getV1Services()
+      type: method-name
+  - target: $["paths"]["/v1/task_lists/{task_list_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.task_lists.get()
+      before: sdk.task_lists.getV1TaskListsTaskListId()
+      type: method-name
+  - target: $["paths"]["/v1/changes/events/{change_event_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getEvent
+    x-speakeasy-metadata:
+      after: sdk.changes.getEvent()
+      before: sdk.changes.getV1ChangesEventsChangeEventId()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules/{schedule_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteOnCallSchedule
+    x-speakeasy-metadata:
+      after: sdk.teams.deleteOnCallSchedule()
+      before: sdk.teams.deleteV1TeamsTeamIdOnCallSchedulesScheduleId()
+      type: method-name
+  - target: $["paths"]["/v1/ai/preferences"]["patch"]
+    update:
+      x-speakeasy-name-override: updatePreferences
+    x-speakeasy-metadata:
+      after: sdk.ai.updatePreferences()
+      before: sdk.ai.patchV1AiPreferences()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix"]["patch"]
+    update:
+      x-speakeasy-name-override: patch
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.patch()
+      before: sdk.severity_matrix.patchV1SeverityMatrix()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/impacts/{impact_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteImpact
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.deleteImpact()
+      before: sdk.severity_matrix.deleteV1SeverityMatrixImpactsImpactId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/channel"]["get"]
+    update:
+      x-speakeasy-name-override: getChannel
+    x-speakeasy-metadata:
+      after: sdk.incidents.getChannel()
+      before: sdk.incidents.getV1IncidentsIncidentIdChannel()
+      type: method-name
+  - target: $["paths"]["/v1/incident_roles"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.incident_roles.create()
+      before: sdk.incident_roles.postV1IncidentRoles()
+      type: method-name
+  - target: $["paths"]["/v1/current_user"]["get"]
+    update:
+      x-speakeasy-group: currentUser
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.currentUser.get()
+      before: sdk.current_user.getV1CurrentUser()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/tasks/{task_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateTask
+    x-speakeasy-metadata:
+      after: sdk.incidents.updateTask()
+      before: sdk.incidents.patchV1IncidentsIncidentIdTasksTaskId()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/conditions/{condition_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateCondition
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.updateCondition()
+      before: sdk.severity_matrix.patchV1SeverityMatrixConditionsConditionId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/connections/{slug}/{connection_id}"]["patch"]
+    update:
+      x-speakeasy-group: integrations.connections
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.integrations.connections.update()
+      before: sdk.integrations.patchV1IntegrationsConnectionsSlugConnectionId()
+      type: method-name
+  - target: $["paths"]["/v1/webhooks"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.webhooks.create()
+      before: sdk.webhooks.postV1Webhooks()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/aws/cloudtrail_batches/{id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateCloudtrailBatch
+    x-speakeasy-metadata:
+      after: sdk.integrations.updateCloudtrailBatch()
+      before: sdk.integrations.patchV1IntegrationsAwsCloudtrailBatchesId()
+      type: method-name
+  - target: $["paths"]["/v1/changes/{change_id}/identities"]["get"]
+    update:
+      x-speakeasy-name-override: listIdentities
+    x-speakeasy-metadata:
+      after: sdk.changes.listIdentities()
+      before: sdk.changes.getV1ChangesChangeIdIdentities()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}/steps/{step_id}/votes/status"]["get"]
+    update:
+      x-speakeasy-group: runbooks.executions
+      x-speakeasy-name-override: getVoteStatus
+    x-speakeasy-metadata:
+      after: sdk.runbooks.executions.getVoteStatus()
+      before: sdk.runbooks.getV1RunbooksExecutionsExecutionIdStepsStepIdVotesStatus()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/impact/{type}/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: removeImpact
+    x-speakeasy-metadata:
+      after: sdk.incidents.removeImpact()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdImpactTypeId()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/component_groups/{group_id}"]["delete"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: deleteComponentGroup
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.deleteComponentGroup()
+      before: sdk.nunc_connections.deleteV1NuncConnectionsNuncConnectionIdComponentGroupsGroupId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/alerts/{incident_alert_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteAlert
+    x-speakeasy-metadata:
+      after: sdk.incidents.deleteAlert()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdAlertsIncidentAlertId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/related_change_events"]["post"]
+    update:
+      x-speakeasy-name-override: addRelatedChange
+    x-speakeasy-metadata:
+      after: sdk.incidents.addRelatedChange()
+      before: sdk.incidents.postV1IncidentsIncidentIdRelatedChangeEvents()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/tasks"]["post"]
+    update:
+      x-speakeasy-name-override: createTask
+    x-speakeasy-metadata:
+      after: sdk.incidents.createTask()
+      before: sdk.incidents.postV1IncidentsIncidentIdTasks()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules"]["get"]
+    update:
+      x-speakeasy-name-override: listOnCallSchedules
+    x-speakeasy-metadata:
+      after: sdk.teams.listOnCallSchedules()
+      before: sdk.teams.getV1TeamsTeamIdOnCallSchedules()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/escalation_policies/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: getEscalationPolicy
+    x-speakeasy-metadata:
+      after: sdk.teams.getEscalationPolicy()
+      before: sdk.teams.getV1TeamsTeamIdEscalationPoliciesId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/debugger"]["post"]
+    update:
+      x-speakeasy-name-override: debug
+    x-speakeasy-metadata:
+      after: sdk.signals.debug()
+      before: sdk.signals.postV1SignalsDebugger()
+      type: method-name
+  - target: $["paths"]["/v1/nunc/subscriptions"]["post"]
+    update:
+      x-speakeasy-name-override: createSubscription
+    x-speakeasy-metadata:
+      after: sdk.nunc.createSubscription()
+      before: sdk.nunc.postV1NuncSubscriptions()
+      type: method-name
+  - target: $["paths"]["/v1/custom_fields/definitions/{field_id}/select_options"]["get"]
+    update:
+      x-speakeasy-name-override: getSelectOptions
+      x-speakeasy-group: customFields
+    x-speakeasy-metadata:
+      after: sdk.customFields.getSelectOptions()
+      before: sdk.custom_fields.getV1CustomFieldsDefinitionsFieldIdSelectOptions()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/notes/{note_id}"]["patch"]
+    update:
+      x-speakeasy-group: incidents.notes
+      x-speakeasy-name-override: patch
+    x-speakeasy-metadata:
+      after: sdk.incidents.notes.patch()
+      before: sdk.incidents.patchV1IncidentsIncidentIdNotesNoteId()
+      type: method-name
+  - target: $["paths"]["/v1/status_update_templates/{status_update_template_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: patch
+    x-speakeasy-metadata:
+      after: sdk.status_update_templates.patch()
+      before: sdk.status_update_templates.patchV1StatusUpdateTemplatesStatusUpdateTemplateId()
+      type: method-name
+  - target: $["paths"]["/v1/metrics/ticket_funnel"]["get"]
+    update:
+      x-speakeasy-name-override: getTicketFunnel
+    x-speakeasy-metadata:
+      after: sdk.metrics.getTicketFunnel()
+      before: sdk.metrics.getV1MetricsTicketFunnel()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/aws/connections/{id}"]["get"]
+    update:
+      x-speakeasy-group: integrations.aws_connections
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.integrations.aws_connections.get()
+      before: sdk.integrations.getV1IntegrationsAwsConnectionsId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/aws/cloudtrail_batches/{id}/events"]["get"]
+    update:
+      x-speakeasy-name-override: getAwsCloudtrailBatchEvents
+    x-speakeasy-metadata:
+      after: sdk.integrations.getAwsCloudtrailBatchEvents()
+      before: sdk.integrations.getV1IntegrationsAwsCloudtrailBatchesIdEvents()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/links/{link_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteLink
+    x-speakeasy-metadata:
+      after: sdk.nunc_connections.deleteLink()
+      before: sdk.nunc_connections.deleteV1NuncConnectionsNuncConnectionIdLinksLinkId()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/signal_rules"]["post"]
+    update:
+      x-speakeasy-group: teams.signal_rules
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.teams.signal_rules.create()
+      before: sdk.teams.postV1TeamsTeamIdSignalRules()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/provider_project_configurations/{config_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateProjectConfiguration
+    x-speakeasy-metadata:
+      after: sdk.ticketing.updateProjectConfiguration()
+      before: sdk.ticketing.patchV1TicketingProjectsTicketingProjectIdProviderProjectConfigurationsConfigId()
+      type: method-name
+  - target: $["paths"]["/v1/checklist_templates/{id}"]["patch"]
+    update:
+      x-speakeasy-group: checklistTemplates
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.checklistTemplates.update()
+      before: sdk.checklist_templates.patchV1ChecklistTemplatesId()
+      type: method-name
+  - target: $["paths"]["/v1/services/{service_id}/service_links/{remote_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteServiceLink
+    x-speakeasy-metadata:
+      after: sdk.services.deleteServiceLink()
+      before: sdk.services.deleteV1ServicesServiceIdServiceLinksRemoteId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/webhook_targets/{id}"]["patch"]
+    update:
+      x-speakeasy-group: signals.webhook_targets
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.signals.webhook_targets.update()
+      before: sdk.signals.patchV1SignalsWebhookTargetsId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/field_maps/available_fields"]["get"]
+    update:
+      x-speakeasy-name-override: getAvailableFields
+    x-speakeasy-metadata:
+      after: sdk.ticketing.getAvailableFields()
+      before: sdk.ticketing.getV1TicketingProjectsTicketingProjectIdFieldMapsAvailableFields()
+      type: method-name
+  - target: $["paths"]["/v1/saved_searches/{resource_type}"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.saved_searches.list()
+      before: sdk.saved_searches.getV1SavedSearchesResourceType()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/tickets"]["post"]
+    update:
+      x-speakeasy-name-override: createTicket
+    x-speakeasy-metadata:
+      after: sdk.ticketing.createTicket()
+      before: sdk.ticketing.postV1TicketingTickets()
+      type: method-name
+  - target: $["paths"]["/v1/signals/webhook_targets/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteWebhookTarget
+    x-speakeasy-metadata:
+      after: sdk.signals.deleteWebhookTarget()
+      before: sdk.signals.deleteV1SignalsWebhookTargetsId()
+      type: method-name
+  - target: $["paths"]["/v1/conversations/{conversation_id}/comments/{comment_id}/reactions/{reaction_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: archiveReaction
+    x-speakeasy-metadata:
+      after: sdk.conversations.archiveReaction()
+      before: sdk.conversations.deleteV1ConversationsConversationIdCommentsCommentIdReactionsReactionId()
+      type: method-name
+  - target: $["paths"]["/v1/checklist_templates/{id}"]["get"]
+    update:
+      x-speakeasy-group: checklistTemplates
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.checklistTemplates.get()
+      before: sdk.checklist_templates.getV1ChecklistTemplatesId()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections"]["get"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.list()
+      before: sdk.nunc_connections.getV1NuncConnections()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/similar"]["get"]
+    update:
+      x-speakeasy-name-override: getSimilar
+    x-speakeasy-metadata:
+      after: sdk.incidents.getSimilar()
+      before: sdk.incidents.getV1IncidentsIncidentIdSimilar()
+      type: method-name
+  - target: $["paths"]["/v1/environments"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.environments.create()
+      before: sdk.environments.postV1Environments()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/tasks"]["get"]
+    update:
+      x-speakeasy-name-override: listTasks
+    x-speakeasy-metadata:
+      after: sdk.incidents.listTasks()
+      before: sdk.incidents.getV1IncidentsIncidentIdTasks()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/status_pages"]["get"]
+    update:
+      x-speakeasy-name-override: listStatusPages
+    x-speakeasy-metadata:
+      after: sdk.incidents.listStatusPages()
+      before: sdk.incidents.getV1IncidentsIncidentIdStatusPages()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/impact"]["put"]
+    update:
+      x-speakeasy-name-override: updateImpactStatus
+    x-speakeasy-metadata:
+      after: sdk.incidents.updateImpactStatus()
+      before: sdk.incidents.putV1IncidentsIncidentIdImpact()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/events"]["get"]
+    update:
+      x-speakeasy-name-override: listEvents
+    x-speakeasy-metadata:
+      after: sdk.incidents.listEvents()
+      before: sdk.incidents.getV1IncidentsIncidentIdEvents()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/impact/{type}"]["get"]
+    update:
+      x-speakeasy-name-override: getImpactByType
+    x-speakeasy-metadata:
+      after: sdk.incidents.getImpactByType()
+      before: sdk.incidents.getV1IncidentsIncidentIdImpactType()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/priorities/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deletePriority
+    x-speakeasy-metadata:
+      after: sdk.ticketing.deletePriority()
+      before: sdk.ticketing.deleteV1TicketingPrioritiesId()
+      type: method-name
+  - target: $["paths"]["/v1/priorities/{priority_slug}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.priorities.delete()
+      before: sdk.priorities.deleteV1PrioritiesPrioritySlug()
+      type: method-name
+  - target: $["paths"]["/v1/metrics/{infra_type}"]["get"]
+    update:
+      x-speakeasy-name-override: listByInfraType
+    x-speakeasy-metadata:
+      after: sdk.metrics.listByInfraType()
+      before: sdk.metrics.getV1MetricsInfraType()
+      type: method-name
+  - target: $["paths"]["/v1/changes"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.changes.list()
+      before: sdk.changes.getV1Changes()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/status_pages"]["post"]
+    update:
+      x-speakeasy-name-override: addStatusPage
+    x-speakeasy-metadata:
+      after: sdk.incidents.addStatusPage()
+      before: sdk.incidents.postV1IncidentsIncidentIdStatusPages()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Users/{id}"]["delete"]
+    update:
+      x-speakeasy-group: scim.users
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.scim.users.delete()
+      before: sdk.scim.deleteV1ScimV2UsersId()
+      type: method-name
+  - target: $["paths"]["/v1/changes/events"]["post"]
+    update:
+      x-speakeasy-name-override: createEvent
+    x-speakeasy-metadata:
+      after: sdk.changes.createEvent()
+      before: sdk.changes.postV1ChangesEvents()
+      type: method-name
+  - target: $["paths"]["/v1/incidents"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.incidents.create()
+      before: sdk.incidents.postV1Incidents()
+      type: method-name
+  - target: $["paths"]["/v1/conversations/{conversation_id}/comments"]["post"]
+    update:
+      x-speakeasy-group: conversations.comments
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.conversations.comments.create()
+      before: sdk.conversations.postV1ConversationsConversationIdComments()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}/steps/{step_id}/votes"]["patch"]
+    update:
+      x-speakeasy-name-override: updateVote
+    x-speakeasy-metadata:
+      after: sdk.runbooks.updateVote()
+      before: sdk.runbooks.patchV1RunbooksExecutionsExecutionIdStepsStepIdVotes()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/tickets/{ticket_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: patchTicket
+    x-speakeasy-metadata:
+      after: sdk.ticketing.patchTicket()
+      before: sdk.ticketing.patchV1TicketingTicketsTicketId()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/{runbook_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.runbooks.get()
+      before: sdk.runbooks.getV1RunbooksRunbookId()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Users"]["get"]
+    update:
+      x-speakeasy-name-override: getUsers
+    x-speakeasy-metadata:
+      after: sdk.scim.getUsers()
+      before: sdk.scim.getV1ScimV2Users()
+      type: method-name
+  - target: $["paths"]["/v1/incident_types/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.incident_types.delete()
+      before: sdk.incident_types.deleteV1IncidentTypesId()
+      type: method-name
+  - target: $["paths"]["/v1/catalogs/{catalog_id}/ingest"]["post"]
+    update:
+      x-speakeasy-name-override: ingest
+    x-speakeasy-metadata:
+      after: sdk.catalogs.ingest()
+      before: sdk.catalogs.postV1CatalogsCatalogIdIngest()
+      type: method-name
+  - target: $["paths"]["/v1/incident_roles/{incident_role_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.incident_roles.update()
+      before: sdk.incident_roles.patchV1IncidentRolesIncidentRoleId()
+      type: method-name
+  - target: $["paths"]["/v1/checklist_templates"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.checklist_templates.list()
+      before: sdk.checklist_templates.getV1ChecklistTemplates()
+      type: method-name
+  - target: $["paths"]["/v1/status_update_templates/{status_update_template_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.status_update_templates.delete()
+      before: sdk.status_update_templates.deleteV1StatusUpdateTemplatesStatusUpdateTemplateId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/statuspage/connections/{connection_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getStatuspageConnection
+    x-speakeasy-metadata:
+      after: sdk.integrations.getStatuspageConnection()
+      before: sdk.integrations.getV1IntegrationsStatuspageConnectionsConnectionId()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/conditions"]["post"]
+    update:
+      x-speakeasy-name-override: createCondition
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.createCondition()
+      before: sdk.severity_matrix.postV1SeverityMatrixConditions()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/signal_rules/{id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateSignalRule
+    x-speakeasy-metadata:
+      after: sdk.teams.updateSignalRule()
+      before: sdk.teams.patchV1TeamsTeamIdSignalRulesId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/resolve"]["put"]
+    update:
+      x-speakeasy-name-override: resolve
+    x-speakeasy-metadata:
+      after: sdk.incidents.resolve()
+      before: sdk.incidents.putV1IncidentsIncidentIdResolve()
+      type: method-name
+  - target: $["paths"]["/v1/services/{service_id}/available_upstream_dependencies"]["get"]
+    update:
+      x-speakeasy-name-override: getAvailableUpstreamDependencies
+    x-speakeasy-metadata:
+      after: sdk.services.getAvailableUpstreamDependencies()
+      before: sdk.services.getV1ServicesServiceIdAvailableUpstreamDependencies()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/signal_rules"]["get"]
+    update:
+      x-speakeasy-name-override: getSignalRules
+    x-speakeasy-metadata:
+      after: sdk.teams.getSignalRules()
+      before: sdk.teams.getV1TeamsTeamIdSignalRules()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules"]["post"]
+    update:
+      x-speakeasy-group: teams.on_call_schedules
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.teams.on_call_schedules.create()
+      before: sdk.teams.postV1TeamsTeamIdOnCallSchedules()
+      type: method-name
+  - target: $["paths"]["/v1/task_lists/{task_list_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.task_lists.delete()
+      before: sdk.task_lists.deleteV1TaskListsTaskListId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/analytics/mttx"]["get"]
+    update:
+      x-speakeasy-name-override: getMttxMetrics
+    x-speakeasy-metadata:
+      after: sdk.signals.getMttxMetrics()
+      before: sdk.signals.getV1SignalsAnalyticsMttx()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/field_maps/{map_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateFieldMap
+    x-speakeasy-metadata:
+      after: sdk.ticketing.updateFieldMap()
+      before: sdk.ticketing.patchV1TicketingProjectsTicketingProjectIdFieldMapsMapId()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/conditions/{condition_id}"]["delete"]
+    update:
+      x-speakeasy-group: severityMatrix
+      x-speakeasy-name-override: deleteCondition
+    x-speakeasy-metadata:
+      after: sdk.severityMatrix.deleteCondition()
+      before: sdk.severity_matrix.deleteV1SeverityMatrixConditionsConditionId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/slack/connections/{connection_id}/workspaces"]["get"]
+    update:
+      x-speakeasy-name-override: getSlackWorkspaces
+    x-speakeasy-metadata:
+      after: sdk.integrations.getSlackWorkspaces()
+      before: sdk.integrations.getV1IntegrationsSlackConnectionsConnectionIdWorkspaces()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/escalation_policies/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteEscalationPolicy
+    x-speakeasy-metadata:
+      after: sdk.teams.deleteEscalationPolicy()
+      before: sdk.teams.deleteV1TeamsTeamIdEscalationPoliciesId()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.runbooks.list()
+      before: sdk.runbooks.getV1Runbooks()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}/reasons"]["post"]
+    update:
+      x-speakeasy-group: post_mortems.contributing_factors
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.contributing_factors.create()
+      before: sdk.post_mortems.postV1PostMortemsReportsReportIdReasons()
+      type: method-name
+  - target: $["paths"]["/v1/functionalities/{functionality_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.functionalities.get()
+      before: sdk.functionalities.getV1FunctionalitiesFunctionalityId()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports"]["post"]
+    update:
+      x-speakeasy-name-override: createReport
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.createReport()
+      before: sdk.post_mortems.postV1PostMortemsReports()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/generic_chat_messages"]["post"]
+    update:
+      x-speakeasy-name-override: addGenericChatMessage
+    x-speakeasy-metadata:
+      after: sdk.incidents.addGenericChatMessage()
+      before: sdk.incidents.postV1IncidentsIncidentIdGenericChatMessages()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules/{schedule_id}/shifts"]["post"]
+    update:
+      x-speakeasy-name-override: createOnCallShift
+    x-speakeasy-metadata:
+      after: sdk.teams.createOnCallShift()
+      before: sdk.teams.postV1TeamsTeamIdOnCallSchedulesScheduleIdShifts()
+      type: method-name
+  - target: $["paths"]["/v1/scheduled_maintenances/{scheduled_maintenance_id}"]["patch"]
+    update:
+      x-speakeasy-group: scheduledMaintenances
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.scheduledMaintenances.update()
+      before: sdk.scheduled_maintenances.patchV1ScheduledMaintenancesScheduledMaintenanceId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/links"]["post"]
+    update:
+      x-speakeasy-name-override: addLink
+    x-speakeasy-metadata:
+      after: sdk.incidents.addLink()
+      before: sdk.incidents.postV1IncidentsIncidentIdLinks()
+      type: method-name
+  - target: $["paths"]["/v1/environments/{environment_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.environments.delete()
+      before: sdk.environments.deleteV1EnvironmentsEnvironmentId()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/signal_rules/{id}"]["delete"]
+    update:
+      x-speakeasy-group: teams.signal_rules
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.teams.signal_rules.delete()
+      before: sdk.teams.deleteV1TeamsTeamIdSignalRulesId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/analytics/timeseries"]["get"]
+    update:
+      x-speakeasy-name-override: generateTimeseriesMetrics
+    x-speakeasy-metadata:
+      after: sdk.signals.generateTimeseriesMetrics()
+      before: sdk.signals.getV1SignalsAnalyticsTimeseries()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/links"]["get"]
+    update:
+      x-speakeasy-name-override: listLinks
+    x-speakeasy-metadata:
+      after: sdk.incidents.listLinks()
+      before: sdk.incidents.getV1IncidentsIncidentIdLinks()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/connections"]["get"]
+    update:
+      x-speakeasy-name-override: listConnections
+    x-speakeasy-metadata:
+      after: sdk.integrations.listConnections()
+      before: sdk.integrations.getV1IntegrationsConnections()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/questions"]["get"]
+    update:
+      x-speakeasy-name-override: listQuestions
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.listQuestions()
+      before: sdk.post_mortems.getV1PostMortemsQuestions()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.teams.get()
+      before: sdk.teams.getV1TeamsTeamId()
+      type: method-name
+  - target: $["paths"]["/v1/severities/{severity_slug}"]["get"]
+    update:
+      x-speakeasy-name-override: retrieve
+    x-speakeasy-metadata:
+      after: sdk.severities.retrieve()
+      before: sdk.severities.getV1SeveritiesSeveritySlug()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/measurement_definitions/{measurement_definition_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: archiveMeasurementDefinition
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.archiveMeasurementDefinition()
+      before: sdk.lifecycles.deleteV1LifecyclesMeasurementDefinitionsMeasurementDefinitionId()
+      type: method-name
+  - target: $["paths"]["/v1/users"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.users.list()
+      before: sdk.users.getV1Users()
+      type: method-name
+  - target: $["paths"]["/v1/signals/webhook_targets/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: getWebhookTarget
+    x-speakeasy-metadata:
+      after: sdk.signals.getWebhookTarget()
+      before: sdk.signals.getV1SignalsWebhookTargetsId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/tasks/{task_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteTask
+    x-speakeasy-metadata:
+      after: sdk.incidents.deleteTask()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdTasksTaskId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: archive
+    x-speakeasy-metadata:
+      after: sdk.incidents.archive()
+      before: sdk.incidents.deleteV1IncidentsIncidentId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.incidents.list()
+      before: sdk.incidents.getV1Incidents()
+      type: method-name
+  - target: $["paths"]["/v1/changes/{change_id}/identities/{identity_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteIdentity
+    x-speakeasy-metadata:
+      after: sdk.changes.deleteIdentity()
+      before: sdk.changes.deleteV1ChangesChangeIdIdentitiesIdentityId()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Groups"]["post"]
+    update:
+      x-speakeasy-name-override: createTeam
+    x-speakeasy-metadata:
+      after: sdk.scim.createTeam()
+      before: sdk.scim.postV1ScimV2Groups()
+      type: method-name
+  - target: $["paths"]["/v1/functionalities/{functionality_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.functionalities.update()
+      before: sdk.functionalities.patchV1FunctionalitiesFunctionalityId()
+      type: method-name
+  - target: $["paths"]["/v1/environments"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.environments.list()
+      before: sdk.environments.getV1Environments()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Groups/{id}"]["put"]
+    update:
+      x-speakeasy-name-override: updateGroup
+    x-speakeasy-metadata:
+      after: sdk.scim.updateGroup()
+      before: sdk.scim.putV1ScimV2GroupsId()
+      type: method-name
+  - target: $["paths"]["/v1/incident_types"]["get"]
+    update:
+      x-speakeasy-group: incidentTypes
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.incidentTypes.list()
+      before: sdk.incident_types.getV1IncidentTypes()
+      type: method-name
+  - target: $["paths"]["/v1/services/{service_id}/dependencies"]["get"]
+    update:
+      x-speakeasy-name-override: getDependencies
+    x-speakeasy-metadata:
+      after: sdk.services.getDependencies()
+      before: sdk.services.getV1ServicesServiceIdDependencies()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/events/{event_id}/votes"]["patch"]
+    update:
+      x-speakeasy-name-override: updateVotes
+    x-speakeasy-metadata:
+      after: sdk.incidents.updateVotes()
+      before: sdk.incidents.patchV1IncidentsIncidentIdEventsEventIdVotes()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/task_lists"]["post"]
+    update:
+      x-speakeasy-name-override: addTaskList
+    x-speakeasy-metadata:
+      after: sdk.incidents.addTaskList()
+      before: sdk.incidents.postV1IncidentsIncidentIdTaskLists()
+      type: method-name
+  - target: $["paths"]["/v1/saved_searches/{resource_type}/{saved_search_id}"]["get"]
+    update:
+      x-speakeasy-group: savedSearches
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.savedSearches.get()
+      before: sdk.saved_searches.getV1SavedSearchesResourceTypeSavedSearchId()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/signal_rules/{id}"]["get"]
+    update:
+      x-speakeasy-group: teams.signal_rules
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.teams.signal_rules.get()
+      before: sdk.teams.getV1TeamsTeamIdSignalRulesId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/webhook_targets"]["get"]
+    update:
+      x-speakeasy-group: signals.webhook_targets
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.signals.webhook_targets.list()
+      before: sdk.signals.getV1SignalsWebhookTargets()
+      type: method-name
+  - target: $["paths"]["/v1/entitlements"]["get"]
+    update:
+      x-speakeasy-name-override: retrieve
+    x-speakeasy-metadata:
+      after: sdk.entitlements.retrieve()
+      before: sdk.entitlements.getV1Entitlements()
+      type: method-name
+  - target: $["paths"]["/v1/status_update_templates"]["get"]
+    update:
+      x-speakeasy-group: statusUpdateTemplates
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.statusUpdateTemplates.list()
+      before: sdk.status_update_templates.getV1StatusUpdateTemplates()
+      type: method-name
+  - target: $["paths"]["/v1/runbook_audits"]["get"]
+    update:
+      x-speakeasy-group: runbookAudits
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.runbookAudits.list()
+      before: sdk.runbook_audits.getV1RunbookAudits()
+      type: method-name
+  - target: $["paths"]["/v1/incident_tags"]["get"]
+    update:
+      x-speakeasy-name-override: list
+      x-speakeasy-group: incidentTags
+    x-speakeasy-metadata:
+      after: sdk.incidentTags.list()
+      before: sdk.incident_tags.getV1IncidentTags()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}"]["delete"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.delete()
+      before: sdk.nunc_connections.deleteV1NuncConnectionsNuncConnectionId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/attachments"]["get"]
+    update:
+      x-speakeasy-name-override: getAttachments
+    x-speakeasy-metadata:
+      after: sdk.incidents.getAttachments()
+      before: sdk.incidents.getV1IncidentsIncidentIdAttachments()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/milestones"]["post"]
+    update:
+      x-speakeasy-name-override: createMilestone
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.createMilestone()
+      before: sdk.lifecycles.postV1LifecyclesMilestones()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/field_maps"]["post"]
+    update:
+      x-speakeasy-name-override: createFieldMap
+    x-speakeasy-metadata:
+      after: sdk.ticketing.createFieldMap()
+      before: sdk.ticketing.postV1TicketingProjectsTicketingProjectIdFieldMaps()
+      type: method-name
+  - target: $["paths"]["/v1/incident_types"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.incident_types.create()
+      before: sdk.incident_types.postV1IncidentTypes()
+      type: method-name
+  - target: $["paths"]["/v1/conversations/{conversation_id}/comments/{comment_id}/reactions"]["post"]
+    update:
+      x-speakeasy-name-override: createReaction
+    x-speakeasy-metadata:
+      after: sdk.conversations.createReaction()
+      before: sdk.conversations.postV1ConversationsConversationIdCommentsCommentIdReactions()
+      type: method-name
+  - target: $["paths"]["/v1/severities/{severity_slug}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.severities.update()
+      before: sdk.severities.patchV1SeveritiesSeveritySlug()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/{runbook_id}"]["put"]
+    update:
+      x-speakeasy-name-override: put
+    x-speakeasy-metadata:
+      after: sdk.runbooks.put()
+      before: sdk.runbooks.putV1RunbooksRunbookId()
+      type: method-name
+  - target: $["paths"]["/v1/users/{id}/services"]["get"]
+    update:
+      x-speakeasy-name-override: getServices
+    x-speakeasy-metadata:
+      after: sdk.users.getServices()
+      before: sdk.users.getV1UsersIdServices()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/zendesk/search"]["get"]
+    update:
+      x-speakeasy-name-override: getZendeskSearch
+    x-speakeasy-metadata:
+      after: sdk.integrations.getZendeskSearch()
+      before: sdk.integrations.getV1IntegrationsZendeskSearch()
+      type: method-name
+  - target: $["paths"]["/v1/scheduled_maintenances"]["get"]
+    update:
+      x-speakeasy-group: scheduledMaintenances
+      x-speakeasy-name-override: listAll
+    x-speakeasy-metadata:
+      after: sdk.scheduledMaintenances.listAll()
+      before: sdk.scheduled_maintenances.getV1ScheduledMaintenances()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/milestones/{milestone_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteMilestone
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.deleteMilestone()
+      before: sdk.lifecycles.deleteV1LifecyclesMilestonesMilestoneId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/related_change_events"]["get"]
+    update:
+      x-speakeasy-name-override: listRelatedChangeEvents
+    x-speakeasy-metadata:
+      after: sdk.incidents.listRelatedChangeEvents()
+      before: sdk.incidents.getV1IncidentsIncidentIdRelatedChangeEvents()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/transcript/{transcript_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteTranscript
+    x-speakeasy-metadata:
+      after: sdk.incidents.deleteTranscript()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdTranscriptTranscriptId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/field_maps/{field_map_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateFieldMap
+    x-speakeasy-metadata:
+      after: sdk.integrations.updateFieldMap()
+      before: sdk.integrations.patchV1IntegrationsFieldMapsFieldMapId()
+      type: method-name
+  - target: $["paths"]["/v1/scheduled_maintenances"]["post"]
+    update:
+      x-speakeasy-group: scheduledMaintenances
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.scheduledMaintenances.create()
+      before: sdk.scheduled_maintenances.postV1ScheduledMaintenances()
+      type: method-name
+  - target: $["paths"]["/v1/metrics/user_involvements"]["get"]
+    update:
+      x-speakeasy-name-override: listUserInvolvements
+    x-speakeasy-metadata:
+      after: sdk.metrics.listUserInvolvements()
+      before: sdk.metrics.getV1MetricsUserInvolvements()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/team_assignments/{team_assignment_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteTeamAssignment
+    x-speakeasy-metadata:
+      after: sdk.incidents.deleteTeamAssignment()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdTeamAssignmentsTeamAssignmentId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/configuration_options"]["get"]
+    update:
+      x-speakeasy-name-override: getConfigOptions
+    x-speakeasy-metadata:
+      after: sdk.ticketing.getConfigOptions()
+      before: sdk.ticketing.getV1TicketingProjectsTicketingProjectIdConfigurationOptions()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Groups"]["get"]
+    update:
+      x-speakeasy-name-override: listTeams
+    x-speakeasy-metadata:
+      after: sdk.scim.listTeams()
+      before: sdk.scim.getV1ScimV2Groups()
+      type: method-name
+  - target: $["paths"]["/v1/teams"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.teams.list()
+      before: sdk.teams.getV1Teams()
+      type: method-name
+  - target: $["paths"]["/v1/metrics/{infra_type}/{infra_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.metrics.get()
+      before: sdk.metrics.getV1MetricsInfraTypeInfraId()
+      type: method-name
+  - target: $["paths"]["/v1/incident_roles/{incident_role_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.incident_roles.get()
+      before: sdk.incident_roles.getV1IncidentRolesIncidentRoleId()
+      type: method-name
+  - target: $["paths"]["/v1/incident_roles/{incident_role_id}"]["delete"]
+    update:
+      x-speakeasy-group: incidentRoles
+      x-speakeasy-name-override: archive
+    x-speakeasy-metadata:
+      after: sdk.incidentRoles.archive()
+      before: sdk.incident_roles.deleteV1IncidentRolesIncidentRoleId()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/questions"]["put"]
+    update:
+      x-speakeasy-name-override: updateQuestions
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.updateQuestions()
+      before: sdk.post_mortems.putV1PostMortemsQuestions()
+      type: method-name
+  - target: $["paths"]["/v1/conversations/{conversation_id}/comments/{comment_id}"]["delete"]
+    update:
+      x-speakeasy-group: conversations.comments
+      x-speakeasy-name-override: archive
+    x-speakeasy-metadata:
+      after: sdk.conversations.comments.archive()
+      before: sdk.conversations.deleteV1ConversationsConversationIdCommentsCommentId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/email_targets"]["get"]
+    update:
+      x-speakeasy-name-override: listEmailTargets
+    x-speakeasy-metadata:
+      after: sdk.signals.listEmailTargets()
+      before: sdk.signals.getV1SignalsEmailTargets()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getExecution
+    x-speakeasy-metadata:
+      after: sdk.runbooks.getExecution()
+      before: sdk.runbooks.getV1RunbooksExecutionsExecutionId()
+      type: method-name
+  - target: $["paths"]["/v1/priorities/{priority_slug}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.priorities.update()
+      before: sdk.priorities.patchV1PrioritiesPrioritySlug()
+      type: method-name
+  - target: $["paths"]["/v1/bootstrap"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.bootstrap.get()
+      before: sdk.bootstrap.getV1Bootstrap()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/priorities/{id}"]["patch"]
+    update:
+      x-speakeasy-group: ticketing.priorities
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.ticketing.priorities.update()
+      before: sdk.ticketing.patchV1TicketingPrioritiesId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/statuspage/connections/{connection_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteStatuspageConnection
+    x-speakeasy-metadata:
+      after: sdk.integrations.deleteStatuspageConnection()
+      before: sdk.integrations.deleteV1IntegrationsStatuspageConnectionsConnectionId()
+      type: method-name
+  - target: $["paths"]["/v1/incident_types/{id}"]["patch"]
+    update:
+      x-speakeasy-group: incidentTypes
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.incidentTypes.update()
+      before: sdk.incident_types.patchV1IncidentTypesId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/events/{event_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteEvent
+    x-speakeasy-metadata:
+      after: sdk.incidents.deleteEvent()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdEventsEventId()
+      type: method-name
+  - target: $["paths"]["/v1/changes/events"]["get"]
+    update:
+      x-speakeasy-name-override: listEvents
+    x-speakeasy-metadata:
+      after: sdk.changes.listEvents()
+      before: sdk.changes.getV1ChangesEvents()
+      type: method-name
+  - target: $["paths"]["/v1/checklist_templates/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: archive
+    x-speakeasy-metadata:
+      after: sdk.checklist_templates.archive()
+      before: sdk.checklist_templates.deleteV1ChecklistTemplatesId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/aws/cloudtrail_batches/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: getCloudtrailBatch
+    x-speakeasy-metadata:
+      after: sdk.integrations.getCloudtrailBatch()
+      before: sdk.integrations.getV1IntegrationsAwsCloudtrailBatchesId()
+      type: method-name
+  - target: $["paths"]["/v1/environments/{environment_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.environments.get()
+      before: sdk.environments.getV1EnvironmentsEnvironmentId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/analytics/grouped_metrics"]["get"]
+    update:
+      x-speakeasy-name-override: getGroupedMetrics
+    x-speakeasy-metadata:
+      after: sdk.signals.getGroupedMetrics()
+      before: sdk.signals.getV1SignalsAnalyticsGroupedMetrics()
+      type: method-name
+  - target: $["paths"]["/v1/reports/mean_time"]["get"]
+    update:
+      x-speakeasy-name-override: getMeanTime
+    x-speakeasy-metadata:
+      after: sdk.reports.getMeanTime()
+      before: sdk.reports.getV1ReportsMeanTime()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules/{schedule_id}/shifts/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: getOnCallShift
+    x-speakeasy-metadata:
+      after: sdk.teams.getOnCallShift()
+      before: sdk.teams.getV1TeamsTeamIdOnCallSchedulesScheduleIdShiftsId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/impact"]["patch"]
+    update:
+      x-speakeasy-name-override: updateImpact
+    x-speakeasy-metadata:
+      after: sdk.incidents.updateImpact()
+      before: sdk.incidents.patchV1IncidentsIncidentIdImpact()
+      type: method-name
+  - target: $["paths"]["/v1/ping"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.ping.get()
+      before: sdk.ping.getV1Ping()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/questions/{question_id}"]["get"]
+    update:
+      x-speakeasy-group: postMortems
+      x-speakeasy-name-override: getQuestion
+    x-speakeasy-metadata:
+      after: sdk.postMortems.getQuestion()
+      before: sdk.post_mortems.getV1PostMortemsQuestionsQuestionId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/slack/connections/{connection_id}/emoji_actions"]["post"]
+    update:
+      x-speakeasy-name-override: createSlackEmojiAction
+    x-speakeasy-metadata:
+      after: sdk.integrations.createSlackEmojiAction()
+      before: sdk.integrations.postV1IntegrationsSlackConnectionsConnectionIdEmojiActions()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/field_maps/{map_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteFieldMap
+    x-speakeasy-metadata:
+      after: sdk.ticketing.deleteFieldMap()
+      before: sdk.ticketing.deleteV1TicketingProjectsTicketingProjectIdFieldMapsMapId()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Groups/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.scim.delete()
+      before: sdk.scim.deleteV1ScimV2GroupsId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/aws/connections"]["get"]
+    update:
+      x-speakeasy-name-override: getAwsConnections
+    x-speakeasy-metadata:
+      after: sdk.integrations.getAwsConnections()
+      before: sdk.integrations.getV1IntegrationsAwsConnections()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/actions"]["get"]
+    update:
+      x-speakeasy-name-override: listActions
+    x-speakeasy-metadata:
+      after: sdk.runbooks.listActions()
+      before: sdk.runbooks.getV1RunbooksActions()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/escalation_policies/{id}"]["patch"]
+    update:
+      x-speakeasy-group: teams.escalation_policies
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.teams.escalation_policies.update()
+      before: sdk.teams.patchV1TeamsTeamIdEscalationPoliciesId()
+      type: method-name
+  - target: $["paths"]["/v1/priorities"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.priorities.create()
+      before: sdk.priorities.postV1Priorities()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/connections/{slug}/{connection_id}/refresh"]["patch"]
+    update:
+      x-speakeasy-name-override: refreshConnection
+    x-speakeasy-metadata:
+      after: sdk.integrations.refreshConnection()
+      before: sdk.integrations.patchV1IntegrationsConnectionsSlugConnectionIdRefresh()
+      type: method-name
+  - target: $["paths"]["/v1/nunc/subscriptions/{unsubscribe_token}"]["delete"]
+    update:
+      x-speakeasy-name-override: unsubscribe
+    x-speakeasy-metadata:
+      after: sdk.nunc.unsubscribe()
+      before: sdk.nunc.deleteV1NuncSubscriptionsUnsubscribeToken()
+      type: method-name
+  - target: $["paths"]["/v1/alerts"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.alerts.list()
+      before: sdk.alerts.getV1Alerts()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/conditions/{condition_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getCondition
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.getCondition()
+      before: sdk.severity_matrix.getV1SeverityMatrixConditionsConditionId()
+      type: method-name
+  - target: $["paths"]["/v1/task_lists/{task_list_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.task_lists.update()
+      before: sdk.task_lists.patchV1TaskListsTaskListId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/close"]["put"]
+    update:
+      x-speakeasy-name-override: close
+    x-speakeasy-metadata:
+      after: sdk.incidents.close()
+      before: sdk.incidents.putV1IncidentsIncidentIdClose()
+      type: method-name
+  - target: $["paths"]["/v1/incident_types/{id}"]["get"]
+    update:
+      x-speakeasy-group: incidentTypes
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.incidentTypes.get()
+      before: sdk.incident_types.getV1IncidentTypesId()
+      type: method-name
+  - target: $["paths"]["/v1/service_dependencies/{service_dependency_id}"]["get"]
+    update:
+      x-speakeasy-group: serviceDependencies
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.serviceDependencies.get()
+      before: sdk.service_dependencies.getV1ServiceDependenciesServiceDependencyId()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Users/{id}"]["put"]
+    update:
+      x-speakeasy-name-override: updateUser
+    x-speakeasy-metadata:
+      after: sdk.scim.updateUser()
+      before: sdk.scim.putV1ScimV2UsersId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/priorities"]["get"]
+    update:
+      x-speakeasy-name-override: listPriorities
+    x-speakeasy-metadata:
+      after: sdk.ticketing.listPriorities()
+      before: sdk.ticketing.getV1TicketingPriorities()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/generic_chat_messages/{message_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteGenericChatMessage
+    x-speakeasy-metadata:
+      after: sdk.incidents.deleteGenericChatMessage()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdGenericChatMessagesMessageId()
+      type: method-name
+  - target: $["paths"]["/v1/task_lists"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.task_lists.list()
+      before: sdk.task_lists.getV1TaskLists()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/attachments"]["post"]
+    update:
+      x-speakeasy-name-override: addAttachment
+    x-speakeasy-metadata:
+      after: sdk.incidents.addAttachment()
+      before: sdk.incidents.postV1IncidentsIncidentIdAttachments()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}/reasons/{reason_id}"]["patch"]
+    update:
+      x-speakeasy-group: postMortems
+      x-speakeasy-name-override: updateReason
+    x-speakeasy-metadata:
+      after: sdk.postMortems.updateReason()
+      before: sdk.post_mortems.patchV1PostMortemsReportsReportIdReasonsReasonId()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/measurement_definitions"]["post"]
+    update:
+      x-speakeasy-name-override: createMeasurementDefinition
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.createMeasurementDefinition()
+      before: sdk.lifecycles.postV1LifecyclesMeasurementDefinitions()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/escalation_policies"]["get"]
+    update:
+      x-speakeasy-name-override: listEscalationPolicies
+    x-speakeasy-metadata:
+      after: sdk.teams.listEscalationPolicies()
+      before: sdk.teams.getV1TeamsTeamIdEscalationPolicies()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/slack/connections/{connection_id}/emoji_actions/{emoji_action_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteSlackEmojiAction
+    x-speakeasy-metadata:
+      after: sdk.integrations.deleteSlackEmojiAction()
+      before: sdk.integrations.deleteV1IntegrationsSlackConnectionsConnectionIdEmojiActionsEmojiActionId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/tickets/{ticket_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteTicket
+    x-speakeasy-metadata:
+      after: sdk.ticketing.deleteTicket()
+      before: sdk.ticketing.deleteV1TicketingTicketsTicketId()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/links"]["post"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: addLink
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.addLink()
+      before: sdk.nunc_connections.postV1NuncConnectionsNuncConnectionIdLinks()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/images/{type}"]["delete"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: deleteImage
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.deleteImage()
+      before: sdk.nunc_connections.deleteV1NuncConnectionsNuncConnectionIdImagesType()
+      type: method-name
+  - target: $["paths"]["/v1/custom_fields/definitions"]["get"]
+    update:
+      x-speakeasy-group: customFields
+      x-speakeasy-name-override: listDefinitions
+    x-speakeasy-metadata:
+      after: sdk.customFields.listDefinitions()
+      before: sdk.custom_fields.getV1CustomFieldsDefinitions()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/alerts/{incident_alert_id}/primary"]["patch"]
+    update:
+      x-speakeasy-name-override: setPrimaryAlert
+    x-speakeasy-metadata:
+      after: sdk.incidents.setPrimaryAlert()
+      before: sdk.incidents.patchV1IncidentsIncidentIdAlertsIncidentAlertIdPrimary()
+      type: method-name
+  - target: $["paths"]["/v1/scheduled_maintenances/{scheduled_maintenance_id}"]["get"]
+    update:
+      x-speakeasy-group: scheduledMaintenances
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.scheduledMaintenances.get()
+      before: sdk.scheduled_maintenances.getV1ScheduledMaintenancesScheduledMaintenanceId()
+      type: method-name
+  - target: $["paths"]["/v1/services/{service_id}/checklist_response/{checklist_id}"]["post"]
+    update:
+      x-speakeasy-name-override: createChecklistResponse
+    x-speakeasy-metadata:
+      after: sdk.services.createChecklistResponse()
+      before: sdk.services.postV1ServicesServiceIdChecklistResponseChecklistId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/aws/cloudtrail_batches"]["get"]
+    update:
+      x-speakeasy-name-override: listCloudTrailBatches
+    x-speakeasy-metadata:
+      after: sdk.integrations.listCloudTrailBatches()
+      before: sdk.integrations.getV1IntegrationsAwsCloudtrailBatches()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/slack/connections/{connection_id}/emoji_actions/{emoji_action_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getSlackEmojiAction
+    x-speakeasy-metadata:
+      after: sdk.integrations.getSlackEmojiAction()
+      before: sdk.integrations.getV1IntegrationsSlackConnectionsConnectionIdEmojiActionsEmojiActionId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/statuspage/connections/{connection_id}/pages"]["get"]
+    update:
+      x-speakeasy-name-override: getStatuspageConnectionsPages
+    x-speakeasy-metadata:
+      after: sdk.integrations.getStatuspageConnectionsPages()
+      before: sdk.integrations.getV1IntegrationsStatuspageConnectionsConnectionIdPages()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/statuspage/connections/{connection_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateStatuspageConnection
+    x-speakeasy-metadata:
+      after: sdk.integrations.updateStatuspageConnection()
+      before: sdk.integrations.patchV1IntegrationsStatuspageConnectionsConnectionId()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/impacts"]["post"]
+    update:
+      x-speakeasy-name-override: createImpact
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.createImpact()
+      before: sdk.severity_matrix.postV1SeverityMatrixImpacts()
+      type: method-name
+  - target: $["paths"]["/v1/service_dependencies/{service_dependency_id}"]["delete"]
+    update:
+      x-speakeasy-group: serviceDependencies
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.serviceDependencies.delete()
+      before: sdk.service_dependencies.deleteV1ServiceDependenciesServiceDependencyId()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules/{schedule_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateOnCallSchedule
+    x-speakeasy-metadata:
+      after: sdk.teams.updateOnCallSchedule()
+      before: sdk.teams.patchV1TeamsTeamIdOnCallSchedulesScheduleId()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Users"]["post"]
+    update:
+      x-speakeasy-name-override: createUser
+    x-speakeasy-metadata:
+      after: sdk.scim.createUser()
+      before: sdk.scim.postV1ScimV2Users()
+      type: method-name
+  - target: $["paths"]["/v1/custom_fields/definitions"]["post"]
+    update:
+      x-speakeasy-name-override: createDefinition
+    x-speakeasy-metadata:
+      after: sdk.custom_fields.createDefinition()
+      before: sdk.custom_fields.postV1CustomFieldsDefinitions()
+      type: method-name
+  - target: $["paths"]["/v1/services/{service_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.services.update()
+      before: sdk.services.patchV1ServicesServiceId()
+      type: method-name
+  - target: $["paths"]["/v1/severities"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.severities.create()
+      before: sdk.severities.postV1Severities()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/statuses/{slug}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+      x-speakeasy-group: integrations.statuses
+    x-speakeasy-metadata:
+      after: sdk.integrations.statuses.get()
+      before: sdk.integrations.getV1IntegrationsStatusesSlug()
+      type: method-name
+  - target: $["paths"]["/v1/metrics/retrospectives"]["get"]
+    update:
+      x-speakeasy-name-override: listRetrospectives
+    x-speakeasy-metadata:
+      after: sdk.metrics.listRetrospectives()
+      before: sdk.metrics.getV1MetricsRetrospectives()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/connections/{slug}"]["post"]
+    update:
+      x-speakeasy-name-override: createConnection
+    x-speakeasy-metadata:
+      after: sdk.integrations.createConnection()
+      before: sdk.integrations.postV1IntegrationsConnectionsSlug()
+      type: method-name
+  - target: $["paths"]["/v1/incident_tags/validate"]["post"]
+    update:
+      x-speakeasy-name-override: validate
+    x-speakeasy-metadata:
+      after: sdk.incident_tags.validate()
+      before: sdk.incident_tags.postV1IncidentTagsValidate()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix/impacts/{impact_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateImpact
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.updateImpact()
+      before: sdk.severity_matrix.patchV1SeverityMatrixImpactsImpactId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/slack/connections/{connection_id}/emoji_actions/{emoji_action_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateSlackEmojiAction
+    x-speakeasy-metadata:
+      after: sdk.integrations.updateSlackEmojiAction()
+      before: sdk.integrations.patchV1IntegrationsSlackConnectionsConnectionIdEmojiActionsEmojiActionId()
+      type: method-name
+  - target: $["paths"]["/v1/conversations/{conversation_id}/comments/{comment_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: patchComment
+    x-speakeasy-metadata:
+      after: sdk.conversations.patchComment()
+      before: sdk.conversations.patchV1ConversationsConversationIdCommentsCommentId()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/subscribers"]["post"]
+    update:
+      x-speakeasy-name-override: addSubscribers
+    x-speakeasy-metadata:
+      after: sdk.nunc_connections.addSubscribers()
+      before: sdk.nunc_connections.postV1NuncConnectionsNuncConnectionIdSubscribers()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/{runbook_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.runbooks.delete()
+      before: sdk.runbooks.deleteV1RunbooksRunbookId()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/subscribers"]["delete"]
+    update:
+      x-speakeasy-name-override: unsubscribe
+    x-speakeasy-metadata:
+      after: sdk.nunc_connections.unsubscribe()
+      before: sdk.nunc_connections.deleteV1NuncConnectionsNuncConnectionIdSubscribers()
+      type: method-name
+  - target: $["paths"]["/v1/conversations/{conversation_id}/comments"]["get"]
+    update:
+      x-speakeasy-group: conversations.comments
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.conversations.comments.list()
+      before: sdk.conversations.getV1ConversationsConversationIdComments()
+      type: method-name
+  - target: $["paths"]["/v1/signals/ingest_url"]["get"]
+    update:
+      x-speakeasy-name-override: getIngestUrl
+    x-speakeasy-metadata:
+      after: sdk.signals.getIngestUrl()
+      before: sdk.signals.getV1SignalsIngestUrl()
+      type: method-name
+  - target: $["paths"]["/v1/processing_log_entries"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.processing_log_entries.list()
+      before: sdk.processing_log_entries.getV1ProcessingLogEntries()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/links/{link_id}"]["patch"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: updateLink
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.updateLink()
+      before: sdk.nunc_connections.patchV1NuncConnectionsNuncConnectionIdLinksLinkId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.incidents.update()
+      before: sdk.incidents.patchV1IncidentsIncidentId()
+      type: method-name
+  - target: $["paths"]["/v1/incident_roles"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.incident_roles.list()
+      before: sdk.incident_roles.getV1IncidentRoles()
+      type: method-name
+  - target: $["paths"]["/v1/functionalities"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.functionalities.list()
+      before: sdk.functionalities.getV1Functionalities()
+      type: method-name
+  - target: $["paths"]["/v1/signals/webhook_targets"]["post"]
+    update:
+      x-speakeasy-group: signals.webhook_targets
+      x-speakeasy-name-override: post
+    x-speakeasy-metadata:
+      after: sdk.signals.webhook_targets.post()
+      before: sdk.signals.postV1SignalsWebhookTargets()
+      type: method-name
+  - target: $["paths"]["/v1/priorities/{priority_slug}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.priorities.get()
+      before: sdk.priorities.getV1PrioritiesPrioritySlug()
+      type: method-name
+  - target: $["paths"]["/v1/signals/email_targets/{id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateEmailTarget
+    x-speakeasy-metadata:
+      after: sdk.signals.updateEmailTarget()
+      before: sdk.signals.patchV1SignalsEmailTargetsId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/confluence_cloud/connections/{id}/space/search"]["get"]
+    update:
+      x-speakeasy-name-override: listSpaceKeys
+    x-speakeasy-metadata:
+      after: sdk.integrations.listSpaceKeys()
+      before: sdk.integrations.getV1IntegrationsConfluenceCloudConnectionsIdSpaceSearch()
+      type: method-name
+  - target: $["paths"]["/v1/signals/email_targets/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteEmailTarget
+    x-speakeasy-metadata:
+      after: sdk.signals.deleteEmailTarget()
+      before: sdk.signals.deleteV1SignalsEmailTargetsId()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}/fields/{field_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateField
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.updateField()
+      before: sdk.post_mortems.patchV1PostMortemsReportsReportIdFieldsFieldId()
+      type: method-name
+  - target: $["paths"]["/v1/ai/summarize_incident/{incident_id}/{generated_summary_id}/vote"]["put"]
+    update:
+      x-speakeasy-name-override: submitSummaryVote
+    x-speakeasy-metadata:
+      after: sdk.ai.submitSummaryVote()
+      before: sdk.ai.putV1AiSummarizeIncidentIncidentIdGeneratedSummaryIdVote()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}"]["put"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.update()
+      before: sdk.nunc_connections.putV1NuncConnectionsNuncConnectionId()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}"]["delete"]
+    update:
+      x-speakeasy-group: runbooks.executions
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.runbooks.executions.delete()
+      before: sdk.runbooks.deleteV1RunbooksExecutionsExecutionId()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}/publish"]["post"]
+    update:
+      x-speakeasy-name-override: publishReport
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.publishReport()
+      before: sdk.post_mortems.postV1PostMortemsReportsReportIdPublish()
+      type: method-name
+  - target: $["paths"]["/v1/schedules"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.schedules.list()
+      before: sdk.schedules.getV1Schedules()
+      type: method-name
+  - target: $["paths"]["/v1/changes/events/{change_event_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteEvent
+    x-speakeasy-metadata:
+      after: sdk.changes.deleteEvent()
+      before: sdk.changes.deleteV1ChangesEventsChangeEventId()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports"]["get"]
+    update:
+      x-speakeasy-name-override: listReports
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.listReports()
+      before: sdk.post_mortems.getV1PostMortemsReports()
+      type: method-name
+  - target: $["paths"]["/v1/conversations/{conversation_id}/comments/{comment_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getComment
+    x-speakeasy-metadata:
+      after: sdk.conversations.getComment()
+      before: sdk.conversations.getV1ConversationsConversationIdCommentsCommentId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/provider_project_configurations/{config_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: archiveProjectConfiguration
+    x-speakeasy-metadata:
+      after: sdk.ticketing.archiveProjectConfiguration()
+      before: sdk.ticketing.deleteV1TicketingProjectsTicketingProjectIdProviderProjectConfigurationsConfigId()
+      type: method-name
+  - target: $["paths"]["/v1/services/{service_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.services.delete()
+      before: sdk.services.deleteV1ServicesServiceId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/ticket_tags"]["get"]
+    update:
+      x-speakeasy-name-override: listTags
+    x-speakeasy-metadata:
+      after: sdk.ticketing.listTags()
+      before: sdk.ticketing.getV1TicketingTicketTags()
+      type: method-name
+  - target: $["paths"]["/v1/severities"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.severities.get()
+      before: sdk.severities.getV1Severities()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/field_maps/{field_map_id}/available_fields"]["get"]
+    update:
+      x-speakeasy-name-override: getAvailableFields
+    x-speakeasy-metadata:
+      after: sdk.integrations.getAvailableFields()
+      before: sdk.integrations.getV1IntegrationsFieldMapsFieldMapIdAvailableFields()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/links/{link_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteLink
+    x-speakeasy-metadata:
+      after: sdk.incidents.deleteLink()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdLinksLinkId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/links/{link_id}"]["put"]
+    update:
+      x-speakeasy-group: incidents.links
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.incidents.links.update()
+      before: sdk.incidents.putV1IncidentsIncidentIdLinksLinkId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/statuspage/connections"]["get"]
+    update:
+      x-speakeasy-name-override: listStatuspageConnections
+    x-speakeasy-metadata:
+      after: sdk.integrations.listStatuspageConnections()
+      before: sdk.integrations.getV1IntegrationsStatuspageConnections()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/milestones/{milestone_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateMilestone
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.updateMilestone()
+      before: sdk.lifecycles.patchV1LifecyclesMilestonesMilestoneId()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/escalation_policies"]["post"]
+    update:
+      x-speakeasy-name-override: createEscalationPolicy
+    x-speakeasy-metadata:
+      after: sdk.teams.createEscalationPolicy()
+      before: sdk.teams.postV1TeamsTeamIdEscalationPolicies()
+      type: method-name
+  - target: $["paths"]["/v1/status_update_templates/{status_update_template_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.status_update_templates.get()
+      before: sdk.status_update_templates.getV1StatusUpdateTemplatesStatusUpdateTemplateId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/notes"]["post"]
+    update:
+      x-speakeasy-name-override: addNote
+    x-speakeasy-metadata:
+      after: sdk.incidents.addNote()
+      before: sdk.incidents.postV1IncidentsIncidentIdNotes()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/component_groups/{group_id}"]["patch"]
+    update:
+      x-speakeasy-group: nunc_connections.component_groups
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.nunc_connections.component_groups.update()
+      before: sdk.nunc_connections.patchV1NuncConnectionsNuncConnectionIdComponentGroupsGroupId()
+      type: method-name
+  - target: $["paths"]["/v1/scheduled_maintenances/{scheduled_maintenance_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.scheduled_maintenances.delete()
+      before: sdk.scheduled_maintenances.deleteV1ScheduledMaintenancesScheduledMaintenanceId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/milestones"]["get"]
+    update:
+      x-speakeasy-name-override: listMilestones
+    x-speakeasy-metadata:
+      after: sdk.incidents.listMilestones()
+      before: sdk.incidents.getV1IncidentsIncidentIdMilestones()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}"]["patch"]
+    update:
+      x-speakeasy-group: post_mortems.reports
+      x-speakeasy-name-override: patch
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.reports.patch()
+      before: sdk.post_mortems.patchV1PostMortemsReportsReportId()
+      type: method-name
+  - target: $["paths"]["/v1/changes/{change_id}/identities"]["post"]
+    update:
+      x-speakeasy-name-override: createIdentity
+    x-speakeasy-metadata:
+      after: sdk.changes.createIdentity()
+      before: sdk.changes.postV1ChangesChangeIdIdentities()
+      type: method-name
+  - target: $["paths"]["/v1/teams/{team_id}/on_call_schedules/{schedule_id}/shifts/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteOnCallShift
+    x-speakeasy-metadata:
+      after: sdk.teams.deleteOnCallShift()
+      before: sdk.teams.deleteV1TeamsTeamIdOnCallSchedulesScheduleIdShiftsId()
+      type: method-name
+  - target: $["paths"]["/v1/alerts/{alert_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.alerts.get()
+      before: sdk.alerts.getV1AlertsAlertId()
+      type: method-name
+  - target: $["paths"]["/v1/conversations/{conversation_id}/comments/{comment_id}/reactions"]["get"]
+    update:
+      x-speakeasy-name-override: listReactions
+    x-speakeasy-metadata:
+      after: sdk.conversations.listReactions()
+      before: sdk.conversations.getV1ConversationsConversationIdCommentsCommentIdReactions()
+      type: method-name
+  - target: $["paths"]["/v1/changes/{change_id}/identities/{identity_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateIdentity
+    x-speakeasy-metadata:
+      after: sdk.changes.updateIdentity()
+      before: sdk.changes.patchV1ChangesChangeIdIdentitiesIdentityId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/aws/connections/{id}"]["patch"]
+    update:
+      x-speakeasy-group: integrations.aws_connections
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.integrations.aws_connections.update()
+      before: sdk.integrations.patchV1IntegrationsAwsConnectionsId()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/phases"]["get"]
+    update:
+      x-speakeasy-name-override: listPhases
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.listPhases()
+      before: sdk.lifecycles.getV1LifecyclesPhases()
+      type: method-name
+  - target: $["paths"]["/v1/task_lists"]["post"]
+    update:
+      x-speakeasy-group: taskLists
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.taskLists.create()
+      before: sdk.task_lists.postV1TaskLists()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/priorities"]["post"]
+    update:
+      x-speakeasy-name-override: createPriority
+    x-speakeasy-metadata:
+      after: sdk.ticketing.createPriority()
+      before: sdk.ticketing.postV1TicketingPriorities()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}"]["get"]
+    update:
+      x-speakeasy-group: nuncConnections
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.nuncConnections.get()
+      before: sdk.nunc_connections.getV1NuncConnectionsNuncConnectionId()
+      type: method-name
+  - target: $["paths"]["/v1/severities/{severity_slug}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.severities.delete()
+      before: sdk.severities.deleteV1SeveritiesSeveritySlug()
+      type: method-name
+  - target: $["paths"]["/v1/checklist_templates"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.checklist_templates.create()
+      before: sdk.checklist_templates.postV1ChecklistTemplates()
+      type: method-name
+  - target: $["paths"]["/v1/webhooks/{webhook_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.webhooks.get()
+      before: sdk.webhooks.getV1WebhooksWebhookId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.incidents.get()
+      before: sdk.incidents.getV1IncidentsIncidentId()
+      type: method-name
+  - target: $["paths"]["/v1/scim/v2/Users/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: getUser
+    x-speakeasy-metadata:
+      after: sdk.scim.getUser()
+      before: sdk.scim.getV1ScimV2UsersId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations/{integration_id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.integrations.get()
+      before: sdk.integrations.getV1IntegrationsIntegrationId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/provider_project_configurations/{config_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getProviderProjectConfiguration
+    x-speakeasy-metadata:
+      after: sdk.ticketing.getProviderProjectConfiguration()
+      before: sdk.ticketing.getV1TicketingProjectsTicketingProjectIdProviderProjectConfigurationsConfigId()
+      type: method-name
+  - target: $["paths"]["/v1/noauth/ping"]["get"]
+    update:
+      x-speakeasy-name-override: ping
+    x-speakeasy-metadata:
+      after: sdk.noauth.ping()
+      before: sdk.noauth.getV1NoauthPing()
+      type: method-name
+  - target: $["paths"]["/v1/ai/preferences"]["get"]
+    update:
+      x-speakeasy-name-override: getPreferences
+    x-speakeasy-metadata:
+      after: sdk.ai.getPreferences()
+      before: sdk.ai.getV1AiPreferences()
+      type: method-name
+  - target: $["paths"]["/v1/functionalities/{functionality_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: archive
+    x-speakeasy-metadata:
+      after: sdk.functionalities.archive()
+      before: sdk.functionalities.deleteV1FunctionalitiesFunctionalityId()
+      type: method-name
+  - target: $["paths"]["/v1/nunc_connections/{nunc_connection_id}/component_groups"]["post"]
+    update:
+      x-speakeasy-name-override: addComponentGroup
+    x-speakeasy-metadata:
+      after: sdk.nunc_connections.addComponentGroup()
+      before: sdk.nunc_connections.postV1NuncConnectionsNuncConnectionIdComponentGroups()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.runbooks.create()
+      before: sdk.runbooks.postV1Runbooks()
+      type: method-name
+  - target: $["paths"]["/v1/signals/email_targets/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: getEmailTarget
+    x-speakeasy-metadata:
+      after: sdk.signals.getEmailTarget()
+      before: sdk.signals.getV1SignalsEmailTargetsId()
+      type: method-name
+  - target: $["paths"]["/v1/environments/{environment_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.environments.update()
+      before: sdk.environments.patchV1EnvironmentsEnvironmentId()
+      type: method-name
+  - target: $["paths"]["/v1/signals/email_targets"]["post"]
+    update:
+      x-speakeasy-name-override: createEmailTarget
+    x-speakeasy-metadata:
+      after: sdk.signals.createEmailTarget()
+      before: sdk.signals.postV1SignalsEmailTargets()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/configuration_options/options_for/{field_id}"]["get"]
+    update:
+      x-speakeasy-group: ticketing.projects
+      x-speakeasy-name-override: getConfigurationOptionsForField
+    x-speakeasy-metadata:
+      after: sdk.ticketing.projects.getConfigurationOptionsForField()
+      before: sdk.ticketing.getV1TicketingProjectsTicketingProjectIdConfigurationOptionsOptionsForFieldId()
+      type: method-name
+  - target: $["paths"]["/v1/lifecycles/measurement_definitions/{measurement_definition_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateMeasurementDefinition
+    x-speakeasy-metadata:
+      after: sdk.lifecycles.updateMeasurementDefinition()
+      before: sdk.lifecycles.patchV1LifecyclesMeasurementDefinitionsMeasurementDefinitionId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/events/{event_id}/votes/status"]["get"]
+    update:
+      x-speakeasy-group: incidents.events
+      x-speakeasy-name-override: getVoteStatus
+    x-speakeasy-metadata:
+      after: sdk.incidents.events.getVoteStatus()
+      before: sdk.incidents.getV1IncidentsIncidentIdEventsEventIdVotesStatus()
+      type: method-name
+  - target: $["paths"]["/v1/catalogs/{catalog_id}/refresh"]["get"]
+    update:
+      x-speakeasy-name-override: refresh
+    x-speakeasy-metadata:
+      after: sdk.catalogs.refresh()
+      before: sdk.catalogs.getV1CatalogsCatalogIdRefresh()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects/{ticketing_project_id}/provider_project_configurations"]["post"]
+    update:
+      x-speakeasy-name-override: createProviderProjectConfiguration
+    x-speakeasy-metadata:
+      after: sdk.ticketing.createProviderProjectConfiguration()
+      before: sdk.ticketing.postV1TicketingProjectsTicketingProjectIdProviderProjectConfigurations()
+      type: method-name
+  - target: $["paths"]["/v1/changes/{change_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: archive
+    x-speakeasy-metadata:
+      after: sdk.changes.archive()
+      before: sdk.changes.deleteV1ChangesChangeId()
+      type: method-name
+  - target: $["paths"]["/v1/custom_fields/definitions/{field_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteDefinition
+    x-speakeasy-metadata:
+      after: sdk.custom_fields.deleteDefinition()
+      before: sdk.custom_fields.deleteV1CustomFieldsDefinitionsFieldId()
+      type: method-name
+  - target: $["paths"]["/v1/severity_matrix"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.severity_matrix.get()
+      before: sdk.severity_matrix.getV1SeverityMatrix()
+      type: method-name
+  - target: $["paths"]["/v1/webhooks/{webhook_id}/deliveries"]["get"]
+    update:
+      x-speakeasy-name-override: listDeliveries
+    x-speakeasy-metadata:
+      after: sdk.webhooks.listDeliveries()
+      before: sdk.webhooks.getV1WebhooksWebhookIdDeliveries()
+      type: method-name
+  - target: $["paths"]["/v1/changes"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.changes.create()
+      before: sdk.changes.postV1Changes()
+      type: method-name
+  - target: $["paths"]["/v1/changes/{change_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.changes.update()
+      before: sdk.changes.patchV1ChangesChangeId()
+      type: method-name
+  - target: $["paths"]["/v1/ticketing/projects"]["get"]
+    update:
+      x-speakeasy-group: ticketing.projects
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.ticketing.projects.list()
+      before: sdk.ticketing.getV1TicketingProjects()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/impact/{type}"]["post"]
+    update:
+      x-speakeasy-group: incidents.impact
+      x-speakeasy-name-override: add
+    x-speakeasy-metadata:
+      after: sdk.incidents.impact.add()
+      before: sdk.incidents.postV1IncidentsIncidentIdImpactType()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}/steps/{step_id}/script"]["get"]
+    update:
+      x-speakeasy-name-override: getScript
+    x-speakeasy-metadata:
+      after: sdk.runbooks.getScript()
+      before: sdk.runbooks.getV1RunbooksExecutionsExecutionIdStepsStepIdScript()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/unarchive"]["post"]
+    update:
+      x-speakeasy-name-override: unarchive
+    x-speakeasy-metadata:
+      after: sdk.incidents.unarchive()
+      before: sdk.incidents.postV1IncidentsIncidentIdUnarchive()
+      type: method-name
+  - target: $["paths"]["/v1/webhooks"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.webhooks.list()
+      before: sdk.webhooks.getV1Webhooks()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}"]["get"]
+    update:
+      x-speakeasy-name-override: getReport
+    x-speakeasy-metadata:
+      after: sdk.post_mortems.getReport()
+      before: sdk.post_mortems.getV1PostMortemsReportsReportId()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}/reasons"]["get"]
+    update:
+      x-speakeasy-group: postMortems
+      x-speakeasy-name-override: listReasons
+    x-speakeasy-metadata:
+      after: sdk.postMortems.listReasons()
+      before: sdk.post_mortems.getV1PostMortemsReportsReportIdReasons()
+      type: method-name
+  - target: $["paths"]["/v1/service_dependencies"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.service_dependencies.create()
+      before: sdk.service_dependencies.postV1ServiceDependencies()
+      type: method-name
+  - target: $["paths"]["/v1/runbooks/executions/{execution_id}/votes"]["patch"]
+    update:
+      x-speakeasy-group: runbooks.executions
+      x-speakeasy-name-override: updateVotes
+    x-speakeasy-metadata:
+      after: sdk.runbooks.executions.updateVotes()
+      before: sdk.runbooks.patchV1RunbooksExecutionsExecutionIdVotes()
+      type: method-name
+  - target: $["paths"]["/v1/post_mortems/reports/{report_id}/reasons/{reason_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: deleteReason
+      x-speakeasy-group: postMortems
+    x-speakeasy-metadata:
+      after: sdk.postMortems.deleteReason()
+      before: sdk.post_mortems.deleteV1PostMortemsReportsReportIdReasonsReasonId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/status_pages/{status_page_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: removeStatusPageIncident
+    x-speakeasy-metadata:
+      after: sdk.incidents.removeStatusPageIncident()
+      before: sdk.incidents.deleteV1IncidentsIncidentIdStatusPagesStatusPageId()
+      type: method-name
+  - target: $["paths"]["/v1/integrations"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.integrations.list()
+      before: sdk.integrations.getV1Integrations()
+      type: method-name
+  - target: $["paths"]["/v1/webhooks/{webhook_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.webhooks.update()
+      before: sdk.webhooks.patchV1WebhooksWebhookId()
+      type: method-name
+  - target: $["paths"]["/v1/incidents/{incident_id}/events/{event_id}"]["patch"]
+    update:
+      x-speakeasy-name-override: updateEvent
+    x-speakeasy-metadata:
+      after: sdk.incidents.updateEvent()
+      before: sdk.incidents.patchV1IncidentsIncidentIdEventsEventId()
+      type: method-name
+  - target: $["paths"]["/v1/webhooks/{webhook_id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.webhooks.delete()
+      before: sdk.webhooks.deleteV1WebhooksWebhookId()
+      type: method-name

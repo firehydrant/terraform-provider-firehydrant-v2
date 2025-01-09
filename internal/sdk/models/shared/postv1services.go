@@ -67,7 +67,7 @@ func (o *Functionalities) GetID() *string {
 	return o.ID
 }
 
-type PostV1ServicesLinks struct {
+type Links struct {
 	// Short name used to display and identify this link
 	Name string `json:"name"`
 	// URL
@@ -76,64 +76,64 @@ type PostV1ServicesLinks struct {
 	IconURL *string `json:"icon_url,omitempty"`
 }
 
-func (o *PostV1ServicesLinks) GetName() string {
+func (o *Links) GetName() string {
 	if o == nil {
 		return ""
 	}
 	return o.Name
 }
 
-func (o *PostV1ServicesLinks) GetHrefURL() string {
+func (o *Links) GetHrefURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.HrefURL
 }
 
-func (o *PostV1ServicesLinks) GetIconURL() *string {
+func (o *Links) GetIconURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.IconURL
 }
 
-// PostV1ServicesOwner - An object representing a Team that owns the service
-type PostV1ServicesOwner struct {
+// Owner - An object representing a Team that owns the service
+type Owner struct {
 	ID string `json:"id"`
 }
 
-func (o *PostV1ServicesOwner) GetID() string {
+func (o *Owner) GetID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ID
 }
 
-type PostV1ServicesTeams struct {
+type Teams struct {
 	ID string `json:"id"`
 }
 
-func (o *PostV1ServicesTeams) GetID() string {
+func (o *Teams) GetID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ID
 }
 
-type PostV1ServicesExternalResources struct {
+type ExternalResources struct {
 	RemoteID string `json:"remote_id"`
 	// The integration slug for the external resource. Can be one of: github, opsgenie, pager_duty, victorops. Not required if the resource has already been imported.
 	ConnectionType *string `json:"connection_type,omitempty"`
 }
 
-func (o *PostV1ServicesExternalResources) GetRemoteID() string {
+func (o *ExternalResources) GetRemoteID() string {
 	if o == nil {
 		return ""
 	}
 	return o.RemoteID
 }
 
-func (o *PostV1ServicesExternalResources) GetConnectionType() *string {
+func (o *ExternalResources) GetConnectionType() *string {
 	if o == nil {
 		return nil
 	}
@@ -151,15 +151,15 @@ type PostV1Services struct {
 	// An array of functionalities
 	Functionalities []Functionalities `json:"functionalities,omitempty"`
 	// An array of links to associate with this service
-	Links []PostV1ServicesLinks `json:"links,omitempty"`
+	Links []Links `json:"links,omitempty"`
 	// An object representing a Team that owns the service
-	Owner *PostV1ServicesOwner `json:"owner,omitempty"`
+	Owner *Owner `json:"owner,omitempty"`
 	// An array of teams to attach to this service.
-	Teams                 []PostV1ServicesTeams `json:"teams,omitempty"`
-	AlertOnAdd            *bool                 `json:"alert_on_add,omitempty"`
-	AutoAddRespondingTeam *bool                 `json:"auto_add_responding_team,omitempty"`
+	Teams                 []Teams `json:"teams,omitempty"`
+	AlertOnAdd            *bool   `json:"alert_on_add,omitempty"`
+	AutoAddRespondingTeam *bool   `json:"auto_add_responding_team,omitempty"`
 	// An array of external resources to attach to this service.
-	ExternalResources []PostV1ServicesExternalResources `json:"external_resources,omitempty"`
+	ExternalResources []ExternalResources `json:"external_resources,omitempty"`
 }
 
 func (o *PostV1Services) GetName() string {
@@ -197,21 +197,21 @@ func (o *PostV1Services) GetFunctionalities() []Functionalities {
 	return o.Functionalities
 }
 
-func (o *PostV1Services) GetLinks() []PostV1ServicesLinks {
+func (o *PostV1Services) GetLinks() []Links {
 	if o == nil {
 		return nil
 	}
 	return o.Links
 }
 
-func (o *PostV1Services) GetOwner() *PostV1ServicesOwner {
+func (o *PostV1Services) GetOwner() *Owner {
 	if o == nil {
 		return nil
 	}
 	return o.Owner
 }
 
-func (o *PostV1Services) GetTeams() []PostV1ServicesTeams {
+func (o *PostV1Services) GetTeams() []Teams {
 	if o == nil {
 		return nil
 	}
@@ -232,7 +232,7 @@ func (o *PostV1Services) GetAutoAddRespondingTeam() *bool {
 	return o.AutoAddRespondingTeam
 }
 
-func (o *PostV1Services) GetExternalResources() []PostV1ServicesExternalResources {
+func (o *PostV1Services) GetExternalResources() []ExternalResources {
 	if o == nil {
 		return nil
 	}

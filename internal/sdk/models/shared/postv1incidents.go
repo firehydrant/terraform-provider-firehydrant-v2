@@ -7,10 +7,6 @@ import (
 	"time"
 )
 
-// PostV1IncidentsLabels - Key:value pairs to track custom data for the incident
-type PostV1IncidentsLabels struct {
-}
-
 type Impacts struct {
 	// The type of impacted infrastructure. One of: environment, functionality, or service
 	Type string `json:"type"`
@@ -116,7 +112,7 @@ type PostV1Incidents struct {
 	// List of alert IDs that this incident should be associated to
 	AlertIds []string `json:"alert_ids,omitempty"`
 	// Key:value pairs to track custom data for the incident
-	Labels *PostV1IncidentsLabels `json:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty"`
 	// List of ids of Runbooks to attach to this incident. Foregoes any conditions these Runbooks may have guarding automatic attachment.
 	RunbookIds []string `json:"runbook_ids,omitempty"`
 	// List of tags for the incident
@@ -209,7 +205,7 @@ func (o *PostV1Incidents) GetAlertIds() []string {
 	return o.AlertIds
 }
 
-func (o *PostV1Incidents) GetLabels() *PostV1IncidentsLabels {
+func (o *PostV1Incidents) GetLabels() map[string]string {
 	if o == nil {
 		return nil
 	}

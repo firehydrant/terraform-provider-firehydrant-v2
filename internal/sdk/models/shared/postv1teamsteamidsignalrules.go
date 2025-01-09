@@ -40,20 +40,20 @@ func (e *TargetType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride - A notification priority that will be set on the resulting alert (default: HIGH)
-type PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride string
+// NotificationPriorityOverride - A notification priority that will be set on the resulting alert (default: HIGH)
+type NotificationPriorityOverride string
 
 const (
-	PostV1TeamsTeamIDSignalRulesNotificationPriorityOverrideHigh    PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride = "HIGH"
-	PostV1TeamsTeamIDSignalRulesNotificationPriorityOverrideMedium  PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride = "MEDIUM"
-	PostV1TeamsTeamIDSignalRulesNotificationPriorityOverrideLow     PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride = "LOW"
-	PostV1TeamsTeamIDSignalRulesNotificationPriorityOverrideUnknown PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride = ""
+	NotificationPriorityOverrideHigh    NotificationPriorityOverride = "HIGH"
+	NotificationPriorityOverrideMedium  NotificationPriorityOverride = "MEDIUM"
+	NotificationPriorityOverrideLow     NotificationPriorityOverride = "LOW"
+	NotificationPriorityOverrideUnknown NotificationPriorityOverride = ""
 )
 
-func (e PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride) ToPointer() *PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride {
+func (e NotificationPriorityOverride) ToPointer() *NotificationPriorityOverride {
 	return &e
 }
-func (e *PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride) UnmarshalJSON(data []byte) error {
+func (e *NotificationPriorityOverride) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -66,10 +66,10 @@ func (e *PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride) UnmarshalJSON
 	case "LOW":
 		fallthrough
 	case "":
-		*e = PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride(v)
+		*e = NotificationPriorityOverride(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride: %v", v)
+		return fmt.Errorf("invalid value for NotificationPriorityOverride: %v", v)
 	}
 }
 
@@ -86,7 +86,7 @@ type PostV1TeamsTeamIDSignalRules struct {
 	// The ID of an incident type that should be used when an alert is promoted to an incident
 	IncidentTypeID *string `json:"incident_type_id,omitempty"`
 	// A notification priority that will be set on the resulting alert (default: HIGH)
-	NotificationPriorityOverride *PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride `json:"notification_priority_override,omitempty"`
+	NotificationPriorityOverride *NotificationPriorityOverride `json:"notification_priority_override,omitempty"`
 }
 
 func (o *PostV1TeamsTeamIDSignalRules) GetName() string {
@@ -124,7 +124,7 @@ func (o *PostV1TeamsTeamIDSignalRules) GetIncidentTypeID() *string {
 	return o.IncidentTypeID
 }
 
-func (o *PostV1TeamsTeamIDSignalRules) GetNotificationPriorityOverride() *PostV1TeamsTeamIDSignalRulesNotificationPriorityOverride {
+func (o *PostV1TeamsTeamIDSignalRules) GetNotificationPriorityOverride() *NotificationPriorityOverride {
 	if o == nil {
 		return nil
 	}

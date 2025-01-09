@@ -94,7 +94,7 @@ func (o *Rule) GetUserData() *string {
 	return o.UserData
 }
 
-type Steps struct {
+type PostV1RunbooksSteps struct {
 	// Name for step
 	Name string `json:"name"`
 	// ID of action to use for this step.
@@ -102,21 +102,21 @@ type Steps struct {
 	Rule     *Rule  `json:"rule,omitempty"`
 }
 
-func (o *Steps) GetName() string {
+func (o *PostV1RunbooksSteps) GetName() string {
 	if o == nil {
 		return ""
 	}
 	return o.Name
 }
 
-func (o *Steps) GetActionID() string {
+func (o *PostV1RunbooksSteps) GetActionID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ActionID
 }
 
-func (o *Steps) GetRule() *Rule {
+func (o *PostV1RunbooksSteps) GetRule() *Rule {
 	if o == nil {
 		return nil
 	}
@@ -137,9 +137,9 @@ type PostV1Runbooks struct {
 	// Whether or not this runbook is a tutorial runbook
 	Tutorial *bool `json:"tutorial,omitempty"`
 	// An object representing a Team that owns the runbook
-	Owner          *PostV1RunbooksOwner `json:"owner,omitempty"`
-	AttachmentRule *AttachmentRule      `json:"attachment_rule,omitempty"`
-	Steps          []Steps              `json:"steps,omitempty"`
+	Owner          *PostV1RunbooksOwner  `json:"owner,omitempty"`
+	AttachmentRule *AttachmentRule       `json:"attachment_rule,omitempty"`
+	Steps          []PostV1RunbooksSteps `json:"steps,omitempty"`
 }
 
 func (o *PostV1Runbooks) GetName() string {
@@ -198,7 +198,7 @@ func (o *PostV1Runbooks) GetAttachmentRule() *AttachmentRule {
 	return o.AttachmentRule
 }
 
-func (o *PostV1Runbooks) GetSteps() []Steps {
+func (o *PostV1Runbooks) GetSteps() []PostV1RunbooksSteps {
 	if o == nil {
 		return nil
 	}

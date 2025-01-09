@@ -9,18 +9,18 @@ import (
 	"time"
 )
 
-type NotificationPriorityOverride string
+type SignalsAPIRuleEntityNotificationPriorityOverride string
 
 const (
-	NotificationPriorityOverrideHigh   NotificationPriorityOverride = "HIGH"
-	NotificationPriorityOverrideMedium NotificationPriorityOverride = "MEDIUM"
-	NotificationPriorityOverrideLow    NotificationPriorityOverride = "LOW"
+	SignalsAPIRuleEntityNotificationPriorityOverrideHigh   SignalsAPIRuleEntityNotificationPriorityOverride = "HIGH"
+	SignalsAPIRuleEntityNotificationPriorityOverrideMedium SignalsAPIRuleEntityNotificationPriorityOverride = "MEDIUM"
+	SignalsAPIRuleEntityNotificationPriorityOverrideLow    SignalsAPIRuleEntityNotificationPriorityOverride = "LOW"
 )
 
-func (e NotificationPriorityOverride) ToPointer() *NotificationPriorityOverride {
+func (e SignalsAPIRuleEntityNotificationPriorityOverride) ToPointer() *SignalsAPIRuleEntityNotificationPriorityOverride {
 	return &e
 }
-func (e *NotificationPriorityOverride) UnmarshalJSON(data []byte) error {
+func (e *SignalsAPIRuleEntityNotificationPriorityOverride) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -31,24 +31,24 @@ func (e *NotificationPriorityOverride) UnmarshalJSON(data []byte) error {
 	case "MEDIUM":
 		fallthrough
 	case "LOW":
-		*e = NotificationPriorityOverride(v)
+		*e = SignalsAPIRuleEntityNotificationPriorityOverride(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for NotificationPriorityOverride: %v", v)
+		return fmt.Errorf("invalid value for SignalsAPIRuleEntityNotificationPriorityOverride: %v", v)
 	}
 }
 
 type SignalsAPIRuleEntity struct {
-	ID                           *string                       `json:"id,omitempty"`
-	Name                         *string                       `json:"name,omitempty"`
-	Expression                   *string                       `json:"expression,omitempty"`
-	TeamID                       *string                       `json:"team_id,omitempty"`
-	Target                       *SignalsAPITargetEntity       `json:"target,omitempty"`
-	CreatedBy                    *AuthorEntity                 `json:"created_by,omitempty"`
-	CreatedAt                    *time.Time                    `json:"created_at,omitempty"`
-	UpdatedAt                    *time.Time                    `json:"updated_at,omitempty"`
-	IncidentType                 *SuccinctEntity               `json:"incident_type,omitempty"`
-	NotificationPriorityOverride *NotificationPriorityOverride `json:"notification_priority_override,omitempty"`
+	ID                           *string                                           `json:"id,omitempty"`
+	Name                         *string                                           `json:"name,omitempty"`
+	Expression                   *string                                           `json:"expression,omitempty"`
+	TeamID                       *string                                           `json:"team_id,omitempty"`
+	Target                       *SignalsAPITargetEntity                           `json:"target,omitempty"`
+	CreatedBy                    *AuthorEntity                                     `json:"created_by,omitempty"`
+	CreatedAt                    *time.Time                                        `json:"created_at,omitempty"`
+	UpdatedAt                    *time.Time                                        `json:"updated_at,omitempty"`
+	IncidentType                 *SuccinctEntity                                   `json:"incident_type,omitempty"`
+	NotificationPriorityOverride *SignalsAPIRuleEntityNotificationPriorityOverride `json:"notification_priority_override,omitempty"`
 }
 
 func (s SignalsAPIRuleEntity) MarshalJSON() ([]byte, error) {
@@ -125,7 +125,7 @@ func (o *SignalsAPIRuleEntity) GetIncidentType() *SuccinctEntity {
 	return o.IncidentType
 }
 
-func (o *SignalsAPIRuleEntity) GetNotificationPriorityOverride() *NotificationPriorityOverride {
+func (o *SignalsAPIRuleEntity) GetNotificationPriorityOverride() *SignalsAPIRuleEntityNotificationPriorityOverride {
 	if o == nil {
 		return nil
 	}

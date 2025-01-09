@@ -2,43 +2,43 @@
 
 package shared
 
-// Name - The components of the user's name
-type Name struct {
+// PostV1ScimV2UsersName - The components of the user's name
+type PostV1ScimV2UsersName struct {
 	// The family name of the User, or last name in most Western languages
 	FamilyName string `json:"familyName"`
 	// The given name of the User, or first name in most Western languages
 	GivenName string `json:"givenName"`
 }
 
-func (o *Name) GetFamilyName() string {
+func (o *PostV1ScimV2UsersName) GetFamilyName() string {
 	if o == nil {
 		return ""
 	}
 	return o.FamilyName
 }
 
-func (o *Name) GetGivenName() string {
+func (o *PostV1ScimV2UsersName) GetGivenName() string {
 	if o == nil {
 		return ""
 	}
 	return o.GivenName
 }
 
-type Emails struct {
+type PostV1ScimV2UsersEmails struct {
 	// String that represents an email address for the User
 	Value string `json:"value"`
 	// Boolean which signifies if an email is intended as the primary email for the User
 	Primary bool `json:"primary"`
 }
 
-func (o *Emails) GetValue() string {
+func (o *PostV1ScimV2UsersEmails) GetValue() string {
 	if o == nil {
 		return ""
 	}
 	return o.Value
 }
 
-func (o *Emails) GetPrimary() bool {
+func (o *PostV1ScimV2UsersEmails) GetPrimary() bool {
 	if o == nil {
 		return false
 	}
@@ -50,9 +50,9 @@ type PostV1ScimV2Users struct {
 	// A service provider's unique identifier for the user
 	UserName string `json:"userName"`
 	// The components of the user's name
-	Name Name `json:"name"`
+	Name PostV1ScimV2UsersName `json:"name"`
 	// Email addresses for the User
-	Emails []Emails `json:"emails"`
+	Emails []PostV1ScimV2UsersEmails `json:"emails"`
 	// Roles for the User. Options are owner, member or collaborator
 	Roles []string `json:"roles,omitempty"`
 	// This attribute is intended to be used as a means to set, replace, or compare (i.e., filter for equality) a password
@@ -66,16 +66,16 @@ func (o *PostV1ScimV2Users) GetUserName() string {
 	return o.UserName
 }
 
-func (o *PostV1ScimV2Users) GetName() Name {
+func (o *PostV1ScimV2Users) GetName() PostV1ScimV2UsersName {
 	if o == nil {
-		return Name{}
+		return PostV1ScimV2UsersName{}
 	}
 	return o.Name
 }
 
-func (o *PostV1ScimV2Users) GetEmails() []Emails {
+func (o *PostV1ScimV2Users) GetEmails() []PostV1ScimV2UsersEmails {
 	if o == nil {
-		return []Emails{}
+		return []PostV1ScimV2UsersEmails{}
 	}
 	return o.Emails
 }

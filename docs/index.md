@@ -17,7 +17,7 @@ terraform {
   required_providers {
     firehydrant-terraform-sdk = {
       source  = "speakeasy/firehydrant-terraform-sdk"
-      version = "0.0.2"
+      version = "0.1.0"
     }
   }
 }
@@ -33,4 +33,4 @@ provider "firehydrant-terraform-sdk" {
 ### Optional
 
 - `api_key` (String, Sensitive)
-- `server_url` (String) Server URL (defaults to https://api.firehydrant.io/)
+- `server_url` (String) Server URL (defaults to https://api.firehydrant.io)
