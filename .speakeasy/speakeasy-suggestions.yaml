@@ -2674,3 +2674,7 @@ actions:
       after: sdk.webhooks.delete()
       before: sdk.webhooks.deleteV1WebhooksWebhookId()
       type: method-name
+  - target: $.components.schemas.FunctionalityEntity.properties.services
+    remove: true
+  - target: $.components.schemas.Integrations_MicrosoftTeamsV2_ChannelEntity.properties.incident
+    remove: true
