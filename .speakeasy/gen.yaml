@@ -1,6 +1,6 @@
 configVersion: 2.0.0
 generation:
-  sdkClassName: FirehydrantTerraformSdk
+  sdkClassName: firehydrant
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
@@ -17,8 +17,8 @@ terraform:
   additionalDependencies: {}
   additionalResources: []
   allowUnknownFieldsInWeakUnions: false
-  author: speakeasy
+  author: firehydrant
   defaultErrorName: APIError
   enableTypeDeduplication: false
   environmentVariables: []
-  packageName: firehydrant-terraform-sdk
+  packageName: firehydrant
