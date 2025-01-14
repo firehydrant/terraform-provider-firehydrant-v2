@@ -10,8 +10,6 @@ type IntegrationsMicrosoftTeamsV2ChannelEntity struct {
 	TeamName    *string `json:"team_name,omitempty"`
 	ChannelURL  *string `json:"channel_url,omitempty"`
 	Status      *string `json:"status,omitempty"`
-	// IncidentEntity model
-	Incident *IncidentEntity `json:"incident,omitempty"`
 }
 
 func (o *IntegrationsMicrosoftTeamsV2ChannelEntity) GetID() *string {
@@ -61,11 +59,4 @@ func (o *IntegrationsMicrosoftTeamsV2ChannelEntity) GetStatus() *string {
 		return nil
 	}
 	return o.Status
-}
-
-func (o *IntegrationsMicrosoftTeamsV2ChannelEntity) GetIncident() *IncidentEntity {
-	if o == nil {
-		return nil
-	}
-	return o.Incident
 }

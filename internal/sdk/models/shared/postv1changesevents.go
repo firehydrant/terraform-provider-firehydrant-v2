@@ -51,11 +51,11 @@ func (e *PostV1ChangesEventsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PostV1ChangesEventsAttachments struct {
+type Attachments struct {
 	Type PostV1ChangesEventsType `json:"type"`
 }
 
-func (o *PostV1ChangesEventsAttachments) GetType() PostV1ChangesEventsType {
+func (o *Attachments) GetType() PostV1ChangesEventsType {
 	if o == nil {
 		return PostV1ChangesEventsType("")
 	}
@@ -107,7 +107,7 @@ type PostV1ChangesEvents struct {
 	// If provided and valid, the event will be linked to all changes that have the same identities. Identity *values* must be unique.
 	ChangeIdentities []ChangeIdentities `json:"change_identities,omitempty"`
 	// JSON objects representing attachments, see attachments documentation for the schema
-	Attachments []PostV1ChangesEventsAttachments `json:"attachments,omitempty"`
+	Attachments []Attachments `json:"attachments,omitempty"`
 	// Array of additional authors to add to the change event, the creating actor will automatically be added as an author
 	Authors []Authors `json:"authors,omitempty"`
 }
@@ -193,7 +193,7 @@ func (o *PostV1ChangesEvents) GetChangeIdentities() []ChangeIdentities {
 	return o.ChangeIdentities
 }
 
-func (o *PostV1ChangesEvents) GetAttachments() []PostV1ChangesEventsAttachments {
+func (o *PostV1ChangesEvents) GetAttachments() []Attachments {
 	if o == nil {
 		return nil
 	}

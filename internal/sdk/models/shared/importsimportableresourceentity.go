@@ -9,19 +9,19 @@ import (
 	"time"
 )
 
-type ImportsImportableResourceEntityState string
+type State string
 
 const (
-	ImportsImportableResourceEntityStateSelected ImportsImportableResourceEntityState = "selected"
-	ImportsImportableResourceEntityStateSkipped  ImportsImportableResourceEntityState = "skipped"
-	ImportsImportableResourceEntityStateImported ImportsImportableResourceEntityState = "imported"
-	ImportsImportableResourceEntityStateErrored  ImportsImportableResourceEntityState = "errored"
+	StateSelected State = "selected"
+	StateSkipped  State = "skipped"
+	StateImported State = "imported"
+	StateErrored  State = "errored"
 )
 
-func (e ImportsImportableResourceEntityState) ToPointer() *ImportsImportableResourceEntityState {
+func (e State) ToPointer() *State {
 	return &e
 }
-func (e *ImportsImportableResourceEntityState) UnmarshalJSON(data []byte) error {
+func (e *State) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -34,18 +34,18 @@ func (e *ImportsImportableResourceEntityState) UnmarshalJSON(data []byte) error 
 	case "imported":
 		fallthrough
 	case "errored":
-		*e = ImportsImportableResourceEntityState(v)
+		*e = State(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for ImportsImportableResourceEntityState: %v", v)
+		return fmt.Errorf("invalid value for State: %v", v)
 	}
 }
 
 type ImportsImportableResourceEntity struct {
-	ImportErrors []ImportsImportErrorEntity            `json:"import_errors,omitempty"`
-	ImportedAt   *time.Time                            `json:"imported_at,omitempty"`
-	RemoteID     *string                               `json:"remote_id,omitempty"`
-	State        *ImportsImportableResourceEntityState `json:"state,omitempty"`
+	ImportErrors []ImportsImportErrorEntity `json:"import_errors,omitempty"`
+	ImportedAt   *time.Time                 `json:"imported_at,omitempty"`
+	RemoteID     *string                    `json:"remote_id,omitempty"`
+	State        *State                     `json:"state,omitempty"`
 }
 
 func (i ImportsImportableResourceEntity) MarshalJSON() ([]byte, error) {
@@ -80,7 +80,7 @@ func (o *ImportsImportableResourceEntity) GetRemoteID() *string {
 	return o.RemoteID
 }
 
-func (o *ImportsImportableResourceEntity) GetState() *ImportsImportableResourceEntityState {
+func (o *ImportsImportableResourceEntity) GetState() *State {
 	if o == nil {
 		return nil
 	}

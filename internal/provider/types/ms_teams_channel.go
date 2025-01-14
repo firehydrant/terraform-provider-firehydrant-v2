@@ -5,12 +5,11 @@ package types
 import "github.com/hashicorp/terraform-plugin-framework/types"
 
 type MsTeamsChannel struct {
-	ChannelID   types.String    `tfsdk:"channel_id"`
-	ChannelName types.String    `tfsdk:"channel_name"`
-	ChannelURL  types.String    `tfsdk:"channel_url"`
-	ID          types.String    `tfsdk:"id"`
-	Incident    *IncidentEntity `tfsdk:"incident"`
-	MsTeamID    types.String    `tfsdk:"ms_team_id"`
-	Status      types.String    `tfsdk:"status"`
-	TeamName    types.String    `tfsdk:"team_name"`
+	ChannelID   types.String `tfsdk:"channel_id"`
+	ChannelName types.String `tfsdk:"channel_name"`
+	ChannelURL  types.String `tfsdk:"channel_url"`
+	ID          types.String `tfsdk:"id"`
+	MsTeamID    types.String `tfsdk:"ms_team_id"`
+	Status      types.String `tfsdk:"status"`
+	TeamName    types.String `tfsdk:"team_name"`
 }

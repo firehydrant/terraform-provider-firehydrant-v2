@@ -37,6 +37,11 @@ resource "firehydrant-terraform-sdk_functionality" "my_functionality" {
   owner = {
     id = "...my_id..."
   }
+  services = [
+    {
+      id = "...my_id..."
+    }
+  ]
 }
 ```
 
@@ -56,6 +61,7 @@ resource "firehydrant-terraform-sdk_functionality" "my_functionality" {
 - `labels` (Map of String) A hash of label keys and values
 - `links` (Attributes List) An array of links to associate with this service (see [below for nested schema](#nestedatt--links))
 - `owner` (Attributes) An object representing a Team that owns the service (see [below for nested schema](#nestedatt--owner))
+- `services` (Attributes List) (see [below for nested schema](#nestedatt--services))
 
 ### Read-Only
 
@@ -104,6 +110,14 @@ Read-Only:
 Optional:
 
 - `id` (String) Not Null
+
+
+<a id="nestedatt--services"></a>
+### Nested Schema for `services`
+
+Required:
+
+- `id` (String) ID of a service
 
 
 <a id="nestedatt--updated_by"></a>

@@ -19,6 +19,15 @@ func (r *FunctionalityResourceModel) ToSharedPostV1Functionalities() *shared.Pos
 	} else {
 		description = nil
 	}
+	var services []shared.Services = []shared.Services{}
+	for _, servicesItem := range r.Services {
+		var id string
+		id = servicesItem.ID.ValueString()
+
+		services = append(services, shared.Services{
+			ID: id,
+		})
+	}
 	labels := make(map[string]string)
 	for labelsKey, labelsValue := range r.Labels {
 		var labelsInst string
@@ -76,16 +85,17 @@ func (r *FunctionalityResourceModel) ToSharedPostV1Functionalities() *shared.Pos
 	}
 	var owner *shared.PostV1FunctionalitiesOwner
 	if r.Owner != nil {
-		var id string
-		id = r.Owner.ID.ValueString()
+		var id1 string
+		id1 = r.Owner.ID.ValueString()
 
 		owner = &shared.PostV1FunctionalitiesOwner{
-			ID: id,
+			ID: id1,
 		}
 	}
 	out := shared.PostV1Functionalities{
 		Name:                  name,
 		Description:           description,
+		Services:              services,
 		Labels:                labels,
 		AlertOnAdd:            alertOnAdd,
 		AutoAddRespondingTeam: autoAddRespondingTeam,
@@ -208,6 +218,15 @@ func (r *FunctionalityResourceModel) ToSharedPatchV1FunctionalitiesFunctionality
 	} else {
 		description = nil
 	}
+	var services []shared.PatchV1FunctionalitiesFunctionalityIDServices = []shared.PatchV1FunctionalitiesFunctionalityIDServices{}
+	for _, servicesItem := range r.Services {
+		var id string
+		id = servicesItem.ID.ValueString()
+
+		services = append(services, shared.PatchV1FunctionalitiesFunctionalityIDServices{
+			ID: id,
+		})
+	}
 	var links []shared.PatchV1FunctionalitiesFunctionalityIDLinks = []shared.PatchV1FunctionalitiesFunctionalityIDLinks{}
 	for _, linksItem := range r.Links {
 		var hrefURL string
@@ -224,27 +243,27 @@ func (r *FunctionalityResourceModel) ToSharedPatchV1FunctionalitiesFunctionality
 		}
 		// Functionality#update.links.removeFunctionality#update.links.remove impedance mismatch: boolean != stringtrace=["Functionality#create.req.links.[].name"]
 		var remove *bool
-		id := new(string)
+		id1 := new(string)
 		if !linksItem.ID.IsUnknown() && !linksItem.ID.IsNull() {
-			*id = linksItem.ID.ValueString()
+			*id1 = linksItem.ID.ValueString()
 		} else {
-			id = nil
+			id1 = nil
 		}
 		links = append(links, shared.PatchV1FunctionalitiesFunctionalityIDLinks{
 			HrefURL: hrefURL,
 			Name:    name1,
 			IconURL: iconURL,
 			Remove:  remove,
-			ID:      id,
+			ID:      id1,
 		})
 	}
 	var owner *shared.PatchV1FunctionalitiesFunctionalityIDOwner
 	if r.Owner != nil {
-		var id1 string
-		id1 = r.Owner.ID.ValueString()
+		var id2 string
+		id2 = r.Owner.ID.ValueString()
 
 		owner = &shared.PatchV1FunctionalitiesFunctionalityIDOwner{
-			ID: id1,
+			ID: id2,
 		}
 	}
 	var externalResources []shared.PatchV1FunctionalitiesFunctionalityIDExternalResources = []shared.PatchV1FunctionalitiesFunctionalityIDExternalResources{}
@@ -288,6 +307,7 @@ func (r *FunctionalityResourceModel) ToSharedPatchV1FunctionalitiesFunctionality
 	out := shared.PatchV1FunctionalitiesFunctionalityID{
 		Name:                  name,
 		Description:           description,
+		Services:              services,
 		Links:                 links,
 		Owner:                 owner,
 		ExternalResources:     externalResources,

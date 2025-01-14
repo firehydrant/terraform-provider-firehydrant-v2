@@ -31,10 +31,7 @@ type RunbooksDataSource struct {
 type RunbooksDataSourceModel struct {
 	ActionElements                  []tfTypes.TeamEntity1   `tfsdk:"action_elements"`
 	ActionID                        types.String            `tfsdk:"action_id"`
-	Active                          types.Bool              `tfsdk:"active"`
 	ActiveIncidents                 []types.String          `tfsdk:"active_incidents"`
-	AffectsID                       types.String            `tfsdk:"affects_id"`
-	AiIncidentSummary               types.String            `tfsdk:"ai_incident_summary"`
 	AlertOnAdd                      types.Bool              `tfsdk:"alert_on_add"`
 	AsyncURL                        types.String            `tfsdk:"async_url"`
 	AuthorizedBy                    types.String            `tfsdk:"authorized_by"`
@@ -43,33 +40,22 @@ type RunbooksDataSourceModel struct {
 	AutoAttachToRestrictedIncidents types.Bool              `tfsdk:"auto_attach_to_restricted_incidents"`
 	Automatable                     types.Bool              `tfsdk:"automatable"`
 	Automatic                       types.Bool              `tfsdk:"automatic"`
-	Body                            types.String            `tfsdk:"body"`
-	CalculatedAt                    types.String            `tfsdk:"calculated_at"`
 	Categories                      types.String            `tfsdk:"categories"`
 	Category                        types.String            `tfsdk:"category"`
 	ChannelID                       types.String            `tfsdk:"channel_id"`
 	ChannelName                     types.String            `tfsdk:"channel_name"`
-	ChannelReference                types.String            `tfsdk:"channel_reference"`
-	ChannelStatus                   types.String            `tfsdk:"channel_status"`
 	ChannelURL                      types.String            `tfsdk:"channel_url"`
 	Clearable                       types.Bool              `tfsdk:"clearable"`
-	CommentsURL                     types.String            `tfsdk:"comments_url"`
 	Config                          *tfTypes.TeamEntity1    `tfsdk:"config"`
 	ConfigurationURL                types.String            `tfsdk:"configuration_url"`
 	ConnectionID                    types.String            `tfsdk:"connection_id"`
 	ConnectionName                  types.String            `tfsdk:"connection_name"`
 	ConnectionType                  types.String            `tfsdk:"connection_type"`
-	ContextDescription              types.String            `tfsdk:"context_description"`
-	ContextTag                      types.String            `tfsdk:"context_tag"`
 	CreatedAt                       types.String            `tfsdk:"created_at"`
-	CurrentMilestone                types.String            `tfsdk:"current_milestone"`
-	CustomerImpactSummary           types.String            `tfsdk:"customer_impact_summary"`
-	CustomersImpacted               types.Int64             `tfsdk:"customers_impacted"`
 	DefaultLogic                    *tfTypes.TeamEntity1    `tfsdk:"default_logic"`
 	DefaultRuleData                 *tfTypes.TeamEntity1    `tfsdk:"default_rule_data"`
 	DefaultValue                    types.String            `tfsdk:"default_value"`
 	DelayDuration                   types.String            `tfsdk:"delay_duration"`
-	Deletable                       types.Bool              `tfsdk:"deletable"`
 	Deprecated                      types.Bool              `tfsdk:"deprecated"`
 	Description                     types.String            `tfsdk:"description"`
 	Details                         *tfTypes.TeamEntity1    `tfsdk:"details"`
@@ -78,76 +64,43 @@ type RunbooksDataSourceModel struct {
 	Disliked                        types.Bool              `tfsdk:"disliked"`
 	Dislikes                        types.Int64             `tfsdk:"dislikes"`
 	DisplayName                     types.String            `tfsdk:"display_name"`
-	DisplayText                     types.String            `tfsdk:"display_text"`
 	DocumentationURL                types.String            `tfsdk:"documentation_url"`
-	DueAt                           types.String            `tfsdk:"due_at"`
-	Duration                        types.String            `tfsdk:"duration"`
-	Editable                        types.Bool              `tfsdk:"editable"`
 	Email                           types.String            `tfsdk:"email"`
 	Enabled                         types.Bool              `tfsdk:"enabled"`
-	EndsAtMilestone                 types.String            `tfsdk:"ends_at_milestone"`
-	ExternalID                      types.String            `tfsdk:"external_id"`
-	Field                           types.String            `tfsdk:"field"`
-	FieldID                         types.String            `tfsdk:"field_id"`
 	HrefURL                         types.String            `tfsdk:"href_url"`
 	IconURL                         types.String            `tfsdk:"icon_url"`
 	ID                              types.String            `tfsdk:"id"`
-	IncidentCurrentMilestone        types.String            `tfsdk:"incident_current_milestone"`
-	IncidentID                      types.String            `tfsdk:"incident_id"`
-	IncidentName                    types.String            `tfsdk:"incident_name"`
-	IncidentURL                     types.String            `tfsdk:"incident_url"`
 	Installed                       types.Bool              `tfsdk:"installed"`
 	Integration                     types.String            `tfsdk:"integration"`
 	IntegrationID                   types.String            `tfsdk:"integration_id"`
-	IntegrationName                 types.String            `tfsdk:"integration_name"`
 	IntegrationSlug                 types.String            `tfsdk:"integration_slug"`
 	IsEditable                      types.Bool              `tfsdk:"is_editable"`
 	IsMulti                         types.Bool              `tfsdk:"is_multi"`
 	Label                           types.String            `tfsdk:"label"`
 	Labels                          map[string]types.String `tfsdk:"labels"`
-	LastUpdate                      types.String            `tfsdk:"last_update"`
 	Liked                           types.Bool              `tfsdk:"liked"`
 	Likes                           types.Int64             `tfsdk:"likes"`
 	Logic                           *tfTypes.TeamEntity1    `tfsdk:"logic"`
 	LogoURL                         types.String            `tfsdk:"logo_url"`
-	MonetaryImpact                  types.Int64             `tfsdk:"monetary_impact"`
-	MonetaryImpactCents             types.Int64             `tfsdk:"monetary_impact_cents"`
 	MsTeamID                        types.String            `tfsdk:"ms_team_id"`
 	Name                            types.String            `tfsdk:"name"`
 	NatIP                           types.String            `tfsdk:"nat_ip"`
-	Number                          types.Int64             `tfsdk:"number"`
-	ObjectID                        types.String            `tfsdk:"object_id"`
-	ObjectType                      types.String            `tfsdk:"object_type"`
-	OccurredAt                      types.String            `tfsdk:"occurred_at"`
-	OrganizationID                  types.String            `tfsdk:"organization_id"`
 	Owner                           *tfTypes.TeamEntity1    `tfsdk:"owner"`
 	Owners                          types.String            `tfsdk:"owners"`
 	Page                            types.Int64             `tfsdk:"page"`
 	PerPage                         types.Int64             `tfsdk:"per_page"`
 	Placeholder                     types.String            `tfsdk:"placeholder"`
-	Position                        types.Int64             `tfsdk:"position"`
 	Prerequisites                   *tfTypes.TeamEntity1    `tfsdk:"prerequisites"`
-	Priority                        types.String            `tfsdk:"priority"`
-	PrivateID                       types.String            `tfsdk:"private_id"`
-	PrivateStatusPageURL            types.String            `tfsdk:"private_status_page_url"`
 	RemoteID                        types.String            `tfsdk:"remote_id"`
 	RemoteURL                       types.String            `tfsdk:"remote_url"`
 	Repeatable                      types.Bool              `tfsdk:"repeatable"`
 	Repeats                         types.Bool              `tfsdk:"repeats"`
 	RepeatsDuration                 types.String            `tfsdk:"repeats_duration"`
-	ReportID                        types.String            `tfsdk:"report_id"`
 	Required                        types.Bool              `tfsdk:"required"`
-	RequiredAtMilestoneID           types.String            `tfsdk:"required_at_milestone_id"`
 	Rerunnable                      types.Bool              `tfsdk:"rerunnable"`
 	Reruns                          types.Bool              `tfsdk:"reruns"`
-	ResourceClass                   types.String            `tfsdk:"resource_class"`
-	ResourceID                      types.String            `tfsdk:"resource_id"`
 	RunbookTemplateID               types.String            `tfsdk:"runbook_template_id"`
 	SetupURL                        types.String            `tfsdk:"setup_url"`
-	Severity                        types.String            `tfsdk:"severity"`
-	SeverityColor                   types.String            `tfsdk:"severity_color"`
-	SeverityCondition               types.String            `tfsdk:"severity_condition"`
-	SeverityImpact                  types.String            `tfsdk:"severity_impact"`
 	SignalsEnabledNotificationTypes []types.String          `tfsdk:"signals_enabled_notification_types"`
 	SignalsIcalURL                  types.String            `tfsdk:"signals_ical_url"`
 	SlackChannelID                  types.String            `tfsdk:"slack_channel_id"`
@@ -156,29 +109,17 @@ type RunbooksDataSourceModel struct {
 	Slug                            types.String            `tfsdk:"slug"`
 	Sort                            types.String            `tfsdk:"sort"`
 	Source                          types.String            `tfsdk:"source"`
-	SourceID                        types.String            `tfsdk:"source_id"`
-	SourceName                      types.String            `tfsdk:"source_name"`
-	StartedAt                       types.String            `tfsdk:"started_at"`
-	StartsAtMilestone               types.String            `tfsdk:"starts_at_milestone"`
-	State                           types.String            `tfsdk:"state"`
 	Status                          types.String            `tfsdk:"status"`
 	StepElements                    []tfTypes.TeamEntity1   `tfsdk:"step_elements"`
 	StepID                          types.String            `tfsdk:"step_id"`
 	Summary                         types.String            `tfsdk:"summary"`
 	SupportedRunbookTypes           []types.String          `tfsdk:"supported_runbook_types"`
-	TagList                         []types.String          `tfsdk:"tag_list"`
-	TaskID                          types.String            `tfsdk:"task_id"`
-	Team                            *tfTypes.TeamEntity1    `tfsdk:"team"`
 	TeamName                        types.String            `tfsdk:"team_name"`
 	Text                            types.String            `tfsdk:"text"`
 	Tutorial                        types.Bool              `tfsdk:"tutorial"`
 	Type                            types.String            `tfsdk:"type"`
 	UpdatedAt                       types.String            `tfsdk:"updated_at"`
-	URL                             types.String            `tfsdk:"url"`
 	Value                           types.String            `tfsdk:"value"`
-	ValueArray                      types.String            `tfsdk:"value_array"`
-	ValueString                     types.String            `tfsdk:"value_string"`
-	ValueType                       types.String            `tfsdk:"value_type"`
 	Voted                           types.Bool              `tfsdk:"voted"`
 }
 
@@ -203,19 +144,10 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"action_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"active": schema.BoolAttribute{
-				Computed: true,
-			},
 			"active_incidents": schema.ListAttribute{
 				Computed:    true,
 				ElementType: types.StringType,
 				Description: `List of active incident guids`,
-			},
-			"affects_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"ai_incident_summary": schema.StringAttribute{
-				Computed: true,
 			},
 			"alert_on_add": schema.BoolAttribute{
 				Computed: true,
@@ -241,12 +173,6 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"automatic": schema.BoolAttribute{
 				Computed: true,
 			},
-			"body": schema.StringAttribute{
-				Computed: true,
-			},
-			"calculated_at": schema.StringAttribute{
-				Computed: true,
-			},
 			"categories": schema.StringAttribute{
 				Computed:    true,
 				Description: `categories the runbook applies to`,
@@ -260,20 +186,10 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"channel_name": schema.StringAttribute{
 				Computed: true,
 			},
-			"channel_reference": schema.StringAttribute{
-				Computed: true,
-			},
-			"channel_status": schema.StringAttribute{
-				Computed:    true,
-				Description: `inoperative: 0, operational: 1, archived: 2`,
-			},
 			"channel_url": schema.StringAttribute{
 				Computed: true,
 			},
 			"clearable": schema.BoolAttribute{
-				Computed: true,
-			},
-			"comments_url": schema.StringAttribute{
 				Computed: true,
 			},
 			"config": schema.SingleNestedAttribute{
@@ -292,23 +208,7 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"connection_type": schema.StringAttribute{
 				Computed: true,
 			},
-			"context_description": schema.StringAttribute{
-				Computed: true,
-			},
-			"context_tag": schema.StringAttribute{
-				Computed: true,
-			},
 			"created_at": schema.StringAttribute{
-				Computed: true,
-			},
-			"current_milestone": schema.StringAttribute{
-				Computed:    true,
-				Description: `The type/slug of the current milestone. Will be one of the currently configured milestones for the given incident.`,
-			},
-			"customer_impact_summary": schema.StringAttribute{
-				Computed: true,
-			},
-			"customers_impacted": schema.Int64Attribute{
 				Computed: true,
 			},
 			"default_logic": schema.SingleNestedAttribute{
@@ -322,10 +222,6 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			},
 			"delay_duration": schema.StringAttribute{
 				Computed: true,
-			},
-			"deletable": schema.BoolAttribute{
-				Computed:    true,
-				Description: `Link can be deleted`,
 			},
 			"deprecated": schema.BoolAttribute{
 				Computed: true,
@@ -341,8 +237,7 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 				Computed: true,
 			},
 			"discarded_at": schema.StringAttribute{
-				Computed:    true,
-				Description: `The time the incident was archived`,
+				Computed: true,
 			},
 			"disliked": schema.BoolAttribute{
 				Computed:    true,
@@ -354,40 +249,14 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"display_name": schema.StringAttribute{
 				Computed: true,
 			},
-			"display_text": schema.StringAttribute{
-				Computed: true,
-			},
 			"documentation_url": schema.StringAttribute{
 				Computed:    true,
 				Description: `Location of documentation for this action`,
-			},
-			"due_at": schema.StringAttribute{
-				Computed: true,
-			},
-			"duration": schema.StringAttribute{
-				Computed:    true,
-				Description: `How long the incident spent in this milestones, in ISO 8601 Duration Format. This will be null if the milestone is the incident's current milestone.`,
-			},
-			"editable": schema.BoolAttribute{
-				Computed:    true,
-				Description: `Link can be edited`,
 			},
 			"email": schema.StringAttribute{
 				Computed: true,
 			},
 			"enabled": schema.BoolAttribute{
-				Computed: true,
-			},
-			"ends_at_milestone": schema.StringAttribute{
-				Computed: true,
-			},
-			"external_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"field": schema.StringAttribute{
-				Computed: true,
-			},
-			"field_id": schema.StringAttribute{
 				Computed: true,
 			},
 			"href_url": schema.StringAttribute{
@@ -399,21 +268,6 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"id": schema.StringAttribute{
 				Computed: true,
 			},
-			"incident_current_milestone": schema.StringAttribute{
-				Computed:    true,
-				Description: `Milestone of incident that this ticket is related to`,
-			},
-			"incident_id": schema.StringAttribute{
-				Computed:    true,
-				Description: `ID of incident that this ticket is related to`,
-			},
-			"incident_name": schema.StringAttribute{
-				Computed:    true,
-				Description: `Name of incident that this ticket is related to`,
-			},
-			"incident_url": schema.StringAttribute{
-				Computed: true,
-			},
 			"installed": schema.BoolAttribute{
 				Computed: true,
 			},
@@ -421,9 +275,6 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 				Computed: true,
 			},
 			"integration_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"integration_name": schema.StringAttribute{
 				Computed: true,
 			},
 			"integration_slug": schema.StringAttribute{
@@ -441,10 +292,7 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"labels": schema.MapAttribute{
 				Computed:    true,
 				ElementType: types.StringType,
-				Description: `A key/value of labels`,
-			},
-			"last_update": schema.StringAttribute{
-				Computed: true,
+				Description: `An object of label key and values`,
 			},
 			"liked": schema.BoolAttribute{
 				Computed:    true,
@@ -460,12 +308,6 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"logo_url": schema.StringAttribute{
 				Computed: true,
 			},
-			"monetary_impact": schema.Int64Attribute{
-				Computed: true,
-			},
-			"monetary_impact_cents": schema.Int64Attribute{
-				Computed: true,
-			},
 			"ms_team_id": schema.StringAttribute{
 				Computed: true,
 			},
@@ -475,22 +317,6 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 				Description: `A query to search runbooks by their name`,
 			},
 			"nat_ip": schema.StringAttribute{
-				Computed: true,
-			},
-			"number": schema.Int64Attribute{
-				Computed:    true,
-				Description: `Incident number`,
-			},
-			"object_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"object_type": schema.StringAttribute{
-				Computed: true,
-			},
-			"occurred_at": schema.StringAttribute{
-				Computed: true,
-			},
-			"organization_id": schema.StringAttribute{
 				Computed: true,
 			},
 			"owner": schema.SingleNestedAttribute{
@@ -510,19 +336,7 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"placeholder": schema.StringAttribute{
 				Computed: true,
 			},
-			"position": schema.Int64Attribute{
-				Computed: true,
-			},
 			"prerequisites": schema.SingleNestedAttribute{
-				Computed: true,
-			},
-			"priority": schema.StringAttribute{
-				Computed: true,
-			},
-			"private_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"private_status_page_url": schema.StringAttribute{
 				Computed: true,
 			},
 			"remote_id": schema.StringAttribute{
@@ -540,15 +354,8 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"repeats_duration": schema.StringAttribute{
 				Computed: true,
 			},
-			"report_id": schema.StringAttribute{
-				Computed: true,
-			},
 			"required": schema.BoolAttribute{
 				Computed: true,
-			},
-			"required_at_milestone_id": schema.StringAttribute{
-				Computed:    true,
-				Description: `The milestone at which this field is required. If null, this field is always required.`,
 			},
 			"rerunnable": schema.BoolAttribute{
 				Computed: true,
@@ -556,28 +363,10 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"reruns": schema.BoolAttribute{
 				Computed: true,
 			},
-			"resource_class": schema.StringAttribute{
-				Computed: true,
-			},
-			"resource_id": schema.StringAttribute{
-				Computed: true,
-			},
 			"runbook_template_id": schema.StringAttribute{
 				Computed: true,
 			},
 			"setup_url": schema.StringAttribute{
-				Computed: true,
-			},
-			"severity": schema.StringAttribute{
-				Computed: true,
-			},
-			"severity_color": schema.StringAttribute{
-				Computed: true,
-			},
-			"severity_condition": schema.StringAttribute{
-				Computed: true,
-			},
-			"severity_impact": schema.StringAttribute{
 				Computed: true,
 			},
 			"signals_enabled_notification_types": schema.ListAttribute{
@@ -606,22 +395,6 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"source": schema.StringAttribute{
 				Computed: true,
 			},
-			"source_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"source_name": schema.StringAttribute{
-				Computed: true,
-			},
-			"started_at": schema.StringAttribute{
-				Computed:    true,
-				Description: `The time the incident started`,
-			},
-			"starts_at_milestone": schema.StringAttribute{
-				Computed: true,
-			},
-			"state": schema.StringAttribute{
-				Computed: true,
-			},
 			"status": schema.StringAttribute{
 				Computed: true,
 			},
@@ -642,18 +415,6 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 				Computed:    true,
 				ElementType: types.StringType,
 			},
-			"tag_list": schema.ListAttribute{
-				Computed:    true,
-				ElementType: types.StringType,
-			},
-			"task_id": schema.StringAttribute{
-				Computed:    true,
-				Description: `ID of task that this ticket is related to`,
-			},
-			"team": schema.SingleNestedAttribute{
-				Computed:    true,
-				Description: `TeamEntity model`,
-			},
 			"team_name": schema.StringAttribute{
 				Computed: true,
 			},
@@ -669,19 +430,7 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"updated_at": schema.StringAttribute{
 				Computed: true,
 			},
-			"url": schema.StringAttribute{
-				Computed: true,
-			},
 			"value": schema.StringAttribute{
-				Computed: true,
-			},
-			"value_array": schema.StringAttribute{
-				Computed: true,
-			},
-			"value_string": schema.StringAttribute{
-				Computed: true,
-			},
-			"value_type": schema.StringAttribute{
 				Computed: true,
 			},
 			"voted": schema.BoolAttribute{
