@@ -22,4 +22,9 @@ resource "firehydrant-terraform-sdk_functionality" "my_functionality" {
   owner = {
     id = "...my_id..."
   }
+  services = [
+    {
+      id = "...my_id..."
+    }
+  ]
 }

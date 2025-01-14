@@ -26,8 +26,6 @@ type FunctionalityEntity struct {
 	AlertOnAdd            *bool         `json:"alert_on_add,omitempty"`
 	AutoAddRespondingTeam *bool         `json:"auto_add_responding_team,omitempty"`
 	UpdatedBy             *AuthorEntity `json:"updated_by,omitempty"`
-	// Services this functionality provides
-	Services []ServiceEntity `json:"services,omitempty"`
 	// Information about known linkages to representations of services outside of FireHydrant.
 	ExternalResources []ExternalResourceEntity `json:"external_resources,omitempty"`
 	// List of teams attached to the functionality
@@ -134,13 +132,6 @@ func (o *FunctionalityEntity) GetUpdatedBy() *AuthorEntity {
 		return nil
 	}
 	return o.UpdatedBy
-}
-
-func (o *FunctionalityEntity) GetServices() []ServiceEntity {
-	if o == nil {
-		return nil
-	}
-	return o.Services
 }
 
 func (o *FunctionalityEntity) GetExternalResources() []ExternalResourceEntity {

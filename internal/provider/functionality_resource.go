@@ -34,20 +34,21 @@ type FunctionalityResource struct {
 
 // FunctionalityResourceModel describes the resource data model.
 type FunctionalityResourceModel struct {
-	ActiveIncidents       []types.String                      `tfsdk:"active_incidents"`
-	AlertOnAdd            types.Bool                          `tfsdk:"alert_on_add"`
-	AutoAddRespondingTeam types.Bool                          `tfsdk:"auto_add_responding_team"`
-	CreatedAt             types.String                        `tfsdk:"created_at"`
-	Description           types.String                        `tfsdk:"description"`
-	ExternalResources     []tfTypes.ExternalResourceEntity1   `tfsdk:"external_resources"`
-	ID                    types.String                        `tfsdk:"id"`
-	Labels                map[string]types.String             `tfsdk:"labels"`
-	Links                 []tfTypes.LinksEntity1              `tfsdk:"links"`
-	Name                  types.String                        `tfsdk:"name"`
-	Owner                 *tfTypes.PostV1FunctionalitiesOwner `tfsdk:"owner"`
-	Slug                  types.String                        `tfsdk:"slug"`
-	UpdatedAt             types.String                        `tfsdk:"updated_at"`
-	UpdatedBy             *tfTypes.AuthorEntity               `tfsdk:"updated_by"`
+	ActiveIncidents       []types.String                       `tfsdk:"active_incidents"`
+	AlertOnAdd            types.Bool                           `tfsdk:"alert_on_add"`
+	AutoAddRespondingTeam types.Bool                           `tfsdk:"auto_add_responding_team"`
+	CreatedAt             types.String                         `tfsdk:"created_at"`
+	Description           types.String                         `tfsdk:"description"`
+	ExternalResources     []tfTypes.ExternalResourceEntity1    `tfsdk:"external_resources"`
+	ID                    types.String                         `tfsdk:"id"`
+	Labels                map[string]types.String              `tfsdk:"labels"`
+	Links                 []tfTypes.LinksEntity1               `tfsdk:"links"`
+	Name                  types.String                         `tfsdk:"name"`
+	Owner                 *tfTypes.PostV1FunctionalitiesOwner  `tfsdk:"owner"`
+	Services              []tfTypes.PostV1FunctionalitiesOwner `tfsdk:"services"`
+	Slug                  types.String                         `tfsdk:"slug"`
+	UpdatedAt             types.String                         `tfsdk:"updated_at"`
+	UpdatedBy             *tfTypes.AuthorEntity                `tfsdk:"updated_by"`
 }
 
 func (r *FunctionalityResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -192,6 +193,17 @@ func (r *FunctionalityResource) Schema(ctx context.Context, req resource.SchemaR
 					},
 				},
 				Description: `An object representing a Team that owns the service`,
+			},
+			"services": schema.ListNestedAttribute{
+				Optional: true,
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"id": schema.StringAttribute{
+							Required:    true,
+							Description: `ID of a service`,
+						},
+					},
+				},
 			},
 			"slug": schema.StringAttribute{
 				Computed: true,

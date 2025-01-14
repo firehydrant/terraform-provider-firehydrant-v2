@@ -257,886 +257,6 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 						checklists1.Owner.MsTeamsChannel.ChannelName = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.ChannelName)
 						checklists1.Owner.MsTeamsChannel.ChannelURL = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.ChannelURL)
 						checklists1.Owner.MsTeamsChannel.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.ID)
-						if checklistsItem.Owner.MsTeamsChannel.Incident == nil {
-							checklists1.Owner.MsTeamsChannel.Incident = nil
-						} else {
-							checklists1.Owner.MsTeamsChannel.Incident = &tfTypes.IncidentEntity{}
-							checklists1.Owner.MsTeamsChannel.Incident.Active = types.BoolPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Active)
-							checklists1.Owner.MsTeamsChannel.Incident.AiIncidentSummary = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.AiIncidentSummary)
-							checklists1.Owner.MsTeamsChannel.Incident.ChannelID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ChannelID)
-							checklists1.Owner.MsTeamsChannel.Incident.ChannelName = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ChannelName)
-							checklists1.Owner.MsTeamsChannel.Incident.ChannelReference = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ChannelReference)
-							checklists1.Owner.MsTeamsChannel.Incident.ChannelStatus = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ChannelStatus)
-							checklists1.Owner.MsTeamsChannel.Incident.ConferenceBridges = []tfTypes.IncidentsConferenceBridgeEntity{}
-							for conferenceBridgesCount, conferenceBridgesItem := range checklistsItem.Owner.MsTeamsChannel.Incident.ConferenceBridges {
-								var conferenceBridges1 tfTypes.IncidentsConferenceBridgeEntity
-								conferenceBridges1.ID = types.StringPointerValue(conferenceBridgesItem.ID)
-								if conferenceBridgesCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.ConferenceBridges) {
-									checklists1.Owner.MsTeamsChannel.Incident.ConferenceBridges = append(checklists1.Owner.MsTeamsChannel.Incident.ConferenceBridges, conferenceBridges1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount].ID = conferenceBridges1.ID
-								}
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.ContextObject == nil {
-								checklists1.Owner.MsTeamsChannel.Incident.ContextObject = nil
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.ContextObject = &tfTypes.IncidentsContextObjectEntity{}
-								checklists1.Owner.MsTeamsChannel.Incident.ContextObject.ContextDescription = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ContextObject.ContextDescription)
-								checklists1.Owner.MsTeamsChannel.Incident.ContextObject.ContextTag = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ContextObject.ContextTag)
-								checklists1.Owner.MsTeamsChannel.Incident.ContextObject.ObjectID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ContextObject.ObjectID)
-								checklists1.Owner.MsTeamsChannel.Incident.ContextObject.ObjectType = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ContextObject.ObjectType)
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							for conversationsCount, conversationsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.Conversations {
-								var conversations1 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem.Channel == nil {
-									conversations1.Channel = nil
-								} else {
-									conversations1.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations1.Channel.Name = types.StringPointerValue(conversationsItem.Channel.Name)
-								}
-								conversations1.CommentsURL = types.StringPointerValue(conversationsItem.CommentsURL)
-								conversations1.Field = types.StringPointerValue(conversationsItem.Field)
-								conversations1.ID = types.StringPointerValue(conversationsItem.ID)
-								conversations1.ResourceClass = types.StringPointerValue(conversationsItem.ResourceClass)
-								conversations1.ResourceID = types.StringPointerValue(conversationsItem.ResourceID)
-								if conversationsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.Conversations) {
-									checklists1.Owner.MsTeamsChannel.Incident.Conversations = append(checklists1.Owner.MsTeamsChannel.Incident.Conversations, conversations1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount].Channel = conversations1.Channel
-									checklists1.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount].CommentsURL = conversations1.CommentsURL
-									checklists1.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount].Field = conversations1.Field
-									checklists1.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount].ID = conversations1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount].ResourceClass = conversations1.ResourceClass
-									checklists1.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount].ResourceID = conversations1.ResourceID
-								}
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.CreatedAt != nil {
-								checklists1.Owner.MsTeamsChannel.Incident.CreatedAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.CreatedAt = types.StringNull()
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.CreatedBy == nil {
-								checklists1.Owner.MsTeamsChannel.Incident.CreatedBy = nil
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.CreatedBy = &tfTypes.AuthorEntity{}
-								checklists1.Owner.MsTeamsChannel.Incident.CreatedBy.Email = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.CreatedBy.Email)
-								checklists1.Owner.MsTeamsChannel.Incident.CreatedBy.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.CreatedBy.ID)
-								checklists1.Owner.MsTeamsChannel.Incident.CreatedBy.Name = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.CreatedBy.Name)
-								checklists1.Owner.MsTeamsChannel.Incident.CreatedBy.Source = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.CreatedBy.Source)
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.CurrentMilestone = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.CurrentMilestone)
-							checklists1.Owner.MsTeamsChannel.Incident.CustomFields = []tfTypes.CustomFieldsFieldValue{}
-							for customFieldsCount, customFieldsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.CustomFields {
-								var customFields1 tfTypes.CustomFieldsFieldValue
-								customFields1.Description = types.StringPointerValue(customFieldsItem.Description)
-								customFields1.DisplayName = types.StringPointerValue(customFieldsItem.DisplayName)
-								customFields1.FieldID = types.StringPointerValue(customFieldsItem.FieldID)
-								customFields1.Name = types.StringPointerValue(customFieldsItem.Name)
-								customFields1.Slug = types.StringPointerValue(customFieldsItem.Slug)
-								customFields1.Value = types.StringPointerValue(customFieldsItem.Value)
-								customFields1.ValueArray = types.StringPointerValue(customFieldsItem.ValueArray)
-								customFields1.ValueString = types.StringPointerValue(customFieldsItem.ValueString)
-								customFields1.ValueType = types.StringPointerValue(customFieldsItem.ValueType)
-								if customFieldsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.CustomFields) {
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields = append(checklists1.Owner.MsTeamsChannel.Incident.CustomFields, customFields1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].Description = customFields1.Description
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].DisplayName = customFields1.DisplayName
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].FieldID = customFields1.FieldID
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].Name = customFields1.Name
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].Slug = customFields1.Slug
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].Value = customFields1.Value
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].ValueArray = customFields1.ValueArray
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].ValueString = customFields1.ValueString
-									checklists1.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount].ValueType = customFields1.ValueType
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.CustomerImpactSummary = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.CustomerImpactSummary)
-							if checklistsItem.Owner.MsTeamsChannel.Incident.CustomersImpacted != nil {
-								checklists1.Owner.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Value(int64(*checklistsItem.Owner.MsTeamsChannel.Incident.CustomersImpacted))
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Null()
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Description = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Description)
-							if checklistsItem.Owner.MsTeamsChannel.Incident.DiscardedAt != nil {
-								checklists1.Owner.MsTeamsChannel.Incident.DiscardedAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.DiscardedAt.Format(time.RFC3339Nano))
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.DiscardedAt = types.StringNull()
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Environments = []tfTypes.SuccinctEntity{}
-							for environmentsCount, environmentsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.Environments {
-								var environments1 tfTypes.SuccinctEntity
-								environments1.ID = types.StringPointerValue(environmentsItem.ID)
-								environments1.Name = types.StringPointerValue(environmentsItem.Name)
-								if environmentsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.Environments) {
-									checklists1.Owner.MsTeamsChannel.Incident.Environments = append(checklists1.Owner.MsTeamsChannel.Incident.Environments, environments1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Environments[environmentsCount].ID = environments1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.Environments[environmentsCount].Name = environments1.Name
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.FieldRequirements = []tfTypes.IncidentEntityFieldRequirementEntity{}
-							for fieldRequirementsCount, fieldRequirementsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.FieldRequirements {
-								var fieldRequirements1 tfTypes.IncidentEntityFieldRequirementEntity
-								fieldRequirements1.FieldID = types.StringPointerValue(fieldRequirementsItem.FieldID)
-								fieldRequirements1.RequiredAtMilestoneID = types.StringPointerValue(fieldRequirementsItem.RequiredAtMilestoneID)
-								if fieldRequirementsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.FieldRequirements) {
-									checklists1.Owner.MsTeamsChannel.Incident.FieldRequirements = append(checklists1.Owner.MsTeamsChannel.Incident.FieldRequirements, fieldRequirements1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount].FieldID = fieldRequirements1.FieldID
-									checklists1.Owner.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount].RequiredAtMilestoneID = fieldRequirements1.RequiredAtMilestoneID
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Functionalities = []tfTypes.SuccinctEntity{}
-							for functionalitiesCount1, functionalitiesItem1 := range checklistsItem.Owner.MsTeamsChannel.Incident.Functionalities {
-								var functionalities3 tfTypes.SuccinctEntity
-								functionalities3.ID = types.StringPointerValue(functionalitiesItem1.ID)
-								functionalities3.Name = types.StringPointerValue(functionalitiesItem1.Name)
-								if functionalitiesCount1+1 > len(checklists1.Owner.MsTeamsChannel.Incident.Functionalities) {
-									checklists1.Owner.MsTeamsChannel.Incident.Functionalities = append(checklists1.Owner.MsTeamsChannel.Incident.Functionalities, functionalities3)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Functionalities[functionalitiesCount1].ID = functionalities3.ID
-									checklists1.Owner.MsTeamsChannel.Incident.Functionalities[functionalitiesCount1].Name = functionalities3.Name
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ID)
-							checklists1.Owner.MsTeamsChannel.Incident.Impacts = []tfTypes.IncidentsImpactEntity{}
-							for impactsCount, impactsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.Impacts {
-								var impacts1 tfTypes.IncidentsImpactEntity
-								if impactsItem.Condition == nil {
-									impacts1.Condition = nil
-								} else {
-									impacts1.Condition = &tfTypes.SeverityMatrixConditionEntity{}
-									impacts1.Condition.ID = types.StringPointerValue(impactsItem.Condition.ID)
-									impacts1.Condition.Name = types.StringPointerValue(impactsItem.Condition.Name)
-									if impactsItem.Condition.Position != nil {
-										impacts1.Condition.Position = types.Int64Value(int64(*impactsItem.Condition.Position))
-									} else {
-										impacts1.Condition.Position = types.Int64Null()
-									}
-								}
-								impacts1.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-								for conversationsCount1, conversationsItem1 := range impactsItem.Conversations {
-									var conversations3 tfTypes.ConversationsAPIEntitiesReference
-									if conversationsItem1.Channel == nil {
-										conversations3.Channel = nil
-									} else {
-										conversations3.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-										conversations3.Channel.Name = types.StringPointerValue(conversationsItem1.Channel.Name)
-									}
-									conversations3.CommentsURL = types.StringPointerValue(conversationsItem1.CommentsURL)
-									conversations3.Field = types.StringPointerValue(conversationsItem1.Field)
-									conversations3.ID = types.StringPointerValue(conversationsItem1.ID)
-									conversations3.ResourceClass = types.StringPointerValue(conversationsItem1.ResourceClass)
-									conversations3.ResourceID = types.StringPointerValue(conversationsItem1.ResourceID)
-									if conversationsCount1+1 > len(impacts1.Conversations) {
-										impacts1.Conversations = append(impacts1.Conversations, conversations3)
-									} else {
-										impacts1.Conversations[conversationsCount1].Channel = conversations3.Channel
-										impacts1.Conversations[conversationsCount1].CommentsURL = conversations3.CommentsURL
-										impacts1.Conversations[conversationsCount1].Field = conversations3.Field
-										impacts1.Conversations[conversationsCount1].ID = conversations3.ID
-										impacts1.Conversations[conversationsCount1].ResourceClass = conversations3.ResourceClass
-										impacts1.Conversations[conversationsCount1].ResourceID = conversations3.ResourceID
-									}
-								}
-								impacts1.ID = types.StringPointerValue(impactsItem.ID)
-								if impactsItem.Impact == nil {
-									impacts1.Impact = nil
-								} else {
-									impacts1.Impact = &tfTypes.SuccinctEntity{}
-									impacts1.Impact.ID = types.StringPointerValue(impactsItem.Impact.ID)
-									impacts1.Impact.Name = types.StringPointerValue(impactsItem.Impact.Name)
-								}
-								if impactsItem.Type != nil {
-									impacts1.Type = types.StringValue(string(*impactsItem.Type))
-								} else {
-									impacts1.Type = types.StringNull()
-								}
-								if impactsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.Impacts) {
-									checklists1.Owner.MsTeamsChannel.Incident.Impacts = append(checklists1.Owner.MsTeamsChannel.Incident.Impacts, impacts1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Impacts[impactsCount].Condition = impacts1.Condition
-									checklists1.Owner.MsTeamsChannel.Incident.Impacts[impactsCount].Conversations = impacts1.Conversations
-									checklists1.Owner.MsTeamsChannel.Incident.Impacts[impactsCount].ID = impacts1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.Impacts[impactsCount].Impact = impacts1.Impact
-									checklists1.Owner.MsTeamsChannel.Incident.Impacts[impactsCount].Type = impacts1.Type
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels = []tfTypes.IncidentsChannelEntity{}
-							for incidentChannelsCount, incidentChannelsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.IncidentChannels {
-								var incidentChannels1 tfTypes.IncidentsChannelEntity
-								incidentChannels1.IconURL = types.StringPointerValue(incidentChannelsItem.IconURL)
-								incidentChannels1.ID = types.StringPointerValue(incidentChannelsItem.ID)
-								incidentChannels1.Name = types.StringPointerValue(incidentChannelsItem.Name)
-								incidentChannels1.Source = types.StringPointerValue(incidentChannelsItem.Source)
-								incidentChannels1.SourceID = types.StringPointerValue(incidentChannelsItem.SourceID)
-								incidentChannels1.SourceName = types.StringPointerValue(incidentChannelsItem.SourceName)
-								incidentChannels1.Status = types.StringPointerValue(incidentChannelsItem.Status)
-								incidentChannels1.URL = types.StringPointerValue(incidentChannelsItem.URL)
-								if incidentChannelsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels) {
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels = append(checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels, incidentChannels1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount].IconURL = incidentChannels1.IconURL
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount].ID = incidentChannels1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount].Name = incidentChannels1.Name
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount].Source = incidentChannels1.Source
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount].SourceID = incidentChannels1.SourceID
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount].SourceName = incidentChannels1.SourceName
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount].Status = incidentChannels1.Status
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount].URL = incidentChannels1.URL
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets = []tfTypes.TicketingTicketEntity{}
-							for incidentTicketsCount, incidentTicketsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.IncidentTickets {
-								var incidentTickets1 tfTypes.TicketingTicketEntity
-								incidentTickets1.Assignees = []tfTypes.AuthorEntity{}
-								for assigneesCount, assigneesItem := range incidentTicketsItem.Assignees {
-									var assignees1 tfTypes.AuthorEntity
-									assignees1.Email = types.StringPointerValue(assigneesItem.Email)
-									assignees1.ID = types.StringPointerValue(assigneesItem.ID)
-									assignees1.Name = types.StringPointerValue(assigneesItem.Name)
-									assignees1.Source = types.StringPointerValue(assigneesItem.Source)
-									if assigneesCount+1 > len(incidentTickets1.Assignees) {
-										incidentTickets1.Assignees = append(incidentTickets1.Assignees, assignees1)
-									} else {
-										incidentTickets1.Assignees[assigneesCount].Email = assignees1.Email
-										incidentTickets1.Assignees[assigneesCount].ID = assignees1.ID
-										incidentTickets1.Assignees[assigneesCount].Name = assignees1.Name
-										incidentTickets1.Assignees[assigneesCount].Source = assignees1.Source
-									}
-								}
-								if incidentTicketsItem.CreatedAt != nil {
-									incidentTickets1.CreatedAt = types.StringValue(incidentTicketsItem.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets1.CreatedAt = types.StringNull()
-								}
-								if incidentTicketsItem.CreatedBy == nil {
-									incidentTickets1.CreatedBy = nil
-								} else {
-									incidentTickets1.CreatedBy = &tfTypes.AuthorEntity{}
-									incidentTickets1.CreatedBy.Email = types.StringPointerValue(incidentTicketsItem.CreatedBy.Email)
-									incidentTickets1.CreatedBy.ID = types.StringPointerValue(incidentTicketsItem.CreatedBy.ID)
-									incidentTickets1.CreatedBy.Name = types.StringPointerValue(incidentTicketsItem.CreatedBy.Name)
-									incidentTickets1.CreatedBy.Source = types.StringPointerValue(incidentTicketsItem.CreatedBy.Source)
-								}
-								incidentTickets1.Description = types.StringPointerValue(incidentTicketsItem.Description)
-								if incidentTicketsItem.DueAt != nil {
-									incidentTickets1.DueAt = types.StringValue(incidentTicketsItem.DueAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets1.DueAt = types.StringNull()
-								}
-								incidentTickets1.ID = types.StringPointerValue(incidentTicketsItem.ID)
-								incidentTickets1.IncidentCurrentMilestone = types.StringPointerValue(incidentTicketsItem.IncidentCurrentMilestone)
-								incidentTickets1.IncidentID = types.StringPointerValue(incidentTicketsItem.IncidentID)
-								incidentTickets1.IncidentName = types.StringPointerValue(incidentTicketsItem.IncidentName)
-								if incidentTicketsItem.Link == nil {
-									incidentTickets1.Link = nil
-								} else {
-									incidentTickets1.Link = &tfTypes.AttachmentsLinkEntity{}
-									incidentTickets1.Link.Deletable = types.BoolPointerValue(incidentTicketsItem.Link.Deletable)
-									incidentTickets1.Link.DisplayText = types.StringPointerValue(incidentTicketsItem.Link.DisplayText)
-									incidentTickets1.Link.Editable = types.BoolPointerValue(incidentTicketsItem.Link.Editable)
-									incidentTickets1.Link.HrefURL = types.StringPointerValue(incidentTicketsItem.Link.HrefURL)
-									incidentTickets1.Link.IconURL = types.StringPointerValue(incidentTicketsItem.Link.IconURL)
-									incidentTickets1.Link.ID = types.StringPointerValue(incidentTicketsItem.Link.ID)
-									incidentTickets1.Link.Type = types.StringPointerValue(incidentTicketsItem.Link.Type)
-								}
-								if incidentTicketsItem.Priority == nil {
-									incidentTickets1.Priority = nil
-								} else {
-									incidentTickets1.Priority = &tfTypes.TicketingPriorityEntity{}
-									if incidentTicketsItem.Priority.CreatedAt != nil {
-										incidentTickets1.Priority.CreatedAt = types.StringValue(incidentTicketsItem.Priority.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										incidentTickets1.Priority.CreatedAt = types.StringNull()
-									}
-									incidentTickets1.Priority.ID = types.StringPointerValue(incidentTicketsItem.Priority.ID)
-									incidentTickets1.Priority.Name = types.StringPointerValue(incidentTicketsItem.Priority.Name)
-									if incidentTicketsItem.Priority.Position != nil {
-										incidentTickets1.Priority.Position = types.Int64Value(int64(*incidentTicketsItem.Priority.Position))
-									} else {
-										incidentTickets1.Priority.Position = types.Int64Null()
-									}
-									if incidentTicketsItem.Priority.UpdatedAt != nil {
-										incidentTickets1.Priority.UpdatedAt = types.StringValue(incidentTicketsItem.Priority.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										incidentTickets1.Priority.UpdatedAt = types.StringNull()
-									}
-								}
-								if incidentTicketsItem.State != nil {
-									incidentTickets1.State = types.StringValue(string(*incidentTicketsItem.State))
-								} else {
-									incidentTickets1.State = types.StringNull()
-								}
-								incidentTickets1.Summary = types.StringPointerValue(incidentTicketsItem.Summary)
-								incidentTickets1.TagList = []types.String{}
-								for _, v := range incidentTicketsItem.TagList {
-									incidentTickets1.TagList = append(incidentTickets1.TagList, types.StringValue(v))
-								}
-								incidentTickets1.TaskID = types.StringPointerValue(incidentTicketsItem.TaskID)
-								if incidentTicketsItem.Type != nil {
-									incidentTickets1.Type = types.StringValue(string(*incidentTicketsItem.Type))
-								} else {
-									incidentTickets1.Type = types.StringNull()
-								}
-								if incidentTicketsItem.UpdatedAt != nil {
-									incidentTickets1.UpdatedAt = types.StringValue(incidentTicketsItem.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets1.UpdatedAt = types.StringNull()
-								}
-								if incidentTicketsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets) {
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets = append(checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets, incidentTickets1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].Assignees = incidentTickets1.Assignees
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].CreatedAt = incidentTickets1.CreatedAt
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].CreatedBy = incidentTickets1.CreatedBy
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].Description = incidentTickets1.Description
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].DueAt = incidentTickets1.DueAt
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].ID = incidentTickets1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].IncidentCurrentMilestone = incidentTickets1.IncidentCurrentMilestone
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].IncidentID = incidentTickets1.IncidentID
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].IncidentName = incidentTickets1.IncidentName
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].Link = incidentTickets1.Link
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].Priority = incidentTickets1.Priority
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].State = incidentTickets1.State
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].Summary = incidentTickets1.Summary
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].TagList = incidentTickets1.TagList
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].TaskID = incidentTickets1.TaskID
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].Type = incidentTickets1.Type
-									checklists1.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount].UpdatedAt = incidentTickets1.UpdatedAt
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.IncidentURL = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.IncidentURL)
-							if len(checklistsItem.Owner.MsTeamsChannel.Incident.Labels) > 0 {
-								checklists1.Owner.MsTeamsChannel.Incident.Labels = make(map[string]types.String)
-								for key1, value2 := range checklistsItem.Owner.MsTeamsChannel.Incident.Labels {
-									checklists1.Owner.MsTeamsChannel.Incident.Labels[key1] = types.StringValue(value2)
-								}
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.LastNote == nil {
-								checklists1.Owner.MsTeamsChannel.Incident.LastNote = nil
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.LastNote = &tfTypes.EventNoteEntity{}
-								checklists1.Owner.MsTeamsChannel.Incident.LastNote.Body = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.LastNote.Body)
-								checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-								for conversationsCount2, conversationsItem2 := range checklistsItem.Owner.MsTeamsChannel.Incident.LastNote.Conversations {
-									var conversations5 tfTypes.ConversationsAPIEntitiesReference
-									if conversationsItem2.Channel == nil {
-										conversations5.Channel = nil
-									} else {
-										conversations5.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-										conversations5.Channel.Name = types.StringPointerValue(conversationsItem2.Channel.Name)
-									}
-									conversations5.CommentsURL = types.StringPointerValue(conversationsItem2.CommentsURL)
-									conversations5.Field = types.StringPointerValue(conversationsItem2.Field)
-									conversations5.ID = types.StringPointerValue(conversationsItem2.ID)
-									conversations5.ResourceClass = types.StringPointerValue(conversationsItem2.ResourceClass)
-									conversations5.ResourceID = types.StringPointerValue(conversationsItem2.ResourceID)
-									if conversationsCount2+1 > len(checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations) {
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations = append(checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations, conversations5)
-									} else {
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount2].Channel = conversations5.Channel
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount2].CommentsURL = conversations5.CommentsURL
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount2].Field = conversations5.Field
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount2].ID = conversations5.ID
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount2].ResourceClass = conversations5.ResourceClass
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount2].ResourceID = conversations5.ResourceID
-									}
-								}
-								if checklistsItem.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt != nil {
-									checklists1.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringNull()
-								}
-								checklists1.Owner.MsTeamsChannel.Incident.LastNote.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.LastNote.ID)
-								checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-								for statusPagesCount, statusPagesItem := range checklistsItem.Owner.MsTeamsChannel.Incident.LastNote.StatusPages {
-									var statusPages1 tfTypes.IncidentsStatusPageEntity
-									statusPages1.DisplayName = types.StringPointerValue(statusPagesItem.DisplayName)
-									statusPages1.ExternalID = types.StringPointerValue(statusPagesItem.ExternalID)
-									statusPages1.ID = types.StringPointerValue(statusPagesItem.ID)
-									if statusPagesItem.Integration == nil {
-										statusPages1.Integration = nil
-									} else {
-										statusPages1.Integration = &tfTypes.IntegrationEntity{}
-										if statusPagesItem.Integration.CreatedAt != nil {
-											statusPages1.Integration.CreatedAt = types.StringValue(statusPagesItem.Integration.CreatedAt.Format(time.RFC3339Nano))
-										} else {
-											statusPages1.Integration.CreatedAt = types.StringNull()
-										}
-										statusPages1.Integration.DisplayName = types.StringPointerValue(statusPagesItem.Integration.DisplayName)
-										statusPages1.Integration.ID = types.StringPointerValue(statusPagesItem.Integration.ID)
-										statusPages1.Integration.IntegrationName = types.StringPointerValue(statusPagesItem.Integration.IntegrationName)
-										statusPages1.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem.Integration.IntegrationSlug)
-									}
-									statusPages1.Name = types.StringPointerValue(statusPagesItem.Name)
-									statusPages1.URL = types.StringPointerValue(statusPagesItem.URL)
-									if statusPagesCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages) {
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = append(checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages, statusPages1)
-									} else {
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount].DisplayName = statusPages1.DisplayName
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount].ExternalID = statusPages1.ExternalID
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount].ID = statusPages1.ID
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount].Integration = statusPages1.Integration
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount].Name = statusPages1.Name
-										checklists1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount].URL = statusPages1.URL
-									}
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.LastUpdate = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.LastUpdate)
-							checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = []tfTypes.IncidentsLifecycleMeasurementEntity{}
-							for lifecycleMeasurementsCount, lifecycleMeasurementsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.LifecycleMeasurements {
-								var lifecycleMeasurements1 tfTypes.IncidentsLifecycleMeasurementEntity
-								if lifecycleMeasurementsItem.CalculatedAt != nil {
-									lifecycleMeasurements1.CalculatedAt = types.StringValue(lifecycleMeasurementsItem.CalculatedAt.Format(time.RFC3339Nano))
-								} else {
-									lifecycleMeasurements1.CalculatedAt = types.StringNull()
-								}
-								lifecycleMeasurements1.Description = types.StringPointerValue(lifecycleMeasurementsItem.Description)
-								lifecycleMeasurements1.EndsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem.EndsAtMilestone)
-								lifecycleMeasurements1.ID = types.StringPointerValue(lifecycleMeasurementsItem.ID)
-								lifecycleMeasurements1.Name = types.StringPointerValue(lifecycleMeasurementsItem.Name)
-								lifecycleMeasurements1.Slug = types.StringPointerValue(lifecycleMeasurementsItem.Slug)
-								lifecycleMeasurements1.StartsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem.StartsAtMilestone)
-								lifecycleMeasurements1.Value = types.StringPointerValue(lifecycleMeasurementsItem.Value)
-								if lifecycleMeasurementsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements) {
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = append(checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements, lifecycleMeasurements1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount].CalculatedAt = lifecycleMeasurements1.CalculatedAt
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount].Description = lifecycleMeasurements1.Description
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount].EndsAtMilestone = lifecycleMeasurements1.EndsAtMilestone
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount].ID = lifecycleMeasurements1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount].Name = lifecycleMeasurements1.Name
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount].Slug = lifecycleMeasurements1.Slug
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount].StartsAtMilestone = lifecycleMeasurements1.StartsAtMilestone
-									checklists1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount].Value = lifecycleMeasurements1.Value
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases = []tfTypes.IncidentsLifecyclePhaseEntity{}
-							for lifecyclePhasesCount, lifecyclePhasesItem := range checklistsItem.Owner.MsTeamsChannel.Incident.LifecyclePhases {
-								var lifecyclePhases1 tfTypes.IncidentsLifecyclePhaseEntity
-								lifecyclePhases1.Description = types.StringPointerValue(lifecyclePhasesItem.Description)
-								lifecyclePhases1.ID = types.StringPointerValue(lifecyclePhasesItem.ID)
-								lifecyclePhases1.Milestones = []tfTypes.IncidentsLifecycleMilestoneEntity{}
-								for milestonesCount, milestonesItem := range lifecyclePhasesItem.Milestones {
-									var milestones1 tfTypes.IncidentsLifecycleMilestoneEntity
-									milestones1.Description = types.StringPointerValue(milestonesItem.Description)
-									milestones1.Duration = types.StringPointerValue(milestonesItem.Duration)
-									milestones1.ID = types.StringPointerValue(milestonesItem.ID)
-									milestones1.Name = types.StringPointerValue(milestonesItem.Name)
-									if milestonesItem.OccurredAt != nil {
-										milestones1.OccurredAt = types.StringValue(milestonesItem.OccurredAt.Format(time.RFC3339Nano))
-									} else {
-										milestones1.OccurredAt = types.StringNull()
-									}
-									if milestonesItem.Position != nil {
-										milestones1.Position = types.Int64Value(int64(*milestonesItem.Position))
-									} else {
-										milestones1.Position = types.Int64Null()
-									}
-									milestones1.Slug = types.StringPointerValue(milestonesItem.Slug)
-									if milestonesItem.UpdatedAt != nil {
-										milestones1.UpdatedAt = types.StringValue(milestonesItem.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										milestones1.UpdatedAt = types.StringNull()
-									}
-									if milestonesItem.UpdatedBy == nil {
-										milestones1.UpdatedBy = nil
-									} else {
-										milestones1.UpdatedBy = &tfTypes.AuthorEntity{}
-										milestones1.UpdatedBy.Email = types.StringPointerValue(milestonesItem.UpdatedBy.Email)
-										milestones1.UpdatedBy.ID = types.StringPointerValue(milestonesItem.UpdatedBy.ID)
-										milestones1.UpdatedBy.Name = types.StringPointerValue(milestonesItem.UpdatedBy.Name)
-										milestones1.UpdatedBy.Source = types.StringPointerValue(milestonesItem.UpdatedBy.Source)
-									}
-									if milestonesCount+1 > len(lifecyclePhases1.Milestones) {
-										lifecyclePhases1.Milestones = append(lifecyclePhases1.Milestones, milestones1)
-									} else {
-										lifecyclePhases1.Milestones[milestonesCount].Description = milestones1.Description
-										lifecyclePhases1.Milestones[milestonesCount].Duration = milestones1.Duration
-										lifecyclePhases1.Milestones[milestonesCount].ID = milestones1.ID
-										lifecyclePhases1.Milestones[milestonesCount].Name = milestones1.Name
-										lifecyclePhases1.Milestones[milestonesCount].OccurredAt = milestones1.OccurredAt
-										lifecyclePhases1.Milestones[milestonesCount].Position = milestones1.Position
-										lifecyclePhases1.Milestones[milestonesCount].Slug = milestones1.Slug
-										lifecyclePhases1.Milestones[milestonesCount].UpdatedAt = milestones1.UpdatedAt
-										lifecyclePhases1.Milestones[milestonesCount].UpdatedBy = milestones1.UpdatedBy
-									}
-								}
-								lifecyclePhases1.Name = types.StringPointerValue(lifecyclePhasesItem.Name)
-								if lifecyclePhasesItem.Position != nil {
-									lifecyclePhases1.Position = types.Int64Value(int64(*lifecyclePhasesItem.Position))
-								} else {
-									lifecyclePhases1.Position = types.Int64Null()
-								}
-								lifecyclePhases1.Type = types.StringPointerValue(lifecyclePhasesItem.Type)
-								if lifecyclePhasesCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases) {
-									checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases = append(checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases, lifecyclePhases1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount].Description = lifecyclePhases1.Description
-									checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount].ID = lifecyclePhases1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount].Milestones = lifecyclePhases1.Milestones
-									checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount].Name = lifecyclePhases1.Name
-									checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount].Position = lifecyclePhases1.Position
-									checklists1.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount].Type = lifecyclePhases1.Type
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Milestones = []tfTypes.IncidentsMilestoneEntity{}
-							for milestonesCount1, milestonesItem1 := range checklistsItem.Owner.MsTeamsChannel.Incident.Milestones {
-								var milestones3 tfTypes.IncidentsMilestoneEntity
-								if milestonesItem1.CreatedAt != nil {
-									milestones3.CreatedAt = types.StringValue(milestonesItem1.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									milestones3.CreatedAt = types.StringNull()
-								}
-								milestones3.Duration = types.StringPointerValue(milestonesItem1.Duration)
-								milestones3.ID = types.StringPointerValue(milestonesItem1.ID)
-								if milestonesItem1.OccurredAt != nil {
-									milestones3.OccurredAt = types.StringValue(milestonesItem1.OccurredAt.Format(time.RFC3339Nano))
-								} else {
-									milestones3.OccurredAt = types.StringNull()
-								}
-								milestones3.Type = types.StringPointerValue(milestonesItem1.Type)
-								if milestonesItem1.UpdatedAt != nil {
-									milestones3.UpdatedAt = types.StringValue(milestonesItem1.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									milestones3.UpdatedAt = types.StringNull()
-								}
-								if milestonesCount1+1 > len(checklists1.Owner.MsTeamsChannel.Incident.Milestones) {
-									checklists1.Owner.MsTeamsChannel.Incident.Milestones = append(checklists1.Owner.MsTeamsChannel.Incident.Milestones, milestones3)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount1].CreatedAt = milestones3.CreatedAt
-									checklists1.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount1].Duration = milestones3.Duration
-									checklists1.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount1].ID = milestones3.ID
-									checklists1.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount1].OccurredAt = milestones3.OccurredAt
-									checklists1.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount1].Type = milestones3.Type
-									checklists1.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount1].UpdatedAt = milestones3.UpdatedAt
-								}
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.MonetaryImpact != nil {
-								checklists1.Owner.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Value(int64(*checklistsItem.Owner.MsTeamsChannel.Incident.MonetaryImpact))
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Null()
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.MonetaryImpactCents != nil {
-								checklists1.Owner.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Value(int64(*checklistsItem.Owner.MsTeamsChannel.Incident.MonetaryImpactCents))
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Null()
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Name = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Name)
-							if checklistsItem.Owner.MsTeamsChannel.Incident.Number != nil {
-								checklists1.Owner.MsTeamsChannel.Incident.Number = types.Int64Value(int64(*checklistsItem.Owner.MsTeamsChannel.Incident.Number))
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.Number = types.Int64Null()
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.Organization == nil {
-								checklists1.Owner.MsTeamsChannel.Incident.Organization = nil
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.Organization = &tfTypes.SuccinctEntity{}
-								checklists1.Owner.MsTeamsChannel.Incident.Organization.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Organization.ID)
-								checklists1.Owner.MsTeamsChannel.Incident.Organization.Name = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Organization.Name)
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.OrganizationID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.OrganizationID)
-							checklists1.Owner.MsTeamsChannel.Incident.Priority = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Priority)
-							checklists1.Owner.MsTeamsChannel.Incident.PrivateID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.PrivateID)
-							checklists1.Owner.MsTeamsChannel.Incident.PrivateStatusPageURL = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.PrivateStatusPageURL)
-							checklists1.Owner.MsTeamsChannel.Incident.ReportID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.ReportID)
-							checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments = []tfTypes.IncidentsRoleAssignmentEntity{}
-							for roleAssignmentsCount, roleAssignmentsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.RoleAssignments {
-								var roleAssignments1 tfTypes.IncidentsRoleAssignmentEntity
-								if roleAssignmentsItem.CreatedAt != nil {
-									roleAssignments1.CreatedAt = types.StringValue(roleAssignmentsItem.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments1.CreatedAt = types.StringNull()
-								}
-								roleAssignments1.ID = types.StringPointerValue(roleAssignmentsItem.ID)
-								if roleAssignmentsItem.IncidentRole == nil {
-									roleAssignments1.IncidentRole = nil
-								} else {
-									roleAssignments1.IncidentRole = &tfTypes.IncidentRoleEntity{}
-									if roleAssignmentsItem.IncidentRole.CreatedAt != nil {
-										roleAssignments1.IncidentRole.CreatedAt = types.StringValue(roleAssignmentsItem.IncidentRole.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments1.IncidentRole.CreatedAt = types.StringNull()
-									}
-									roleAssignments1.IncidentRole.Description = types.StringPointerValue(roleAssignmentsItem.IncidentRole.Description)
-									if roleAssignmentsItem.IncidentRole.DiscardedAt != nil {
-										roleAssignments1.IncidentRole.DiscardedAt = types.StringValue(roleAssignmentsItem.IncidentRole.DiscardedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments1.IncidentRole.DiscardedAt = types.StringNull()
-									}
-									roleAssignments1.IncidentRole.ID = types.StringPointerValue(roleAssignmentsItem.IncidentRole.ID)
-									roleAssignments1.IncidentRole.Name = types.StringPointerValue(roleAssignmentsItem.IncidentRole.Name)
-									roleAssignments1.IncidentRole.Summary = types.StringPointerValue(roleAssignmentsItem.IncidentRole.Summary)
-									if roleAssignmentsItem.IncidentRole.UpdatedAt != nil {
-										roleAssignments1.IncidentRole.UpdatedAt = types.StringValue(roleAssignmentsItem.IncidentRole.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments1.IncidentRole.UpdatedAt = types.StringNull()
-									}
-								}
-								if roleAssignmentsItem.Status != nil {
-									roleAssignments1.Status = types.StringValue(string(*roleAssignmentsItem.Status))
-								} else {
-									roleAssignments1.Status = types.StringNull()
-								}
-								if roleAssignmentsItem.UpdatedAt != nil {
-									roleAssignments1.UpdatedAt = types.StringValue(roleAssignmentsItem.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments1.UpdatedAt = types.StringNull()
-								}
-								if roleAssignmentsItem.User == nil {
-									roleAssignments1.User = nil
-								} else {
-									roleAssignments1.User = &tfTypes.UserEntity{}
-									if roleAssignmentsItem.User.CreatedAt != nil {
-										roleAssignments1.User.CreatedAt = types.StringValue(roleAssignmentsItem.User.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments1.User.CreatedAt = types.StringNull()
-									}
-									roleAssignments1.User.Email = types.StringPointerValue(roleAssignmentsItem.User.Email)
-									roleAssignments1.User.ID = types.StringPointerValue(roleAssignmentsItem.User.ID)
-									roleAssignments1.User.Name = types.StringPointerValue(roleAssignmentsItem.User.Name)
-									roleAssignments1.User.SignalsEnabledNotificationTypes = []types.String{}
-									for _, v := range roleAssignmentsItem.User.SignalsEnabledNotificationTypes {
-										roleAssignments1.User.SignalsEnabledNotificationTypes = append(roleAssignments1.User.SignalsEnabledNotificationTypes, types.StringValue(v))
-									}
-									roleAssignments1.User.SlackLinked = types.BoolPointerValue(roleAssignmentsItem.User.SlackLinked)
-									roleAssignments1.User.SlackUserID = types.StringPointerValue(roleAssignmentsItem.User.SlackUserID)
-									if roleAssignmentsItem.User.UpdatedAt != nil {
-										roleAssignments1.User.UpdatedAt = types.StringValue(roleAssignmentsItem.User.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments1.User.UpdatedAt = types.StringNull()
-									}
-								}
-								if roleAssignmentsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments) {
-									checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments = append(checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments, roleAssignments1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount].CreatedAt = roleAssignments1.CreatedAt
-									checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount].ID = roleAssignments1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount].IncidentRole = roleAssignments1.IncidentRole
-									checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount].Status = roleAssignments1.Status
-									checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount].UpdatedAt = roleAssignments1.UpdatedAt
-									checklists1.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount].User = roleAssignments1.User
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Services = []tfTypes.SuccinctEntity{}
-							for servicesCount, servicesItem := range checklistsItem.Owner.MsTeamsChannel.Incident.Services {
-								var services1 tfTypes.SuccinctEntity
-								services1.ID = types.StringPointerValue(servicesItem.ID)
-								services1.Name = types.StringPointerValue(servicesItem.Name)
-								if servicesCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.Services) {
-									checklists1.Owner.MsTeamsChannel.Incident.Services = append(checklists1.Owner.MsTeamsChannel.Incident.Services, services1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Services[servicesCount].ID = services1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.Services[servicesCount].Name = services1.Name
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Severity = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Severity)
-							checklists1.Owner.MsTeamsChannel.Incident.SeverityColor = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityColor)
-							checklists1.Owner.MsTeamsChannel.Incident.SeverityCondition = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityCondition)
-							if checklistsItem.Owner.MsTeamsChannel.Incident.SeverityConditionObject == nil {
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityConditionObject = nil
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityConditionObject = &tfTypes.SeverityMatrixConditionEntity{}
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityConditionObject.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityConditionObject.ID)
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Name = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Name)
-								if checklistsItem.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position != nil {
-									checklists1.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Value(int64(*checklistsItem.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position))
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Null()
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.SeverityImpact = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityImpact)
-							if checklistsItem.Owner.MsTeamsChannel.Incident.SeverityImpactObject == nil {
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityImpactObject = nil
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityImpactObject = &tfTypes.SeverityMatrixImpactEntity{}
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID)
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityImpactObject.ID)
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Name = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Name)
-								if checklistsItem.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position != nil {
-									checklists1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Value(int64(*checklistsItem.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position))
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Null()
-								}
-								checklists1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Type = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Type)
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.StartedAt != nil {
-								checklists1.Owner.MsTeamsChannel.Incident.StartedAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.StartedAt.Format(time.RFC3339Nano))
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.StartedAt = types.StringNull()
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-							for statusPagesCount1, statusPagesItem1 := range checklistsItem.Owner.MsTeamsChannel.Incident.StatusPages {
-								var statusPages3 tfTypes.IncidentsStatusPageEntity
-								statusPages3.DisplayName = types.StringPointerValue(statusPagesItem1.DisplayName)
-								statusPages3.ExternalID = types.StringPointerValue(statusPagesItem1.ExternalID)
-								statusPages3.ID = types.StringPointerValue(statusPagesItem1.ID)
-								if statusPagesItem1.Integration == nil {
-									statusPages3.Integration = nil
-								} else {
-									statusPages3.Integration = &tfTypes.IntegrationEntity{}
-									if statusPagesItem1.Integration.CreatedAt != nil {
-										statusPages3.Integration.CreatedAt = types.StringValue(statusPagesItem1.Integration.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										statusPages3.Integration.CreatedAt = types.StringNull()
-									}
-									statusPages3.Integration.DisplayName = types.StringPointerValue(statusPagesItem1.Integration.DisplayName)
-									statusPages3.Integration.ID = types.StringPointerValue(statusPagesItem1.Integration.ID)
-									statusPages3.Integration.IntegrationName = types.StringPointerValue(statusPagesItem1.Integration.IntegrationName)
-									statusPages3.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem1.Integration.IntegrationSlug)
-								}
-								statusPages3.Name = types.StringPointerValue(statusPagesItem1.Name)
-								statusPages3.URL = types.StringPointerValue(statusPagesItem1.URL)
-								if statusPagesCount1+1 > len(checklists1.Owner.MsTeamsChannel.Incident.StatusPages) {
-									checklists1.Owner.MsTeamsChannel.Incident.StatusPages = append(checklists1.Owner.MsTeamsChannel.Incident.StatusPages, statusPages3)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount1].DisplayName = statusPages3.DisplayName
-									checklists1.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount1].ExternalID = statusPages3.ExternalID
-									checklists1.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount1].ID = statusPages3.ID
-									checklists1.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount1].Integration = statusPages3.Integration
-									checklists1.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount1].Name = statusPages3.Name
-									checklists1.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount1].URL = statusPages3.URL
-								}
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.Summary = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Summary)
-							checklists1.Owner.MsTeamsChannel.Incident.TagList = []types.String{}
-							for _, v := range checklistsItem.Owner.MsTeamsChannel.Incident.TagList {
-								checklists1.Owner.MsTeamsChannel.Incident.TagList = append(checklists1.Owner.MsTeamsChannel.Incident.TagList, types.StringValue(v))
-							}
-							checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments = []tfTypes.IncidentsTeamAssignmentEntity{}
-							for teamAssignmentsCount, teamAssignmentsItem := range checklistsItem.Owner.MsTeamsChannel.Incident.TeamAssignments {
-								var teamAssignments1 tfTypes.IncidentsTeamAssignmentEntity
-								if teamAssignmentsItem.CreatedAt != nil {
-									teamAssignments1.CreatedAt = types.StringValue(teamAssignmentsItem.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									teamAssignments1.CreatedAt = types.StringNull()
-								}
-								teamAssignments1.ID = types.StringPointerValue(teamAssignmentsItem.ID)
-								teamAssignments1.Status = types.StringPointerValue(teamAssignmentsItem.Status)
-								if teamAssignmentsItem.Team == nil {
-									teamAssignments1.Team = nil
-								} else {
-									teamAssignments1.Team = &tfTypes.TeamEntity1{}
-								}
-								if teamAssignmentsItem.UpdatedAt != nil {
-									teamAssignments1.UpdatedAt = types.StringValue(teamAssignmentsItem.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									teamAssignments1.UpdatedAt = types.StringNull()
-								}
-								if teamAssignmentsCount+1 > len(checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments) {
-									checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments = append(checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments, teamAssignments1)
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount].CreatedAt = teamAssignments1.CreatedAt
-									checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount].ID = teamAssignments1.ID
-									checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount].Status = teamAssignments1.Status
-									checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount].Team = teamAssignments1.Team
-									checklists1.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount].UpdatedAt = teamAssignments1.UpdatedAt
-								}
-							}
-							if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket == nil {
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket = nil
-							} else {
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket = &tfTypes.TicketingTicketEntity{}
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.Assignees = []tfTypes.AuthorEntity{}
-								for assigneesCount1, assigneesItem1 := range checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Assignees {
-									var assignees3 tfTypes.AuthorEntity
-									assignees3.Email = types.StringPointerValue(assigneesItem1.Email)
-									assignees3.ID = types.StringPointerValue(assigneesItem1.ID)
-									assignees3.Name = types.StringPointerValue(assigneesItem1.Name)
-									assignees3.Source = types.StringPointerValue(assigneesItem1.Source)
-									if assigneesCount1+1 > len(checklists1.Owner.MsTeamsChannel.Incident.Ticket.Assignees) {
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Assignees = append(checklists1.Owner.MsTeamsChannel.Incident.Ticket.Assignees, assignees3)
-									} else {
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount1].Email = assignees3.Email
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount1].ID = assignees3.ID
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount1].Name = assignees3.Name
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount1].Source = assignees3.Source
-									}
-								}
-								if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt != nil {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringNull()
-								}
-								if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy == nil {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy = nil
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy = &tfTypes.AuthorEntity{}
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Email = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Email)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.ID)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Name = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Name)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Source = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Source)
-								}
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.Description = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Description)
-								if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.DueAt != nil {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.DueAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.DueAt.Format(time.RFC3339Nano))
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.DueAt = types.StringNull()
-								}
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.ID)
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone)
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.IncidentID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.IncidentID)
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.IncidentName = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.IncidentName)
-								if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Link == nil {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link = nil
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link = &tfTypes.AttachmentsLinkEntity{}
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link.Deletable = types.BoolPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Link.Deletable)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link.DisplayText = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Link.DisplayText)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link.Editable = types.BoolPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Link.Editable)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link.HrefURL = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Link.HrefURL)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link.IconURL = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Link.IconURL)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Link.ID)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Link.Type = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Link.Type)
-								}
-								if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority == nil {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority = nil
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority = &tfTypes.TicketingPriorityEntity{}
-									if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt != nil {
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringNull()
-									}
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority.ID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority.ID)
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority.Name = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority.Name)
-									if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position != nil {
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Value(int64(*checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position))
-									} else {
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Null()
-									}
-									if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt != nil {
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										checklists1.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringNull()
-									}
-								}
-								if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.State != nil {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.State = types.StringValue(string(*checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.State))
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.State = types.StringNull()
-								}
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.Summary = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Summary)
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.TagList = []types.String{}
-								for _, v := range checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.TagList {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.TagList = append(checklists1.Owner.MsTeamsChannel.Incident.Ticket.TagList, types.StringValue(v))
-								}
-								checklists1.Owner.MsTeamsChannel.Incident.Ticket.TaskID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.TaskID)
-								if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Type != nil {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Type = types.StringValue(string(*checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.Type))
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.Type = types.StringNull()
-								}
-								if checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt != nil {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringValue(checklistsItem.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									checklists1.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringNull()
-								}
-							}
-						}
 						checklists1.Owner.MsTeamsChannel.MsTeamID = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.MsTeamID)
 						checklists1.Owner.MsTeamsChannel.Status = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.Status)
 						checklists1.Owner.MsTeamsChannel.TeamName = types.StringPointerValue(checklistsItem.Owner.MsTeamsChannel.TeamName)
@@ -1192,8 +312,8 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 						ownedFunctionalities1.ID = types.StringPointerValue(ownedFunctionalitiesItem.ID)
 						if len(ownedFunctionalitiesItem.Labels) > 0 {
 							ownedFunctionalities1.Labels = make(map[string]types.String)
-							for key2, value4 := range ownedFunctionalitiesItem.Labels {
-								ownedFunctionalities1.Labels[key2] = types.StringValue(value4)
+							for key1, value1 := range ownedFunctionalitiesItem.Labels {
+								ownedFunctionalities1.Labels[key1] = types.StringValue(value1)
 							}
 						}
 						ownedFunctionalities1.Links = []tfTypes.LinksEntity{}
@@ -1392,22 +512,22 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 			if len(r.ConnectedService.Functionalities) > len(resp.ConnectedService.Functionalities) {
 				r.ConnectedService.Functionalities = r.ConnectedService.Functionalities[:len(resp.ConnectedService.Functionalities)]
 			}
-			for functionalitiesCount2, functionalitiesItem2 := range resp.ConnectedService.Functionalities {
-				var functionalities5 tfTypes.FunctionalityEntity
-				functionalities5.ActiveIncidents = []types.String{}
-				for _, v := range functionalitiesItem2.ActiveIncidents {
-					functionalities5.ActiveIncidents = append(functionalities5.ActiveIncidents, types.StringValue(v))
+			for functionalitiesCount1, functionalitiesItem1 := range resp.ConnectedService.Functionalities {
+				var functionalities3 tfTypes.FunctionalityEntity
+				functionalities3.ActiveIncidents = []types.String{}
+				for _, v := range functionalitiesItem1.ActiveIncidents {
+					functionalities3.ActiveIncidents = append(functionalities3.ActiveIncidents, types.StringValue(v))
 				}
-				functionalities5.AlertOnAdd = types.BoolPointerValue(functionalitiesItem2.AlertOnAdd)
-				functionalities5.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem2.AutoAddRespondingTeam)
-				if functionalitiesItem2.CreatedAt != nil {
-					functionalities5.CreatedAt = types.StringValue(functionalitiesItem2.CreatedAt.Format(time.RFC3339Nano))
+				functionalities3.AlertOnAdd = types.BoolPointerValue(functionalitiesItem1.AlertOnAdd)
+				functionalities3.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem1.AutoAddRespondingTeam)
+				if functionalitiesItem1.CreatedAt != nil {
+					functionalities3.CreatedAt = types.StringValue(functionalitiesItem1.CreatedAt.Format(time.RFC3339Nano))
 				} else {
-					functionalities5.CreatedAt = types.StringNull()
+					functionalities3.CreatedAt = types.StringNull()
 				}
-				functionalities5.Description = types.StringPointerValue(functionalitiesItem2.Description)
-				functionalities5.ExternalResources = []tfTypes.ExternalResourceEntity{}
-				for externalResourcesCount3, externalResourcesItem3 := range functionalitiesItem2.ExternalResources {
+				functionalities3.Description = types.StringPointerValue(functionalitiesItem1.Description)
+				functionalities3.ExternalResources = []tfTypes.ExternalResourceEntity{}
+				for externalResourcesCount3, externalResourcesItem3 := range functionalitiesItem1.ExternalResources {
 					var externalResources7 tfTypes.ExternalResourceEntity
 					externalResources7.ConnectionID = types.StringPointerValue(externalResourcesItem3.ConnectionID)
 					externalResources7.ConnectionName = types.StringPointerValue(externalResourcesItem3.ConnectionName)
@@ -1425,87 +545,87 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					} else {
 						externalResources7.UpdatedAt = types.StringNull()
 					}
-					if externalResourcesCount3+1 > len(functionalities5.ExternalResources) {
-						functionalities5.ExternalResources = append(functionalities5.ExternalResources, externalResources7)
+					if externalResourcesCount3+1 > len(functionalities3.ExternalResources) {
+						functionalities3.ExternalResources = append(functionalities3.ExternalResources, externalResources7)
 					} else {
-						functionalities5.ExternalResources[externalResourcesCount3].ConnectionID = externalResources7.ConnectionID
-						functionalities5.ExternalResources[externalResourcesCount3].ConnectionName = externalResources7.ConnectionName
-						functionalities5.ExternalResources[externalResourcesCount3].ConnectionType = externalResources7.ConnectionType
-						functionalities5.ExternalResources[externalResourcesCount3].CreatedAt = externalResources7.CreatedAt
-						functionalities5.ExternalResources[externalResourcesCount3].Name = externalResources7.Name
-						functionalities5.ExternalResources[externalResourcesCount3].RemoteID = externalResources7.RemoteID
-						functionalities5.ExternalResources[externalResourcesCount3].RemoteURL = externalResources7.RemoteURL
-						functionalities5.ExternalResources[externalResourcesCount3].UpdatedAt = externalResources7.UpdatedAt
+						functionalities3.ExternalResources[externalResourcesCount3].ConnectionID = externalResources7.ConnectionID
+						functionalities3.ExternalResources[externalResourcesCount3].ConnectionName = externalResources7.ConnectionName
+						functionalities3.ExternalResources[externalResourcesCount3].ConnectionType = externalResources7.ConnectionType
+						functionalities3.ExternalResources[externalResourcesCount3].CreatedAt = externalResources7.CreatedAt
+						functionalities3.ExternalResources[externalResourcesCount3].Name = externalResources7.Name
+						functionalities3.ExternalResources[externalResourcesCount3].RemoteID = externalResources7.RemoteID
+						functionalities3.ExternalResources[externalResourcesCount3].RemoteURL = externalResources7.RemoteURL
+						functionalities3.ExternalResources[externalResourcesCount3].UpdatedAt = externalResources7.UpdatedAt
 					}
 				}
-				functionalities5.ID = types.StringPointerValue(functionalitiesItem2.ID)
-				if len(functionalitiesItem2.Labels) > 0 {
-					functionalities5.Labels = make(map[string]types.String)
-					for key3, value6 := range functionalitiesItem2.Labels {
-						functionalities5.Labels[key3] = types.StringValue(value6)
+				functionalities3.ID = types.StringPointerValue(functionalitiesItem1.ID)
+				if len(functionalitiesItem1.Labels) > 0 {
+					functionalities3.Labels = make(map[string]types.String)
+					for key2, value3 := range functionalitiesItem1.Labels {
+						functionalities3.Labels[key2] = types.StringValue(value3)
 					}
 				}
-				functionalities5.Links = []tfTypes.LinksEntity{}
-				for linksCount2, linksItem2 := range functionalitiesItem2.Links {
+				functionalities3.Links = []tfTypes.LinksEntity{}
+				for linksCount2, linksItem2 := range functionalitiesItem1.Links {
 					var links5 tfTypes.LinksEntity
 					links5.HrefURL = types.StringPointerValue(linksItem2.HrefURL)
 					links5.IconURL = types.StringPointerValue(linksItem2.IconURL)
 					links5.ID = types.StringPointerValue(linksItem2.ID)
 					links5.Name = types.StringPointerValue(linksItem2.Name)
-					if linksCount2+1 > len(functionalities5.Links) {
-						functionalities5.Links = append(functionalities5.Links, links5)
+					if linksCount2+1 > len(functionalities3.Links) {
+						functionalities3.Links = append(functionalities3.Links, links5)
 					} else {
-						functionalities5.Links[linksCount2].HrefURL = links5.HrefURL
-						functionalities5.Links[linksCount2].IconURL = links5.IconURL
-						functionalities5.Links[linksCount2].ID = links5.ID
-						functionalities5.Links[linksCount2].Name = links5.Name
+						functionalities3.Links[linksCount2].HrefURL = links5.HrefURL
+						functionalities3.Links[linksCount2].IconURL = links5.IconURL
+						functionalities3.Links[linksCount2].ID = links5.ID
+						functionalities3.Links[linksCount2].Name = links5.Name
 					}
 				}
-				functionalities5.Name = types.StringPointerValue(functionalitiesItem2.Name)
-				if functionalitiesItem2.Owner == nil {
-					functionalities5.Owner = nil
+				functionalities3.Name = types.StringPointerValue(functionalitiesItem1.Name)
+				if functionalitiesItem1.Owner == nil {
+					functionalities3.Owner = nil
 				} else {
-					functionalities5.Owner = &tfTypes.TeamEntity1{}
+					functionalities3.Owner = &tfTypes.TeamEntity1{}
 				}
-				functionalities5.Slug = types.StringPointerValue(functionalitiesItem2.Slug)
-				if functionalitiesItem2.UpdatedAt != nil {
-					functionalities5.UpdatedAt = types.StringValue(functionalitiesItem2.UpdatedAt.Format(time.RFC3339Nano))
+				functionalities3.Slug = types.StringPointerValue(functionalitiesItem1.Slug)
+				if functionalitiesItem1.UpdatedAt != nil {
+					functionalities3.UpdatedAt = types.StringValue(functionalitiesItem1.UpdatedAt.Format(time.RFC3339Nano))
 				} else {
-					functionalities5.UpdatedAt = types.StringNull()
+					functionalities3.UpdatedAt = types.StringNull()
 				}
-				if functionalitiesItem2.UpdatedBy == nil {
-					functionalities5.UpdatedBy = nil
+				if functionalitiesItem1.UpdatedBy == nil {
+					functionalities3.UpdatedBy = nil
 				} else {
-					functionalities5.UpdatedBy = &tfTypes.AuthorEntity{}
-					functionalities5.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem2.UpdatedBy.Email)
-					functionalities5.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem2.UpdatedBy.ID)
-					functionalities5.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem2.UpdatedBy.Name)
-					functionalities5.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem2.UpdatedBy.Source)
+					functionalities3.UpdatedBy = &tfTypes.AuthorEntity{}
+					functionalities3.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem1.UpdatedBy.Email)
+					functionalities3.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem1.UpdatedBy.ID)
+					functionalities3.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem1.UpdatedBy.Name)
+					functionalities3.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem1.UpdatedBy.Source)
 				}
-				if functionalitiesCount2+1 > len(r.ConnectedService.Functionalities) {
-					r.ConnectedService.Functionalities = append(r.ConnectedService.Functionalities, functionalities5)
+				if functionalitiesCount1+1 > len(r.ConnectedService.Functionalities) {
+					r.ConnectedService.Functionalities = append(r.ConnectedService.Functionalities, functionalities3)
 				} else {
-					r.ConnectedService.Functionalities[functionalitiesCount2].ActiveIncidents = functionalities5.ActiveIncidents
-					r.ConnectedService.Functionalities[functionalitiesCount2].AlertOnAdd = functionalities5.AlertOnAdd
-					r.ConnectedService.Functionalities[functionalitiesCount2].AutoAddRespondingTeam = functionalities5.AutoAddRespondingTeam
-					r.ConnectedService.Functionalities[functionalitiesCount2].CreatedAt = functionalities5.CreatedAt
-					r.ConnectedService.Functionalities[functionalitiesCount2].Description = functionalities5.Description
-					r.ConnectedService.Functionalities[functionalitiesCount2].ExternalResources = functionalities5.ExternalResources
-					r.ConnectedService.Functionalities[functionalitiesCount2].ID = functionalities5.ID
-					r.ConnectedService.Functionalities[functionalitiesCount2].Labels = functionalities5.Labels
-					r.ConnectedService.Functionalities[functionalitiesCount2].Links = functionalities5.Links
-					r.ConnectedService.Functionalities[functionalitiesCount2].Name = functionalities5.Name
-					r.ConnectedService.Functionalities[functionalitiesCount2].Owner = functionalities5.Owner
-					r.ConnectedService.Functionalities[functionalitiesCount2].Slug = functionalities5.Slug
-					r.ConnectedService.Functionalities[functionalitiesCount2].UpdatedAt = functionalities5.UpdatedAt
-					r.ConnectedService.Functionalities[functionalitiesCount2].UpdatedBy = functionalities5.UpdatedBy
+					r.ConnectedService.Functionalities[functionalitiesCount1].ActiveIncidents = functionalities3.ActiveIncidents
+					r.ConnectedService.Functionalities[functionalitiesCount1].AlertOnAdd = functionalities3.AlertOnAdd
+					r.ConnectedService.Functionalities[functionalitiesCount1].AutoAddRespondingTeam = functionalities3.AutoAddRespondingTeam
+					r.ConnectedService.Functionalities[functionalitiesCount1].CreatedAt = functionalities3.CreatedAt
+					r.ConnectedService.Functionalities[functionalitiesCount1].Description = functionalities3.Description
+					r.ConnectedService.Functionalities[functionalitiesCount1].ExternalResources = functionalities3.ExternalResources
+					r.ConnectedService.Functionalities[functionalitiesCount1].ID = functionalities3.ID
+					r.ConnectedService.Functionalities[functionalitiesCount1].Labels = functionalities3.Labels
+					r.ConnectedService.Functionalities[functionalitiesCount1].Links = functionalities3.Links
+					r.ConnectedService.Functionalities[functionalitiesCount1].Name = functionalities3.Name
+					r.ConnectedService.Functionalities[functionalitiesCount1].Owner = functionalities3.Owner
+					r.ConnectedService.Functionalities[functionalitiesCount1].Slug = functionalities3.Slug
+					r.ConnectedService.Functionalities[functionalitiesCount1].UpdatedAt = functionalities3.UpdatedAt
+					r.ConnectedService.Functionalities[functionalitiesCount1].UpdatedBy = functionalities3.UpdatedBy
 				}
 			}
 			r.ConnectedService.ID = types.StringPointerValue(resp.ConnectedService.ID)
 			if len(resp.ConnectedService.Labels) > 0 {
 				r.ConnectedService.Labels = make(map[string]types.String)
-				for key4, value7 := range resp.ConnectedService.Labels {
-					r.ConnectedService.Labels[key4] = types.StringValue(value7)
+				for key3, value4 := range resp.ConnectedService.Labels {
+					r.ConnectedService.Labels[key3] = types.StringValue(value4)
 				}
 			}
 			if resp.ConnectedService.LastImport == nil {
@@ -1609,22 +729,22 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 				if len(r.ConnectedService.Owner.Functionalities) > len(resp.ConnectedService.Owner.Functionalities) {
 					r.ConnectedService.Owner.Functionalities = r.ConnectedService.Owner.Functionalities[:len(resp.ConnectedService.Owner.Functionalities)]
 				}
-				for functionalitiesCount3, functionalitiesItem3 := range resp.ConnectedService.Owner.Functionalities {
-					var functionalities7 tfTypes.FunctionalityEntity
-					functionalities7.ActiveIncidents = []types.String{}
-					for _, v := range functionalitiesItem3.ActiveIncidents {
-						functionalities7.ActiveIncidents = append(functionalities7.ActiveIncidents, types.StringValue(v))
+				for functionalitiesCount2, functionalitiesItem2 := range resp.ConnectedService.Owner.Functionalities {
+					var functionalities5 tfTypes.FunctionalityEntity
+					functionalities5.ActiveIncidents = []types.String{}
+					for _, v := range functionalitiesItem2.ActiveIncidents {
+						functionalities5.ActiveIncidents = append(functionalities5.ActiveIncidents, types.StringValue(v))
 					}
-					functionalities7.AlertOnAdd = types.BoolPointerValue(functionalitiesItem3.AlertOnAdd)
-					functionalities7.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem3.AutoAddRespondingTeam)
-					if functionalitiesItem3.CreatedAt != nil {
-						functionalities7.CreatedAt = types.StringValue(functionalitiesItem3.CreatedAt.Format(time.RFC3339Nano))
+					functionalities5.AlertOnAdd = types.BoolPointerValue(functionalitiesItem2.AlertOnAdd)
+					functionalities5.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem2.AutoAddRespondingTeam)
+					if functionalitiesItem2.CreatedAt != nil {
+						functionalities5.CreatedAt = types.StringValue(functionalitiesItem2.CreatedAt.Format(time.RFC3339Nano))
 					} else {
-						functionalities7.CreatedAt = types.StringNull()
+						functionalities5.CreatedAt = types.StringNull()
 					}
-					functionalities7.Description = types.StringPointerValue(functionalitiesItem3.Description)
-					functionalities7.ExternalResources = []tfTypes.ExternalResourceEntity{}
-					for externalResourcesCount4, externalResourcesItem4 := range functionalitiesItem3.ExternalResources {
+					functionalities5.Description = types.StringPointerValue(functionalitiesItem2.Description)
+					functionalities5.ExternalResources = []tfTypes.ExternalResourceEntity{}
+					for externalResourcesCount4, externalResourcesItem4 := range functionalitiesItem2.ExternalResources {
 						var externalResources9 tfTypes.ExternalResourceEntity
 						externalResources9.ConnectionID = types.StringPointerValue(externalResourcesItem4.ConnectionID)
 						externalResources9.ConnectionName = types.StringPointerValue(externalResourcesItem4.ConnectionName)
@@ -1642,80 +762,80 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 						} else {
 							externalResources9.UpdatedAt = types.StringNull()
 						}
-						if externalResourcesCount4+1 > len(functionalities7.ExternalResources) {
-							functionalities7.ExternalResources = append(functionalities7.ExternalResources, externalResources9)
+						if externalResourcesCount4+1 > len(functionalities5.ExternalResources) {
+							functionalities5.ExternalResources = append(functionalities5.ExternalResources, externalResources9)
 						} else {
-							functionalities7.ExternalResources[externalResourcesCount4].ConnectionID = externalResources9.ConnectionID
-							functionalities7.ExternalResources[externalResourcesCount4].ConnectionName = externalResources9.ConnectionName
-							functionalities7.ExternalResources[externalResourcesCount4].ConnectionType = externalResources9.ConnectionType
-							functionalities7.ExternalResources[externalResourcesCount4].CreatedAt = externalResources9.CreatedAt
-							functionalities7.ExternalResources[externalResourcesCount4].Name = externalResources9.Name
-							functionalities7.ExternalResources[externalResourcesCount4].RemoteID = externalResources9.RemoteID
-							functionalities7.ExternalResources[externalResourcesCount4].RemoteURL = externalResources9.RemoteURL
-							functionalities7.ExternalResources[externalResourcesCount4].UpdatedAt = externalResources9.UpdatedAt
+							functionalities5.ExternalResources[externalResourcesCount4].ConnectionID = externalResources9.ConnectionID
+							functionalities5.ExternalResources[externalResourcesCount4].ConnectionName = externalResources9.ConnectionName
+							functionalities5.ExternalResources[externalResourcesCount4].ConnectionType = externalResources9.ConnectionType
+							functionalities5.ExternalResources[externalResourcesCount4].CreatedAt = externalResources9.CreatedAt
+							functionalities5.ExternalResources[externalResourcesCount4].Name = externalResources9.Name
+							functionalities5.ExternalResources[externalResourcesCount4].RemoteID = externalResources9.RemoteID
+							functionalities5.ExternalResources[externalResourcesCount4].RemoteURL = externalResources9.RemoteURL
+							functionalities5.ExternalResources[externalResourcesCount4].UpdatedAt = externalResources9.UpdatedAt
 						}
 					}
-					functionalities7.ID = types.StringPointerValue(functionalitiesItem3.ID)
-					if len(functionalitiesItem3.Labels) > 0 {
-						functionalities7.Labels = make(map[string]types.String)
-						for key5, value8 := range functionalitiesItem3.Labels {
-							functionalities7.Labels[key5] = types.StringValue(value8)
+					functionalities5.ID = types.StringPointerValue(functionalitiesItem2.ID)
+					if len(functionalitiesItem2.Labels) > 0 {
+						functionalities5.Labels = make(map[string]types.String)
+						for key4, value5 := range functionalitiesItem2.Labels {
+							functionalities5.Labels[key4] = types.StringValue(value5)
 						}
 					}
-					functionalities7.Links = []tfTypes.LinksEntity{}
-					for linksCount4, linksItem4 := range functionalitiesItem3.Links {
+					functionalities5.Links = []tfTypes.LinksEntity{}
+					for linksCount4, linksItem4 := range functionalitiesItem2.Links {
 						var links9 tfTypes.LinksEntity
 						links9.HrefURL = types.StringPointerValue(linksItem4.HrefURL)
 						links9.IconURL = types.StringPointerValue(linksItem4.IconURL)
 						links9.ID = types.StringPointerValue(linksItem4.ID)
 						links9.Name = types.StringPointerValue(linksItem4.Name)
-						if linksCount4+1 > len(functionalities7.Links) {
-							functionalities7.Links = append(functionalities7.Links, links9)
+						if linksCount4+1 > len(functionalities5.Links) {
+							functionalities5.Links = append(functionalities5.Links, links9)
 						} else {
-							functionalities7.Links[linksCount4].HrefURL = links9.HrefURL
-							functionalities7.Links[linksCount4].IconURL = links9.IconURL
-							functionalities7.Links[linksCount4].ID = links9.ID
-							functionalities7.Links[linksCount4].Name = links9.Name
+							functionalities5.Links[linksCount4].HrefURL = links9.HrefURL
+							functionalities5.Links[linksCount4].IconURL = links9.IconURL
+							functionalities5.Links[linksCount4].ID = links9.ID
+							functionalities5.Links[linksCount4].Name = links9.Name
 						}
 					}
-					functionalities7.Name = types.StringPointerValue(functionalitiesItem3.Name)
-					if functionalitiesItem3.Owner == nil {
-						functionalities7.Owner = nil
+					functionalities5.Name = types.StringPointerValue(functionalitiesItem2.Name)
+					if functionalitiesItem2.Owner == nil {
+						functionalities5.Owner = nil
 					} else {
-						functionalities7.Owner = &tfTypes.TeamEntity1{}
+						functionalities5.Owner = &tfTypes.TeamEntity1{}
 					}
-					functionalities7.Slug = types.StringPointerValue(functionalitiesItem3.Slug)
-					if functionalitiesItem3.UpdatedAt != nil {
-						functionalities7.UpdatedAt = types.StringValue(functionalitiesItem3.UpdatedAt.Format(time.RFC3339Nano))
+					functionalities5.Slug = types.StringPointerValue(functionalitiesItem2.Slug)
+					if functionalitiesItem2.UpdatedAt != nil {
+						functionalities5.UpdatedAt = types.StringValue(functionalitiesItem2.UpdatedAt.Format(time.RFC3339Nano))
 					} else {
-						functionalities7.UpdatedAt = types.StringNull()
+						functionalities5.UpdatedAt = types.StringNull()
 					}
-					if functionalitiesItem3.UpdatedBy == nil {
-						functionalities7.UpdatedBy = nil
+					if functionalitiesItem2.UpdatedBy == nil {
+						functionalities5.UpdatedBy = nil
 					} else {
-						functionalities7.UpdatedBy = &tfTypes.AuthorEntity{}
-						functionalities7.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem3.UpdatedBy.Email)
-						functionalities7.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem3.UpdatedBy.ID)
-						functionalities7.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem3.UpdatedBy.Name)
-						functionalities7.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem3.UpdatedBy.Source)
+						functionalities5.UpdatedBy = &tfTypes.AuthorEntity{}
+						functionalities5.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem2.UpdatedBy.Email)
+						functionalities5.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem2.UpdatedBy.ID)
+						functionalities5.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem2.UpdatedBy.Name)
+						functionalities5.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem2.UpdatedBy.Source)
 					}
-					if functionalitiesCount3+1 > len(r.ConnectedService.Owner.Functionalities) {
-						r.ConnectedService.Owner.Functionalities = append(r.ConnectedService.Owner.Functionalities, functionalities7)
+					if functionalitiesCount2+1 > len(r.ConnectedService.Owner.Functionalities) {
+						r.ConnectedService.Owner.Functionalities = append(r.ConnectedService.Owner.Functionalities, functionalities5)
 					} else {
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].ActiveIncidents = functionalities7.ActiveIncidents
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].AlertOnAdd = functionalities7.AlertOnAdd
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].AutoAddRespondingTeam = functionalities7.AutoAddRespondingTeam
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].CreatedAt = functionalities7.CreatedAt
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].Description = functionalities7.Description
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].ExternalResources = functionalities7.ExternalResources
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].ID = functionalities7.ID
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].Labels = functionalities7.Labels
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].Links = functionalities7.Links
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].Name = functionalities7.Name
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].Owner = functionalities7.Owner
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].Slug = functionalities7.Slug
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].UpdatedAt = functionalities7.UpdatedAt
-						r.ConnectedService.Owner.Functionalities[functionalitiesCount3].UpdatedBy = functionalities7.UpdatedBy
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].ActiveIncidents = functionalities5.ActiveIncidents
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].AlertOnAdd = functionalities5.AlertOnAdd
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].AutoAddRespondingTeam = functionalities5.AutoAddRespondingTeam
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].CreatedAt = functionalities5.CreatedAt
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].Description = functionalities5.Description
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].ExternalResources = functionalities5.ExternalResources
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].ID = functionalities5.ID
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].Labels = functionalities5.Labels
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].Links = functionalities5.Links
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].Name = functionalities5.Name
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].Owner = functionalities5.Owner
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].Slug = functionalities5.Slug
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].UpdatedAt = functionalities5.UpdatedAt
+						r.ConnectedService.Owner.Functionalities[functionalitiesCount2].UpdatedBy = functionalities5.UpdatedBy
 					}
 				}
 				r.ConnectedService.Owner.ID = types.StringPointerValue(resp.ConnectedService.Owner.ID)
@@ -1798,943 +918,6 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					r.ConnectedService.Owner.MsTeamsChannel.ChannelName = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.ChannelName)
 					r.ConnectedService.Owner.MsTeamsChannel.ChannelURL = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.ChannelURL)
 					r.ConnectedService.Owner.MsTeamsChannel.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.ID)
-					if resp.ConnectedService.Owner.MsTeamsChannel.Incident == nil {
-						r.ConnectedService.Owner.MsTeamsChannel.Incident = nil
-					} else {
-						r.ConnectedService.Owner.MsTeamsChannel.Incident = &tfTypes.IncidentEntity{}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Active = types.BoolPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Active)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.AiIncidentSummary = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.AiIncidentSummary)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.ChannelID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ChannelID)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.ChannelName = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ChannelName)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.ChannelReference = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ChannelReference)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.ChannelStatus = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ChannelStatus)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges = []tfTypes.IncidentsConferenceBridgeEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges = r.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges)]
-						}
-						for conferenceBridgesCount1, conferenceBridgesItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges {
-							var conferenceBridges3 tfTypes.IncidentsConferenceBridgeEntity
-							conferenceBridges3.ID = types.StringPointerValue(conferenceBridgesItem1.ID)
-							if conferenceBridgesCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges, conferenceBridges3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount1].ID = conferenceBridges3.ID
-							}
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject == nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject = nil
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject = &tfTypes.IncidentsContextObjectEntity{}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject.ContextDescription = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject.ContextDescription)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject.ContextTag = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject.ContextTag)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject.ObjectID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject.ObjectID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject.ObjectType = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ContextObject.ObjectType)
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations = r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations)]
-						}
-						for conversationsCount3, conversationsItem3 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations {
-							var conversations7 tfTypes.ConversationsAPIEntitiesReference
-							if conversationsItem3.Channel == nil {
-								conversations7.Channel = nil
-							} else {
-								conversations7.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-								conversations7.Channel.Name = types.StringPointerValue(conversationsItem3.Channel.Name)
-							}
-							conversations7.CommentsURL = types.StringPointerValue(conversationsItem3.CommentsURL)
-							conversations7.Field = types.StringPointerValue(conversationsItem3.Field)
-							conversations7.ID = types.StringPointerValue(conversationsItem3.ID)
-							conversations7.ResourceClass = types.StringPointerValue(conversationsItem3.ResourceClass)
-							conversations7.ResourceID = types.StringPointerValue(conversationsItem3.ResourceID)
-							if conversationsCount3+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations, conversations7)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount3].Channel = conversations7.Channel
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount3].CommentsURL = conversations7.CommentsURL
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount3].Field = conversations7.Field
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount3].ID = conversations7.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount3].ResourceClass = conversations7.ResourceClass
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount3].ResourceID = conversations7.ResourceID
-							}
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedAt != nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedAt.Format(time.RFC3339Nano))
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedAt = types.StringNull()
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy == nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy = nil
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy = &tfTypes.AuthorEntity{}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy.Email = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy.Email)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy.ID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy.Name = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy.Name)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy.Source = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CreatedBy.Source)
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.CurrentMilestone = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CurrentMilestone)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields = []tfTypes.CustomFieldsFieldValue{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields = r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields)]
-						}
-						for customFieldsCount1, customFieldsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields {
-							var customFields3 tfTypes.CustomFieldsFieldValue
-							customFields3.Description = types.StringPointerValue(customFieldsItem1.Description)
-							customFields3.DisplayName = types.StringPointerValue(customFieldsItem1.DisplayName)
-							customFields3.FieldID = types.StringPointerValue(customFieldsItem1.FieldID)
-							customFields3.Name = types.StringPointerValue(customFieldsItem1.Name)
-							customFields3.Slug = types.StringPointerValue(customFieldsItem1.Slug)
-							customFields3.Value = types.StringPointerValue(customFieldsItem1.Value)
-							customFields3.ValueArray = types.StringPointerValue(customFieldsItem1.ValueArray)
-							customFields3.ValueString = types.StringPointerValue(customFieldsItem1.ValueString)
-							customFields3.ValueType = types.StringPointerValue(customFieldsItem1.ValueType)
-							if customFieldsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields, customFields3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].Description = customFields3.Description
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].DisplayName = customFields3.DisplayName
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].FieldID = customFields3.FieldID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].Name = customFields3.Name
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].Slug = customFields3.Slug
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].Value = customFields3.Value
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].ValueArray = customFields3.ValueArray
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].ValueString = customFields3.ValueString
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount1].ValueType = customFields3.ValueType
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomerImpactSummary = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.CustomerImpactSummary)
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.CustomersImpacted != nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Value(int64(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.CustomersImpacted))
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Null()
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Description = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Description)
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.DiscardedAt != nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.DiscardedAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.DiscardedAt.Format(time.RFC3339Nano))
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.DiscardedAt = types.StringNull()
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments = []tfTypes.SuccinctEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Environments) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments = r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Environments)]
-						}
-						for environmentsCount1, environmentsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Environments {
-							var environments3 tfTypes.SuccinctEntity
-							environments3.ID = types.StringPointerValue(environmentsItem1.ID)
-							environments3.Name = types.StringPointerValue(environmentsItem1.Name)
-							if environmentsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments, environments3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments[environmentsCount1].ID = environments3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Environments[environmentsCount1].Name = environments3.Name
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements = []tfTypes.IncidentEntityFieldRequirementEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements = r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements)]
-						}
-						for fieldRequirementsCount1, fieldRequirementsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements {
-							var fieldRequirements3 tfTypes.IncidentEntityFieldRequirementEntity
-							fieldRequirements3.FieldID = types.StringPointerValue(fieldRequirementsItem1.FieldID)
-							fieldRequirements3.RequiredAtMilestoneID = types.StringPointerValue(fieldRequirementsItem1.RequiredAtMilestoneID)
-							if fieldRequirementsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements, fieldRequirements3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount1].FieldID = fieldRequirements3.FieldID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount1].RequiredAtMilestoneID = fieldRequirements3.RequiredAtMilestoneID
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities = []tfTypes.SuccinctEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities = r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities)]
-						}
-						for functionalitiesCount4, functionalitiesItem4 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities {
-							var functionalities9 tfTypes.SuccinctEntity
-							functionalities9.ID = types.StringPointerValue(functionalitiesItem4.ID)
-							functionalities9.Name = types.StringPointerValue(functionalitiesItem4.Name)
-							if functionalitiesCount4+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities, functionalities9)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities[functionalitiesCount4].ID = functionalities9.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Functionalities[functionalitiesCount4].Name = functionalities9.Name
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ID)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts = []tfTypes.IncidentsImpactEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts = r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts)]
-						}
-						for impactsCount1, impactsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts {
-							var impacts3 tfTypes.IncidentsImpactEntity
-							if impactsItem1.Condition == nil {
-								impacts3.Condition = nil
-							} else {
-								impacts3.Condition = &tfTypes.SeverityMatrixConditionEntity{}
-								impacts3.Condition.ID = types.StringPointerValue(impactsItem1.Condition.ID)
-								impacts3.Condition.Name = types.StringPointerValue(impactsItem1.Condition.Name)
-								if impactsItem1.Condition.Position != nil {
-									impacts3.Condition.Position = types.Int64Value(int64(*impactsItem1.Condition.Position))
-								} else {
-									impacts3.Condition.Position = types.Int64Null()
-								}
-							}
-							impacts3.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							for conversationsCount4, conversationsItem4 := range impactsItem1.Conversations {
-								var conversations9 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem4.Channel == nil {
-									conversations9.Channel = nil
-								} else {
-									conversations9.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations9.Channel.Name = types.StringPointerValue(conversationsItem4.Channel.Name)
-								}
-								conversations9.CommentsURL = types.StringPointerValue(conversationsItem4.CommentsURL)
-								conversations9.Field = types.StringPointerValue(conversationsItem4.Field)
-								conversations9.ID = types.StringPointerValue(conversationsItem4.ID)
-								conversations9.ResourceClass = types.StringPointerValue(conversationsItem4.ResourceClass)
-								conversations9.ResourceID = types.StringPointerValue(conversationsItem4.ResourceID)
-								if conversationsCount4+1 > len(impacts3.Conversations) {
-									impacts3.Conversations = append(impacts3.Conversations, conversations9)
-								} else {
-									impacts3.Conversations[conversationsCount4].Channel = conversations9.Channel
-									impacts3.Conversations[conversationsCount4].CommentsURL = conversations9.CommentsURL
-									impacts3.Conversations[conversationsCount4].Field = conversations9.Field
-									impacts3.Conversations[conversationsCount4].ID = conversations9.ID
-									impacts3.Conversations[conversationsCount4].ResourceClass = conversations9.ResourceClass
-									impacts3.Conversations[conversationsCount4].ResourceID = conversations9.ResourceID
-								}
-							}
-							impacts3.ID = types.StringPointerValue(impactsItem1.ID)
-							if impactsItem1.Impact == nil {
-								impacts3.Impact = nil
-							} else {
-								impacts3.Impact = &tfTypes.SuccinctEntity{}
-								impacts3.Impact.ID = types.StringPointerValue(impactsItem1.Impact.ID)
-								impacts3.Impact.Name = types.StringPointerValue(impactsItem1.Impact.Name)
-							}
-							if impactsItem1.Type != nil {
-								impacts3.Type = types.StringValue(string(*impactsItem1.Type))
-							} else {
-								impacts3.Type = types.StringNull()
-							}
-							if impactsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts, impacts3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts[impactsCount1].Condition = impacts3.Condition
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts[impactsCount1].Conversations = impacts3.Conversations
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts[impactsCount1].ID = impacts3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts[impactsCount1].Impact = impacts3.Impact
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Impacts[impactsCount1].Type = impacts3.Type
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels = []tfTypes.IncidentsChannelEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels = r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels)]
-						}
-						for incidentChannelsCount1, incidentChannelsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels {
-							var incidentChannels3 tfTypes.IncidentsChannelEntity
-							incidentChannels3.IconURL = types.StringPointerValue(incidentChannelsItem1.IconURL)
-							incidentChannels3.ID = types.StringPointerValue(incidentChannelsItem1.ID)
-							incidentChannels3.Name = types.StringPointerValue(incidentChannelsItem1.Name)
-							incidentChannels3.Source = types.StringPointerValue(incidentChannelsItem1.Source)
-							incidentChannels3.SourceID = types.StringPointerValue(incidentChannelsItem1.SourceID)
-							incidentChannels3.SourceName = types.StringPointerValue(incidentChannelsItem1.SourceName)
-							incidentChannels3.Status = types.StringPointerValue(incidentChannelsItem1.Status)
-							incidentChannels3.URL = types.StringPointerValue(incidentChannelsItem1.URL)
-							if incidentChannelsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels, incidentChannels3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount1].IconURL = incidentChannels3.IconURL
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount1].ID = incidentChannels3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount1].Name = incidentChannels3.Name
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount1].Source = incidentChannels3.Source
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount1].SourceID = incidentChannels3.SourceID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount1].SourceName = incidentChannels3.SourceName
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount1].Status = incidentChannels3.Status
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount1].URL = incidentChannels3.URL
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets = []tfTypes.TicketingTicketEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets = r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets)]
-						}
-						for incidentTicketsCount1, incidentTicketsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets {
-							var incidentTickets3 tfTypes.TicketingTicketEntity
-							incidentTickets3.Assignees = []tfTypes.AuthorEntity{}
-							for assigneesCount2, assigneesItem2 := range incidentTicketsItem1.Assignees {
-								var assignees5 tfTypes.AuthorEntity
-								assignees5.Email = types.StringPointerValue(assigneesItem2.Email)
-								assignees5.ID = types.StringPointerValue(assigneesItem2.ID)
-								assignees5.Name = types.StringPointerValue(assigneesItem2.Name)
-								assignees5.Source = types.StringPointerValue(assigneesItem2.Source)
-								if assigneesCount2+1 > len(incidentTickets3.Assignees) {
-									incidentTickets3.Assignees = append(incidentTickets3.Assignees, assignees5)
-								} else {
-									incidentTickets3.Assignees[assigneesCount2].Email = assignees5.Email
-									incidentTickets3.Assignees[assigneesCount2].ID = assignees5.ID
-									incidentTickets3.Assignees[assigneesCount2].Name = assignees5.Name
-									incidentTickets3.Assignees[assigneesCount2].Source = assignees5.Source
-								}
-							}
-							if incidentTicketsItem1.CreatedAt != nil {
-								incidentTickets3.CreatedAt = types.StringValue(incidentTicketsItem1.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets3.CreatedAt = types.StringNull()
-							}
-							if incidentTicketsItem1.CreatedBy == nil {
-								incidentTickets3.CreatedBy = nil
-							} else {
-								incidentTickets3.CreatedBy = &tfTypes.AuthorEntity{}
-								incidentTickets3.CreatedBy.Email = types.StringPointerValue(incidentTicketsItem1.CreatedBy.Email)
-								incidentTickets3.CreatedBy.ID = types.StringPointerValue(incidentTicketsItem1.CreatedBy.ID)
-								incidentTickets3.CreatedBy.Name = types.StringPointerValue(incidentTicketsItem1.CreatedBy.Name)
-								incidentTickets3.CreatedBy.Source = types.StringPointerValue(incidentTicketsItem1.CreatedBy.Source)
-							}
-							incidentTickets3.Description = types.StringPointerValue(incidentTicketsItem1.Description)
-							if incidentTicketsItem1.DueAt != nil {
-								incidentTickets3.DueAt = types.StringValue(incidentTicketsItem1.DueAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets3.DueAt = types.StringNull()
-							}
-							incidentTickets3.ID = types.StringPointerValue(incidentTicketsItem1.ID)
-							incidentTickets3.IncidentCurrentMilestone = types.StringPointerValue(incidentTicketsItem1.IncidentCurrentMilestone)
-							incidentTickets3.IncidentID = types.StringPointerValue(incidentTicketsItem1.IncidentID)
-							incidentTickets3.IncidentName = types.StringPointerValue(incidentTicketsItem1.IncidentName)
-							if incidentTicketsItem1.Link == nil {
-								incidentTickets3.Link = nil
-							} else {
-								incidentTickets3.Link = &tfTypes.AttachmentsLinkEntity{}
-								incidentTickets3.Link.Deletable = types.BoolPointerValue(incidentTicketsItem1.Link.Deletable)
-								incidentTickets3.Link.DisplayText = types.StringPointerValue(incidentTicketsItem1.Link.DisplayText)
-								incidentTickets3.Link.Editable = types.BoolPointerValue(incidentTicketsItem1.Link.Editable)
-								incidentTickets3.Link.HrefURL = types.StringPointerValue(incidentTicketsItem1.Link.HrefURL)
-								incidentTickets3.Link.IconURL = types.StringPointerValue(incidentTicketsItem1.Link.IconURL)
-								incidentTickets3.Link.ID = types.StringPointerValue(incidentTicketsItem1.Link.ID)
-								incidentTickets3.Link.Type = types.StringPointerValue(incidentTicketsItem1.Link.Type)
-							}
-							if incidentTicketsItem1.Priority == nil {
-								incidentTickets3.Priority = nil
-							} else {
-								incidentTickets3.Priority = &tfTypes.TicketingPriorityEntity{}
-								if incidentTicketsItem1.Priority.CreatedAt != nil {
-									incidentTickets3.Priority.CreatedAt = types.StringValue(incidentTicketsItem1.Priority.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets3.Priority.CreatedAt = types.StringNull()
-								}
-								incidentTickets3.Priority.ID = types.StringPointerValue(incidentTicketsItem1.Priority.ID)
-								incidentTickets3.Priority.Name = types.StringPointerValue(incidentTicketsItem1.Priority.Name)
-								if incidentTicketsItem1.Priority.Position != nil {
-									incidentTickets3.Priority.Position = types.Int64Value(int64(*incidentTicketsItem1.Priority.Position))
-								} else {
-									incidentTickets3.Priority.Position = types.Int64Null()
-								}
-								if incidentTicketsItem1.Priority.UpdatedAt != nil {
-									incidentTickets3.Priority.UpdatedAt = types.StringValue(incidentTicketsItem1.Priority.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets3.Priority.UpdatedAt = types.StringNull()
-								}
-							}
-							if incidentTicketsItem1.State != nil {
-								incidentTickets3.State = types.StringValue(string(*incidentTicketsItem1.State))
-							} else {
-								incidentTickets3.State = types.StringNull()
-							}
-							incidentTickets3.Summary = types.StringPointerValue(incidentTicketsItem1.Summary)
-							incidentTickets3.TagList = []types.String{}
-							for _, v := range incidentTicketsItem1.TagList {
-								incidentTickets3.TagList = append(incidentTickets3.TagList, types.StringValue(v))
-							}
-							incidentTickets3.TaskID = types.StringPointerValue(incidentTicketsItem1.TaskID)
-							if incidentTicketsItem1.Type != nil {
-								incidentTickets3.Type = types.StringValue(string(*incidentTicketsItem1.Type))
-							} else {
-								incidentTickets3.Type = types.StringNull()
-							}
-							if incidentTicketsItem1.UpdatedAt != nil {
-								incidentTickets3.UpdatedAt = types.StringValue(incidentTicketsItem1.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets3.UpdatedAt = types.StringNull()
-							}
-							if incidentTicketsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets, incidentTickets3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].Assignees = incidentTickets3.Assignees
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].CreatedAt = incidentTickets3.CreatedAt
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].CreatedBy = incidentTickets3.CreatedBy
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].Description = incidentTickets3.Description
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].DueAt = incidentTickets3.DueAt
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].ID = incidentTickets3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].IncidentCurrentMilestone = incidentTickets3.IncidentCurrentMilestone
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].IncidentID = incidentTickets3.IncidentID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].IncidentName = incidentTickets3.IncidentName
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].Link = incidentTickets3.Link
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].Priority = incidentTickets3.Priority
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].State = incidentTickets3.State
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].Summary = incidentTickets3.Summary
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].TagList = incidentTickets3.TagList
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].TaskID = incidentTickets3.TaskID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].Type = incidentTickets3.Type
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount1].UpdatedAt = incidentTickets3.UpdatedAt
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentURL = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.IncidentURL)
-						if len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Labels) > 0 {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Labels = make(map[string]types.String)
-							for key6, value10 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Labels {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Labels[key6] = types.StringValue(value10)
-							}
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote == nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote = nil
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote = &tfTypes.EventNoteEntity{}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Body = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Body)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations = r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations)]
-							}
-							for conversationsCount5, conversationsItem5 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations {
-								var conversations11 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem5.Channel == nil {
-									conversations11.Channel = nil
-								} else {
-									conversations11.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations11.Channel.Name = types.StringPointerValue(conversationsItem5.Channel.Name)
-								}
-								conversations11.CommentsURL = types.StringPointerValue(conversationsItem5.CommentsURL)
-								conversations11.Field = types.StringPointerValue(conversationsItem5.Field)
-								conversations11.ID = types.StringPointerValue(conversationsItem5.ID)
-								conversations11.ResourceClass = types.StringPointerValue(conversationsItem5.ResourceClass)
-								conversations11.ResourceID = types.StringPointerValue(conversationsItem5.ResourceID)
-								if conversationsCount5+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations) {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations, conversations11)
-								} else {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount5].Channel = conversations11.Channel
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount5].CommentsURL = conversations11.CommentsURL
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount5].Field = conversations11.Field
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount5].ID = conversations11.ID
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount5].ResourceClass = conversations11.ResourceClass
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount5].ResourceID = conversations11.ResourceID
-								}
-							}
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt != nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringNull()
-							}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.ID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-							if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages)]
-							}
-							for statusPagesCount2, statusPagesItem2 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages {
-								var statusPages5 tfTypes.IncidentsStatusPageEntity
-								statusPages5.DisplayName = types.StringPointerValue(statusPagesItem2.DisplayName)
-								statusPages5.ExternalID = types.StringPointerValue(statusPagesItem2.ExternalID)
-								statusPages5.ID = types.StringPointerValue(statusPagesItem2.ID)
-								if statusPagesItem2.Integration == nil {
-									statusPages5.Integration = nil
-								} else {
-									statusPages5.Integration = &tfTypes.IntegrationEntity{}
-									if statusPagesItem2.Integration.CreatedAt != nil {
-										statusPages5.Integration.CreatedAt = types.StringValue(statusPagesItem2.Integration.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										statusPages5.Integration.CreatedAt = types.StringNull()
-									}
-									statusPages5.Integration.DisplayName = types.StringPointerValue(statusPagesItem2.Integration.DisplayName)
-									statusPages5.Integration.ID = types.StringPointerValue(statusPagesItem2.Integration.ID)
-									statusPages5.Integration.IntegrationName = types.StringPointerValue(statusPagesItem2.Integration.IntegrationName)
-									statusPages5.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem2.Integration.IntegrationSlug)
-								}
-								statusPages5.Name = types.StringPointerValue(statusPagesItem2.Name)
-								statusPages5.URL = types.StringPointerValue(statusPagesItem2.URL)
-								if statusPagesCount2+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages) {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages, statusPages5)
-								} else {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount2].DisplayName = statusPages5.DisplayName
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount2].ExternalID = statusPages5.ExternalID
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount2].ID = statusPages5.ID
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount2].Integration = statusPages5.Integration
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount2].Name = statusPages5.Name
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount2].URL = statusPages5.URL
-								}
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.LastUpdate = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LastUpdate)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = []tfTypes.IncidentsLifecycleMeasurementEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements)]
-						}
-						for lifecycleMeasurementsCount1, lifecycleMeasurementsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements {
-							var lifecycleMeasurements3 tfTypes.IncidentsLifecycleMeasurementEntity
-							if lifecycleMeasurementsItem1.CalculatedAt != nil {
-								lifecycleMeasurements3.CalculatedAt = types.StringValue(lifecycleMeasurementsItem1.CalculatedAt.Format(time.RFC3339Nano))
-							} else {
-								lifecycleMeasurements3.CalculatedAt = types.StringNull()
-							}
-							lifecycleMeasurements3.Description = types.StringPointerValue(lifecycleMeasurementsItem1.Description)
-							lifecycleMeasurements3.EndsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem1.EndsAtMilestone)
-							lifecycleMeasurements3.ID = types.StringPointerValue(lifecycleMeasurementsItem1.ID)
-							lifecycleMeasurements3.Name = types.StringPointerValue(lifecycleMeasurementsItem1.Name)
-							lifecycleMeasurements3.Slug = types.StringPointerValue(lifecycleMeasurementsItem1.Slug)
-							lifecycleMeasurements3.StartsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem1.StartsAtMilestone)
-							lifecycleMeasurements3.Value = types.StringPointerValue(lifecycleMeasurementsItem1.Value)
-							if lifecycleMeasurementsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements, lifecycleMeasurements3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount1].CalculatedAt = lifecycleMeasurements3.CalculatedAt
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount1].Description = lifecycleMeasurements3.Description
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount1].EndsAtMilestone = lifecycleMeasurements3.EndsAtMilestone
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount1].ID = lifecycleMeasurements3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount1].Name = lifecycleMeasurements3.Name
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount1].Slug = lifecycleMeasurements3.Slug
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount1].StartsAtMilestone = lifecycleMeasurements3.StartsAtMilestone
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount1].Value = lifecycleMeasurements3.Value
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases = []tfTypes.IncidentsLifecyclePhaseEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases = r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases)]
-						}
-						for lifecyclePhasesCount1, lifecyclePhasesItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases {
-							var lifecyclePhases3 tfTypes.IncidentsLifecyclePhaseEntity
-							lifecyclePhases3.Description = types.StringPointerValue(lifecyclePhasesItem1.Description)
-							lifecyclePhases3.ID = types.StringPointerValue(lifecyclePhasesItem1.ID)
-							lifecyclePhases3.Milestones = []tfTypes.IncidentsLifecycleMilestoneEntity{}
-							for milestonesCount2, milestonesItem2 := range lifecyclePhasesItem1.Milestones {
-								var milestones5 tfTypes.IncidentsLifecycleMilestoneEntity
-								milestones5.Description = types.StringPointerValue(milestonesItem2.Description)
-								milestones5.Duration = types.StringPointerValue(milestonesItem2.Duration)
-								milestones5.ID = types.StringPointerValue(milestonesItem2.ID)
-								milestones5.Name = types.StringPointerValue(milestonesItem2.Name)
-								if milestonesItem2.OccurredAt != nil {
-									milestones5.OccurredAt = types.StringValue(milestonesItem2.OccurredAt.Format(time.RFC3339Nano))
-								} else {
-									milestones5.OccurredAt = types.StringNull()
-								}
-								if milestonesItem2.Position != nil {
-									milestones5.Position = types.Int64Value(int64(*milestonesItem2.Position))
-								} else {
-									milestones5.Position = types.Int64Null()
-								}
-								milestones5.Slug = types.StringPointerValue(milestonesItem2.Slug)
-								if milestonesItem2.UpdatedAt != nil {
-									milestones5.UpdatedAt = types.StringValue(milestonesItem2.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									milestones5.UpdatedAt = types.StringNull()
-								}
-								if milestonesItem2.UpdatedBy == nil {
-									milestones5.UpdatedBy = nil
-								} else {
-									milestones5.UpdatedBy = &tfTypes.AuthorEntity{}
-									milestones5.UpdatedBy.Email = types.StringPointerValue(milestonesItem2.UpdatedBy.Email)
-									milestones5.UpdatedBy.ID = types.StringPointerValue(milestonesItem2.UpdatedBy.ID)
-									milestones5.UpdatedBy.Name = types.StringPointerValue(milestonesItem2.UpdatedBy.Name)
-									milestones5.UpdatedBy.Source = types.StringPointerValue(milestonesItem2.UpdatedBy.Source)
-								}
-								if milestonesCount2+1 > len(lifecyclePhases3.Milestones) {
-									lifecyclePhases3.Milestones = append(lifecyclePhases3.Milestones, milestones5)
-								} else {
-									lifecyclePhases3.Milestones[milestonesCount2].Description = milestones5.Description
-									lifecyclePhases3.Milestones[milestonesCount2].Duration = milestones5.Duration
-									lifecyclePhases3.Milestones[milestonesCount2].ID = milestones5.ID
-									lifecyclePhases3.Milestones[milestonesCount2].Name = milestones5.Name
-									lifecyclePhases3.Milestones[milestonesCount2].OccurredAt = milestones5.OccurredAt
-									lifecyclePhases3.Milestones[milestonesCount2].Position = milestones5.Position
-									lifecyclePhases3.Milestones[milestonesCount2].Slug = milestones5.Slug
-									lifecyclePhases3.Milestones[milestonesCount2].UpdatedAt = milestones5.UpdatedAt
-									lifecyclePhases3.Milestones[milestonesCount2].UpdatedBy = milestones5.UpdatedBy
-								}
-							}
-							lifecyclePhases3.Name = types.StringPointerValue(lifecyclePhasesItem1.Name)
-							if lifecyclePhasesItem1.Position != nil {
-								lifecyclePhases3.Position = types.Int64Value(int64(*lifecyclePhasesItem1.Position))
-							} else {
-								lifecyclePhases3.Position = types.Int64Null()
-							}
-							lifecyclePhases3.Type = types.StringPointerValue(lifecyclePhasesItem1.Type)
-							if lifecyclePhasesCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases, lifecyclePhases3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount1].Description = lifecyclePhases3.Description
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount1].ID = lifecyclePhases3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount1].Milestones = lifecyclePhases3.Milestones
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount1].Name = lifecyclePhases3.Name
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount1].Position = lifecyclePhases3.Position
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount1].Type = lifecyclePhases3.Type
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones = []tfTypes.IncidentsMilestoneEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones = r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones)]
-						}
-						for milestonesCount3, milestonesItem3 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones {
-							var milestones7 tfTypes.IncidentsMilestoneEntity
-							if milestonesItem3.CreatedAt != nil {
-								milestones7.CreatedAt = types.StringValue(milestonesItem3.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								milestones7.CreatedAt = types.StringNull()
-							}
-							milestones7.Duration = types.StringPointerValue(milestonesItem3.Duration)
-							milestones7.ID = types.StringPointerValue(milestonesItem3.ID)
-							if milestonesItem3.OccurredAt != nil {
-								milestones7.OccurredAt = types.StringValue(milestonesItem3.OccurredAt.Format(time.RFC3339Nano))
-							} else {
-								milestones7.OccurredAt = types.StringNull()
-							}
-							milestones7.Type = types.StringPointerValue(milestonesItem3.Type)
-							if milestonesItem3.UpdatedAt != nil {
-								milestones7.UpdatedAt = types.StringValue(milestonesItem3.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								milestones7.UpdatedAt = types.StringNull()
-							}
-							if milestonesCount3+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones, milestones7)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount3].CreatedAt = milestones7.CreatedAt
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount3].Duration = milestones7.Duration
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount3].ID = milestones7.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount3].OccurredAt = milestones7.OccurredAt
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount3].Type = milestones7.Type
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount3].UpdatedAt = milestones7.UpdatedAt
-							}
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.MonetaryImpact != nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Value(int64(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.MonetaryImpact))
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Null()
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.MonetaryImpactCents != nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Value(int64(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.MonetaryImpactCents))
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Null()
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Name = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Name)
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Number != nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Number = types.Int64Value(int64(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.Number))
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Number = types.Int64Null()
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Organization == nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Organization = nil
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Organization = &tfTypes.SuccinctEntity{}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Organization.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Organization.ID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Organization.Name = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Organization.Name)
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.OrganizationID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.OrganizationID)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Priority = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Priority)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.PrivateID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.PrivateID)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.PrivateStatusPageURL = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.PrivateStatusPageURL)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.ReportID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.ReportID)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments = []tfTypes.IncidentsRoleAssignmentEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments = r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments)]
-						}
-						for roleAssignmentsCount1, roleAssignmentsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments {
-							var roleAssignments3 tfTypes.IncidentsRoleAssignmentEntity
-							if roleAssignmentsItem1.CreatedAt != nil {
-								roleAssignments3.CreatedAt = types.StringValue(roleAssignmentsItem1.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								roleAssignments3.CreatedAt = types.StringNull()
-							}
-							roleAssignments3.ID = types.StringPointerValue(roleAssignmentsItem1.ID)
-							if roleAssignmentsItem1.IncidentRole == nil {
-								roleAssignments3.IncidentRole = nil
-							} else {
-								roleAssignments3.IncidentRole = &tfTypes.IncidentRoleEntity{}
-								if roleAssignmentsItem1.IncidentRole.CreatedAt != nil {
-									roleAssignments3.IncidentRole.CreatedAt = types.StringValue(roleAssignmentsItem1.IncidentRole.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments3.IncidentRole.CreatedAt = types.StringNull()
-								}
-								roleAssignments3.IncidentRole.Description = types.StringPointerValue(roleAssignmentsItem1.IncidentRole.Description)
-								if roleAssignmentsItem1.IncidentRole.DiscardedAt != nil {
-									roleAssignments3.IncidentRole.DiscardedAt = types.StringValue(roleAssignmentsItem1.IncidentRole.DiscardedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments3.IncidentRole.DiscardedAt = types.StringNull()
-								}
-								roleAssignments3.IncidentRole.ID = types.StringPointerValue(roleAssignmentsItem1.IncidentRole.ID)
-								roleAssignments3.IncidentRole.Name = types.StringPointerValue(roleAssignmentsItem1.IncidentRole.Name)
-								roleAssignments3.IncidentRole.Summary = types.StringPointerValue(roleAssignmentsItem1.IncidentRole.Summary)
-								if roleAssignmentsItem1.IncidentRole.UpdatedAt != nil {
-									roleAssignments3.IncidentRole.UpdatedAt = types.StringValue(roleAssignmentsItem1.IncidentRole.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments3.IncidentRole.UpdatedAt = types.StringNull()
-								}
-							}
-							if roleAssignmentsItem1.Status != nil {
-								roleAssignments3.Status = types.StringValue(string(*roleAssignmentsItem1.Status))
-							} else {
-								roleAssignments3.Status = types.StringNull()
-							}
-							if roleAssignmentsItem1.UpdatedAt != nil {
-								roleAssignments3.UpdatedAt = types.StringValue(roleAssignmentsItem1.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								roleAssignments3.UpdatedAt = types.StringNull()
-							}
-							if roleAssignmentsItem1.User == nil {
-								roleAssignments3.User = nil
-							} else {
-								roleAssignments3.User = &tfTypes.UserEntity{}
-								if roleAssignmentsItem1.User.CreatedAt != nil {
-									roleAssignments3.User.CreatedAt = types.StringValue(roleAssignmentsItem1.User.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments3.User.CreatedAt = types.StringNull()
-								}
-								roleAssignments3.User.Email = types.StringPointerValue(roleAssignmentsItem1.User.Email)
-								roleAssignments3.User.ID = types.StringPointerValue(roleAssignmentsItem1.User.ID)
-								roleAssignments3.User.Name = types.StringPointerValue(roleAssignmentsItem1.User.Name)
-								roleAssignments3.User.SignalsEnabledNotificationTypes = []types.String{}
-								for _, v := range roleAssignmentsItem1.User.SignalsEnabledNotificationTypes {
-									roleAssignments3.User.SignalsEnabledNotificationTypes = append(roleAssignments3.User.SignalsEnabledNotificationTypes, types.StringValue(v))
-								}
-								roleAssignments3.User.SlackLinked = types.BoolPointerValue(roleAssignmentsItem1.User.SlackLinked)
-								roleAssignments3.User.SlackUserID = types.StringPointerValue(roleAssignmentsItem1.User.SlackUserID)
-								if roleAssignmentsItem1.User.UpdatedAt != nil {
-									roleAssignments3.User.UpdatedAt = types.StringValue(roleAssignmentsItem1.User.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments3.User.UpdatedAt = types.StringNull()
-								}
-							}
-							if roleAssignmentsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments, roleAssignments3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount1].CreatedAt = roleAssignments3.CreatedAt
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount1].ID = roleAssignments3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount1].IncidentRole = roleAssignments3.IncidentRole
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount1].Status = roleAssignments3.Status
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount1].UpdatedAt = roleAssignments3.UpdatedAt
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount1].User = roleAssignments3.User
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Services = []tfTypes.SuccinctEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Services) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Services) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Services = r.ConnectedService.Owner.MsTeamsChannel.Incident.Services[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Services)]
-						}
-						for servicesCount1, servicesItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Services {
-							var services3 tfTypes.SuccinctEntity
-							services3.ID = types.StringPointerValue(servicesItem1.ID)
-							services3.Name = types.StringPointerValue(servicesItem1.Name)
-							if servicesCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Services) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Services = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.Services, services3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Services[servicesCount1].ID = services3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Services[servicesCount1].Name = services3.Name
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Severity = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Severity)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityColor = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityColor)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityCondition = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityCondition)
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject == nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject = nil
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject = &tfTypes.SeverityMatrixConditionEntity{}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject.ID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Name = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Name)
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position != nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Value(int64(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position))
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Null()
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpact = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpact)
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject == nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject = nil
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject = &tfTypes.SeverityMatrixImpactEntity{}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.ID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Name = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Name)
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position != nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Value(int64(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position))
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Null()
-							}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Type = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Type)
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.StartedAt != nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.StartedAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.StartedAt.Format(time.RFC3339Nano))
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.StartedAt = types.StringNull()
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages = r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages)]
-						}
-						for statusPagesCount3, statusPagesItem3 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages {
-							var statusPages7 tfTypes.IncidentsStatusPageEntity
-							statusPages7.DisplayName = types.StringPointerValue(statusPagesItem3.DisplayName)
-							statusPages7.ExternalID = types.StringPointerValue(statusPagesItem3.ExternalID)
-							statusPages7.ID = types.StringPointerValue(statusPagesItem3.ID)
-							if statusPagesItem3.Integration == nil {
-								statusPages7.Integration = nil
-							} else {
-								statusPages7.Integration = &tfTypes.IntegrationEntity{}
-								if statusPagesItem3.Integration.CreatedAt != nil {
-									statusPages7.Integration.CreatedAt = types.StringValue(statusPagesItem3.Integration.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									statusPages7.Integration.CreatedAt = types.StringNull()
-								}
-								statusPages7.Integration.DisplayName = types.StringPointerValue(statusPagesItem3.Integration.DisplayName)
-								statusPages7.Integration.ID = types.StringPointerValue(statusPagesItem3.Integration.ID)
-								statusPages7.Integration.IntegrationName = types.StringPointerValue(statusPagesItem3.Integration.IntegrationName)
-								statusPages7.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem3.Integration.IntegrationSlug)
-							}
-							statusPages7.Name = types.StringPointerValue(statusPagesItem3.Name)
-							statusPages7.URL = types.StringPointerValue(statusPagesItem3.URL)
-							if statusPagesCount3+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages, statusPages7)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount3].DisplayName = statusPages7.DisplayName
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount3].ExternalID = statusPages7.ExternalID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount3].ID = statusPages7.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount3].Integration = statusPages7.Integration
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount3].Name = statusPages7.Name
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount3].URL = statusPages7.URL
-							}
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.Summary = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Summary)
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.TagList = []types.String{}
-						for _, v := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.TagList {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.TagList = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.TagList, types.StringValue(v))
-						}
-						r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments = []tfTypes.IncidentsTeamAssignmentEntity{}
-						if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments) {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments = r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments)]
-						}
-						for teamAssignmentsCount1, teamAssignmentsItem1 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments {
-							var teamAssignments3 tfTypes.IncidentsTeamAssignmentEntity
-							if teamAssignmentsItem1.CreatedAt != nil {
-								teamAssignments3.CreatedAt = types.StringValue(teamAssignmentsItem1.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								teamAssignments3.CreatedAt = types.StringNull()
-							}
-							teamAssignments3.ID = types.StringPointerValue(teamAssignmentsItem1.ID)
-							teamAssignments3.Status = types.StringPointerValue(teamAssignmentsItem1.Status)
-							if teamAssignmentsItem1.Team == nil {
-								teamAssignments3.Team = nil
-							} else {
-								teamAssignments3.Team = &tfTypes.TeamEntity1{}
-							}
-							if teamAssignmentsItem1.UpdatedAt != nil {
-								teamAssignments3.UpdatedAt = types.StringValue(teamAssignmentsItem1.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								teamAssignments3.UpdatedAt = types.StringNull()
-							}
-							if teamAssignmentsCount1+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments, teamAssignments3)
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount1].CreatedAt = teamAssignments3.CreatedAt
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount1].ID = teamAssignments3.ID
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount1].Status = teamAssignments3.Status
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount1].Team = teamAssignments3.Team
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount1].UpdatedAt = teamAssignments3.UpdatedAt
-							}
-						}
-						if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket == nil {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket = nil
-						} else {
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket = &tfTypes.TicketingTicketEntity{}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees = []tfTypes.AuthorEntity{}
-							if len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees) > len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees) {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees = r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees[:len(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees)]
-							}
-							for assigneesCount3, assigneesItem3 := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees {
-								var assignees7 tfTypes.AuthorEntity
-								assignees7.Email = types.StringPointerValue(assigneesItem3.Email)
-								assignees7.ID = types.StringPointerValue(assigneesItem3.ID)
-								assignees7.Name = types.StringPointerValue(assigneesItem3.Name)
-								assignees7.Source = types.StringPointerValue(assigneesItem3.Source)
-								if assigneesCount3+1 > len(r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees) {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees, assignees7)
-								} else {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount3].Email = assignees7.Email
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount3].ID = assignees7.ID
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount3].Name = assignees7.Name
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount3].Source = assignees7.Source
-								}
-							}
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt != nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringNull()
-							}
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy == nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy = nil
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy = &tfTypes.AuthorEntity{}
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Email = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Email)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.ID)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Name = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Name)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Source = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Source)
-							}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Description = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Description)
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.DueAt != nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.DueAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.DueAt.Format(time.RFC3339Nano))
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.DueAt = types.StringNull()
-							}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.ID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.IncidentID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.IncidentID)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.IncidentName = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.IncidentName)
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link == nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link = nil
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link = &tfTypes.AttachmentsLinkEntity{}
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.Deletable = types.BoolPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.Deletable)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.DisplayText = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.DisplayText)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.Editable = types.BoolPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.Editable)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.HrefURL = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.HrefURL)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.IconURL = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.IconURL)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.ID)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.Type = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Link.Type)
-							}
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority == nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority = nil
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority = &tfTypes.TicketingPriorityEntity{}
-								if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt != nil {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringNull()
-								}
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.ID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.ID)
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.Name = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.Name)
-								if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position != nil {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Value(int64(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position))
-								} else {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Null()
-								}
-								if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt != nil {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringNull()
-								}
-							}
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.State != nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.State = types.StringValue(string(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.State))
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.State = types.StringNull()
-							}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Summary = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Summary)
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.TagList = []types.String{}
-							for _, v := range resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.TagList {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.TagList = append(r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.TagList, types.StringValue(v))
-							}
-							r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.TaskID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.TaskID)
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Type != nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Type = types.StringValue(string(*resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Type))
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.Type = types.StringNull()
-							}
-							if resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt != nil {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringValue(resp.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								r.ConnectedService.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringNull()
-							}
-						}
-					}
 					r.ConnectedService.Owner.MsTeamsChannel.MsTeamID = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.MsTeamID)
 					r.ConnectedService.Owner.MsTeamsChannel.Status = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.Status)
 					r.ConnectedService.Owner.MsTeamsChannel.TeamName = types.StringPointerValue(resp.ConnectedService.Owner.MsTeamsChannel.TeamName)
@@ -2793,8 +976,8 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					ownedFunctionalities3.ID = types.StringPointerValue(ownedFunctionalitiesItem1.ID)
 					if len(ownedFunctionalitiesItem1.Labels) > 0 {
 						ownedFunctionalities3.Labels = make(map[string]types.String)
-						for key7, value12 := range ownedFunctionalitiesItem1.Labels {
-							ownedFunctionalities3.Labels[key7] = types.StringValue(value12)
+						for key5, value6 := range ownedFunctionalitiesItem1.Labels {
+							ownedFunctionalities3.Labels[key5] = types.StringValue(value6)
 						}
 					}
 					ownedFunctionalities3.Links = []tfTypes.LinksEntity{}
@@ -2962,22 +1145,22 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 				}
 				teams1.Description = types.StringPointerValue(teamsItem.Description)
 				teams1.Functionalities = []tfTypes.FunctionalityEntity{}
-				for functionalitiesCount5, functionalitiesItem5 := range teamsItem.Functionalities {
-					var functionalities11 tfTypes.FunctionalityEntity
-					functionalities11.ActiveIncidents = []types.String{}
-					for _, v := range functionalitiesItem5.ActiveIncidents {
-						functionalities11.ActiveIncidents = append(functionalities11.ActiveIncidents, types.StringValue(v))
+				for functionalitiesCount3, functionalitiesItem3 := range teamsItem.Functionalities {
+					var functionalities7 tfTypes.FunctionalityEntity
+					functionalities7.ActiveIncidents = []types.String{}
+					for _, v := range functionalitiesItem3.ActiveIncidents {
+						functionalities7.ActiveIncidents = append(functionalities7.ActiveIncidents, types.StringValue(v))
 					}
-					functionalities11.AlertOnAdd = types.BoolPointerValue(functionalitiesItem5.AlertOnAdd)
-					functionalities11.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem5.AutoAddRespondingTeam)
-					if functionalitiesItem5.CreatedAt != nil {
-						functionalities11.CreatedAt = types.StringValue(functionalitiesItem5.CreatedAt.Format(time.RFC3339Nano))
+					functionalities7.AlertOnAdd = types.BoolPointerValue(functionalitiesItem3.AlertOnAdd)
+					functionalities7.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem3.AutoAddRespondingTeam)
+					if functionalitiesItem3.CreatedAt != nil {
+						functionalities7.CreatedAt = types.StringValue(functionalitiesItem3.CreatedAt.Format(time.RFC3339Nano))
 					} else {
-						functionalities11.CreatedAt = types.StringNull()
+						functionalities7.CreatedAt = types.StringNull()
 					}
-					functionalities11.Description = types.StringPointerValue(functionalitiesItem5.Description)
-					functionalities11.ExternalResources = []tfTypes.ExternalResourceEntity{}
-					for externalResourcesCount6, externalResourcesItem6 := range functionalitiesItem5.ExternalResources {
+					functionalities7.Description = types.StringPointerValue(functionalitiesItem3.Description)
+					functionalities7.ExternalResources = []tfTypes.ExternalResourceEntity{}
+					for externalResourcesCount6, externalResourcesItem6 := range functionalitiesItem3.ExternalResources {
 						var externalResources13 tfTypes.ExternalResourceEntity
 						externalResources13.ConnectionID = types.StringPointerValue(externalResourcesItem6.ConnectionID)
 						externalResources13.ConnectionName = types.StringPointerValue(externalResourcesItem6.ConnectionName)
@@ -2995,80 +1178,80 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 						} else {
 							externalResources13.UpdatedAt = types.StringNull()
 						}
-						if externalResourcesCount6+1 > len(functionalities11.ExternalResources) {
-							functionalities11.ExternalResources = append(functionalities11.ExternalResources, externalResources13)
+						if externalResourcesCount6+1 > len(functionalities7.ExternalResources) {
+							functionalities7.ExternalResources = append(functionalities7.ExternalResources, externalResources13)
 						} else {
-							functionalities11.ExternalResources[externalResourcesCount6].ConnectionID = externalResources13.ConnectionID
-							functionalities11.ExternalResources[externalResourcesCount6].ConnectionName = externalResources13.ConnectionName
-							functionalities11.ExternalResources[externalResourcesCount6].ConnectionType = externalResources13.ConnectionType
-							functionalities11.ExternalResources[externalResourcesCount6].CreatedAt = externalResources13.CreatedAt
-							functionalities11.ExternalResources[externalResourcesCount6].Name = externalResources13.Name
-							functionalities11.ExternalResources[externalResourcesCount6].RemoteID = externalResources13.RemoteID
-							functionalities11.ExternalResources[externalResourcesCount6].RemoteURL = externalResources13.RemoteURL
-							functionalities11.ExternalResources[externalResourcesCount6].UpdatedAt = externalResources13.UpdatedAt
+							functionalities7.ExternalResources[externalResourcesCount6].ConnectionID = externalResources13.ConnectionID
+							functionalities7.ExternalResources[externalResourcesCount6].ConnectionName = externalResources13.ConnectionName
+							functionalities7.ExternalResources[externalResourcesCount6].ConnectionType = externalResources13.ConnectionType
+							functionalities7.ExternalResources[externalResourcesCount6].CreatedAt = externalResources13.CreatedAt
+							functionalities7.ExternalResources[externalResourcesCount6].Name = externalResources13.Name
+							functionalities7.ExternalResources[externalResourcesCount6].RemoteID = externalResources13.RemoteID
+							functionalities7.ExternalResources[externalResourcesCount6].RemoteURL = externalResources13.RemoteURL
+							functionalities7.ExternalResources[externalResourcesCount6].UpdatedAt = externalResources13.UpdatedAt
 						}
 					}
-					functionalities11.ID = types.StringPointerValue(functionalitiesItem5.ID)
-					if len(functionalitiesItem5.Labels) > 0 {
-						functionalities11.Labels = make(map[string]types.String)
-						for key8, value14 := range functionalitiesItem5.Labels {
-							functionalities11.Labels[key8] = types.StringValue(value14)
+					functionalities7.ID = types.StringPointerValue(functionalitiesItem3.ID)
+					if len(functionalitiesItem3.Labels) > 0 {
+						functionalities7.Labels = make(map[string]types.String)
+						for key6, value8 := range functionalitiesItem3.Labels {
+							functionalities7.Labels[key6] = types.StringValue(value8)
 						}
 					}
-					functionalities11.Links = []tfTypes.LinksEntity{}
-					for linksCount6, linksItem6 := range functionalitiesItem5.Links {
+					functionalities7.Links = []tfTypes.LinksEntity{}
+					for linksCount6, linksItem6 := range functionalitiesItem3.Links {
 						var links13 tfTypes.LinksEntity
 						links13.HrefURL = types.StringPointerValue(linksItem6.HrefURL)
 						links13.IconURL = types.StringPointerValue(linksItem6.IconURL)
 						links13.ID = types.StringPointerValue(linksItem6.ID)
 						links13.Name = types.StringPointerValue(linksItem6.Name)
-						if linksCount6+1 > len(functionalities11.Links) {
-							functionalities11.Links = append(functionalities11.Links, links13)
+						if linksCount6+1 > len(functionalities7.Links) {
+							functionalities7.Links = append(functionalities7.Links, links13)
 						} else {
-							functionalities11.Links[linksCount6].HrefURL = links13.HrefURL
-							functionalities11.Links[linksCount6].IconURL = links13.IconURL
-							functionalities11.Links[linksCount6].ID = links13.ID
-							functionalities11.Links[linksCount6].Name = links13.Name
+							functionalities7.Links[linksCount6].HrefURL = links13.HrefURL
+							functionalities7.Links[linksCount6].IconURL = links13.IconURL
+							functionalities7.Links[linksCount6].ID = links13.ID
+							functionalities7.Links[linksCount6].Name = links13.Name
 						}
 					}
-					functionalities11.Name = types.StringPointerValue(functionalitiesItem5.Name)
-					if functionalitiesItem5.Owner == nil {
-						functionalities11.Owner = nil
+					functionalities7.Name = types.StringPointerValue(functionalitiesItem3.Name)
+					if functionalitiesItem3.Owner == nil {
+						functionalities7.Owner = nil
 					} else {
-						functionalities11.Owner = &tfTypes.TeamEntity1{}
+						functionalities7.Owner = &tfTypes.TeamEntity1{}
 					}
-					functionalities11.Slug = types.StringPointerValue(functionalitiesItem5.Slug)
-					if functionalitiesItem5.UpdatedAt != nil {
-						functionalities11.UpdatedAt = types.StringValue(functionalitiesItem5.UpdatedAt.Format(time.RFC3339Nano))
+					functionalities7.Slug = types.StringPointerValue(functionalitiesItem3.Slug)
+					if functionalitiesItem3.UpdatedAt != nil {
+						functionalities7.UpdatedAt = types.StringValue(functionalitiesItem3.UpdatedAt.Format(time.RFC3339Nano))
 					} else {
-						functionalities11.UpdatedAt = types.StringNull()
+						functionalities7.UpdatedAt = types.StringNull()
 					}
-					if functionalitiesItem5.UpdatedBy == nil {
-						functionalities11.UpdatedBy = nil
+					if functionalitiesItem3.UpdatedBy == nil {
+						functionalities7.UpdatedBy = nil
 					} else {
-						functionalities11.UpdatedBy = &tfTypes.AuthorEntity{}
-						functionalities11.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem5.UpdatedBy.Email)
-						functionalities11.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem5.UpdatedBy.ID)
-						functionalities11.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem5.UpdatedBy.Name)
-						functionalities11.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem5.UpdatedBy.Source)
+						functionalities7.UpdatedBy = &tfTypes.AuthorEntity{}
+						functionalities7.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem3.UpdatedBy.Email)
+						functionalities7.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem3.UpdatedBy.ID)
+						functionalities7.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem3.UpdatedBy.Name)
+						functionalities7.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem3.UpdatedBy.Source)
 					}
-					if functionalitiesCount5+1 > len(teams1.Functionalities) {
-						teams1.Functionalities = append(teams1.Functionalities, functionalities11)
+					if functionalitiesCount3+1 > len(teams1.Functionalities) {
+						teams1.Functionalities = append(teams1.Functionalities, functionalities7)
 					} else {
-						teams1.Functionalities[functionalitiesCount5].ActiveIncidents = functionalities11.ActiveIncidents
-						teams1.Functionalities[functionalitiesCount5].AlertOnAdd = functionalities11.AlertOnAdd
-						teams1.Functionalities[functionalitiesCount5].AutoAddRespondingTeam = functionalities11.AutoAddRespondingTeam
-						teams1.Functionalities[functionalitiesCount5].CreatedAt = functionalities11.CreatedAt
-						teams1.Functionalities[functionalitiesCount5].Description = functionalities11.Description
-						teams1.Functionalities[functionalitiesCount5].ExternalResources = functionalities11.ExternalResources
-						teams1.Functionalities[functionalitiesCount5].ID = functionalities11.ID
-						teams1.Functionalities[functionalitiesCount5].Labels = functionalities11.Labels
-						teams1.Functionalities[functionalitiesCount5].Links = functionalities11.Links
-						teams1.Functionalities[functionalitiesCount5].Name = functionalities11.Name
-						teams1.Functionalities[functionalitiesCount5].Owner = functionalities11.Owner
-						teams1.Functionalities[functionalitiesCount5].Slug = functionalities11.Slug
-						teams1.Functionalities[functionalitiesCount5].UpdatedAt = functionalities11.UpdatedAt
-						teams1.Functionalities[functionalitiesCount5].UpdatedBy = functionalities11.UpdatedBy
+						teams1.Functionalities[functionalitiesCount3].ActiveIncidents = functionalities7.ActiveIncidents
+						teams1.Functionalities[functionalitiesCount3].AlertOnAdd = functionalities7.AlertOnAdd
+						teams1.Functionalities[functionalitiesCount3].AutoAddRespondingTeam = functionalities7.AutoAddRespondingTeam
+						teams1.Functionalities[functionalitiesCount3].CreatedAt = functionalities7.CreatedAt
+						teams1.Functionalities[functionalitiesCount3].Description = functionalities7.Description
+						teams1.Functionalities[functionalitiesCount3].ExternalResources = functionalities7.ExternalResources
+						teams1.Functionalities[functionalitiesCount3].ID = functionalities7.ID
+						teams1.Functionalities[functionalitiesCount3].Labels = functionalities7.Labels
+						teams1.Functionalities[functionalitiesCount3].Links = functionalities7.Links
+						teams1.Functionalities[functionalitiesCount3].Name = functionalities7.Name
+						teams1.Functionalities[functionalitiesCount3].Owner = functionalities7.Owner
+						teams1.Functionalities[functionalitiesCount3].Slug = functionalities7.Slug
+						teams1.Functionalities[functionalitiesCount3].UpdatedAt = functionalities7.UpdatedAt
+						teams1.Functionalities[functionalitiesCount3].UpdatedBy = functionalities7.UpdatedBy
 					}
 				}
 				teams1.ID = types.StringPointerValue(teamsItem.ID)
@@ -3148,886 +1331,6 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					teams1.MsTeamsChannel.ChannelName = types.StringPointerValue(teamsItem.MsTeamsChannel.ChannelName)
 					teams1.MsTeamsChannel.ChannelURL = types.StringPointerValue(teamsItem.MsTeamsChannel.ChannelURL)
 					teams1.MsTeamsChannel.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.ID)
-					if teamsItem.MsTeamsChannel.Incident == nil {
-						teams1.MsTeamsChannel.Incident = nil
-					} else {
-						teams1.MsTeamsChannel.Incident = &tfTypes.IncidentEntity{}
-						teams1.MsTeamsChannel.Incident.Active = types.BoolPointerValue(teamsItem.MsTeamsChannel.Incident.Active)
-						teams1.MsTeamsChannel.Incident.AiIncidentSummary = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.AiIncidentSummary)
-						teams1.MsTeamsChannel.Incident.ChannelID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ChannelID)
-						teams1.MsTeamsChannel.Incident.ChannelName = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ChannelName)
-						teams1.MsTeamsChannel.Incident.ChannelReference = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ChannelReference)
-						teams1.MsTeamsChannel.Incident.ChannelStatus = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ChannelStatus)
-						teams1.MsTeamsChannel.Incident.ConferenceBridges = []tfTypes.IncidentsConferenceBridgeEntity{}
-						for conferenceBridgesCount2, conferenceBridgesItem2 := range teamsItem.MsTeamsChannel.Incident.ConferenceBridges {
-							var conferenceBridges5 tfTypes.IncidentsConferenceBridgeEntity
-							conferenceBridges5.ID = types.StringPointerValue(conferenceBridgesItem2.ID)
-							if conferenceBridgesCount2+1 > len(teams1.MsTeamsChannel.Incident.ConferenceBridges) {
-								teams1.MsTeamsChannel.Incident.ConferenceBridges = append(teams1.MsTeamsChannel.Incident.ConferenceBridges, conferenceBridges5)
-							} else {
-								teams1.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount2].ID = conferenceBridges5.ID
-							}
-						}
-						if teamsItem.MsTeamsChannel.Incident.ContextObject == nil {
-							teams1.MsTeamsChannel.Incident.ContextObject = nil
-						} else {
-							teams1.MsTeamsChannel.Incident.ContextObject = &tfTypes.IncidentsContextObjectEntity{}
-							teams1.MsTeamsChannel.Incident.ContextObject.ContextDescription = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ContextObject.ContextDescription)
-							teams1.MsTeamsChannel.Incident.ContextObject.ContextTag = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ContextObject.ContextTag)
-							teams1.MsTeamsChannel.Incident.ContextObject.ObjectID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ContextObject.ObjectID)
-							teams1.MsTeamsChannel.Incident.ContextObject.ObjectType = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ContextObject.ObjectType)
-						}
-						teams1.MsTeamsChannel.Incident.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-						for conversationsCount6, conversationsItem6 := range teamsItem.MsTeamsChannel.Incident.Conversations {
-							var conversations13 tfTypes.ConversationsAPIEntitiesReference
-							if conversationsItem6.Channel == nil {
-								conversations13.Channel = nil
-							} else {
-								conversations13.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-								conversations13.Channel.Name = types.StringPointerValue(conversationsItem6.Channel.Name)
-							}
-							conversations13.CommentsURL = types.StringPointerValue(conversationsItem6.CommentsURL)
-							conversations13.Field = types.StringPointerValue(conversationsItem6.Field)
-							conversations13.ID = types.StringPointerValue(conversationsItem6.ID)
-							conversations13.ResourceClass = types.StringPointerValue(conversationsItem6.ResourceClass)
-							conversations13.ResourceID = types.StringPointerValue(conversationsItem6.ResourceID)
-							if conversationsCount6+1 > len(teams1.MsTeamsChannel.Incident.Conversations) {
-								teams1.MsTeamsChannel.Incident.Conversations = append(teams1.MsTeamsChannel.Incident.Conversations, conversations13)
-							} else {
-								teams1.MsTeamsChannel.Incident.Conversations[conversationsCount6].Channel = conversations13.Channel
-								teams1.MsTeamsChannel.Incident.Conversations[conversationsCount6].CommentsURL = conversations13.CommentsURL
-								teams1.MsTeamsChannel.Incident.Conversations[conversationsCount6].Field = conversations13.Field
-								teams1.MsTeamsChannel.Incident.Conversations[conversationsCount6].ID = conversations13.ID
-								teams1.MsTeamsChannel.Incident.Conversations[conversationsCount6].ResourceClass = conversations13.ResourceClass
-								teams1.MsTeamsChannel.Incident.Conversations[conversationsCount6].ResourceID = conversations13.ResourceID
-							}
-						}
-						if teamsItem.MsTeamsChannel.Incident.CreatedAt != nil {
-							teams1.MsTeamsChannel.Incident.CreatedAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.CreatedAt.Format(time.RFC3339Nano))
-						} else {
-							teams1.MsTeamsChannel.Incident.CreatedAt = types.StringNull()
-						}
-						if teamsItem.MsTeamsChannel.Incident.CreatedBy == nil {
-							teams1.MsTeamsChannel.Incident.CreatedBy = nil
-						} else {
-							teams1.MsTeamsChannel.Incident.CreatedBy = &tfTypes.AuthorEntity{}
-							teams1.MsTeamsChannel.Incident.CreatedBy.Email = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.CreatedBy.Email)
-							teams1.MsTeamsChannel.Incident.CreatedBy.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.CreatedBy.ID)
-							teams1.MsTeamsChannel.Incident.CreatedBy.Name = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.CreatedBy.Name)
-							teams1.MsTeamsChannel.Incident.CreatedBy.Source = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.CreatedBy.Source)
-						}
-						teams1.MsTeamsChannel.Incident.CurrentMilestone = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.CurrentMilestone)
-						teams1.MsTeamsChannel.Incident.CustomFields = []tfTypes.CustomFieldsFieldValue{}
-						for customFieldsCount2, customFieldsItem2 := range teamsItem.MsTeamsChannel.Incident.CustomFields {
-							var customFields5 tfTypes.CustomFieldsFieldValue
-							customFields5.Description = types.StringPointerValue(customFieldsItem2.Description)
-							customFields5.DisplayName = types.StringPointerValue(customFieldsItem2.DisplayName)
-							customFields5.FieldID = types.StringPointerValue(customFieldsItem2.FieldID)
-							customFields5.Name = types.StringPointerValue(customFieldsItem2.Name)
-							customFields5.Slug = types.StringPointerValue(customFieldsItem2.Slug)
-							customFields5.Value = types.StringPointerValue(customFieldsItem2.Value)
-							customFields5.ValueArray = types.StringPointerValue(customFieldsItem2.ValueArray)
-							customFields5.ValueString = types.StringPointerValue(customFieldsItem2.ValueString)
-							customFields5.ValueType = types.StringPointerValue(customFieldsItem2.ValueType)
-							if customFieldsCount2+1 > len(teams1.MsTeamsChannel.Incident.CustomFields) {
-								teams1.MsTeamsChannel.Incident.CustomFields = append(teams1.MsTeamsChannel.Incident.CustomFields, customFields5)
-							} else {
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].Description = customFields5.Description
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].DisplayName = customFields5.DisplayName
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].FieldID = customFields5.FieldID
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].Name = customFields5.Name
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].Slug = customFields5.Slug
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].Value = customFields5.Value
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].ValueArray = customFields5.ValueArray
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].ValueString = customFields5.ValueString
-								teams1.MsTeamsChannel.Incident.CustomFields[customFieldsCount2].ValueType = customFields5.ValueType
-							}
-						}
-						teams1.MsTeamsChannel.Incident.CustomerImpactSummary = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.CustomerImpactSummary)
-						if teamsItem.MsTeamsChannel.Incident.CustomersImpacted != nil {
-							teams1.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Value(int64(*teamsItem.MsTeamsChannel.Incident.CustomersImpacted))
-						} else {
-							teams1.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Null()
-						}
-						teams1.MsTeamsChannel.Incident.Description = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Description)
-						if teamsItem.MsTeamsChannel.Incident.DiscardedAt != nil {
-							teams1.MsTeamsChannel.Incident.DiscardedAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.DiscardedAt.Format(time.RFC3339Nano))
-						} else {
-							teams1.MsTeamsChannel.Incident.DiscardedAt = types.StringNull()
-						}
-						teams1.MsTeamsChannel.Incident.Environments = []tfTypes.SuccinctEntity{}
-						for environmentsCount2, environmentsItem2 := range teamsItem.MsTeamsChannel.Incident.Environments {
-							var environments5 tfTypes.SuccinctEntity
-							environments5.ID = types.StringPointerValue(environmentsItem2.ID)
-							environments5.Name = types.StringPointerValue(environmentsItem2.Name)
-							if environmentsCount2+1 > len(teams1.MsTeamsChannel.Incident.Environments) {
-								teams1.MsTeamsChannel.Incident.Environments = append(teams1.MsTeamsChannel.Incident.Environments, environments5)
-							} else {
-								teams1.MsTeamsChannel.Incident.Environments[environmentsCount2].ID = environments5.ID
-								teams1.MsTeamsChannel.Incident.Environments[environmentsCount2].Name = environments5.Name
-							}
-						}
-						teams1.MsTeamsChannel.Incident.FieldRequirements = []tfTypes.IncidentEntityFieldRequirementEntity{}
-						for fieldRequirementsCount2, fieldRequirementsItem2 := range teamsItem.MsTeamsChannel.Incident.FieldRequirements {
-							var fieldRequirements5 tfTypes.IncidentEntityFieldRequirementEntity
-							fieldRequirements5.FieldID = types.StringPointerValue(fieldRequirementsItem2.FieldID)
-							fieldRequirements5.RequiredAtMilestoneID = types.StringPointerValue(fieldRequirementsItem2.RequiredAtMilestoneID)
-							if fieldRequirementsCount2+1 > len(teams1.MsTeamsChannel.Incident.FieldRequirements) {
-								teams1.MsTeamsChannel.Incident.FieldRequirements = append(teams1.MsTeamsChannel.Incident.FieldRequirements, fieldRequirements5)
-							} else {
-								teams1.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount2].FieldID = fieldRequirements5.FieldID
-								teams1.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount2].RequiredAtMilestoneID = fieldRequirements5.RequiredAtMilestoneID
-							}
-						}
-						teams1.MsTeamsChannel.Incident.Functionalities = []tfTypes.SuccinctEntity{}
-						for functionalitiesCount6, functionalitiesItem6 := range teamsItem.MsTeamsChannel.Incident.Functionalities {
-							var functionalities13 tfTypes.SuccinctEntity
-							functionalities13.ID = types.StringPointerValue(functionalitiesItem6.ID)
-							functionalities13.Name = types.StringPointerValue(functionalitiesItem6.Name)
-							if functionalitiesCount6+1 > len(teams1.MsTeamsChannel.Incident.Functionalities) {
-								teams1.MsTeamsChannel.Incident.Functionalities = append(teams1.MsTeamsChannel.Incident.Functionalities, functionalities13)
-							} else {
-								teams1.MsTeamsChannel.Incident.Functionalities[functionalitiesCount6].ID = functionalities13.ID
-								teams1.MsTeamsChannel.Incident.Functionalities[functionalitiesCount6].Name = functionalities13.Name
-							}
-						}
-						teams1.MsTeamsChannel.Incident.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ID)
-						teams1.MsTeamsChannel.Incident.Impacts = []tfTypes.IncidentsImpactEntity{}
-						for impactsCount2, impactsItem2 := range teamsItem.MsTeamsChannel.Incident.Impacts {
-							var impacts5 tfTypes.IncidentsImpactEntity
-							if impactsItem2.Condition == nil {
-								impacts5.Condition = nil
-							} else {
-								impacts5.Condition = &tfTypes.SeverityMatrixConditionEntity{}
-								impacts5.Condition.ID = types.StringPointerValue(impactsItem2.Condition.ID)
-								impacts5.Condition.Name = types.StringPointerValue(impactsItem2.Condition.Name)
-								if impactsItem2.Condition.Position != nil {
-									impacts5.Condition.Position = types.Int64Value(int64(*impactsItem2.Condition.Position))
-								} else {
-									impacts5.Condition.Position = types.Int64Null()
-								}
-							}
-							impacts5.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							for conversationsCount7, conversationsItem7 := range impactsItem2.Conversations {
-								var conversations15 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem7.Channel == nil {
-									conversations15.Channel = nil
-								} else {
-									conversations15.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations15.Channel.Name = types.StringPointerValue(conversationsItem7.Channel.Name)
-								}
-								conversations15.CommentsURL = types.StringPointerValue(conversationsItem7.CommentsURL)
-								conversations15.Field = types.StringPointerValue(conversationsItem7.Field)
-								conversations15.ID = types.StringPointerValue(conversationsItem7.ID)
-								conversations15.ResourceClass = types.StringPointerValue(conversationsItem7.ResourceClass)
-								conversations15.ResourceID = types.StringPointerValue(conversationsItem7.ResourceID)
-								if conversationsCount7+1 > len(impacts5.Conversations) {
-									impacts5.Conversations = append(impacts5.Conversations, conversations15)
-								} else {
-									impacts5.Conversations[conversationsCount7].Channel = conversations15.Channel
-									impacts5.Conversations[conversationsCount7].CommentsURL = conversations15.CommentsURL
-									impacts5.Conversations[conversationsCount7].Field = conversations15.Field
-									impacts5.Conversations[conversationsCount7].ID = conversations15.ID
-									impacts5.Conversations[conversationsCount7].ResourceClass = conversations15.ResourceClass
-									impacts5.Conversations[conversationsCount7].ResourceID = conversations15.ResourceID
-								}
-							}
-							impacts5.ID = types.StringPointerValue(impactsItem2.ID)
-							if impactsItem2.Impact == nil {
-								impacts5.Impact = nil
-							} else {
-								impacts5.Impact = &tfTypes.SuccinctEntity{}
-								impacts5.Impact.ID = types.StringPointerValue(impactsItem2.Impact.ID)
-								impacts5.Impact.Name = types.StringPointerValue(impactsItem2.Impact.Name)
-							}
-							if impactsItem2.Type != nil {
-								impacts5.Type = types.StringValue(string(*impactsItem2.Type))
-							} else {
-								impacts5.Type = types.StringNull()
-							}
-							if impactsCount2+1 > len(teams1.MsTeamsChannel.Incident.Impacts) {
-								teams1.MsTeamsChannel.Incident.Impacts = append(teams1.MsTeamsChannel.Incident.Impacts, impacts5)
-							} else {
-								teams1.MsTeamsChannel.Incident.Impacts[impactsCount2].Condition = impacts5.Condition
-								teams1.MsTeamsChannel.Incident.Impacts[impactsCount2].Conversations = impacts5.Conversations
-								teams1.MsTeamsChannel.Incident.Impacts[impactsCount2].ID = impacts5.ID
-								teams1.MsTeamsChannel.Incident.Impacts[impactsCount2].Impact = impacts5.Impact
-								teams1.MsTeamsChannel.Incident.Impacts[impactsCount2].Type = impacts5.Type
-							}
-						}
-						teams1.MsTeamsChannel.Incident.IncidentChannels = []tfTypes.IncidentsChannelEntity{}
-						for incidentChannelsCount2, incidentChannelsItem2 := range teamsItem.MsTeamsChannel.Incident.IncidentChannels {
-							var incidentChannels5 tfTypes.IncidentsChannelEntity
-							incidentChannels5.IconURL = types.StringPointerValue(incidentChannelsItem2.IconURL)
-							incidentChannels5.ID = types.StringPointerValue(incidentChannelsItem2.ID)
-							incidentChannels5.Name = types.StringPointerValue(incidentChannelsItem2.Name)
-							incidentChannels5.Source = types.StringPointerValue(incidentChannelsItem2.Source)
-							incidentChannels5.SourceID = types.StringPointerValue(incidentChannelsItem2.SourceID)
-							incidentChannels5.SourceName = types.StringPointerValue(incidentChannelsItem2.SourceName)
-							incidentChannels5.Status = types.StringPointerValue(incidentChannelsItem2.Status)
-							incidentChannels5.URL = types.StringPointerValue(incidentChannelsItem2.URL)
-							if incidentChannelsCount2+1 > len(teams1.MsTeamsChannel.Incident.IncidentChannels) {
-								teams1.MsTeamsChannel.Incident.IncidentChannels = append(teams1.MsTeamsChannel.Incident.IncidentChannels, incidentChannels5)
-							} else {
-								teams1.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount2].IconURL = incidentChannels5.IconURL
-								teams1.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount2].ID = incidentChannels5.ID
-								teams1.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount2].Name = incidentChannels5.Name
-								teams1.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount2].Source = incidentChannels5.Source
-								teams1.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount2].SourceID = incidentChannels5.SourceID
-								teams1.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount2].SourceName = incidentChannels5.SourceName
-								teams1.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount2].Status = incidentChannels5.Status
-								teams1.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount2].URL = incidentChannels5.URL
-							}
-						}
-						teams1.MsTeamsChannel.Incident.IncidentTickets = []tfTypes.TicketingTicketEntity{}
-						for incidentTicketsCount2, incidentTicketsItem2 := range teamsItem.MsTeamsChannel.Incident.IncidentTickets {
-							var incidentTickets5 tfTypes.TicketingTicketEntity
-							incidentTickets5.Assignees = []tfTypes.AuthorEntity{}
-							for assigneesCount4, assigneesItem4 := range incidentTicketsItem2.Assignees {
-								var assignees9 tfTypes.AuthorEntity
-								assignees9.Email = types.StringPointerValue(assigneesItem4.Email)
-								assignees9.ID = types.StringPointerValue(assigneesItem4.ID)
-								assignees9.Name = types.StringPointerValue(assigneesItem4.Name)
-								assignees9.Source = types.StringPointerValue(assigneesItem4.Source)
-								if assigneesCount4+1 > len(incidentTickets5.Assignees) {
-									incidentTickets5.Assignees = append(incidentTickets5.Assignees, assignees9)
-								} else {
-									incidentTickets5.Assignees[assigneesCount4].Email = assignees9.Email
-									incidentTickets5.Assignees[assigneesCount4].ID = assignees9.ID
-									incidentTickets5.Assignees[assigneesCount4].Name = assignees9.Name
-									incidentTickets5.Assignees[assigneesCount4].Source = assignees9.Source
-								}
-							}
-							if incidentTicketsItem2.CreatedAt != nil {
-								incidentTickets5.CreatedAt = types.StringValue(incidentTicketsItem2.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets5.CreatedAt = types.StringNull()
-							}
-							if incidentTicketsItem2.CreatedBy == nil {
-								incidentTickets5.CreatedBy = nil
-							} else {
-								incidentTickets5.CreatedBy = &tfTypes.AuthorEntity{}
-								incidentTickets5.CreatedBy.Email = types.StringPointerValue(incidentTicketsItem2.CreatedBy.Email)
-								incidentTickets5.CreatedBy.ID = types.StringPointerValue(incidentTicketsItem2.CreatedBy.ID)
-								incidentTickets5.CreatedBy.Name = types.StringPointerValue(incidentTicketsItem2.CreatedBy.Name)
-								incidentTickets5.CreatedBy.Source = types.StringPointerValue(incidentTicketsItem2.CreatedBy.Source)
-							}
-							incidentTickets5.Description = types.StringPointerValue(incidentTicketsItem2.Description)
-							if incidentTicketsItem2.DueAt != nil {
-								incidentTickets5.DueAt = types.StringValue(incidentTicketsItem2.DueAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets5.DueAt = types.StringNull()
-							}
-							incidentTickets5.ID = types.StringPointerValue(incidentTicketsItem2.ID)
-							incidentTickets5.IncidentCurrentMilestone = types.StringPointerValue(incidentTicketsItem2.IncidentCurrentMilestone)
-							incidentTickets5.IncidentID = types.StringPointerValue(incidentTicketsItem2.IncidentID)
-							incidentTickets5.IncidentName = types.StringPointerValue(incidentTicketsItem2.IncidentName)
-							if incidentTicketsItem2.Link == nil {
-								incidentTickets5.Link = nil
-							} else {
-								incidentTickets5.Link = &tfTypes.AttachmentsLinkEntity{}
-								incidentTickets5.Link.Deletable = types.BoolPointerValue(incidentTicketsItem2.Link.Deletable)
-								incidentTickets5.Link.DisplayText = types.StringPointerValue(incidentTicketsItem2.Link.DisplayText)
-								incidentTickets5.Link.Editable = types.BoolPointerValue(incidentTicketsItem2.Link.Editable)
-								incidentTickets5.Link.HrefURL = types.StringPointerValue(incidentTicketsItem2.Link.HrefURL)
-								incidentTickets5.Link.IconURL = types.StringPointerValue(incidentTicketsItem2.Link.IconURL)
-								incidentTickets5.Link.ID = types.StringPointerValue(incidentTicketsItem2.Link.ID)
-								incidentTickets5.Link.Type = types.StringPointerValue(incidentTicketsItem2.Link.Type)
-							}
-							if incidentTicketsItem2.Priority == nil {
-								incidentTickets5.Priority = nil
-							} else {
-								incidentTickets5.Priority = &tfTypes.TicketingPriorityEntity{}
-								if incidentTicketsItem2.Priority.CreatedAt != nil {
-									incidentTickets5.Priority.CreatedAt = types.StringValue(incidentTicketsItem2.Priority.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets5.Priority.CreatedAt = types.StringNull()
-								}
-								incidentTickets5.Priority.ID = types.StringPointerValue(incidentTicketsItem2.Priority.ID)
-								incidentTickets5.Priority.Name = types.StringPointerValue(incidentTicketsItem2.Priority.Name)
-								if incidentTicketsItem2.Priority.Position != nil {
-									incidentTickets5.Priority.Position = types.Int64Value(int64(*incidentTicketsItem2.Priority.Position))
-								} else {
-									incidentTickets5.Priority.Position = types.Int64Null()
-								}
-								if incidentTicketsItem2.Priority.UpdatedAt != nil {
-									incidentTickets5.Priority.UpdatedAt = types.StringValue(incidentTicketsItem2.Priority.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets5.Priority.UpdatedAt = types.StringNull()
-								}
-							}
-							if incidentTicketsItem2.State != nil {
-								incidentTickets5.State = types.StringValue(string(*incidentTicketsItem2.State))
-							} else {
-								incidentTickets5.State = types.StringNull()
-							}
-							incidentTickets5.Summary = types.StringPointerValue(incidentTicketsItem2.Summary)
-							incidentTickets5.TagList = []types.String{}
-							for _, v := range incidentTicketsItem2.TagList {
-								incidentTickets5.TagList = append(incidentTickets5.TagList, types.StringValue(v))
-							}
-							incidentTickets5.TaskID = types.StringPointerValue(incidentTicketsItem2.TaskID)
-							if incidentTicketsItem2.Type != nil {
-								incidentTickets5.Type = types.StringValue(string(*incidentTicketsItem2.Type))
-							} else {
-								incidentTickets5.Type = types.StringNull()
-							}
-							if incidentTicketsItem2.UpdatedAt != nil {
-								incidentTickets5.UpdatedAt = types.StringValue(incidentTicketsItem2.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets5.UpdatedAt = types.StringNull()
-							}
-							if incidentTicketsCount2+1 > len(teams1.MsTeamsChannel.Incident.IncidentTickets) {
-								teams1.MsTeamsChannel.Incident.IncidentTickets = append(teams1.MsTeamsChannel.Incident.IncidentTickets, incidentTickets5)
-							} else {
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].Assignees = incidentTickets5.Assignees
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].CreatedAt = incidentTickets5.CreatedAt
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].CreatedBy = incidentTickets5.CreatedBy
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].Description = incidentTickets5.Description
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].DueAt = incidentTickets5.DueAt
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].ID = incidentTickets5.ID
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].IncidentCurrentMilestone = incidentTickets5.IncidentCurrentMilestone
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].IncidentID = incidentTickets5.IncidentID
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].IncidentName = incidentTickets5.IncidentName
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].Link = incidentTickets5.Link
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].Priority = incidentTickets5.Priority
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].State = incidentTickets5.State
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].Summary = incidentTickets5.Summary
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].TagList = incidentTickets5.TagList
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].TaskID = incidentTickets5.TaskID
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].Type = incidentTickets5.Type
-								teams1.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount2].UpdatedAt = incidentTickets5.UpdatedAt
-							}
-						}
-						teams1.MsTeamsChannel.Incident.IncidentURL = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.IncidentURL)
-						if len(teamsItem.MsTeamsChannel.Incident.Labels) > 0 {
-							teams1.MsTeamsChannel.Incident.Labels = make(map[string]types.String)
-							for key9, value16 := range teamsItem.MsTeamsChannel.Incident.Labels {
-								teams1.MsTeamsChannel.Incident.Labels[key9] = types.StringValue(value16)
-							}
-						}
-						if teamsItem.MsTeamsChannel.Incident.LastNote == nil {
-							teams1.MsTeamsChannel.Incident.LastNote = nil
-						} else {
-							teams1.MsTeamsChannel.Incident.LastNote = &tfTypes.EventNoteEntity{}
-							teams1.MsTeamsChannel.Incident.LastNote.Body = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.LastNote.Body)
-							teams1.MsTeamsChannel.Incident.LastNote.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							for conversationsCount8, conversationsItem8 := range teamsItem.MsTeamsChannel.Incident.LastNote.Conversations {
-								var conversations17 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem8.Channel == nil {
-									conversations17.Channel = nil
-								} else {
-									conversations17.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations17.Channel.Name = types.StringPointerValue(conversationsItem8.Channel.Name)
-								}
-								conversations17.CommentsURL = types.StringPointerValue(conversationsItem8.CommentsURL)
-								conversations17.Field = types.StringPointerValue(conversationsItem8.Field)
-								conversations17.ID = types.StringPointerValue(conversationsItem8.ID)
-								conversations17.ResourceClass = types.StringPointerValue(conversationsItem8.ResourceClass)
-								conversations17.ResourceID = types.StringPointerValue(conversationsItem8.ResourceID)
-								if conversationsCount8+1 > len(teams1.MsTeamsChannel.Incident.LastNote.Conversations) {
-									teams1.MsTeamsChannel.Incident.LastNote.Conversations = append(teams1.MsTeamsChannel.Incident.LastNote.Conversations, conversations17)
-								} else {
-									teams1.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount8].Channel = conversations17.Channel
-									teams1.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount8].CommentsURL = conversations17.CommentsURL
-									teams1.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount8].Field = conversations17.Field
-									teams1.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount8].ID = conversations17.ID
-									teams1.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount8].ResourceClass = conversations17.ResourceClass
-									teams1.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount8].ResourceID = conversations17.ResourceID
-								}
-							}
-							if teamsItem.MsTeamsChannel.Incident.LastNote.CreatedAt != nil {
-								teams1.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.LastNote.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								teams1.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringNull()
-							}
-							teams1.MsTeamsChannel.Incident.LastNote.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.LastNote.ID)
-							teams1.MsTeamsChannel.Incident.LastNote.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-							for statusPagesCount4, statusPagesItem4 := range teamsItem.MsTeamsChannel.Incident.LastNote.StatusPages {
-								var statusPages9 tfTypes.IncidentsStatusPageEntity
-								statusPages9.DisplayName = types.StringPointerValue(statusPagesItem4.DisplayName)
-								statusPages9.ExternalID = types.StringPointerValue(statusPagesItem4.ExternalID)
-								statusPages9.ID = types.StringPointerValue(statusPagesItem4.ID)
-								if statusPagesItem4.Integration == nil {
-									statusPages9.Integration = nil
-								} else {
-									statusPages9.Integration = &tfTypes.IntegrationEntity{}
-									if statusPagesItem4.Integration.CreatedAt != nil {
-										statusPages9.Integration.CreatedAt = types.StringValue(statusPagesItem4.Integration.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										statusPages9.Integration.CreatedAt = types.StringNull()
-									}
-									statusPages9.Integration.DisplayName = types.StringPointerValue(statusPagesItem4.Integration.DisplayName)
-									statusPages9.Integration.ID = types.StringPointerValue(statusPagesItem4.Integration.ID)
-									statusPages9.Integration.IntegrationName = types.StringPointerValue(statusPagesItem4.Integration.IntegrationName)
-									statusPages9.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem4.Integration.IntegrationSlug)
-								}
-								statusPages9.Name = types.StringPointerValue(statusPagesItem4.Name)
-								statusPages9.URL = types.StringPointerValue(statusPagesItem4.URL)
-								if statusPagesCount4+1 > len(teams1.MsTeamsChannel.Incident.LastNote.StatusPages) {
-									teams1.MsTeamsChannel.Incident.LastNote.StatusPages = append(teams1.MsTeamsChannel.Incident.LastNote.StatusPages, statusPages9)
-								} else {
-									teams1.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount4].DisplayName = statusPages9.DisplayName
-									teams1.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount4].ExternalID = statusPages9.ExternalID
-									teams1.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount4].ID = statusPages9.ID
-									teams1.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount4].Integration = statusPages9.Integration
-									teams1.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount4].Name = statusPages9.Name
-									teams1.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount4].URL = statusPages9.URL
-								}
-							}
-						}
-						teams1.MsTeamsChannel.Incident.LastUpdate = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.LastUpdate)
-						teams1.MsTeamsChannel.Incident.LifecycleMeasurements = []tfTypes.IncidentsLifecycleMeasurementEntity{}
-						for lifecycleMeasurementsCount2, lifecycleMeasurementsItem2 := range teamsItem.MsTeamsChannel.Incident.LifecycleMeasurements {
-							var lifecycleMeasurements5 tfTypes.IncidentsLifecycleMeasurementEntity
-							if lifecycleMeasurementsItem2.CalculatedAt != nil {
-								lifecycleMeasurements5.CalculatedAt = types.StringValue(lifecycleMeasurementsItem2.CalculatedAt.Format(time.RFC3339Nano))
-							} else {
-								lifecycleMeasurements5.CalculatedAt = types.StringNull()
-							}
-							lifecycleMeasurements5.Description = types.StringPointerValue(lifecycleMeasurementsItem2.Description)
-							lifecycleMeasurements5.EndsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem2.EndsAtMilestone)
-							lifecycleMeasurements5.ID = types.StringPointerValue(lifecycleMeasurementsItem2.ID)
-							lifecycleMeasurements5.Name = types.StringPointerValue(lifecycleMeasurementsItem2.Name)
-							lifecycleMeasurements5.Slug = types.StringPointerValue(lifecycleMeasurementsItem2.Slug)
-							lifecycleMeasurements5.StartsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem2.StartsAtMilestone)
-							lifecycleMeasurements5.Value = types.StringPointerValue(lifecycleMeasurementsItem2.Value)
-							if lifecycleMeasurementsCount2+1 > len(teams1.MsTeamsChannel.Incident.LifecycleMeasurements) {
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements = append(teams1.MsTeamsChannel.Incident.LifecycleMeasurements, lifecycleMeasurements5)
-							} else {
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount2].CalculatedAt = lifecycleMeasurements5.CalculatedAt
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount2].Description = lifecycleMeasurements5.Description
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount2].EndsAtMilestone = lifecycleMeasurements5.EndsAtMilestone
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount2].ID = lifecycleMeasurements5.ID
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount2].Name = lifecycleMeasurements5.Name
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount2].Slug = lifecycleMeasurements5.Slug
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount2].StartsAtMilestone = lifecycleMeasurements5.StartsAtMilestone
-								teams1.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount2].Value = lifecycleMeasurements5.Value
-							}
-						}
-						teams1.MsTeamsChannel.Incident.LifecyclePhases = []tfTypes.IncidentsLifecyclePhaseEntity{}
-						for lifecyclePhasesCount2, lifecyclePhasesItem2 := range teamsItem.MsTeamsChannel.Incident.LifecyclePhases {
-							var lifecyclePhases5 tfTypes.IncidentsLifecyclePhaseEntity
-							lifecyclePhases5.Description = types.StringPointerValue(lifecyclePhasesItem2.Description)
-							lifecyclePhases5.ID = types.StringPointerValue(lifecyclePhasesItem2.ID)
-							lifecyclePhases5.Milestones = []tfTypes.IncidentsLifecycleMilestoneEntity{}
-							for milestonesCount4, milestonesItem4 := range lifecyclePhasesItem2.Milestones {
-								var milestones9 tfTypes.IncidentsLifecycleMilestoneEntity
-								milestones9.Description = types.StringPointerValue(milestonesItem4.Description)
-								milestones9.Duration = types.StringPointerValue(milestonesItem4.Duration)
-								milestones9.ID = types.StringPointerValue(milestonesItem4.ID)
-								milestones9.Name = types.StringPointerValue(milestonesItem4.Name)
-								if milestonesItem4.OccurredAt != nil {
-									milestones9.OccurredAt = types.StringValue(milestonesItem4.OccurredAt.Format(time.RFC3339Nano))
-								} else {
-									milestones9.OccurredAt = types.StringNull()
-								}
-								if milestonesItem4.Position != nil {
-									milestones9.Position = types.Int64Value(int64(*milestonesItem4.Position))
-								} else {
-									milestones9.Position = types.Int64Null()
-								}
-								milestones9.Slug = types.StringPointerValue(milestonesItem4.Slug)
-								if milestonesItem4.UpdatedAt != nil {
-									milestones9.UpdatedAt = types.StringValue(milestonesItem4.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									milestones9.UpdatedAt = types.StringNull()
-								}
-								if milestonesItem4.UpdatedBy == nil {
-									milestones9.UpdatedBy = nil
-								} else {
-									milestones9.UpdatedBy = &tfTypes.AuthorEntity{}
-									milestones9.UpdatedBy.Email = types.StringPointerValue(milestonesItem4.UpdatedBy.Email)
-									milestones9.UpdatedBy.ID = types.StringPointerValue(milestonesItem4.UpdatedBy.ID)
-									milestones9.UpdatedBy.Name = types.StringPointerValue(milestonesItem4.UpdatedBy.Name)
-									milestones9.UpdatedBy.Source = types.StringPointerValue(milestonesItem4.UpdatedBy.Source)
-								}
-								if milestonesCount4+1 > len(lifecyclePhases5.Milestones) {
-									lifecyclePhases5.Milestones = append(lifecyclePhases5.Milestones, milestones9)
-								} else {
-									lifecyclePhases5.Milestones[milestonesCount4].Description = milestones9.Description
-									lifecyclePhases5.Milestones[milestonesCount4].Duration = milestones9.Duration
-									lifecyclePhases5.Milestones[milestonesCount4].ID = milestones9.ID
-									lifecyclePhases5.Milestones[milestonesCount4].Name = milestones9.Name
-									lifecyclePhases5.Milestones[milestonesCount4].OccurredAt = milestones9.OccurredAt
-									lifecyclePhases5.Milestones[milestonesCount4].Position = milestones9.Position
-									lifecyclePhases5.Milestones[milestonesCount4].Slug = milestones9.Slug
-									lifecyclePhases5.Milestones[milestonesCount4].UpdatedAt = milestones9.UpdatedAt
-									lifecyclePhases5.Milestones[milestonesCount4].UpdatedBy = milestones9.UpdatedBy
-								}
-							}
-							lifecyclePhases5.Name = types.StringPointerValue(lifecyclePhasesItem2.Name)
-							if lifecyclePhasesItem2.Position != nil {
-								lifecyclePhases5.Position = types.Int64Value(int64(*lifecyclePhasesItem2.Position))
-							} else {
-								lifecyclePhases5.Position = types.Int64Null()
-							}
-							lifecyclePhases5.Type = types.StringPointerValue(lifecyclePhasesItem2.Type)
-							if lifecyclePhasesCount2+1 > len(teams1.MsTeamsChannel.Incident.LifecyclePhases) {
-								teams1.MsTeamsChannel.Incident.LifecyclePhases = append(teams1.MsTeamsChannel.Incident.LifecyclePhases, lifecyclePhases5)
-							} else {
-								teams1.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount2].Description = lifecyclePhases5.Description
-								teams1.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount2].ID = lifecyclePhases5.ID
-								teams1.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount2].Milestones = lifecyclePhases5.Milestones
-								teams1.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount2].Name = lifecyclePhases5.Name
-								teams1.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount2].Position = lifecyclePhases5.Position
-								teams1.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount2].Type = lifecyclePhases5.Type
-							}
-						}
-						teams1.MsTeamsChannel.Incident.Milestones = []tfTypes.IncidentsMilestoneEntity{}
-						for milestonesCount5, milestonesItem5 := range teamsItem.MsTeamsChannel.Incident.Milestones {
-							var milestones11 tfTypes.IncidentsMilestoneEntity
-							if milestonesItem5.CreatedAt != nil {
-								milestones11.CreatedAt = types.StringValue(milestonesItem5.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								milestones11.CreatedAt = types.StringNull()
-							}
-							milestones11.Duration = types.StringPointerValue(milestonesItem5.Duration)
-							milestones11.ID = types.StringPointerValue(milestonesItem5.ID)
-							if milestonesItem5.OccurredAt != nil {
-								milestones11.OccurredAt = types.StringValue(milestonesItem5.OccurredAt.Format(time.RFC3339Nano))
-							} else {
-								milestones11.OccurredAt = types.StringNull()
-							}
-							milestones11.Type = types.StringPointerValue(milestonesItem5.Type)
-							if milestonesItem5.UpdatedAt != nil {
-								milestones11.UpdatedAt = types.StringValue(milestonesItem5.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								milestones11.UpdatedAt = types.StringNull()
-							}
-							if milestonesCount5+1 > len(teams1.MsTeamsChannel.Incident.Milestones) {
-								teams1.MsTeamsChannel.Incident.Milestones = append(teams1.MsTeamsChannel.Incident.Milestones, milestones11)
-							} else {
-								teams1.MsTeamsChannel.Incident.Milestones[milestonesCount5].CreatedAt = milestones11.CreatedAt
-								teams1.MsTeamsChannel.Incident.Milestones[milestonesCount5].Duration = milestones11.Duration
-								teams1.MsTeamsChannel.Incident.Milestones[milestonesCount5].ID = milestones11.ID
-								teams1.MsTeamsChannel.Incident.Milestones[milestonesCount5].OccurredAt = milestones11.OccurredAt
-								teams1.MsTeamsChannel.Incident.Milestones[milestonesCount5].Type = milestones11.Type
-								teams1.MsTeamsChannel.Incident.Milestones[milestonesCount5].UpdatedAt = milestones11.UpdatedAt
-							}
-						}
-						if teamsItem.MsTeamsChannel.Incident.MonetaryImpact != nil {
-							teams1.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Value(int64(*teamsItem.MsTeamsChannel.Incident.MonetaryImpact))
-						} else {
-							teams1.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Null()
-						}
-						if teamsItem.MsTeamsChannel.Incident.MonetaryImpactCents != nil {
-							teams1.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Value(int64(*teamsItem.MsTeamsChannel.Incident.MonetaryImpactCents))
-						} else {
-							teams1.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Null()
-						}
-						teams1.MsTeamsChannel.Incident.Name = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Name)
-						if teamsItem.MsTeamsChannel.Incident.Number != nil {
-							teams1.MsTeamsChannel.Incident.Number = types.Int64Value(int64(*teamsItem.MsTeamsChannel.Incident.Number))
-						} else {
-							teams1.MsTeamsChannel.Incident.Number = types.Int64Null()
-						}
-						if teamsItem.MsTeamsChannel.Incident.Organization == nil {
-							teams1.MsTeamsChannel.Incident.Organization = nil
-						} else {
-							teams1.MsTeamsChannel.Incident.Organization = &tfTypes.SuccinctEntity{}
-							teams1.MsTeamsChannel.Incident.Organization.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Organization.ID)
-							teams1.MsTeamsChannel.Incident.Organization.Name = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Organization.Name)
-						}
-						teams1.MsTeamsChannel.Incident.OrganizationID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.OrganizationID)
-						teams1.MsTeamsChannel.Incident.Priority = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Priority)
-						teams1.MsTeamsChannel.Incident.PrivateID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.PrivateID)
-						teams1.MsTeamsChannel.Incident.PrivateStatusPageURL = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.PrivateStatusPageURL)
-						teams1.MsTeamsChannel.Incident.ReportID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.ReportID)
-						teams1.MsTeamsChannel.Incident.RoleAssignments = []tfTypes.IncidentsRoleAssignmentEntity{}
-						for roleAssignmentsCount2, roleAssignmentsItem2 := range teamsItem.MsTeamsChannel.Incident.RoleAssignments {
-							var roleAssignments5 tfTypes.IncidentsRoleAssignmentEntity
-							if roleAssignmentsItem2.CreatedAt != nil {
-								roleAssignments5.CreatedAt = types.StringValue(roleAssignmentsItem2.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								roleAssignments5.CreatedAt = types.StringNull()
-							}
-							roleAssignments5.ID = types.StringPointerValue(roleAssignmentsItem2.ID)
-							if roleAssignmentsItem2.IncidentRole == nil {
-								roleAssignments5.IncidentRole = nil
-							} else {
-								roleAssignments5.IncidentRole = &tfTypes.IncidentRoleEntity{}
-								if roleAssignmentsItem2.IncidentRole.CreatedAt != nil {
-									roleAssignments5.IncidentRole.CreatedAt = types.StringValue(roleAssignmentsItem2.IncidentRole.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments5.IncidentRole.CreatedAt = types.StringNull()
-								}
-								roleAssignments5.IncidentRole.Description = types.StringPointerValue(roleAssignmentsItem2.IncidentRole.Description)
-								if roleAssignmentsItem2.IncidentRole.DiscardedAt != nil {
-									roleAssignments5.IncidentRole.DiscardedAt = types.StringValue(roleAssignmentsItem2.IncidentRole.DiscardedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments5.IncidentRole.DiscardedAt = types.StringNull()
-								}
-								roleAssignments5.IncidentRole.ID = types.StringPointerValue(roleAssignmentsItem2.IncidentRole.ID)
-								roleAssignments5.IncidentRole.Name = types.StringPointerValue(roleAssignmentsItem2.IncidentRole.Name)
-								roleAssignments5.IncidentRole.Summary = types.StringPointerValue(roleAssignmentsItem2.IncidentRole.Summary)
-								if roleAssignmentsItem2.IncidentRole.UpdatedAt != nil {
-									roleAssignments5.IncidentRole.UpdatedAt = types.StringValue(roleAssignmentsItem2.IncidentRole.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments5.IncidentRole.UpdatedAt = types.StringNull()
-								}
-							}
-							if roleAssignmentsItem2.Status != nil {
-								roleAssignments5.Status = types.StringValue(string(*roleAssignmentsItem2.Status))
-							} else {
-								roleAssignments5.Status = types.StringNull()
-							}
-							if roleAssignmentsItem2.UpdatedAt != nil {
-								roleAssignments5.UpdatedAt = types.StringValue(roleAssignmentsItem2.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								roleAssignments5.UpdatedAt = types.StringNull()
-							}
-							if roleAssignmentsItem2.User == nil {
-								roleAssignments5.User = nil
-							} else {
-								roleAssignments5.User = &tfTypes.UserEntity{}
-								if roleAssignmentsItem2.User.CreatedAt != nil {
-									roleAssignments5.User.CreatedAt = types.StringValue(roleAssignmentsItem2.User.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments5.User.CreatedAt = types.StringNull()
-								}
-								roleAssignments5.User.Email = types.StringPointerValue(roleAssignmentsItem2.User.Email)
-								roleAssignments5.User.ID = types.StringPointerValue(roleAssignmentsItem2.User.ID)
-								roleAssignments5.User.Name = types.StringPointerValue(roleAssignmentsItem2.User.Name)
-								roleAssignments5.User.SignalsEnabledNotificationTypes = []types.String{}
-								for _, v := range roleAssignmentsItem2.User.SignalsEnabledNotificationTypes {
-									roleAssignments5.User.SignalsEnabledNotificationTypes = append(roleAssignments5.User.SignalsEnabledNotificationTypes, types.StringValue(v))
-								}
-								roleAssignments5.User.SlackLinked = types.BoolPointerValue(roleAssignmentsItem2.User.SlackLinked)
-								roleAssignments5.User.SlackUserID = types.StringPointerValue(roleAssignmentsItem2.User.SlackUserID)
-								if roleAssignmentsItem2.User.UpdatedAt != nil {
-									roleAssignments5.User.UpdatedAt = types.StringValue(roleAssignmentsItem2.User.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments5.User.UpdatedAt = types.StringNull()
-								}
-							}
-							if roleAssignmentsCount2+1 > len(teams1.MsTeamsChannel.Incident.RoleAssignments) {
-								teams1.MsTeamsChannel.Incident.RoleAssignments = append(teams1.MsTeamsChannel.Incident.RoleAssignments, roleAssignments5)
-							} else {
-								teams1.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount2].CreatedAt = roleAssignments5.CreatedAt
-								teams1.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount2].ID = roleAssignments5.ID
-								teams1.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount2].IncidentRole = roleAssignments5.IncidentRole
-								teams1.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount2].Status = roleAssignments5.Status
-								teams1.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount2].UpdatedAt = roleAssignments5.UpdatedAt
-								teams1.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount2].User = roleAssignments5.User
-							}
-						}
-						teams1.MsTeamsChannel.Incident.Services = []tfTypes.SuccinctEntity{}
-						for servicesCount2, servicesItem2 := range teamsItem.MsTeamsChannel.Incident.Services {
-							var services5 tfTypes.SuccinctEntity
-							services5.ID = types.StringPointerValue(servicesItem2.ID)
-							services5.Name = types.StringPointerValue(servicesItem2.Name)
-							if servicesCount2+1 > len(teams1.MsTeamsChannel.Incident.Services) {
-								teams1.MsTeamsChannel.Incident.Services = append(teams1.MsTeamsChannel.Incident.Services, services5)
-							} else {
-								teams1.MsTeamsChannel.Incident.Services[servicesCount2].ID = services5.ID
-								teams1.MsTeamsChannel.Incident.Services[servicesCount2].Name = services5.Name
-							}
-						}
-						teams1.MsTeamsChannel.Incident.Severity = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Severity)
-						teams1.MsTeamsChannel.Incident.SeverityColor = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityColor)
-						teams1.MsTeamsChannel.Incident.SeverityCondition = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityCondition)
-						if teamsItem.MsTeamsChannel.Incident.SeverityConditionObject == nil {
-							teams1.MsTeamsChannel.Incident.SeverityConditionObject = nil
-						} else {
-							teams1.MsTeamsChannel.Incident.SeverityConditionObject = &tfTypes.SeverityMatrixConditionEntity{}
-							teams1.MsTeamsChannel.Incident.SeverityConditionObject.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityConditionObject.ID)
-							teams1.MsTeamsChannel.Incident.SeverityConditionObject.Name = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityConditionObject.Name)
-							if teamsItem.MsTeamsChannel.Incident.SeverityConditionObject.Position != nil {
-								teams1.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Value(int64(*teamsItem.MsTeamsChannel.Incident.SeverityConditionObject.Position))
-							} else {
-								teams1.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Null()
-							}
-						}
-						teams1.MsTeamsChannel.Incident.SeverityImpact = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityImpact)
-						if teamsItem.MsTeamsChannel.Incident.SeverityImpactObject == nil {
-							teams1.MsTeamsChannel.Incident.SeverityImpactObject = nil
-						} else {
-							teams1.MsTeamsChannel.Incident.SeverityImpactObject = &tfTypes.SeverityMatrixImpactEntity{}
-							teams1.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID)
-							teams1.MsTeamsChannel.Incident.SeverityImpactObject.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityImpactObject.ID)
-							teams1.MsTeamsChannel.Incident.SeverityImpactObject.Name = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityImpactObject.Name)
-							if teamsItem.MsTeamsChannel.Incident.SeverityImpactObject.Position != nil {
-								teams1.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Value(int64(*teamsItem.MsTeamsChannel.Incident.SeverityImpactObject.Position))
-							} else {
-								teams1.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Null()
-							}
-							teams1.MsTeamsChannel.Incident.SeverityImpactObject.Type = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.SeverityImpactObject.Type)
-						}
-						if teamsItem.MsTeamsChannel.Incident.StartedAt != nil {
-							teams1.MsTeamsChannel.Incident.StartedAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.StartedAt.Format(time.RFC3339Nano))
-						} else {
-							teams1.MsTeamsChannel.Incident.StartedAt = types.StringNull()
-						}
-						teams1.MsTeamsChannel.Incident.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-						for statusPagesCount5, statusPagesItem5 := range teamsItem.MsTeamsChannel.Incident.StatusPages {
-							var statusPages11 tfTypes.IncidentsStatusPageEntity
-							statusPages11.DisplayName = types.StringPointerValue(statusPagesItem5.DisplayName)
-							statusPages11.ExternalID = types.StringPointerValue(statusPagesItem5.ExternalID)
-							statusPages11.ID = types.StringPointerValue(statusPagesItem5.ID)
-							if statusPagesItem5.Integration == nil {
-								statusPages11.Integration = nil
-							} else {
-								statusPages11.Integration = &tfTypes.IntegrationEntity{}
-								if statusPagesItem5.Integration.CreatedAt != nil {
-									statusPages11.Integration.CreatedAt = types.StringValue(statusPagesItem5.Integration.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									statusPages11.Integration.CreatedAt = types.StringNull()
-								}
-								statusPages11.Integration.DisplayName = types.StringPointerValue(statusPagesItem5.Integration.DisplayName)
-								statusPages11.Integration.ID = types.StringPointerValue(statusPagesItem5.Integration.ID)
-								statusPages11.Integration.IntegrationName = types.StringPointerValue(statusPagesItem5.Integration.IntegrationName)
-								statusPages11.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem5.Integration.IntegrationSlug)
-							}
-							statusPages11.Name = types.StringPointerValue(statusPagesItem5.Name)
-							statusPages11.URL = types.StringPointerValue(statusPagesItem5.URL)
-							if statusPagesCount5+1 > len(teams1.MsTeamsChannel.Incident.StatusPages) {
-								teams1.MsTeamsChannel.Incident.StatusPages = append(teams1.MsTeamsChannel.Incident.StatusPages, statusPages11)
-							} else {
-								teams1.MsTeamsChannel.Incident.StatusPages[statusPagesCount5].DisplayName = statusPages11.DisplayName
-								teams1.MsTeamsChannel.Incident.StatusPages[statusPagesCount5].ExternalID = statusPages11.ExternalID
-								teams1.MsTeamsChannel.Incident.StatusPages[statusPagesCount5].ID = statusPages11.ID
-								teams1.MsTeamsChannel.Incident.StatusPages[statusPagesCount5].Integration = statusPages11.Integration
-								teams1.MsTeamsChannel.Incident.StatusPages[statusPagesCount5].Name = statusPages11.Name
-								teams1.MsTeamsChannel.Incident.StatusPages[statusPagesCount5].URL = statusPages11.URL
-							}
-						}
-						teams1.MsTeamsChannel.Incident.Summary = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Summary)
-						teams1.MsTeamsChannel.Incident.TagList = []types.String{}
-						for _, v := range teamsItem.MsTeamsChannel.Incident.TagList {
-							teams1.MsTeamsChannel.Incident.TagList = append(teams1.MsTeamsChannel.Incident.TagList, types.StringValue(v))
-						}
-						teams1.MsTeamsChannel.Incident.TeamAssignments = []tfTypes.IncidentsTeamAssignmentEntity{}
-						for teamAssignmentsCount2, teamAssignmentsItem2 := range teamsItem.MsTeamsChannel.Incident.TeamAssignments {
-							var teamAssignments5 tfTypes.IncidentsTeamAssignmentEntity
-							if teamAssignmentsItem2.CreatedAt != nil {
-								teamAssignments5.CreatedAt = types.StringValue(teamAssignmentsItem2.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								teamAssignments5.CreatedAt = types.StringNull()
-							}
-							teamAssignments5.ID = types.StringPointerValue(teamAssignmentsItem2.ID)
-							teamAssignments5.Status = types.StringPointerValue(teamAssignmentsItem2.Status)
-							if teamAssignmentsItem2.Team == nil {
-								teamAssignments5.Team = nil
-							} else {
-								teamAssignments5.Team = &tfTypes.TeamEntity1{}
-							}
-							if teamAssignmentsItem2.UpdatedAt != nil {
-								teamAssignments5.UpdatedAt = types.StringValue(teamAssignmentsItem2.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								teamAssignments5.UpdatedAt = types.StringNull()
-							}
-							if teamAssignmentsCount2+1 > len(teams1.MsTeamsChannel.Incident.TeamAssignments) {
-								teams1.MsTeamsChannel.Incident.TeamAssignments = append(teams1.MsTeamsChannel.Incident.TeamAssignments, teamAssignments5)
-							} else {
-								teams1.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount2].CreatedAt = teamAssignments5.CreatedAt
-								teams1.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount2].ID = teamAssignments5.ID
-								teams1.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount2].Status = teamAssignments5.Status
-								teams1.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount2].Team = teamAssignments5.Team
-								teams1.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount2].UpdatedAt = teamAssignments5.UpdatedAt
-							}
-						}
-						if teamsItem.MsTeamsChannel.Incident.Ticket == nil {
-							teams1.MsTeamsChannel.Incident.Ticket = nil
-						} else {
-							teams1.MsTeamsChannel.Incident.Ticket = &tfTypes.TicketingTicketEntity{}
-							teams1.MsTeamsChannel.Incident.Ticket.Assignees = []tfTypes.AuthorEntity{}
-							for assigneesCount5, assigneesItem5 := range teamsItem.MsTeamsChannel.Incident.Ticket.Assignees {
-								var assignees11 tfTypes.AuthorEntity
-								assignees11.Email = types.StringPointerValue(assigneesItem5.Email)
-								assignees11.ID = types.StringPointerValue(assigneesItem5.ID)
-								assignees11.Name = types.StringPointerValue(assigneesItem5.Name)
-								assignees11.Source = types.StringPointerValue(assigneesItem5.Source)
-								if assigneesCount5+1 > len(teams1.MsTeamsChannel.Incident.Ticket.Assignees) {
-									teams1.MsTeamsChannel.Incident.Ticket.Assignees = append(teams1.MsTeamsChannel.Incident.Ticket.Assignees, assignees11)
-								} else {
-									teams1.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount5].Email = assignees11.Email
-									teams1.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount5].ID = assignees11.ID
-									teams1.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount5].Name = assignees11.Name
-									teams1.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount5].Source = assignees11.Source
-								}
-							}
-							if teamsItem.MsTeamsChannel.Incident.Ticket.CreatedAt != nil {
-								teams1.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.Ticket.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								teams1.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringNull()
-							}
-							if teamsItem.MsTeamsChannel.Incident.Ticket.CreatedBy == nil {
-								teams1.MsTeamsChannel.Incident.Ticket.CreatedBy = nil
-							} else {
-								teams1.MsTeamsChannel.Incident.Ticket.CreatedBy = &tfTypes.AuthorEntity{}
-								teams1.MsTeamsChannel.Incident.Ticket.CreatedBy.Email = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.CreatedBy.Email)
-								teams1.MsTeamsChannel.Incident.Ticket.CreatedBy.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.CreatedBy.ID)
-								teams1.MsTeamsChannel.Incident.Ticket.CreatedBy.Name = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.CreatedBy.Name)
-								teams1.MsTeamsChannel.Incident.Ticket.CreatedBy.Source = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.CreatedBy.Source)
-							}
-							teams1.MsTeamsChannel.Incident.Ticket.Description = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Description)
-							if teamsItem.MsTeamsChannel.Incident.Ticket.DueAt != nil {
-								teams1.MsTeamsChannel.Incident.Ticket.DueAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.Ticket.DueAt.Format(time.RFC3339Nano))
-							} else {
-								teams1.MsTeamsChannel.Incident.Ticket.DueAt = types.StringNull()
-							}
-							teams1.MsTeamsChannel.Incident.Ticket.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.ID)
-							teams1.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone)
-							teams1.MsTeamsChannel.Incident.Ticket.IncidentID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.IncidentID)
-							teams1.MsTeamsChannel.Incident.Ticket.IncidentName = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.IncidentName)
-							if teamsItem.MsTeamsChannel.Incident.Ticket.Link == nil {
-								teams1.MsTeamsChannel.Incident.Ticket.Link = nil
-							} else {
-								teams1.MsTeamsChannel.Incident.Ticket.Link = &tfTypes.AttachmentsLinkEntity{}
-								teams1.MsTeamsChannel.Incident.Ticket.Link.Deletable = types.BoolPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Link.Deletable)
-								teams1.MsTeamsChannel.Incident.Ticket.Link.DisplayText = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Link.DisplayText)
-								teams1.MsTeamsChannel.Incident.Ticket.Link.Editable = types.BoolPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Link.Editable)
-								teams1.MsTeamsChannel.Incident.Ticket.Link.HrefURL = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Link.HrefURL)
-								teams1.MsTeamsChannel.Incident.Ticket.Link.IconURL = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Link.IconURL)
-								teams1.MsTeamsChannel.Incident.Ticket.Link.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Link.ID)
-								teams1.MsTeamsChannel.Incident.Ticket.Link.Type = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Link.Type)
-							}
-							if teamsItem.MsTeamsChannel.Incident.Ticket.Priority == nil {
-								teams1.MsTeamsChannel.Incident.Ticket.Priority = nil
-							} else {
-								teams1.MsTeamsChannel.Incident.Ticket.Priority = &tfTypes.TicketingPriorityEntity{}
-								if teamsItem.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt != nil {
-									teams1.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									teams1.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringNull()
-								}
-								teams1.MsTeamsChannel.Incident.Ticket.Priority.ID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Priority.ID)
-								teams1.MsTeamsChannel.Incident.Ticket.Priority.Name = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Priority.Name)
-								if teamsItem.MsTeamsChannel.Incident.Ticket.Priority.Position != nil {
-									teams1.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Value(int64(*teamsItem.MsTeamsChannel.Incident.Ticket.Priority.Position))
-								} else {
-									teams1.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Null()
-								}
-								if teamsItem.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt != nil {
-									teams1.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									teams1.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringNull()
-								}
-							}
-							if teamsItem.MsTeamsChannel.Incident.Ticket.State != nil {
-								teams1.MsTeamsChannel.Incident.Ticket.State = types.StringValue(string(*teamsItem.MsTeamsChannel.Incident.Ticket.State))
-							} else {
-								teams1.MsTeamsChannel.Incident.Ticket.State = types.StringNull()
-							}
-							teams1.MsTeamsChannel.Incident.Ticket.Summary = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.Summary)
-							teams1.MsTeamsChannel.Incident.Ticket.TagList = []types.String{}
-							for _, v := range teamsItem.MsTeamsChannel.Incident.Ticket.TagList {
-								teams1.MsTeamsChannel.Incident.Ticket.TagList = append(teams1.MsTeamsChannel.Incident.Ticket.TagList, types.StringValue(v))
-							}
-							teams1.MsTeamsChannel.Incident.Ticket.TaskID = types.StringPointerValue(teamsItem.MsTeamsChannel.Incident.Ticket.TaskID)
-							if teamsItem.MsTeamsChannel.Incident.Ticket.Type != nil {
-								teams1.MsTeamsChannel.Incident.Ticket.Type = types.StringValue(string(*teamsItem.MsTeamsChannel.Incident.Ticket.Type))
-							} else {
-								teams1.MsTeamsChannel.Incident.Ticket.Type = types.StringNull()
-							}
-							if teamsItem.MsTeamsChannel.Incident.Ticket.UpdatedAt != nil {
-								teams1.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringValue(teamsItem.MsTeamsChannel.Incident.Ticket.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								teams1.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringNull()
-							}
-						}
-					}
 					teams1.MsTeamsChannel.MsTeamID = types.StringPointerValue(teamsItem.MsTeamsChannel.MsTeamID)
 					teams1.MsTeamsChannel.Status = types.StringPointerValue(teamsItem.MsTeamsChannel.Status)
 					teams1.MsTeamsChannel.TeamName = types.StringPointerValue(teamsItem.MsTeamsChannel.TeamName)
@@ -4083,8 +1386,8 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					ownedFunctionalities5.ID = types.StringPointerValue(ownedFunctionalitiesItem2.ID)
 					if len(ownedFunctionalitiesItem2.Labels) > 0 {
 						ownedFunctionalities5.Labels = make(map[string]types.String)
-						for key10, value18 := range ownedFunctionalitiesItem2.Labels {
-							ownedFunctionalities5.Labels[key10] = types.StringValue(value18)
+						for key7, value9 := range ownedFunctionalitiesItem2.Labels {
+							ownedFunctionalities5.Labels[key7] = types.StringValue(value9)
 						}
 					}
 					ownedFunctionalities5.Links = []tfTypes.LinksEntity{}
@@ -4316,22 +1619,22 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					}
 					checklists3.Owner.Description = types.StringPointerValue(checklistsItem1.Owner.Description)
 					checklists3.Owner.Functionalities = []tfTypes.FunctionalityEntity{}
-					for functionalitiesCount7, functionalitiesItem7 := range checklistsItem1.Owner.Functionalities {
-						var functionalities15 tfTypes.FunctionalityEntity
-						functionalities15.ActiveIncidents = []types.String{}
-						for _, v := range functionalitiesItem7.ActiveIncidents {
-							functionalities15.ActiveIncidents = append(functionalities15.ActiveIncidents, types.StringValue(v))
+					for functionalitiesCount4, functionalitiesItem4 := range checklistsItem1.Owner.Functionalities {
+						var functionalities9 tfTypes.FunctionalityEntity
+						functionalities9.ActiveIncidents = []types.String{}
+						for _, v := range functionalitiesItem4.ActiveIncidents {
+							functionalities9.ActiveIncidents = append(functionalities9.ActiveIncidents, types.StringValue(v))
 						}
-						functionalities15.AlertOnAdd = types.BoolPointerValue(functionalitiesItem7.AlertOnAdd)
-						functionalities15.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem7.AutoAddRespondingTeam)
-						if functionalitiesItem7.CreatedAt != nil {
-							functionalities15.CreatedAt = types.StringValue(functionalitiesItem7.CreatedAt.Format(time.RFC3339Nano))
+						functionalities9.AlertOnAdd = types.BoolPointerValue(functionalitiesItem4.AlertOnAdd)
+						functionalities9.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem4.AutoAddRespondingTeam)
+						if functionalitiesItem4.CreatedAt != nil {
+							functionalities9.CreatedAt = types.StringValue(functionalitiesItem4.CreatedAt.Format(time.RFC3339Nano))
 						} else {
-							functionalities15.CreatedAt = types.StringNull()
+							functionalities9.CreatedAt = types.StringNull()
 						}
-						functionalities15.Description = types.StringPointerValue(functionalitiesItem7.Description)
-						functionalities15.ExternalResources = []tfTypes.ExternalResourceEntity{}
-						for externalResourcesCount8, externalResourcesItem8 := range functionalitiesItem7.ExternalResources {
+						functionalities9.Description = types.StringPointerValue(functionalitiesItem4.Description)
+						functionalities9.ExternalResources = []tfTypes.ExternalResourceEntity{}
+						for externalResourcesCount8, externalResourcesItem8 := range functionalitiesItem4.ExternalResources {
 							var externalResources17 tfTypes.ExternalResourceEntity
 							externalResources17.ConnectionID = types.StringPointerValue(externalResourcesItem8.ConnectionID)
 							externalResources17.ConnectionName = types.StringPointerValue(externalResourcesItem8.ConnectionName)
@@ -4349,80 +1652,80 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 							} else {
 								externalResources17.UpdatedAt = types.StringNull()
 							}
-							if externalResourcesCount8+1 > len(functionalities15.ExternalResources) {
-								functionalities15.ExternalResources = append(functionalities15.ExternalResources, externalResources17)
+							if externalResourcesCount8+1 > len(functionalities9.ExternalResources) {
+								functionalities9.ExternalResources = append(functionalities9.ExternalResources, externalResources17)
 							} else {
-								functionalities15.ExternalResources[externalResourcesCount8].ConnectionID = externalResources17.ConnectionID
-								functionalities15.ExternalResources[externalResourcesCount8].ConnectionName = externalResources17.ConnectionName
-								functionalities15.ExternalResources[externalResourcesCount8].ConnectionType = externalResources17.ConnectionType
-								functionalities15.ExternalResources[externalResourcesCount8].CreatedAt = externalResources17.CreatedAt
-								functionalities15.ExternalResources[externalResourcesCount8].Name = externalResources17.Name
-								functionalities15.ExternalResources[externalResourcesCount8].RemoteID = externalResources17.RemoteID
-								functionalities15.ExternalResources[externalResourcesCount8].RemoteURL = externalResources17.RemoteURL
-								functionalities15.ExternalResources[externalResourcesCount8].UpdatedAt = externalResources17.UpdatedAt
+								functionalities9.ExternalResources[externalResourcesCount8].ConnectionID = externalResources17.ConnectionID
+								functionalities9.ExternalResources[externalResourcesCount8].ConnectionName = externalResources17.ConnectionName
+								functionalities9.ExternalResources[externalResourcesCount8].ConnectionType = externalResources17.ConnectionType
+								functionalities9.ExternalResources[externalResourcesCount8].CreatedAt = externalResources17.CreatedAt
+								functionalities9.ExternalResources[externalResourcesCount8].Name = externalResources17.Name
+								functionalities9.ExternalResources[externalResourcesCount8].RemoteID = externalResources17.RemoteID
+								functionalities9.ExternalResources[externalResourcesCount8].RemoteURL = externalResources17.RemoteURL
+								functionalities9.ExternalResources[externalResourcesCount8].UpdatedAt = externalResources17.UpdatedAt
 							}
 						}
-						functionalities15.ID = types.StringPointerValue(functionalitiesItem7.ID)
-						if len(functionalitiesItem7.Labels) > 0 {
-							functionalities15.Labels = make(map[string]types.String)
-							for key11, value20 := range functionalitiesItem7.Labels {
-								functionalities15.Labels[key11] = types.StringValue(value20)
+						functionalities9.ID = types.StringPointerValue(functionalitiesItem4.ID)
+						if len(functionalitiesItem4.Labels) > 0 {
+							functionalities9.Labels = make(map[string]types.String)
+							for key8, value11 := range functionalitiesItem4.Labels {
+								functionalities9.Labels[key8] = types.StringValue(value11)
 							}
 						}
-						functionalities15.Links = []tfTypes.LinksEntity{}
-						for linksCount8, linksItem8 := range functionalitiesItem7.Links {
+						functionalities9.Links = []tfTypes.LinksEntity{}
+						for linksCount8, linksItem8 := range functionalitiesItem4.Links {
 							var links17 tfTypes.LinksEntity
 							links17.HrefURL = types.StringPointerValue(linksItem8.HrefURL)
 							links17.IconURL = types.StringPointerValue(linksItem8.IconURL)
 							links17.ID = types.StringPointerValue(linksItem8.ID)
 							links17.Name = types.StringPointerValue(linksItem8.Name)
-							if linksCount8+1 > len(functionalities15.Links) {
-								functionalities15.Links = append(functionalities15.Links, links17)
+							if linksCount8+1 > len(functionalities9.Links) {
+								functionalities9.Links = append(functionalities9.Links, links17)
 							} else {
-								functionalities15.Links[linksCount8].HrefURL = links17.HrefURL
-								functionalities15.Links[linksCount8].IconURL = links17.IconURL
-								functionalities15.Links[linksCount8].ID = links17.ID
-								functionalities15.Links[linksCount8].Name = links17.Name
+								functionalities9.Links[linksCount8].HrefURL = links17.HrefURL
+								functionalities9.Links[linksCount8].IconURL = links17.IconURL
+								functionalities9.Links[linksCount8].ID = links17.ID
+								functionalities9.Links[linksCount8].Name = links17.Name
 							}
 						}
-						functionalities15.Name = types.StringPointerValue(functionalitiesItem7.Name)
-						if functionalitiesItem7.Owner == nil {
-							functionalities15.Owner = nil
+						functionalities9.Name = types.StringPointerValue(functionalitiesItem4.Name)
+						if functionalitiesItem4.Owner == nil {
+							functionalities9.Owner = nil
 						} else {
-							functionalities15.Owner = &tfTypes.TeamEntity1{}
+							functionalities9.Owner = &tfTypes.TeamEntity1{}
 						}
-						functionalities15.Slug = types.StringPointerValue(functionalitiesItem7.Slug)
-						if functionalitiesItem7.UpdatedAt != nil {
-							functionalities15.UpdatedAt = types.StringValue(functionalitiesItem7.UpdatedAt.Format(time.RFC3339Nano))
+						functionalities9.Slug = types.StringPointerValue(functionalitiesItem4.Slug)
+						if functionalitiesItem4.UpdatedAt != nil {
+							functionalities9.UpdatedAt = types.StringValue(functionalitiesItem4.UpdatedAt.Format(time.RFC3339Nano))
 						} else {
-							functionalities15.UpdatedAt = types.StringNull()
+							functionalities9.UpdatedAt = types.StringNull()
 						}
-						if functionalitiesItem7.UpdatedBy == nil {
-							functionalities15.UpdatedBy = nil
+						if functionalitiesItem4.UpdatedBy == nil {
+							functionalities9.UpdatedBy = nil
 						} else {
-							functionalities15.UpdatedBy = &tfTypes.AuthorEntity{}
-							functionalities15.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem7.UpdatedBy.Email)
-							functionalities15.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem7.UpdatedBy.ID)
-							functionalities15.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem7.UpdatedBy.Name)
-							functionalities15.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem7.UpdatedBy.Source)
+							functionalities9.UpdatedBy = &tfTypes.AuthorEntity{}
+							functionalities9.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem4.UpdatedBy.Email)
+							functionalities9.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem4.UpdatedBy.ID)
+							functionalities9.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem4.UpdatedBy.Name)
+							functionalities9.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem4.UpdatedBy.Source)
 						}
-						if functionalitiesCount7+1 > len(checklists3.Owner.Functionalities) {
-							checklists3.Owner.Functionalities = append(checklists3.Owner.Functionalities, functionalities15)
+						if functionalitiesCount4+1 > len(checklists3.Owner.Functionalities) {
+							checklists3.Owner.Functionalities = append(checklists3.Owner.Functionalities, functionalities9)
 						} else {
-							checklists3.Owner.Functionalities[functionalitiesCount7].ActiveIncidents = functionalities15.ActiveIncidents
-							checklists3.Owner.Functionalities[functionalitiesCount7].AlertOnAdd = functionalities15.AlertOnAdd
-							checklists3.Owner.Functionalities[functionalitiesCount7].AutoAddRespondingTeam = functionalities15.AutoAddRespondingTeam
-							checklists3.Owner.Functionalities[functionalitiesCount7].CreatedAt = functionalities15.CreatedAt
-							checklists3.Owner.Functionalities[functionalitiesCount7].Description = functionalities15.Description
-							checklists3.Owner.Functionalities[functionalitiesCount7].ExternalResources = functionalities15.ExternalResources
-							checklists3.Owner.Functionalities[functionalitiesCount7].ID = functionalities15.ID
-							checklists3.Owner.Functionalities[functionalitiesCount7].Labels = functionalities15.Labels
-							checklists3.Owner.Functionalities[functionalitiesCount7].Links = functionalities15.Links
-							checklists3.Owner.Functionalities[functionalitiesCount7].Name = functionalities15.Name
-							checklists3.Owner.Functionalities[functionalitiesCount7].Owner = functionalities15.Owner
-							checklists3.Owner.Functionalities[functionalitiesCount7].Slug = functionalities15.Slug
-							checklists3.Owner.Functionalities[functionalitiesCount7].UpdatedAt = functionalities15.UpdatedAt
-							checklists3.Owner.Functionalities[functionalitiesCount7].UpdatedBy = functionalities15.UpdatedBy
+							checklists3.Owner.Functionalities[functionalitiesCount4].ActiveIncidents = functionalities9.ActiveIncidents
+							checklists3.Owner.Functionalities[functionalitiesCount4].AlertOnAdd = functionalities9.AlertOnAdd
+							checklists3.Owner.Functionalities[functionalitiesCount4].AutoAddRespondingTeam = functionalities9.AutoAddRespondingTeam
+							checklists3.Owner.Functionalities[functionalitiesCount4].CreatedAt = functionalities9.CreatedAt
+							checklists3.Owner.Functionalities[functionalitiesCount4].Description = functionalities9.Description
+							checklists3.Owner.Functionalities[functionalitiesCount4].ExternalResources = functionalities9.ExternalResources
+							checklists3.Owner.Functionalities[functionalitiesCount4].ID = functionalities9.ID
+							checklists3.Owner.Functionalities[functionalitiesCount4].Labels = functionalities9.Labels
+							checklists3.Owner.Functionalities[functionalitiesCount4].Links = functionalities9.Links
+							checklists3.Owner.Functionalities[functionalitiesCount4].Name = functionalities9.Name
+							checklists3.Owner.Functionalities[functionalitiesCount4].Owner = functionalities9.Owner
+							checklists3.Owner.Functionalities[functionalitiesCount4].Slug = functionalities9.Slug
+							checklists3.Owner.Functionalities[functionalitiesCount4].UpdatedAt = functionalities9.UpdatedAt
+							checklists3.Owner.Functionalities[functionalitiesCount4].UpdatedBy = functionalities9.UpdatedBy
 						}
 					}
 					checklists3.Owner.ID = types.StringPointerValue(checklistsItem1.Owner.ID)
@@ -4502,886 +1805,6 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 						checklists3.Owner.MsTeamsChannel.ChannelName = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.ChannelName)
 						checklists3.Owner.MsTeamsChannel.ChannelURL = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.ChannelURL)
 						checklists3.Owner.MsTeamsChannel.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.ID)
-						if checklistsItem1.Owner.MsTeamsChannel.Incident == nil {
-							checklists3.Owner.MsTeamsChannel.Incident = nil
-						} else {
-							checklists3.Owner.MsTeamsChannel.Incident = &tfTypes.IncidentEntity{}
-							checklists3.Owner.MsTeamsChannel.Incident.Active = types.BoolPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Active)
-							checklists3.Owner.MsTeamsChannel.Incident.AiIncidentSummary = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.AiIncidentSummary)
-							checklists3.Owner.MsTeamsChannel.Incident.ChannelID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ChannelID)
-							checklists3.Owner.MsTeamsChannel.Incident.ChannelName = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ChannelName)
-							checklists3.Owner.MsTeamsChannel.Incident.ChannelReference = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ChannelReference)
-							checklists3.Owner.MsTeamsChannel.Incident.ChannelStatus = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ChannelStatus)
-							checklists3.Owner.MsTeamsChannel.Incident.ConferenceBridges = []tfTypes.IncidentsConferenceBridgeEntity{}
-							for conferenceBridgesCount3, conferenceBridgesItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.ConferenceBridges {
-								var conferenceBridges7 tfTypes.IncidentsConferenceBridgeEntity
-								conferenceBridges7.ID = types.StringPointerValue(conferenceBridgesItem3.ID)
-								if conferenceBridgesCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.ConferenceBridges) {
-									checklists3.Owner.MsTeamsChannel.Incident.ConferenceBridges = append(checklists3.Owner.MsTeamsChannel.Incident.ConferenceBridges, conferenceBridges7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount3].ID = conferenceBridges7.ID
-								}
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.ContextObject == nil {
-								checklists3.Owner.MsTeamsChannel.Incident.ContextObject = nil
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.ContextObject = &tfTypes.IncidentsContextObjectEntity{}
-								checklists3.Owner.MsTeamsChannel.Incident.ContextObject.ContextDescription = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ContextObject.ContextDescription)
-								checklists3.Owner.MsTeamsChannel.Incident.ContextObject.ContextTag = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ContextObject.ContextTag)
-								checklists3.Owner.MsTeamsChannel.Incident.ContextObject.ObjectID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ContextObject.ObjectID)
-								checklists3.Owner.MsTeamsChannel.Incident.ContextObject.ObjectType = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ContextObject.ObjectType)
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							for conversationsCount9, conversationsItem9 := range checklistsItem1.Owner.MsTeamsChannel.Incident.Conversations {
-								var conversations19 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem9.Channel == nil {
-									conversations19.Channel = nil
-								} else {
-									conversations19.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations19.Channel.Name = types.StringPointerValue(conversationsItem9.Channel.Name)
-								}
-								conversations19.CommentsURL = types.StringPointerValue(conversationsItem9.CommentsURL)
-								conversations19.Field = types.StringPointerValue(conversationsItem9.Field)
-								conversations19.ID = types.StringPointerValue(conversationsItem9.ID)
-								conversations19.ResourceClass = types.StringPointerValue(conversationsItem9.ResourceClass)
-								conversations19.ResourceID = types.StringPointerValue(conversationsItem9.ResourceID)
-								if conversationsCount9+1 > len(checklists3.Owner.MsTeamsChannel.Incident.Conversations) {
-									checklists3.Owner.MsTeamsChannel.Incident.Conversations = append(checklists3.Owner.MsTeamsChannel.Incident.Conversations, conversations19)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount9].Channel = conversations19.Channel
-									checklists3.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount9].CommentsURL = conversations19.CommentsURL
-									checklists3.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount9].Field = conversations19.Field
-									checklists3.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount9].ID = conversations19.ID
-									checklists3.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount9].ResourceClass = conversations19.ResourceClass
-									checklists3.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount9].ResourceID = conversations19.ResourceID
-								}
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.CreatedAt != nil {
-								checklists3.Owner.MsTeamsChannel.Incident.CreatedAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.CreatedAt = types.StringNull()
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.CreatedBy == nil {
-								checklists3.Owner.MsTeamsChannel.Incident.CreatedBy = nil
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.CreatedBy = &tfTypes.AuthorEntity{}
-								checklists3.Owner.MsTeamsChannel.Incident.CreatedBy.Email = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.CreatedBy.Email)
-								checklists3.Owner.MsTeamsChannel.Incident.CreatedBy.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.CreatedBy.ID)
-								checklists3.Owner.MsTeamsChannel.Incident.CreatedBy.Name = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.CreatedBy.Name)
-								checklists3.Owner.MsTeamsChannel.Incident.CreatedBy.Source = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.CreatedBy.Source)
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.CurrentMilestone = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.CurrentMilestone)
-							checklists3.Owner.MsTeamsChannel.Incident.CustomFields = []tfTypes.CustomFieldsFieldValue{}
-							for customFieldsCount3, customFieldsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.CustomFields {
-								var customFields7 tfTypes.CustomFieldsFieldValue
-								customFields7.Description = types.StringPointerValue(customFieldsItem3.Description)
-								customFields7.DisplayName = types.StringPointerValue(customFieldsItem3.DisplayName)
-								customFields7.FieldID = types.StringPointerValue(customFieldsItem3.FieldID)
-								customFields7.Name = types.StringPointerValue(customFieldsItem3.Name)
-								customFields7.Slug = types.StringPointerValue(customFieldsItem3.Slug)
-								customFields7.Value = types.StringPointerValue(customFieldsItem3.Value)
-								customFields7.ValueArray = types.StringPointerValue(customFieldsItem3.ValueArray)
-								customFields7.ValueString = types.StringPointerValue(customFieldsItem3.ValueString)
-								customFields7.ValueType = types.StringPointerValue(customFieldsItem3.ValueType)
-								if customFieldsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.CustomFields) {
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields = append(checklists3.Owner.MsTeamsChannel.Incident.CustomFields, customFields7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].Description = customFields7.Description
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].DisplayName = customFields7.DisplayName
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].FieldID = customFields7.FieldID
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].Name = customFields7.Name
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].Slug = customFields7.Slug
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].Value = customFields7.Value
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].ValueArray = customFields7.ValueArray
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].ValueString = customFields7.ValueString
-									checklists3.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount3].ValueType = customFields7.ValueType
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.CustomerImpactSummary = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.CustomerImpactSummary)
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.CustomersImpacted != nil {
-								checklists3.Owner.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Value(int64(*checklistsItem1.Owner.MsTeamsChannel.Incident.CustomersImpacted))
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Null()
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Description = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Description)
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.DiscardedAt != nil {
-								checklists3.Owner.MsTeamsChannel.Incident.DiscardedAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.DiscardedAt.Format(time.RFC3339Nano))
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.DiscardedAt = types.StringNull()
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Environments = []tfTypes.SuccinctEntity{}
-							for environmentsCount3, environmentsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.Environments {
-								var environments7 tfTypes.SuccinctEntity
-								environments7.ID = types.StringPointerValue(environmentsItem3.ID)
-								environments7.Name = types.StringPointerValue(environmentsItem3.Name)
-								if environmentsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.Environments) {
-									checklists3.Owner.MsTeamsChannel.Incident.Environments = append(checklists3.Owner.MsTeamsChannel.Incident.Environments, environments7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Environments[environmentsCount3].ID = environments7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.Environments[environmentsCount3].Name = environments7.Name
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.FieldRequirements = []tfTypes.IncidentEntityFieldRequirementEntity{}
-							for fieldRequirementsCount3, fieldRequirementsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.FieldRequirements {
-								var fieldRequirements7 tfTypes.IncidentEntityFieldRequirementEntity
-								fieldRequirements7.FieldID = types.StringPointerValue(fieldRequirementsItem3.FieldID)
-								fieldRequirements7.RequiredAtMilestoneID = types.StringPointerValue(fieldRequirementsItem3.RequiredAtMilestoneID)
-								if fieldRequirementsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.FieldRequirements) {
-									checklists3.Owner.MsTeamsChannel.Incident.FieldRequirements = append(checklists3.Owner.MsTeamsChannel.Incident.FieldRequirements, fieldRequirements7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount3].FieldID = fieldRequirements7.FieldID
-									checklists3.Owner.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount3].RequiredAtMilestoneID = fieldRequirements7.RequiredAtMilestoneID
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Functionalities = []tfTypes.SuccinctEntity{}
-							for functionalitiesCount8, functionalitiesItem8 := range checklistsItem1.Owner.MsTeamsChannel.Incident.Functionalities {
-								var functionalities17 tfTypes.SuccinctEntity
-								functionalities17.ID = types.StringPointerValue(functionalitiesItem8.ID)
-								functionalities17.Name = types.StringPointerValue(functionalitiesItem8.Name)
-								if functionalitiesCount8+1 > len(checklists3.Owner.MsTeamsChannel.Incident.Functionalities) {
-									checklists3.Owner.MsTeamsChannel.Incident.Functionalities = append(checklists3.Owner.MsTeamsChannel.Incident.Functionalities, functionalities17)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Functionalities[functionalitiesCount8].ID = functionalities17.ID
-									checklists3.Owner.MsTeamsChannel.Incident.Functionalities[functionalitiesCount8].Name = functionalities17.Name
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ID)
-							checklists3.Owner.MsTeamsChannel.Incident.Impacts = []tfTypes.IncidentsImpactEntity{}
-							for impactsCount3, impactsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.Impacts {
-								var impacts7 tfTypes.IncidentsImpactEntity
-								if impactsItem3.Condition == nil {
-									impacts7.Condition = nil
-								} else {
-									impacts7.Condition = &tfTypes.SeverityMatrixConditionEntity{}
-									impacts7.Condition.ID = types.StringPointerValue(impactsItem3.Condition.ID)
-									impacts7.Condition.Name = types.StringPointerValue(impactsItem3.Condition.Name)
-									if impactsItem3.Condition.Position != nil {
-										impacts7.Condition.Position = types.Int64Value(int64(*impactsItem3.Condition.Position))
-									} else {
-										impacts7.Condition.Position = types.Int64Null()
-									}
-								}
-								impacts7.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-								for conversationsCount10, conversationsItem10 := range impactsItem3.Conversations {
-									var conversations21 tfTypes.ConversationsAPIEntitiesReference
-									if conversationsItem10.Channel == nil {
-										conversations21.Channel = nil
-									} else {
-										conversations21.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-										conversations21.Channel.Name = types.StringPointerValue(conversationsItem10.Channel.Name)
-									}
-									conversations21.CommentsURL = types.StringPointerValue(conversationsItem10.CommentsURL)
-									conversations21.Field = types.StringPointerValue(conversationsItem10.Field)
-									conversations21.ID = types.StringPointerValue(conversationsItem10.ID)
-									conversations21.ResourceClass = types.StringPointerValue(conversationsItem10.ResourceClass)
-									conversations21.ResourceID = types.StringPointerValue(conversationsItem10.ResourceID)
-									if conversationsCount10+1 > len(impacts7.Conversations) {
-										impacts7.Conversations = append(impacts7.Conversations, conversations21)
-									} else {
-										impacts7.Conversations[conversationsCount10].Channel = conversations21.Channel
-										impacts7.Conversations[conversationsCount10].CommentsURL = conversations21.CommentsURL
-										impacts7.Conversations[conversationsCount10].Field = conversations21.Field
-										impacts7.Conversations[conversationsCount10].ID = conversations21.ID
-										impacts7.Conversations[conversationsCount10].ResourceClass = conversations21.ResourceClass
-										impacts7.Conversations[conversationsCount10].ResourceID = conversations21.ResourceID
-									}
-								}
-								impacts7.ID = types.StringPointerValue(impactsItem3.ID)
-								if impactsItem3.Impact == nil {
-									impacts7.Impact = nil
-								} else {
-									impacts7.Impact = &tfTypes.SuccinctEntity{}
-									impacts7.Impact.ID = types.StringPointerValue(impactsItem3.Impact.ID)
-									impacts7.Impact.Name = types.StringPointerValue(impactsItem3.Impact.Name)
-								}
-								if impactsItem3.Type != nil {
-									impacts7.Type = types.StringValue(string(*impactsItem3.Type))
-								} else {
-									impacts7.Type = types.StringNull()
-								}
-								if impactsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.Impacts) {
-									checklists3.Owner.MsTeamsChannel.Incident.Impacts = append(checklists3.Owner.MsTeamsChannel.Incident.Impacts, impacts7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Impacts[impactsCount3].Condition = impacts7.Condition
-									checklists3.Owner.MsTeamsChannel.Incident.Impacts[impactsCount3].Conversations = impacts7.Conversations
-									checklists3.Owner.MsTeamsChannel.Incident.Impacts[impactsCount3].ID = impacts7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.Impacts[impactsCount3].Impact = impacts7.Impact
-									checklists3.Owner.MsTeamsChannel.Incident.Impacts[impactsCount3].Type = impacts7.Type
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels = []tfTypes.IncidentsChannelEntity{}
-							for incidentChannelsCount3, incidentChannelsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.IncidentChannels {
-								var incidentChannels7 tfTypes.IncidentsChannelEntity
-								incidentChannels7.IconURL = types.StringPointerValue(incidentChannelsItem3.IconURL)
-								incidentChannels7.ID = types.StringPointerValue(incidentChannelsItem3.ID)
-								incidentChannels7.Name = types.StringPointerValue(incidentChannelsItem3.Name)
-								incidentChannels7.Source = types.StringPointerValue(incidentChannelsItem3.Source)
-								incidentChannels7.SourceID = types.StringPointerValue(incidentChannelsItem3.SourceID)
-								incidentChannels7.SourceName = types.StringPointerValue(incidentChannelsItem3.SourceName)
-								incidentChannels7.Status = types.StringPointerValue(incidentChannelsItem3.Status)
-								incidentChannels7.URL = types.StringPointerValue(incidentChannelsItem3.URL)
-								if incidentChannelsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels) {
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels = append(checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels, incidentChannels7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount3].IconURL = incidentChannels7.IconURL
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount3].ID = incidentChannels7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount3].Name = incidentChannels7.Name
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount3].Source = incidentChannels7.Source
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount3].SourceID = incidentChannels7.SourceID
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount3].SourceName = incidentChannels7.SourceName
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount3].Status = incidentChannels7.Status
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount3].URL = incidentChannels7.URL
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets = []tfTypes.TicketingTicketEntity{}
-							for incidentTicketsCount3, incidentTicketsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.IncidentTickets {
-								var incidentTickets7 tfTypes.TicketingTicketEntity
-								incidentTickets7.Assignees = []tfTypes.AuthorEntity{}
-								for assigneesCount6, assigneesItem6 := range incidentTicketsItem3.Assignees {
-									var assignees13 tfTypes.AuthorEntity
-									assignees13.Email = types.StringPointerValue(assigneesItem6.Email)
-									assignees13.ID = types.StringPointerValue(assigneesItem6.ID)
-									assignees13.Name = types.StringPointerValue(assigneesItem6.Name)
-									assignees13.Source = types.StringPointerValue(assigneesItem6.Source)
-									if assigneesCount6+1 > len(incidentTickets7.Assignees) {
-										incidentTickets7.Assignees = append(incidentTickets7.Assignees, assignees13)
-									} else {
-										incidentTickets7.Assignees[assigneesCount6].Email = assignees13.Email
-										incidentTickets7.Assignees[assigneesCount6].ID = assignees13.ID
-										incidentTickets7.Assignees[assigneesCount6].Name = assignees13.Name
-										incidentTickets7.Assignees[assigneesCount6].Source = assignees13.Source
-									}
-								}
-								if incidentTicketsItem3.CreatedAt != nil {
-									incidentTickets7.CreatedAt = types.StringValue(incidentTicketsItem3.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets7.CreatedAt = types.StringNull()
-								}
-								if incidentTicketsItem3.CreatedBy == nil {
-									incidentTickets7.CreatedBy = nil
-								} else {
-									incidentTickets7.CreatedBy = &tfTypes.AuthorEntity{}
-									incidentTickets7.CreatedBy.Email = types.StringPointerValue(incidentTicketsItem3.CreatedBy.Email)
-									incidentTickets7.CreatedBy.ID = types.StringPointerValue(incidentTicketsItem3.CreatedBy.ID)
-									incidentTickets7.CreatedBy.Name = types.StringPointerValue(incidentTicketsItem3.CreatedBy.Name)
-									incidentTickets7.CreatedBy.Source = types.StringPointerValue(incidentTicketsItem3.CreatedBy.Source)
-								}
-								incidentTickets7.Description = types.StringPointerValue(incidentTicketsItem3.Description)
-								if incidentTicketsItem3.DueAt != nil {
-									incidentTickets7.DueAt = types.StringValue(incidentTicketsItem3.DueAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets7.DueAt = types.StringNull()
-								}
-								incidentTickets7.ID = types.StringPointerValue(incidentTicketsItem3.ID)
-								incidentTickets7.IncidentCurrentMilestone = types.StringPointerValue(incidentTicketsItem3.IncidentCurrentMilestone)
-								incidentTickets7.IncidentID = types.StringPointerValue(incidentTicketsItem3.IncidentID)
-								incidentTickets7.IncidentName = types.StringPointerValue(incidentTicketsItem3.IncidentName)
-								if incidentTicketsItem3.Link == nil {
-									incidentTickets7.Link = nil
-								} else {
-									incidentTickets7.Link = &tfTypes.AttachmentsLinkEntity{}
-									incidentTickets7.Link.Deletable = types.BoolPointerValue(incidentTicketsItem3.Link.Deletable)
-									incidentTickets7.Link.DisplayText = types.StringPointerValue(incidentTicketsItem3.Link.DisplayText)
-									incidentTickets7.Link.Editable = types.BoolPointerValue(incidentTicketsItem3.Link.Editable)
-									incidentTickets7.Link.HrefURL = types.StringPointerValue(incidentTicketsItem3.Link.HrefURL)
-									incidentTickets7.Link.IconURL = types.StringPointerValue(incidentTicketsItem3.Link.IconURL)
-									incidentTickets7.Link.ID = types.StringPointerValue(incidentTicketsItem3.Link.ID)
-									incidentTickets7.Link.Type = types.StringPointerValue(incidentTicketsItem3.Link.Type)
-								}
-								if incidentTicketsItem3.Priority == nil {
-									incidentTickets7.Priority = nil
-								} else {
-									incidentTickets7.Priority = &tfTypes.TicketingPriorityEntity{}
-									if incidentTicketsItem3.Priority.CreatedAt != nil {
-										incidentTickets7.Priority.CreatedAt = types.StringValue(incidentTicketsItem3.Priority.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										incidentTickets7.Priority.CreatedAt = types.StringNull()
-									}
-									incidentTickets7.Priority.ID = types.StringPointerValue(incidentTicketsItem3.Priority.ID)
-									incidentTickets7.Priority.Name = types.StringPointerValue(incidentTicketsItem3.Priority.Name)
-									if incidentTicketsItem3.Priority.Position != nil {
-										incidentTickets7.Priority.Position = types.Int64Value(int64(*incidentTicketsItem3.Priority.Position))
-									} else {
-										incidentTickets7.Priority.Position = types.Int64Null()
-									}
-									if incidentTicketsItem3.Priority.UpdatedAt != nil {
-										incidentTickets7.Priority.UpdatedAt = types.StringValue(incidentTicketsItem3.Priority.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										incidentTickets7.Priority.UpdatedAt = types.StringNull()
-									}
-								}
-								if incidentTicketsItem3.State != nil {
-									incidentTickets7.State = types.StringValue(string(*incidentTicketsItem3.State))
-								} else {
-									incidentTickets7.State = types.StringNull()
-								}
-								incidentTickets7.Summary = types.StringPointerValue(incidentTicketsItem3.Summary)
-								incidentTickets7.TagList = []types.String{}
-								for _, v := range incidentTicketsItem3.TagList {
-									incidentTickets7.TagList = append(incidentTickets7.TagList, types.StringValue(v))
-								}
-								incidentTickets7.TaskID = types.StringPointerValue(incidentTicketsItem3.TaskID)
-								if incidentTicketsItem3.Type != nil {
-									incidentTickets7.Type = types.StringValue(string(*incidentTicketsItem3.Type))
-								} else {
-									incidentTickets7.Type = types.StringNull()
-								}
-								if incidentTicketsItem3.UpdatedAt != nil {
-									incidentTickets7.UpdatedAt = types.StringValue(incidentTicketsItem3.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets7.UpdatedAt = types.StringNull()
-								}
-								if incidentTicketsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets) {
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets = append(checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets, incidentTickets7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].Assignees = incidentTickets7.Assignees
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].CreatedAt = incidentTickets7.CreatedAt
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].CreatedBy = incidentTickets7.CreatedBy
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].Description = incidentTickets7.Description
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].DueAt = incidentTickets7.DueAt
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].ID = incidentTickets7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].IncidentCurrentMilestone = incidentTickets7.IncidentCurrentMilestone
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].IncidentID = incidentTickets7.IncidentID
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].IncidentName = incidentTickets7.IncidentName
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].Link = incidentTickets7.Link
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].Priority = incidentTickets7.Priority
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].State = incidentTickets7.State
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].Summary = incidentTickets7.Summary
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].TagList = incidentTickets7.TagList
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].TaskID = incidentTickets7.TaskID
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].Type = incidentTickets7.Type
-									checklists3.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount3].UpdatedAt = incidentTickets7.UpdatedAt
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.IncidentURL = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.IncidentURL)
-							if len(checklistsItem1.Owner.MsTeamsChannel.Incident.Labels) > 0 {
-								checklists3.Owner.MsTeamsChannel.Incident.Labels = make(map[string]types.String)
-								for key12, value22 := range checklistsItem1.Owner.MsTeamsChannel.Incident.Labels {
-									checklists3.Owner.MsTeamsChannel.Incident.Labels[key12] = types.StringValue(value22)
-								}
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.LastNote == nil {
-								checklists3.Owner.MsTeamsChannel.Incident.LastNote = nil
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.LastNote = &tfTypes.EventNoteEntity{}
-								checklists3.Owner.MsTeamsChannel.Incident.LastNote.Body = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.LastNote.Body)
-								checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-								for conversationsCount11, conversationsItem11 := range checklistsItem1.Owner.MsTeamsChannel.Incident.LastNote.Conversations {
-									var conversations23 tfTypes.ConversationsAPIEntitiesReference
-									if conversationsItem11.Channel == nil {
-										conversations23.Channel = nil
-									} else {
-										conversations23.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-										conversations23.Channel.Name = types.StringPointerValue(conversationsItem11.Channel.Name)
-									}
-									conversations23.CommentsURL = types.StringPointerValue(conversationsItem11.CommentsURL)
-									conversations23.Field = types.StringPointerValue(conversationsItem11.Field)
-									conversations23.ID = types.StringPointerValue(conversationsItem11.ID)
-									conversations23.ResourceClass = types.StringPointerValue(conversationsItem11.ResourceClass)
-									conversations23.ResourceID = types.StringPointerValue(conversationsItem11.ResourceID)
-									if conversationsCount11+1 > len(checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations) {
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations = append(checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations, conversations23)
-									} else {
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount11].Channel = conversations23.Channel
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount11].CommentsURL = conversations23.CommentsURL
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount11].Field = conversations23.Field
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount11].ID = conversations23.ID
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount11].ResourceClass = conversations23.ResourceClass
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount11].ResourceID = conversations23.ResourceID
-									}
-								}
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt != nil {
-									checklists3.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringNull()
-								}
-								checklists3.Owner.MsTeamsChannel.Incident.LastNote.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.LastNote.ID)
-								checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-								for statusPagesCount6, statusPagesItem6 := range checklistsItem1.Owner.MsTeamsChannel.Incident.LastNote.StatusPages {
-									var statusPages13 tfTypes.IncidentsStatusPageEntity
-									statusPages13.DisplayName = types.StringPointerValue(statusPagesItem6.DisplayName)
-									statusPages13.ExternalID = types.StringPointerValue(statusPagesItem6.ExternalID)
-									statusPages13.ID = types.StringPointerValue(statusPagesItem6.ID)
-									if statusPagesItem6.Integration == nil {
-										statusPages13.Integration = nil
-									} else {
-										statusPages13.Integration = &tfTypes.IntegrationEntity{}
-										if statusPagesItem6.Integration.CreatedAt != nil {
-											statusPages13.Integration.CreatedAt = types.StringValue(statusPagesItem6.Integration.CreatedAt.Format(time.RFC3339Nano))
-										} else {
-											statusPages13.Integration.CreatedAt = types.StringNull()
-										}
-										statusPages13.Integration.DisplayName = types.StringPointerValue(statusPagesItem6.Integration.DisplayName)
-										statusPages13.Integration.ID = types.StringPointerValue(statusPagesItem6.Integration.ID)
-										statusPages13.Integration.IntegrationName = types.StringPointerValue(statusPagesItem6.Integration.IntegrationName)
-										statusPages13.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem6.Integration.IntegrationSlug)
-									}
-									statusPages13.Name = types.StringPointerValue(statusPagesItem6.Name)
-									statusPages13.URL = types.StringPointerValue(statusPagesItem6.URL)
-									if statusPagesCount6+1 > len(checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages) {
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = append(checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages, statusPages13)
-									} else {
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount6].DisplayName = statusPages13.DisplayName
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount6].ExternalID = statusPages13.ExternalID
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount6].ID = statusPages13.ID
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount6].Integration = statusPages13.Integration
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount6].Name = statusPages13.Name
-										checklists3.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount6].URL = statusPages13.URL
-									}
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.LastUpdate = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.LastUpdate)
-							checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = []tfTypes.IncidentsLifecycleMeasurementEntity{}
-							for lifecycleMeasurementsCount3, lifecycleMeasurementsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.LifecycleMeasurements {
-								var lifecycleMeasurements7 tfTypes.IncidentsLifecycleMeasurementEntity
-								if lifecycleMeasurementsItem3.CalculatedAt != nil {
-									lifecycleMeasurements7.CalculatedAt = types.StringValue(lifecycleMeasurementsItem3.CalculatedAt.Format(time.RFC3339Nano))
-								} else {
-									lifecycleMeasurements7.CalculatedAt = types.StringNull()
-								}
-								lifecycleMeasurements7.Description = types.StringPointerValue(lifecycleMeasurementsItem3.Description)
-								lifecycleMeasurements7.EndsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem3.EndsAtMilestone)
-								lifecycleMeasurements7.ID = types.StringPointerValue(lifecycleMeasurementsItem3.ID)
-								lifecycleMeasurements7.Name = types.StringPointerValue(lifecycleMeasurementsItem3.Name)
-								lifecycleMeasurements7.Slug = types.StringPointerValue(lifecycleMeasurementsItem3.Slug)
-								lifecycleMeasurements7.StartsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem3.StartsAtMilestone)
-								lifecycleMeasurements7.Value = types.StringPointerValue(lifecycleMeasurementsItem3.Value)
-								if lifecycleMeasurementsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements) {
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = append(checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements, lifecycleMeasurements7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount3].CalculatedAt = lifecycleMeasurements7.CalculatedAt
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount3].Description = lifecycleMeasurements7.Description
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount3].EndsAtMilestone = lifecycleMeasurements7.EndsAtMilestone
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount3].ID = lifecycleMeasurements7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount3].Name = lifecycleMeasurements7.Name
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount3].Slug = lifecycleMeasurements7.Slug
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount3].StartsAtMilestone = lifecycleMeasurements7.StartsAtMilestone
-									checklists3.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount3].Value = lifecycleMeasurements7.Value
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases = []tfTypes.IncidentsLifecyclePhaseEntity{}
-							for lifecyclePhasesCount3, lifecyclePhasesItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.LifecyclePhases {
-								var lifecyclePhases7 tfTypes.IncidentsLifecyclePhaseEntity
-								lifecyclePhases7.Description = types.StringPointerValue(lifecyclePhasesItem3.Description)
-								lifecyclePhases7.ID = types.StringPointerValue(lifecyclePhasesItem3.ID)
-								lifecyclePhases7.Milestones = []tfTypes.IncidentsLifecycleMilestoneEntity{}
-								for milestonesCount6, milestonesItem6 := range lifecyclePhasesItem3.Milestones {
-									var milestones13 tfTypes.IncidentsLifecycleMilestoneEntity
-									milestones13.Description = types.StringPointerValue(milestonesItem6.Description)
-									milestones13.Duration = types.StringPointerValue(milestonesItem6.Duration)
-									milestones13.ID = types.StringPointerValue(milestonesItem6.ID)
-									milestones13.Name = types.StringPointerValue(milestonesItem6.Name)
-									if milestonesItem6.OccurredAt != nil {
-										milestones13.OccurredAt = types.StringValue(milestonesItem6.OccurredAt.Format(time.RFC3339Nano))
-									} else {
-										milestones13.OccurredAt = types.StringNull()
-									}
-									if milestonesItem6.Position != nil {
-										milestones13.Position = types.Int64Value(int64(*milestonesItem6.Position))
-									} else {
-										milestones13.Position = types.Int64Null()
-									}
-									milestones13.Slug = types.StringPointerValue(milestonesItem6.Slug)
-									if milestonesItem6.UpdatedAt != nil {
-										milestones13.UpdatedAt = types.StringValue(milestonesItem6.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										milestones13.UpdatedAt = types.StringNull()
-									}
-									if milestonesItem6.UpdatedBy == nil {
-										milestones13.UpdatedBy = nil
-									} else {
-										milestones13.UpdatedBy = &tfTypes.AuthorEntity{}
-										milestones13.UpdatedBy.Email = types.StringPointerValue(milestonesItem6.UpdatedBy.Email)
-										milestones13.UpdatedBy.ID = types.StringPointerValue(milestonesItem6.UpdatedBy.ID)
-										milestones13.UpdatedBy.Name = types.StringPointerValue(milestonesItem6.UpdatedBy.Name)
-										milestones13.UpdatedBy.Source = types.StringPointerValue(milestonesItem6.UpdatedBy.Source)
-									}
-									if milestonesCount6+1 > len(lifecyclePhases7.Milestones) {
-										lifecyclePhases7.Milestones = append(lifecyclePhases7.Milestones, milestones13)
-									} else {
-										lifecyclePhases7.Milestones[milestonesCount6].Description = milestones13.Description
-										lifecyclePhases7.Milestones[milestonesCount6].Duration = milestones13.Duration
-										lifecyclePhases7.Milestones[milestonesCount6].ID = milestones13.ID
-										lifecyclePhases7.Milestones[milestonesCount6].Name = milestones13.Name
-										lifecyclePhases7.Milestones[milestonesCount6].OccurredAt = milestones13.OccurredAt
-										lifecyclePhases7.Milestones[milestonesCount6].Position = milestones13.Position
-										lifecyclePhases7.Milestones[milestonesCount6].Slug = milestones13.Slug
-										lifecyclePhases7.Milestones[milestonesCount6].UpdatedAt = milestones13.UpdatedAt
-										lifecyclePhases7.Milestones[milestonesCount6].UpdatedBy = milestones13.UpdatedBy
-									}
-								}
-								lifecyclePhases7.Name = types.StringPointerValue(lifecyclePhasesItem3.Name)
-								if lifecyclePhasesItem3.Position != nil {
-									lifecyclePhases7.Position = types.Int64Value(int64(*lifecyclePhasesItem3.Position))
-								} else {
-									lifecyclePhases7.Position = types.Int64Null()
-								}
-								lifecyclePhases7.Type = types.StringPointerValue(lifecyclePhasesItem3.Type)
-								if lifecyclePhasesCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases) {
-									checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases = append(checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases, lifecyclePhases7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount3].Description = lifecyclePhases7.Description
-									checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount3].ID = lifecyclePhases7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount3].Milestones = lifecyclePhases7.Milestones
-									checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount3].Name = lifecyclePhases7.Name
-									checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount3].Position = lifecyclePhases7.Position
-									checklists3.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount3].Type = lifecyclePhases7.Type
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Milestones = []tfTypes.IncidentsMilestoneEntity{}
-							for milestonesCount7, milestonesItem7 := range checklistsItem1.Owner.MsTeamsChannel.Incident.Milestones {
-								var milestones15 tfTypes.IncidentsMilestoneEntity
-								if milestonesItem7.CreatedAt != nil {
-									milestones15.CreatedAt = types.StringValue(milestonesItem7.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									milestones15.CreatedAt = types.StringNull()
-								}
-								milestones15.Duration = types.StringPointerValue(milestonesItem7.Duration)
-								milestones15.ID = types.StringPointerValue(milestonesItem7.ID)
-								if milestonesItem7.OccurredAt != nil {
-									milestones15.OccurredAt = types.StringValue(milestonesItem7.OccurredAt.Format(time.RFC3339Nano))
-								} else {
-									milestones15.OccurredAt = types.StringNull()
-								}
-								milestones15.Type = types.StringPointerValue(milestonesItem7.Type)
-								if milestonesItem7.UpdatedAt != nil {
-									milestones15.UpdatedAt = types.StringValue(milestonesItem7.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									milestones15.UpdatedAt = types.StringNull()
-								}
-								if milestonesCount7+1 > len(checklists3.Owner.MsTeamsChannel.Incident.Milestones) {
-									checklists3.Owner.MsTeamsChannel.Incident.Milestones = append(checklists3.Owner.MsTeamsChannel.Incident.Milestones, milestones15)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount7].CreatedAt = milestones15.CreatedAt
-									checklists3.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount7].Duration = milestones15.Duration
-									checklists3.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount7].ID = milestones15.ID
-									checklists3.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount7].OccurredAt = milestones15.OccurredAt
-									checklists3.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount7].Type = milestones15.Type
-									checklists3.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount7].UpdatedAt = milestones15.UpdatedAt
-								}
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.MonetaryImpact != nil {
-								checklists3.Owner.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Value(int64(*checklistsItem1.Owner.MsTeamsChannel.Incident.MonetaryImpact))
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Null()
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.MonetaryImpactCents != nil {
-								checklists3.Owner.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Value(int64(*checklistsItem1.Owner.MsTeamsChannel.Incident.MonetaryImpactCents))
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Null()
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Name = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Name)
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.Number != nil {
-								checklists3.Owner.MsTeamsChannel.Incident.Number = types.Int64Value(int64(*checklistsItem1.Owner.MsTeamsChannel.Incident.Number))
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.Number = types.Int64Null()
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.Organization == nil {
-								checklists3.Owner.MsTeamsChannel.Incident.Organization = nil
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.Organization = &tfTypes.SuccinctEntity{}
-								checklists3.Owner.MsTeamsChannel.Incident.Organization.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Organization.ID)
-								checklists3.Owner.MsTeamsChannel.Incident.Organization.Name = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Organization.Name)
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.OrganizationID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.OrganizationID)
-							checklists3.Owner.MsTeamsChannel.Incident.Priority = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Priority)
-							checklists3.Owner.MsTeamsChannel.Incident.PrivateID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.PrivateID)
-							checklists3.Owner.MsTeamsChannel.Incident.PrivateStatusPageURL = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.PrivateStatusPageURL)
-							checklists3.Owner.MsTeamsChannel.Incident.ReportID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.ReportID)
-							checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments = []tfTypes.IncidentsRoleAssignmentEntity{}
-							for roleAssignmentsCount3, roleAssignmentsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.RoleAssignments {
-								var roleAssignments7 tfTypes.IncidentsRoleAssignmentEntity
-								if roleAssignmentsItem3.CreatedAt != nil {
-									roleAssignments7.CreatedAt = types.StringValue(roleAssignmentsItem3.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments7.CreatedAt = types.StringNull()
-								}
-								roleAssignments7.ID = types.StringPointerValue(roleAssignmentsItem3.ID)
-								if roleAssignmentsItem3.IncidentRole == nil {
-									roleAssignments7.IncidentRole = nil
-								} else {
-									roleAssignments7.IncidentRole = &tfTypes.IncidentRoleEntity{}
-									if roleAssignmentsItem3.IncidentRole.CreatedAt != nil {
-										roleAssignments7.IncidentRole.CreatedAt = types.StringValue(roleAssignmentsItem3.IncidentRole.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments7.IncidentRole.CreatedAt = types.StringNull()
-									}
-									roleAssignments7.IncidentRole.Description = types.StringPointerValue(roleAssignmentsItem3.IncidentRole.Description)
-									if roleAssignmentsItem3.IncidentRole.DiscardedAt != nil {
-										roleAssignments7.IncidentRole.DiscardedAt = types.StringValue(roleAssignmentsItem3.IncidentRole.DiscardedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments7.IncidentRole.DiscardedAt = types.StringNull()
-									}
-									roleAssignments7.IncidentRole.ID = types.StringPointerValue(roleAssignmentsItem3.IncidentRole.ID)
-									roleAssignments7.IncidentRole.Name = types.StringPointerValue(roleAssignmentsItem3.IncidentRole.Name)
-									roleAssignments7.IncidentRole.Summary = types.StringPointerValue(roleAssignmentsItem3.IncidentRole.Summary)
-									if roleAssignmentsItem3.IncidentRole.UpdatedAt != nil {
-										roleAssignments7.IncidentRole.UpdatedAt = types.StringValue(roleAssignmentsItem3.IncidentRole.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments7.IncidentRole.UpdatedAt = types.StringNull()
-									}
-								}
-								if roleAssignmentsItem3.Status != nil {
-									roleAssignments7.Status = types.StringValue(string(*roleAssignmentsItem3.Status))
-								} else {
-									roleAssignments7.Status = types.StringNull()
-								}
-								if roleAssignmentsItem3.UpdatedAt != nil {
-									roleAssignments7.UpdatedAt = types.StringValue(roleAssignmentsItem3.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments7.UpdatedAt = types.StringNull()
-								}
-								if roleAssignmentsItem3.User == nil {
-									roleAssignments7.User = nil
-								} else {
-									roleAssignments7.User = &tfTypes.UserEntity{}
-									if roleAssignmentsItem3.User.CreatedAt != nil {
-										roleAssignments7.User.CreatedAt = types.StringValue(roleAssignmentsItem3.User.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments7.User.CreatedAt = types.StringNull()
-									}
-									roleAssignments7.User.Email = types.StringPointerValue(roleAssignmentsItem3.User.Email)
-									roleAssignments7.User.ID = types.StringPointerValue(roleAssignmentsItem3.User.ID)
-									roleAssignments7.User.Name = types.StringPointerValue(roleAssignmentsItem3.User.Name)
-									roleAssignments7.User.SignalsEnabledNotificationTypes = []types.String{}
-									for _, v := range roleAssignmentsItem3.User.SignalsEnabledNotificationTypes {
-										roleAssignments7.User.SignalsEnabledNotificationTypes = append(roleAssignments7.User.SignalsEnabledNotificationTypes, types.StringValue(v))
-									}
-									roleAssignments7.User.SlackLinked = types.BoolPointerValue(roleAssignmentsItem3.User.SlackLinked)
-									roleAssignments7.User.SlackUserID = types.StringPointerValue(roleAssignmentsItem3.User.SlackUserID)
-									if roleAssignmentsItem3.User.UpdatedAt != nil {
-										roleAssignments7.User.UpdatedAt = types.StringValue(roleAssignmentsItem3.User.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										roleAssignments7.User.UpdatedAt = types.StringNull()
-									}
-								}
-								if roleAssignmentsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments) {
-									checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments = append(checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments, roleAssignments7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount3].CreatedAt = roleAssignments7.CreatedAt
-									checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount3].ID = roleAssignments7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount3].IncidentRole = roleAssignments7.IncidentRole
-									checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount3].Status = roleAssignments7.Status
-									checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount3].UpdatedAt = roleAssignments7.UpdatedAt
-									checklists3.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount3].User = roleAssignments7.User
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Services = []tfTypes.SuccinctEntity{}
-							for servicesCount3, servicesItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.Services {
-								var services7 tfTypes.SuccinctEntity
-								services7.ID = types.StringPointerValue(servicesItem3.ID)
-								services7.Name = types.StringPointerValue(servicesItem3.Name)
-								if servicesCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.Services) {
-									checklists3.Owner.MsTeamsChannel.Incident.Services = append(checklists3.Owner.MsTeamsChannel.Incident.Services, services7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Services[servicesCount3].ID = services7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.Services[servicesCount3].Name = services7.Name
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Severity = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Severity)
-							checklists3.Owner.MsTeamsChannel.Incident.SeverityColor = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityColor)
-							checklists3.Owner.MsTeamsChannel.Incident.SeverityCondition = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityCondition)
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityConditionObject == nil {
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityConditionObject = nil
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityConditionObject = &tfTypes.SeverityMatrixConditionEntity{}
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityConditionObject.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityConditionObject.ID)
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Name = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Name)
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position != nil {
-									checklists3.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Value(int64(*checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position))
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Null()
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.SeverityImpact = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityImpact)
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityImpactObject == nil {
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityImpactObject = nil
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityImpactObject = &tfTypes.SeverityMatrixImpactEntity{}
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID)
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityImpactObject.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.ID)
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Name = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Name)
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position != nil {
-									checklists3.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Value(int64(*checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position))
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Null()
-								}
-								checklists3.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Type = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Type)
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.StartedAt != nil {
-								checklists3.Owner.MsTeamsChannel.Incident.StartedAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.StartedAt.Format(time.RFC3339Nano))
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.StartedAt = types.StringNull()
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-							for statusPagesCount7, statusPagesItem7 := range checklistsItem1.Owner.MsTeamsChannel.Incident.StatusPages {
-								var statusPages15 tfTypes.IncidentsStatusPageEntity
-								statusPages15.DisplayName = types.StringPointerValue(statusPagesItem7.DisplayName)
-								statusPages15.ExternalID = types.StringPointerValue(statusPagesItem7.ExternalID)
-								statusPages15.ID = types.StringPointerValue(statusPagesItem7.ID)
-								if statusPagesItem7.Integration == nil {
-									statusPages15.Integration = nil
-								} else {
-									statusPages15.Integration = &tfTypes.IntegrationEntity{}
-									if statusPagesItem7.Integration.CreatedAt != nil {
-										statusPages15.Integration.CreatedAt = types.StringValue(statusPagesItem7.Integration.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										statusPages15.Integration.CreatedAt = types.StringNull()
-									}
-									statusPages15.Integration.DisplayName = types.StringPointerValue(statusPagesItem7.Integration.DisplayName)
-									statusPages15.Integration.ID = types.StringPointerValue(statusPagesItem7.Integration.ID)
-									statusPages15.Integration.IntegrationName = types.StringPointerValue(statusPagesItem7.Integration.IntegrationName)
-									statusPages15.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem7.Integration.IntegrationSlug)
-								}
-								statusPages15.Name = types.StringPointerValue(statusPagesItem7.Name)
-								statusPages15.URL = types.StringPointerValue(statusPagesItem7.URL)
-								if statusPagesCount7+1 > len(checklists3.Owner.MsTeamsChannel.Incident.StatusPages) {
-									checklists3.Owner.MsTeamsChannel.Incident.StatusPages = append(checklists3.Owner.MsTeamsChannel.Incident.StatusPages, statusPages15)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount7].DisplayName = statusPages15.DisplayName
-									checklists3.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount7].ExternalID = statusPages15.ExternalID
-									checklists3.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount7].ID = statusPages15.ID
-									checklists3.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount7].Integration = statusPages15.Integration
-									checklists3.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount7].Name = statusPages15.Name
-									checklists3.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount7].URL = statusPages15.URL
-								}
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.Summary = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Summary)
-							checklists3.Owner.MsTeamsChannel.Incident.TagList = []types.String{}
-							for _, v := range checklistsItem1.Owner.MsTeamsChannel.Incident.TagList {
-								checklists3.Owner.MsTeamsChannel.Incident.TagList = append(checklists3.Owner.MsTeamsChannel.Incident.TagList, types.StringValue(v))
-							}
-							checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments = []tfTypes.IncidentsTeamAssignmentEntity{}
-							for teamAssignmentsCount3, teamAssignmentsItem3 := range checklistsItem1.Owner.MsTeamsChannel.Incident.TeamAssignments {
-								var teamAssignments7 tfTypes.IncidentsTeamAssignmentEntity
-								if teamAssignmentsItem3.CreatedAt != nil {
-									teamAssignments7.CreatedAt = types.StringValue(teamAssignmentsItem3.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									teamAssignments7.CreatedAt = types.StringNull()
-								}
-								teamAssignments7.ID = types.StringPointerValue(teamAssignmentsItem3.ID)
-								teamAssignments7.Status = types.StringPointerValue(teamAssignmentsItem3.Status)
-								if teamAssignmentsItem3.Team == nil {
-									teamAssignments7.Team = nil
-								} else {
-									teamAssignments7.Team = &tfTypes.TeamEntity1{}
-								}
-								if teamAssignmentsItem3.UpdatedAt != nil {
-									teamAssignments7.UpdatedAt = types.StringValue(teamAssignmentsItem3.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									teamAssignments7.UpdatedAt = types.StringNull()
-								}
-								if teamAssignmentsCount3+1 > len(checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments) {
-									checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments = append(checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments, teamAssignments7)
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount3].CreatedAt = teamAssignments7.CreatedAt
-									checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount3].ID = teamAssignments7.ID
-									checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount3].Status = teamAssignments7.Status
-									checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount3].Team = teamAssignments7.Team
-									checklists3.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount3].UpdatedAt = teamAssignments7.UpdatedAt
-								}
-							}
-							if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket == nil {
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket = nil
-							} else {
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket = &tfTypes.TicketingTicketEntity{}
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.Assignees = []tfTypes.AuthorEntity{}
-								for assigneesCount7, assigneesItem7 := range checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Assignees {
-									var assignees15 tfTypes.AuthorEntity
-									assignees15.Email = types.StringPointerValue(assigneesItem7.Email)
-									assignees15.ID = types.StringPointerValue(assigneesItem7.ID)
-									assignees15.Name = types.StringPointerValue(assigneesItem7.Name)
-									assignees15.Source = types.StringPointerValue(assigneesItem7.Source)
-									if assigneesCount7+1 > len(checklists3.Owner.MsTeamsChannel.Incident.Ticket.Assignees) {
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Assignees = append(checklists3.Owner.MsTeamsChannel.Incident.Ticket.Assignees, assignees15)
-									} else {
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount7].Email = assignees15.Email
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount7].ID = assignees15.ID
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount7].Name = assignees15.Name
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount7].Source = assignees15.Source
-									}
-								}
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt != nil {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringNull()
-								}
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy == nil {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy = nil
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy = &tfTypes.AuthorEntity{}
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Email = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Email)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.ID)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Name = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Name)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Source = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Source)
-								}
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.Description = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Description)
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.DueAt != nil {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.DueAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.DueAt.Format(time.RFC3339Nano))
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.DueAt = types.StringNull()
-								}
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.ID)
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone)
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.IncidentID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.IncidentID)
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.IncidentName = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.IncidentName)
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Link == nil {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link = nil
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link = &tfTypes.AttachmentsLinkEntity{}
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link.Deletable = types.BoolPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Link.Deletable)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link.DisplayText = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Link.DisplayText)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link.Editable = types.BoolPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Link.Editable)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link.HrefURL = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Link.HrefURL)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link.IconURL = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Link.IconURL)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Link.ID)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Link.Type = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Link.Type)
-								}
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority == nil {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority = nil
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority = &tfTypes.TicketingPriorityEntity{}
-									if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt != nil {
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringNull()
-									}
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority.ID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority.ID)
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority.Name = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority.Name)
-									if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position != nil {
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Value(int64(*checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position))
-									} else {
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Null()
-									}
-									if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt != nil {
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt.Format(time.RFC3339Nano))
-									} else {
-										checklists3.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringNull()
-									}
-								}
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.State != nil {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.State = types.StringValue(string(*checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.State))
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.State = types.StringNull()
-								}
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.Summary = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Summary)
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.TagList = []types.String{}
-								for _, v := range checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.TagList {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.TagList = append(checklists3.Owner.MsTeamsChannel.Incident.Ticket.TagList, types.StringValue(v))
-								}
-								checklists3.Owner.MsTeamsChannel.Incident.Ticket.TaskID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.TaskID)
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Type != nil {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Type = types.StringValue(string(*checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.Type))
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.Type = types.StringNull()
-								}
-								if checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt != nil {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringValue(checklistsItem1.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									checklists3.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringNull()
-								}
-							}
-						}
 						checklists3.Owner.MsTeamsChannel.MsTeamID = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.MsTeamID)
 						checklists3.Owner.MsTeamsChannel.Status = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.Status)
 						checklists3.Owner.MsTeamsChannel.TeamName = types.StringPointerValue(checklistsItem1.Owner.MsTeamsChannel.TeamName)
@@ -5437,8 +1860,8 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 						ownedFunctionalities7.ID = types.StringPointerValue(ownedFunctionalitiesItem3.ID)
 						if len(ownedFunctionalitiesItem3.Labels) > 0 {
 							ownedFunctionalities7.Labels = make(map[string]types.String)
-							for key13, value24 := range ownedFunctionalitiesItem3.Labels {
-								ownedFunctionalities7.Labels[key13] = types.StringValue(value24)
+							for key9, value12 := range ownedFunctionalitiesItem3.Labels {
+								ownedFunctionalities7.Labels[key9] = types.StringValue(value12)
 							}
 						}
 						ownedFunctionalities7.Links = []tfTypes.LinksEntity{}
@@ -5637,22 +2060,22 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 			if len(r.Service.Functionalities) > len(resp.Service.Functionalities) {
 				r.Service.Functionalities = r.Service.Functionalities[:len(resp.Service.Functionalities)]
 			}
-			for functionalitiesCount9, functionalitiesItem9 := range resp.Service.Functionalities {
-				var functionalities19 tfTypes.FunctionalityEntity
-				functionalities19.ActiveIncidents = []types.String{}
-				for _, v := range functionalitiesItem9.ActiveIncidents {
-					functionalities19.ActiveIncidents = append(functionalities19.ActiveIncidents, types.StringValue(v))
+			for functionalitiesCount5, functionalitiesItem5 := range resp.Service.Functionalities {
+				var functionalities11 tfTypes.FunctionalityEntity
+				functionalities11.ActiveIncidents = []types.String{}
+				for _, v := range functionalitiesItem5.ActiveIncidents {
+					functionalities11.ActiveIncidents = append(functionalities11.ActiveIncidents, types.StringValue(v))
 				}
-				functionalities19.AlertOnAdd = types.BoolPointerValue(functionalitiesItem9.AlertOnAdd)
-				functionalities19.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem9.AutoAddRespondingTeam)
-				if functionalitiesItem9.CreatedAt != nil {
-					functionalities19.CreatedAt = types.StringValue(functionalitiesItem9.CreatedAt.Format(time.RFC3339Nano))
+				functionalities11.AlertOnAdd = types.BoolPointerValue(functionalitiesItem5.AlertOnAdd)
+				functionalities11.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem5.AutoAddRespondingTeam)
+				if functionalitiesItem5.CreatedAt != nil {
+					functionalities11.CreatedAt = types.StringValue(functionalitiesItem5.CreatedAt.Format(time.RFC3339Nano))
 				} else {
-					functionalities19.CreatedAt = types.StringNull()
+					functionalities11.CreatedAt = types.StringNull()
 				}
-				functionalities19.Description = types.StringPointerValue(functionalitiesItem9.Description)
-				functionalities19.ExternalResources = []tfTypes.ExternalResourceEntity{}
-				for externalResourcesCount11, externalResourcesItem11 := range functionalitiesItem9.ExternalResources {
+				functionalities11.Description = types.StringPointerValue(functionalitiesItem5.Description)
+				functionalities11.ExternalResources = []tfTypes.ExternalResourceEntity{}
+				for externalResourcesCount11, externalResourcesItem11 := range functionalitiesItem5.ExternalResources {
 					var externalResources23 tfTypes.ExternalResourceEntity
 					externalResources23.ConnectionID = types.StringPointerValue(externalResourcesItem11.ConnectionID)
 					externalResources23.ConnectionName = types.StringPointerValue(externalResourcesItem11.ConnectionName)
@@ -5670,87 +2093,87 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					} else {
 						externalResources23.UpdatedAt = types.StringNull()
 					}
-					if externalResourcesCount11+1 > len(functionalities19.ExternalResources) {
-						functionalities19.ExternalResources = append(functionalities19.ExternalResources, externalResources23)
+					if externalResourcesCount11+1 > len(functionalities11.ExternalResources) {
+						functionalities11.ExternalResources = append(functionalities11.ExternalResources, externalResources23)
 					} else {
-						functionalities19.ExternalResources[externalResourcesCount11].ConnectionID = externalResources23.ConnectionID
-						functionalities19.ExternalResources[externalResourcesCount11].ConnectionName = externalResources23.ConnectionName
-						functionalities19.ExternalResources[externalResourcesCount11].ConnectionType = externalResources23.ConnectionType
-						functionalities19.ExternalResources[externalResourcesCount11].CreatedAt = externalResources23.CreatedAt
-						functionalities19.ExternalResources[externalResourcesCount11].Name = externalResources23.Name
-						functionalities19.ExternalResources[externalResourcesCount11].RemoteID = externalResources23.RemoteID
-						functionalities19.ExternalResources[externalResourcesCount11].RemoteURL = externalResources23.RemoteURL
-						functionalities19.ExternalResources[externalResourcesCount11].UpdatedAt = externalResources23.UpdatedAt
+						functionalities11.ExternalResources[externalResourcesCount11].ConnectionID = externalResources23.ConnectionID
+						functionalities11.ExternalResources[externalResourcesCount11].ConnectionName = externalResources23.ConnectionName
+						functionalities11.ExternalResources[externalResourcesCount11].ConnectionType = externalResources23.ConnectionType
+						functionalities11.ExternalResources[externalResourcesCount11].CreatedAt = externalResources23.CreatedAt
+						functionalities11.ExternalResources[externalResourcesCount11].Name = externalResources23.Name
+						functionalities11.ExternalResources[externalResourcesCount11].RemoteID = externalResources23.RemoteID
+						functionalities11.ExternalResources[externalResourcesCount11].RemoteURL = externalResources23.RemoteURL
+						functionalities11.ExternalResources[externalResourcesCount11].UpdatedAt = externalResources23.UpdatedAt
 					}
 				}
-				functionalities19.ID = types.StringPointerValue(functionalitiesItem9.ID)
-				if len(functionalitiesItem9.Labels) > 0 {
-					functionalities19.Labels = make(map[string]types.String)
-					for key14, value26 := range functionalitiesItem9.Labels {
-						functionalities19.Labels[key14] = types.StringValue(value26)
+				functionalities11.ID = types.StringPointerValue(functionalitiesItem5.ID)
+				if len(functionalitiesItem5.Labels) > 0 {
+					functionalities11.Labels = make(map[string]types.String)
+					for key10, value14 := range functionalitiesItem5.Labels {
+						functionalities11.Labels[key10] = types.StringValue(value14)
 					}
 				}
-				functionalities19.Links = []tfTypes.LinksEntity{}
-				for linksCount10, linksItem10 := range functionalitiesItem9.Links {
+				functionalities11.Links = []tfTypes.LinksEntity{}
+				for linksCount10, linksItem10 := range functionalitiesItem5.Links {
 					var links21 tfTypes.LinksEntity
 					links21.HrefURL = types.StringPointerValue(linksItem10.HrefURL)
 					links21.IconURL = types.StringPointerValue(linksItem10.IconURL)
 					links21.ID = types.StringPointerValue(linksItem10.ID)
 					links21.Name = types.StringPointerValue(linksItem10.Name)
-					if linksCount10+1 > len(functionalities19.Links) {
-						functionalities19.Links = append(functionalities19.Links, links21)
+					if linksCount10+1 > len(functionalities11.Links) {
+						functionalities11.Links = append(functionalities11.Links, links21)
 					} else {
-						functionalities19.Links[linksCount10].HrefURL = links21.HrefURL
-						functionalities19.Links[linksCount10].IconURL = links21.IconURL
-						functionalities19.Links[linksCount10].ID = links21.ID
-						functionalities19.Links[linksCount10].Name = links21.Name
+						functionalities11.Links[linksCount10].HrefURL = links21.HrefURL
+						functionalities11.Links[linksCount10].IconURL = links21.IconURL
+						functionalities11.Links[linksCount10].ID = links21.ID
+						functionalities11.Links[linksCount10].Name = links21.Name
 					}
 				}
-				functionalities19.Name = types.StringPointerValue(functionalitiesItem9.Name)
-				if functionalitiesItem9.Owner == nil {
-					functionalities19.Owner = nil
+				functionalities11.Name = types.StringPointerValue(functionalitiesItem5.Name)
+				if functionalitiesItem5.Owner == nil {
+					functionalities11.Owner = nil
 				} else {
-					functionalities19.Owner = &tfTypes.TeamEntity1{}
+					functionalities11.Owner = &tfTypes.TeamEntity1{}
 				}
-				functionalities19.Slug = types.StringPointerValue(functionalitiesItem9.Slug)
-				if functionalitiesItem9.UpdatedAt != nil {
-					functionalities19.UpdatedAt = types.StringValue(functionalitiesItem9.UpdatedAt.Format(time.RFC3339Nano))
+				functionalities11.Slug = types.StringPointerValue(functionalitiesItem5.Slug)
+				if functionalitiesItem5.UpdatedAt != nil {
+					functionalities11.UpdatedAt = types.StringValue(functionalitiesItem5.UpdatedAt.Format(time.RFC3339Nano))
 				} else {
-					functionalities19.UpdatedAt = types.StringNull()
+					functionalities11.UpdatedAt = types.StringNull()
 				}
-				if functionalitiesItem9.UpdatedBy == nil {
-					functionalities19.UpdatedBy = nil
+				if functionalitiesItem5.UpdatedBy == nil {
+					functionalities11.UpdatedBy = nil
 				} else {
-					functionalities19.UpdatedBy = &tfTypes.AuthorEntity{}
-					functionalities19.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem9.UpdatedBy.Email)
-					functionalities19.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem9.UpdatedBy.ID)
-					functionalities19.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem9.UpdatedBy.Name)
-					functionalities19.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem9.UpdatedBy.Source)
+					functionalities11.UpdatedBy = &tfTypes.AuthorEntity{}
+					functionalities11.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem5.UpdatedBy.Email)
+					functionalities11.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem5.UpdatedBy.ID)
+					functionalities11.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem5.UpdatedBy.Name)
+					functionalities11.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem5.UpdatedBy.Source)
 				}
-				if functionalitiesCount9+1 > len(r.Service.Functionalities) {
-					r.Service.Functionalities = append(r.Service.Functionalities, functionalities19)
+				if functionalitiesCount5+1 > len(r.Service.Functionalities) {
+					r.Service.Functionalities = append(r.Service.Functionalities, functionalities11)
 				} else {
-					r.Service.Functionalities[functionalitiesCount9].ActiveIncidents = functionalities19.ActiveIncidents
-					r.Service.Functionalities[functionalitiesCount9].AlertOnAdd = functionalities19.AlertOnAdd
-					r.Service.Functionalities[functionalitiesCount9].AutoAddRespondingTeam = functionalities19.AutoAddRespondingTeam
-					r.Service.Functionalities[functionalitiesCount9].CreatedAt = functionalities19.CreatedAt
-					r.Service.Functionalities[functionalitiesCount9].Description = functionalities19.Description
-					r.Service.Functionalities[functionalitiesCount9].ExternalResources = functionalities19.ExternalResources
-					r.Service.Functionalities[functionalitiesCount9].ID = functionalities19.ID
-					r.Service.Functionalities[functionalitiesCount9].Labels = functionalities19.Labels
-					r.Service.Functionalities[functionalitiesCount9].Links = functionalities19.Links
-					r.Service.Functionalities[functionalitiesCount9].Name = functionalities19.Name
-					r.Service.Functionalities[functionalitiesCount9].Owner = functionalities19.Owner
-					r.Service.Functionalities[functionalitiesCount9].Slug = functionalities19.Slug
-					r.Service.Functionalities[functionalitiesCount9].UpdatedAt = functionalities19.UpdatedAt
-					r.Service.Functionalities[functionalitiesCount9].UpdatedBy = functionalities19.UpdatedBy
+					r.Service.Functionalities[functionalitiesCount5].ActiveIncidents = functionalities11.ActiveIncidents
+					r.Service.Functionalities[functionalitiesCount5].AlertOnAdd = functionalities11.AlertOnAdd
+					r.Service.Functionalities[functionalitiesCount5].AutoAddRespondingTeam = functionalities11.AutoAddRespondingTeam
+					r.Service.Functionalities[functionalitiesCount5].CreatedAt = functionalities11.CreatedAt
+					r.Service.Functionalities[functionalitiesCount5].Description = functionalities11.Description
+					r.Service.Functionalities[functionalitiesCount5].ExternalResources = functionalities11.ExternalResources
+					r.Service.Functionalities[functionalitiesCount5].ID = functionalities11.ID
+					r.Service.Functionalities[functionalitiesCount5].Labels = functionalities11.Labels
+					r.Service.Functionalities[functionalitiesCount5].Links = functionalities11.Links
+					r.Service.Functionalities[functionalitiesCount5].Name = functionalities11.Name
+					r.Service.Functionalities[functionalitiesCount5].Owner = functionalities11.Owner
+					r.Service.Functionalities[functionalitiesCount5].Slug = functionalities11.Slug
+					r.Service.Functionalities[functionalitiesCount5].UpdatedAt = functionalities11.UpdatedAt
+					r.Service.Functionalities[functionalitiesCount5].UpdatedBy = functionalities11.UpdatedBy
 				}
 			}
 			r.Service.ID = types.StringPointerValue(resp.Service.ID)
 			if len(resp.Service.Labels) > 0 {
 				r.Service.Labels = make(map[string]types.String)
-				for key15, value27 := range resp.Service.Labels {
-					r.Service.Labels[key15] = types.StringValue(value27)
+				for key11, value15 := range resp.Service.Labels {
+					r.Service.Labels[key11] = types.StringValue(value15)
 				}
 			}
 			if resp.Service.LastImport == nil {
@@ -5854,22 +2277,22 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 				if len(r.Service.Owner.Functionalities) > len(resp.Service.Owner.Functionalities) {
 					r.Service.Owner.Functionalities = r.Service.Owner.Functionalities[:len(resp.Service.Owner.Functionalities)]
 				}
-				for functionalitiesCount10, functionalitiesItem10 := range resp.Service.Owner.Functionalities {
-					var functionalities21 tfTypes.FunctionalityEntity
-					functionalities21.ActiveIncidents = []types.String{}
-					for _, v := range functionalitiesItem10.ActiveIncidents {
-						functionalities21.ActiveIncidents = append(functionalities21.ActiveIncidents, types.StringValue(v))
+				for functionalitiesCount6, functionalitiesItem6 := range resp.Service.Owner.Functionalities {
+					var functionalities13 tfTypes.FunctionalityEntity
+					functionalities13.ActiveIncidents = []types.String{}
+					for _, v := range functionalitiesItem6.ActiveIncidents {
+						functionalities13.ActiveIncidents = append(functionalities13.ActiveIncidents, types.StringValue(v))
 					}
-					functionalities21.AlertOnAdd = types.BoolPointerValue(functionalitiesItem10.AlertOnAdd)
-					functionalities21.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem10.AutoAddRespondingTeam)
-					if functionalitiesItem10.CreatedAt != nil {
-						functionalities21.CreatedAt = types.StringValue(functionalitiesItem10.CreatedAt.Format(time.RFC3339Nano))
+					functionalities13.AlertOnAdd = types.BoolPointerValue(functionalitiesItem6.AlertOnAdd)
+					functionalities13.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem6.AutoAddRespondingTeam)
+					if functionalitiesItem6.CreatedAt != nil {
+						functionalities13.CreatedAt = types.StringValue(functionalitiesItem6.CreatedAt.Format(time.RFC3339Nano))
 					} else {
-						functionalities21.CreatedAt = types.StringNull()
+						functionalities13.CreatedAt = types.StringNull()
 					}
-					functionalities21.Description = types.StringPointerValue(functionalitiesItem10.Description)
-					functionalities21.ExternalResources = []tfTypes.ExternalResourceEntity{}
-					for externalResourcesCount12, externalResourcesItem12 := range functionalitiesItem10.ExternalResources {
+					functionalities13.Description = types.StringPointerValue(functionalitiesItem6.Description)
+					functionalities13.ExternalResources = []tfTypes.ExternalResourceEntity{}
+					for externalResourcesCount12, externalResourcesItem12 := range functionalitiesItem6.ExternalResources {
 						var externalResources25 tfTypes.ExternalResourceEntity
 						externalResources25.ConnectionID = types.StringPointerValue(externalResourcesItem12.ConnectionID)
 						externalResources25.ConnectionName = types.StringPointerValue(externalResourcesItem12.ConnectionName)
@@ -5887,80 +2310,80 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 						} else {
 							externalResources25.UpdatedAt = types.StringNull()
 						}
-						if externalResourcesCount12+1 > len(functionalities21.ExternalResources) {
-							functionalities21.ExternalResources = append(functionalities21.ExternalResources, externalResources25)
+						if externalResourcesCount12+1 > len(functionalities13.ExternalResources) {
+							functionalities13.ExternalResources = append(functionalities13.ExternalResources, externalResources25)
 						} else {
-							functionalities21.ExternalResources[externalResourcesCount12].ConnectionID = externalResources25.ConnectionID
-							functionalities21.ExternalResources[externalResourcesCount12].ConnectionName = externalResources25.ConnectionName
-							functionalities21.ExternalResources[externalResourcesCount12].ConnectionType = externalResources25.ConnectionType
-							functionalities21.ExternalResources[externalResourcesCount12].CreatedAt = externalResources25.CreatedAt
-							functionalities21.ExternalResources[externalResourcesCount12].Name = externalResources25.Name
-							functionalities21.ExternalResources[externalResourcesCount12].RemoteID = externalResources25.RemoteID
-							functionalities21.ExternalResources[externalResourcesCount12].RemoteURL = externalResources25.RemoteURL
-							functionalities21.ExternalResources[externalResourcesCount12].UpdatedAt = externalResources25.UpdatedAt
+							functionalities13.ExternalResources[externalResourcesCount12].ConnectionID = externalResources25.ConnectionID
+							functionalities13.ExternalResources[externalResourcesCount12].ConnectionName = externalResources25.ConnectionName
+							functionalities13.ExternalResources[externalResourcesCount12].ConnectionType = externalResources25.ConnectionType
+							functionalities13.ExternalResources[externalResourcesCount12].CreatedAt = externalResources25.CreatedAt
+							functionalities13.ExternalResources[externalResourcesCount12].Name = externalResources25.Name
+							functionalities13.ExternalResources[externalResourcesCount12].RemoteID = externalResources25.RemoteID
+							functionalities13.ExternalResources[externalResourcesCount12].RemoteURL = externalResources25.RemoteURL
+							functionalities13.ExternalResources[externalResourcesCount12].UpdatedAt = externalResources25.UpdatedAt
 						}
 					}
-					functionalities21.ID = types.StringPointerValue(functionalitiesItem10.ID)
-					if len(functionalitiesItem10.Labels) > 0 {
-						functionalities21.Labels = make(map[string]types.String)
-						for key16, value28 := range functionalitiesItem10.Labels {
-							functionalities21.Labels[key16] = types.StringValue(value28)
+					functionalities13.ID = types.StringPointerValue(functionalitiesItem6.ID)
+					if len(functionalitiesItem6.Labels) > 0 {
+						functionalities13.Labels = make(map[string]types.String)
+						for key12, value16 := range functionalitiesItem6.Labels {
+							functionalities13.Labels[key12] = types.StringValue(value16)
 						}
 					}
-					functionalities21.Links = []tfTypes.LinksEntity{}
-					for linksCount12, linksItem12 := range functionalitiesItem10.Links {
+					functionalities13.Links = []tfTypes.LinksEntity{}
+					for linksCount12, linksItem12 := range functionalitiesItem6.Links {
 						var links25 tfTypes.LinksEntity
 						links25.HrefURL = types.StringPointerValue(linksItem12.HrefURL)
 						links25.IconURL = types.StringPointerValue(linksItem12.IconURL)
 						links25.ID = types.StringPointerValue(linksItem12.ID)
 						links25.Name = types.StringPointerValue(linksItem12.Name)
-						if linksCount12+1 > len(functionalities21.Links) {
-							functionalities21.Links = append(functionalities21.Links, links25)
+						if linksCount12+1 > len(functionalities13.Links) {
+							functionalities13.Links = append(functionalities13.Links, links25)
 						} else {
-							functionalities21.Links[linksCount12].HrefURL = links25.HrefURL
-							functionalities21.Links[linksCount12].IconURL = links25.IconURL
-							functionalities21.Links[linksCount12].ID = links25.ID
-							functionalities21.Links[linksCount12].Name = links25.Name
+							functionalities13.Links[linksCount12].HrefURL = links25.HrefURL
+							functionalities13.Links[linksCount12].IconURL = links25.IconURL
+							functionalities13.Links[linksCount12].ID = links25.ID
+							functionalities13.Links[linksCount12].Name = links25.Name
 						}
 					}
-					functionalities21.Name = types.StringPointerValue(functionalitiesItem10.Name)
-					if functionalitiesItem10.Owner == nil {
-						functionalities21.Owner = nil
+					functionalities13.Name = types.StringPointerValue(functionalitiesItem6.Name)
+					if functionalitiesItem6.Owner == nil {
+						functionalities13.Owner = nil
 					} else {
-						functionalities21.Owner = &tfTypes.TeamEntity1{}
+						functionalities13.Owner = &tfTypes.TeamEntity1{}
 					}
-					functionalities21.Slug = types.StringPointerValue(functionalitiesItem10.Slug)
-					if functionalitiesItem10.UpdatedAt != nil {
-						functionalities21.UpdatedAt = types.StringValue(functionalitiesItem10.UpdatedAt.Format(time.RFC3339Nano))
+					functionalities13.Slug = types.StringPointerValue(functionalitiesItem6.Slug)
+					if functionalitiesItem6.UpdatedAt != nil {
+						functionalities13.UpdatedAt = types.StringValue(functionalitiesItem6.UpdatedAt.Format(time.RFC3339Nano))
 					} else {
-						functionalities21.UpdatedAt = types.StringNull()
+						functionalities13.UpdatedAt = types.StringNull()
 					}
-					if functionalitiesItem10.UpdatedBy == nil {
-						functionalities21.UpdatedBy = nil
+					if functionalitiesItem6.UpdatedBy == nil {
+						functionalities13.UpdatedBy = nil
 					} else {
-						functionalities21.UpdatedBy = &tfTypes.AuthorEntity{}
-						functionalities21.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem10.UpdatedBy.Email)
-						functionalities21.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem10.UpdatedBy.ID)
-						functionalities21.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem10.UpdatedBy.Name)
-						functionalities21.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem10.UpdatedBy.Source)
+						functionalities13.UpdatedBy = &tfTypes.AuthorEntity{}
+						functionalities13.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem6.UpdatedBy.Email)
+						functionalities13.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem6.UpdatedBy.ID)
+						functionalities13.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem6.UpdatedBy.Name)
+						functionalities13.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem6.UpdatedBy.Source)
 					}
-					if functionalitiesCount10+1 > len(r.Service.Owner.Functionalities) {
-						r.Service.Owner.Functionalities = append(r.Service.Owner.Functionalities, functionalities21)
+					if functionalitiesCount6+1 > len(r.Service.Owner.Functionalities) {
+						r.Service.Owner.Functionalities = append(r.Service.Owner.Functionalities, functionalities13)
 					} else {
-						r.Service.Owner.Functionalities[functionalitiesCount10].ActiveIncidents = functionalities21.ActiveIncidents
-						r.Service.Owner.Functionalities[functionalitiesCount10].AlertOnAdd = functionalities21.AlertOnAdd
-						r.Service.Owner.Functionalities[functionalitiesCount10].AutoAddRespondingTeam = functionalities21.AutoAddRespondingTeam
-						r.Service.Owner.Functionalities[functionalitiesCount10].CreatedAt = functionalities21.CreatedAt
-						r.Service.Owner.Functionalities[functionalitiesCount10].Description = functionalities21.Description
-						r.Service.Owner.Functionalities[functionalitiesCount10].ExternalResources = functionalities21.ExternalResources
-						r.Service.Owner.Functionalities[functionalitiesCount10].ID = functionalities21.ID
-						r.Service.Owner.Functionalities[functionalitiesCount10].Labels = functionalities21.Labels
-						r.Service.Owner.Functionalities[functionalitiesCount10].Links = functionalities21.Links
-						r.Service.Owner.Functionalities[functionalitiesCount10].Name = functionalities21.Name
-						r.Service.Owner.Functionalities[functionalitiesCount10].Owner = functionalities21.Owner
-						r.Service.Owner.Functionalities[functionalitiesCount10].Slug = functionalities21.Slug
-						r.Service.Owner.Functionalities[functionalitiesCount10].UpdatedAt = functionalities21.UpdatedAt
-						r.Service.Owner.Functionalities[functionalitiesCount10].UpdatedBy = functionalities21.UpdatedBy
+						r.Service.Owner.Functionalities[functionalitiesCount6].ActiveIncidents = functionalities13.ActiveIncidents
+						r.Service.Owner.Functionalities[functionalitiesCount6].AlertOnAdd = functionalities13.AlertOnAdd
+						r.Service.Owner.Functionalities[functionalitiesCount6].AutoAddRespondingTeam = functionalities13.AutoAddRespondingTeam
+						r.Service.Owner.Functionalities[functionalitiesCount6].CreatedAt = functionalities13.CreatedAt
+						r.Service.Owner.Functionalities[functionalitiesCount6].Description = functionalities13.Description
+						r.Service.Owner.Functionalities[functionalitiesCount6].ExternalResources = functionalities13.ExternalResources
+						r.Service.Owner.Functionalities[functionalitiesCount6].ID = functionalities13.ID
+						r.Service.Owner.Functionalities[functionalitiesCount6].Labels = functionalities13.Labels
+						r.Service.Owner.Functionalities[functionalitiesCount6].Links = functionalities13.Links
+						r.Service.Owner.Functionalities[functionalitiesCount6].Name = functionalities13.Name
+						r.Service.Owner.Functionalities[functionalitiesCount6].Owner = functionalities13.Owner
+						r.Service.Owner.Functionalities[functionalitiesCount6].Slug = functionalities13.Slug
+						r.Service.Owner.Functionalities[functionalitiesCount6].UpdatedAt = functionalities13.UpdatedAt
+						r.Service.Owner.Functionalities[functionalitiesCount6].UpdatedBy = functionalities13.UpdatedBy
 					}
 				}
 				r.Service.Owner.ID = types.StringPointerValue(resp.Service.Owner.ID)
@@ -6043,943 +2466,6 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					r.Service.Owner.MsTeamsChannel.ChannelName = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.ChannelName)
 					r.Service.Owner.MsTeamsChannel.ChannelURL = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.ChannelURL)
 					r.Service.Owner.MsTeamsChannel.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.ID)
-					if resp.Service.Owner.MsTeamsChannel.Incident == nil {
-						r.Service.Owner.MsTeamsChannel.Incident = nil
-					} else {
-						r.Service.Owner.MsTeamsChannel.Incident = &tfTypes.IncidentEntity{}
-						r.Service.Owner.MsTeamsChannel.Incident.Active = types.BoolPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Active)
-						r.Service.Owner.MsTeamsChannel.Incident.AiIncidentSummary = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.AiIncidentSummary)
-						r.Service.Owner.MsTeamsChannel.Incident.ChannelID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ChannelID)
-						r.Service.Owner.MsTeamsChannel.Incident.ChannelName = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ChannelName)
-						r.Service.Owner.MsTeamsChannel.Incident.ChannelReference = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ChannelReference)
-						r.Service.Owner.MsTeamsChannel.Incident.ChannelStatus = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ChannelStatus)
-						r.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges = []tfTypes.IncidentsConferenceBridgeEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges) > len(resp.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges) {
-							r.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges = r.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges[:len(resp.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges)]
-						}
-						for conferenceBridgesCount4, conferenceBridgesItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges {
-							var conferenceBridges9 tfTypes.IncidentsConferenceBridgeEntity
-							conferenceBridges9.ID = types.StringPointerValue(conferenceBridgesItem4.ID)
-							if conferenceBridgesCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges) {
-								r.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges = append(r.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges, conferenceBridges9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount4].ID = conferenceBridges9.ID
-							}
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.ContextObject == nil {
-							r.Service.Owner.MsTeamsChannel.Incident.ContextObject = nil
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.ContextObject = &tfTypes.IncidentsContextObjectEntity{}
-							r.Service.Owner.MsTeamsChannel.Incident.ContextObject.ContextDescription = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ContextObject.ContextDescription)
-							r.Service.Owner.MsTeamsChannel.Incident.ContextObject.ContextTag = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ContextObject.ContextTag)
-							r.Service.Owner.MsTeamsChannel.Incident.ContextObject.ObjectID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ContextObject.ObjectID)
-							r.Service.Owner.MsTeamsChannel.Incident.ContextObject.ObjectType = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ContextObject.ObjectType)
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.Conversations) > len(resp.Service.Owner.MsTeamsChannel.Incident.Conversations) {
-							r.Service.Owner.MsTeamsChannel.Incident.Conversations = r.Service.Owner.MsTeamsChannel.Incident.Conversations[:len(resp.Service.Owner.MsTeamsChannel.Incident.Conversations)]
-						}
-						for conversationsCount12, conversationsItem12 := range resp.Service.Owner.MsTeamsChannel.Incident.Conversations {
-							var conversations25 tfTypes.ConversationsAPIEntitiesReference
-							if conversationsItem12.Channel == nil {
-								conversations25.Channel = nil
-							} else {
-								conversations25.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-								conversations25.Channel.Name = types.StringPointerValue(conversationsItem12.Channel.Name)
-							}
-							conversations25.CommentsURL = types.StringPointerValue(conversationsItem12.CommentsURL)
-							conversations25.Field = types.StringPointerValue(conversationsItem12.Field)
-							conversations25.ID = types.StringPointerValue(conversationsItem12.ID)
-							conversations25.ResourceClass = types.StringPointerValue(conversationsItem12.ResourceClass)
-							conversations25.ResourceID = types.StringPointerValue(conversationsItem12.ResourceID)
-							if conversationsCount12+1 > len(r.Service.Owner.MsTeamsChannel.Incident.Conversations) {
-								r.Service.Owner.MsTeamsChannel.Incident.Conversations = append(r.Service.Owner.MsTeamsChannel.Incident.Conversations, conversations25)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount12].Channel = conversations25.Channel
-								r.Service.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount12].CommentsURL = conversations25.CommentsURL
-								r.Service.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount12].Field = conversations25.Field
-								r.Service.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount12].ID = conversations25.ID
-								r.Service.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount12].ResourceClass = conversations25.ResourceClass
-								r.Service.Owner.MsTeamsChannel.Incident.Conversations[conversationsCount12].ResourceID = conversations25.ResourceID
-							}
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.CreatedAt != nil {
-							r.Service.Owner.MsTeamsChannel.Incident.CreatedAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.CreatedAt.Format(time.RFC3339Nano))
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.CreatedAt = types.StringNull()
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.CreatedBy == nil {
-							r.Service.Owner.MsTeamsChannel.Incident.CreatedBy = nil
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.CreatedBy = &tfTypes.AuthorEntity{}
-							r.Service.Owner.MsTeamsChannel.Incident.CreatedBy.Email = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.CreatedBy.Email)
-							r.Service.Owner.MsTeamsChannel.Incident.CreatedBy.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.CreatedBy.ID)
-							r.Service.Owner.MsTeamsChannel.Incident.CreatedBy.Name = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.CreatedBy.Name)
-							r.Service.Owner.MsTeamsChannel.Incident.CreatedBy.Source = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.CreatedBy.Source)
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.CurrentMilestone = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.CurrentMilestone)
-						r.Service.Owner.MsTeamsChannel.Incident.CustomFields = []tfTypes.CustomFieldsFieldValue{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.CustomFields) > len(resp.Service.Owner.MsTeamsChannel.Incident.CustomFields) {
-							r.Service.Owner.MsTeamsChannel.Incident.CustomFields = r.Service.Owner.MsTeamsChannel.Incident.CustomFields[:len(resp.Service.Owner.MsTeamsChannel.Incident.CustomFields)]
-						}
-						for customFieldsCount4, customFieldsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.CustomFields {
-							var customFields9 tfTypes.CustomFieldsFieldValue
-							customFields9.Description = types.StringPointerValue(customFieldsItem4.Description)
-							customFields9.DisplayName = types.StringPointerValue(customFieldsItem4.DisplayName)
-							customFields9.FieldID = types.StringPointerValue(customFieldsItem4.FieldID)
-							customFields9.Name = types.StringPointerValue(customFieldsItem4.Name)
-							customFields9.Slug = types.StringPointerValue(customFieldsItem4.Slug)
-							customFields9.Value = types.StringPointerValue(customFieldsItem4.Value)
-							customFields9.ValueArray = types.StringPointerValue(customFieldsItem4.ValueArray)
-							customFields9.ValueString = types.StringPointerValue(customFieldsItem4.ValueString)
-							customFields9.ValueType = types.StringPointerValue(customFieldsItem4.ValueType)
-							if customFieldsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.CustomFields) {
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields = append(r.Service.Owner.MsTeamsChannel.Incident.CustomFields, customFields9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].Description = customFields9.Description
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].DisplayName = customFields9.DisplayName
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].FieldID = customFields9.FieldID
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].Name = customFields9.Name
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].Slug = customFields9.Slug
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].Value = customFields9.Value
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].ValueArray = customFields9.ValueArray
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].ValueString = customFields9.ValueString
-								r.Service.Owner.MsTeamsChannel.Incident.CustomFields[customFieldsCount4].ValueType = customFields9.ValueType
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.CustomerImpactSummary = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.CustomerImpactSummary)
-						if resp.Service.Owner.MsTeamsChannel.Incident.CustomersImpacted != nil {
-							r.Service.Owner.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Value(int64(*resp.Service.Owner.MsTeamsChannel.Incident.CustomersImpacted))
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Null()
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Description = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Description)
-						if resp.Service.Owner.MsTeamsChannel.Incident.DiscardedAt != nil {
-							r.Service.Owner.MsTeamsChannel.Incident.DiscardedAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.DiscardedAt.Format(time.RFC3339Nano))
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.DiscardedAt = types.StringNull()
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Environments = []tfTypes.SuccinctEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.Environments) > len(resp.Service.Owner.MsTeamsChannel.Incident.Environments) {
-							r.Service.Owner.MsTeamsChannel.Incident.Environments = r.Service.Owner.MsTeamsChannel.Incident.Environments[:len(resp.Service.Owner.MsTeamsChannel.Incident.Environments)]
-						}
-						for environmentsCount4, environmentsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.Environments {
-							var environments9 tfTypes.SuccinctEntity
-							environments9.ID = types.StringPointerValue(environmentsItem4.ID)
-							environments9.Name = types.StringPointerValue(environmentsItem4.Name)
-							if environmentsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.Environments) {
-								r.Service.Owner.MsTeamsChannel.Incident.Environments = append(r.Service.Owner.MsTeamsChannel.Incident.Environments, environments9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Environments[environmentsCount4].ID = environments9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.Environments[environmentsCount4].Name = environments9.Name
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements = []tfTypes.IncidentEntityFieldRequirementEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements) > len(resp.Service.Owner.MsTeamsChannel.Incident.FieldRequirements) {
-							r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements = r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements[:len(resp.Service.Owner.MsTeamsChannel.Incident.FieldRequirements)]
-						}
-						for fieldRequirementsCount4, fieldRequirementsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.FieldRequirements {
-							var fieldRequirements9 tfTypes.IncidentEntityFieldRequirementEntity
-							fieldRequirements9.FieldID = types.StringPointerValue(fieldRequirementsItem4.FieldID)
-							fieldRequirements9.RequiredAtMilestoneID = types.StringPointerValue(fieldRequirementsItem4.RequiredAtMilestoneID)
-							if fieldRequirementsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements) {
-								r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements = append(r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements, fieldRequirements9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount4].FieldID = fieldRequirements9.FieldID
-								r.Service.Owner.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount4].RequiredAtMilestoneID = fieldRequirements9.RequiredAtMilestoneID
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Functionalities = []tfTypes.SuccinctEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.Functionalities) > len(resp.Service.Owner.MsTeamsChannel.Incident.Functionalities) {
-							r.Service.Owner.MsTeamsChannel.Incident.Functionalities = r.Service.Owner.MsTeamsChannel.Incident.Functionalities[:len(resp.Service.Owner.MsTeamsChannel.Incident.Functionalities)]
-						}
-						for functionalitiesCount11, functionalitiesItem11 := range resp.Service.Owner.MsTeamsChannel.Incident.Functionalities {
-							var functionalities23 tfTypes.SuccinctEntity
-							functionalities23.ID = types.StringPointerValue(functionalitiesItem11.ID)
-							functionalities23.Name = types.StringPointerValue(functionalitiesItem11.Name)
-							if functionalitiesCount11+1 > len(r.Service.Owner.MsTeamsChannel.Incident.Functionalities) {
-								r.Service.Owner.MsTeamsChannel.Incident.Functionalities = append(r.Service.Owner.MsTeamsChannel.Incident.Functionalities, functionalities23)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Functionalities[functionalitiesCount11].ID = functionalities23.ID
-								r.Service.Owner.MsTeamsChannel.Incident.Functionalities[functionalitiesCount11].Name = functionalities23.Name
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ID)
-						r.Service.Owner.MsTeamsChannel.Incident.Impacts = []tfTypes.IncidentsImpactEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.Impacts) > len(resp.Service.Owner.MsTeamsChannel.Incident.Impacts) {
-							r.Service.Owner.MsTeamsChannel.Incident.Impacts = r.Service.Owner.MsTeamsChannel.Incident.Impacts[:len(resp.Service.Owner.MsTeamsChannel.Incident.Impacts)]
-						}
-						for impactsCount4, impactsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.Impacts {
-							var impacts9 tfTypes.IncidentsImpactEntity
-							if impactsItem4.Condition == nil {
-								impacts9.Condition = nil
-							} else {
-								impacts9.Condition = &tfTypes.SeverityMatrixConditionEntity{}
-								impacts9.Condition.ID = types.StringPointerValue(impactsItem4.Condition.ID)
-								impacts9.Condition.Name = types.StringPointerValue(impactsItem4.Condition.Name)
-								if impactsItem4.Condition.Position != nil {
-									impacts9.Condition.Position = types.Int64Value(int64(*impactsItem4.Condition.Position))
-								} else {
-									impacts9.Condition.Position = types.Int64Null()
-								}
-							}
-							impacts9.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							for conversationsCount13, conversationsItem13 := range impactsItem4.Conversations {
-								var conversations27 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem13.Channel == nil {
-									conversations27.Channel = nil
-								} else {
-									conversations27.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations27.Channel.Name = types.StringPointerValue(conversationsItem13.Channel.Name)
-								}
-								conversations27.CommentsURL = types.StringPointerValue(conversationsItem13.CommentsURL)
-								conversations27.Field = types.StringPointerValue(conversationsItem13.Field)
-								conversations27.ID = types.StringPointerValue(conversationsItem13.ID)
-								conversations27.ResourceClass = types.StringPointerValue(conversationsItem13.ResourceClass)
-								conversations27.ResourceID = types.StringPointerValue(conversationsItem13.ResourceID)
-								if conversationsCount13+1 > len(impacts9.Conversations) {
-									impacts9.Conversations = append(impacts9.Conversations, conversations27)
-								} else {
-									impacts9.Conversations[conversationsCount13].Channel = conversations27.Channel
-									impacts9.Conversations[conversationsCount13].CommentsURL = conversations27.CommentsURL
-									impacts9.Conversations[conversationsCount13].Field = conversations27.Field
-									impacts9.Conversations[conversationsCount13].ID = conversations27.ID
-									impacts9.Conversations[conversationsCount13].ResourceClass = conversations27.ResourceClass
-									impacts9.Conversations[conversationsCount13].ResourceID = conversations27.ResourceID
-								}
-							}
-							impacts9.ID = types.StringPointerValue(impactsItem4.ID)
-							if impactsItem4.Impact == nil {
-								impacts9.Impact = nil
-							} else {
-								impacts9.Impact = &tfTypes.SuccinctEntity{}
-								impacts9.Impact.ID = types.StringPointerValue(impactsItem4.Impact.ID)
-								impacts9.Impact.Name = types.StringPointerValue(impactsItem4.Impact.Name)
-							}
-							if impactsItem4.Type != nil {
-								impacts9.Type = types.StringValue(string(*impactsItem4.Type))
-							} else {
-								impacts9.Type = types.StringNull()
-							}
-							if impactsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.Impacts) {
-								r.Service.Owner.MsTeamsChannel.Incident.Impacts = append(r.Service.Owner.MsTeamsChannel.Incident.Impacts, impacts9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Impacts[impactsCount4].Condition = impacts9.Condition
-								r.Service.Owner.MsTeamsChannel.Incident.Impacts[impactsCount4].Conversations = impacts9.Conversations
-								r.Service.Owner.MsTeamsChannel.Incident.Impacts[impactsCount4].ID = impacts9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.Impacts[impactsCount4].Impact = impacts9.Impact
-								r.Service.Owner.MsTeamsChannel.Incident.Impacts[impactsCount4].Type = impacts9.Type
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels = []tfTypes.IncidentsChannelEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels) > len(resp.Service.Owner.MsTeamsChannel.Incident.IncidentChannels) {
-							r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels = r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[:len(resp.Service.Owner.MsTeamsChannel.Incident.IncidentChannels)]
-						}
-						for incidentChannelsCount4, incidentChannelsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.IncidentChannels {
-							var incidentChannels9 tfTypes.IncidentsChannelEntity
-							incidentChannels9.IconURL = types.StringPointerValue(incidentChannelsItem4.IconURL)
-							incidentChannels9.ID = types.StringPointerValue(incidentChannelsItem4.ID)
-							incidentChannels9.Name = types.StringPointerValue(incidentChannelsItem4.Name)
-							incidentChannels9.Source = types.StringPointerValue(incidentChannelsItem4.Source)
-							incidentChannels9.SourceID = types.StringPointerValue(incidentChannelsItem4.SourceID)
-							incidentChannels9.SourceName = types.StringPointerValue(incidentChannelsItem4.SourceName)
-							incidentChannels9.Status = types.StringPointerValue(incidentChannelsItem4.Status)
-							incidentChannels9.URL = types.StringPointerValue(incidentChannelsItem4.URL)
-							if incidentChannelsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels) {
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels = append(r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels, incidentChannels9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount4].IconURL = incidentChannels9.IconURL
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount4].ID = incidentChannels9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount4].Name = incidentChannels9.Name
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount4].Source = incidentChannels9.Source
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount4].SourceID = incidentChannels9.SourceID
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount4].SourceName = incidentChannels9.SourceName
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount4].Status = incidentChannels9.Status
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount4].URL = incidentChannels9.URL
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets = []tfTypes.TicketingTicketEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets) > len(resp.Service.Owner.MsTeamsChannel.Incident.IncidentTickets) {
-							r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets = r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[:len(resp.Service.Owner.MsTeamsChannel.Incident.IncidentTickets)]
-						}
-						for incidentTicketsCount4, incidentTicketsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.IncidentTickets {
-							var incidentTickets9 tfTypes.TicketingTicketEntity
-							incidentTickets9.Assignees = []tfTypes.AuthorEntity{}
-							for assigneesCount8, assigneesItem8 := range incidentTicketsItem4.Assignees {
-								var assignees17 tfTypes.AuthorEntity
-								assignees17.Email = types.StringPointerValue(assigneesItem8.Email)
-								assignees17.ID = types.StringPointerValue(assigneesItem8.ID)
-								assignees17.Name = types.StringPointerValue(assigneesItem8.Name)
-								assignees17.Source = types.StringPointerValue(assigneesItem8.Source)
-								if assigneesCount8+1 > len(incidentTickets9.Assignees) {
-									incidentTickets9.Assignees = append(incidentTickets9.Assignees, assignees17)
-								} else {
-									incidentTickets9.Assignees[assigneesCount8].Email = assignees17.Email
-									incidentTickets9.Assignees[assigneesCount8].ID = assignees17.ID
-									incidentTickets9.Assignees[assigneesCount8].Name = assignees17.Name
-									incidentTickets9.Assignees[assigneesCount8].Source = assignees17.Source
-								}
-							}
-							if incidentTicketsItem4.CreatedAt != nil {
-								incidentTickets9.CreatedAt = types.StringValue(incidentTicketsItem4.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets9.CreatedAt = types.StringNull()
-							}
-							if incidentTicketsItem4.CreatedBy == nil {
-								incidentTickets9.CreatedBy = nil
-							} else {
-								incidentTickets9.CreatedBy = &tfTypes.AuthorEntity{}
-								incidentTickets9.CreatedBy.Email = types.StringPointerValue(incidentTicketsItem4.CreatedBy.Email)
-								incidentTickets9.CreatedBy.ID = types.StringPointerValue(incidentTicketsItem4.CreatedBy.ID)
-								incidentTickets9.CreatedBy.Name = types.StringPointerValue(incidentTicketsItem4.CreatedBy.Name)
-								incidentTickets9.CreatedBy.Source = types.StringPointerValue(incidentTicketsItem4.CreatedBy.Source)
-							}
-							incidentTickets9.Description = types.StringPointerValue(incidentTicketsItem4.Description)
-							if incidentTicketsItem4.DueAt != nil {
-								incidentTickets9.DueAt = types.StringValue(incidentTicketsItem4.DueAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets9.DueAt = types.StringNull()
-							}
-							incidentTickets9.ID = types.StringPointerValue(incidentTicketsItem4.ID)
-							incidentTickets9.IncidentCurrentMilestone = types.StringPointerValue(incidentTicketsItem4.IncidentCurrentMilestone)
-							incidentTickets9.IncidentID = types.StringPointerValue(incidentTicketsItem4.IncidentID)
-							incidentTickets9.IncidentName = types.StringPointerValue(incidentTicketsItem4.IncidentName)
-							if incidentTicketsItem4.Link == nil {
-								incidentTickets9.Link = nil
-							} else {
-								incidentTickets9.Link = &tfTypes.AttachmentsLinkEntity{}
-								incidentTickets9.Link.Deletable = types.BoolPointerValue(incidentTicketsItem4.Link.Deletable)
-								incidentTickets9.Link.DisplayText = types.StringPointerValue(incidentTicketsItem4.Link.DisplayText)
-								incidentTickets9.Link.Editable = types.BoolPointerValue(incidentTicketsItem4.Link.Editable)
-								incidentTickets9.Link.HrefURL = types.StringPointerValue(incidentTicketsItem4.Link.HrefURL)
-								incidentTickets9.Link.IconURL = types.StringPointerValue(incidentTicketsItem4.Link.IconURL)
-								incidentTickets9.Link.ID = types.StringPointerValue(incidentTicketsItem4.Link.ID)
-								incidentTickets9.Link.Type = types.StringPointerValue(incidentTicketsItem4.Link.Type)
-							}
-							if incidentTicketsItem4.Priority == nil {
-								incidentTickets9.Priority = nil
-							} else {
-								incidentTickets9.Priority = &tfTypes.TicketingPriorityEntity{}
-								if incidentTicketsItem4.Priority.CreatedAt != nil {
-									incidentTickets9.Priority.CreatedAt = types.StringValue(incidentTicketsItem4.Priority.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets9.Priority.CreatedAt = types.StringNull()
-								}
-								incidentTickets9.Priority.ID = types.StringPointerValue(incidentTicketsItem4.Priority.ID)
-								incidentTickets9.Priority.Name = types.StringPointerValue(incidentTicketsItem4.Priority.Name)
-								if incidentTicketsItem4.Priority.Position != nil {
-									incidentTickets9.Priority.Position = types.Int64Value(int64(*incidentTicketsItem4.Priority.Position))
-								} else {
-									incidentTickets9.Priority.Position = types.Int64Null()
-								}
-								if incidentTicketsItem4.Priority.UpdatedAt != nil {
-									incidentTickets9.Priority.UpdatedAt = types.StringValue(incidentTicketsItem4.Priority.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets9.Priority.UpdatedAt = types.StringNull()
-								}
-							}
-							if incidentTicketsItem4.State != nil {
-								incidentTickets9.State = types.StringValue(string(*incidentTicketsItem4.State))
-							} else {
-								incidentTickets9.State = types.StringNull()
-							}
-							incidentTickets9.Summary = types.StringPointerValue(incidentTicketsItem4.Summary)
-							incidentTickets9.TagList = []types.String{}
-							for _, v := range incidentTicketsItem4.TagList {
-								incidentTickets9.TagList = append(incidentTickets9.TagList, types.StringValue(v))
-							}
-							incidentTickets9.TaskID = types.StringPointerValue(incidentTicketsItem4.TaskID)
-							if incidentTicketsItem4.Type != nil {
-								incidentTickets9.Type = types.StringValue(string(*incidentTicketsItem4.Type))
-							} else {
-								incidentTickets9.Type = types.StringNull()
-							}
-							if incidentTicketsItem4.UpdatedAt != nil {
-								incidentTickets9.UpdatedAt = types.StringValue(incidentTicketsItem4.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets9.UpdatedAt = types.StringNull()
-							}
-							if incidentTicketsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets) {
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets = append(r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets, incidentTickets9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].Assignees = incidentTickets9.Assignees
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].CreatedAt = incidentTickets9.CreatedAt
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].CreatedBy = incidentTickets9.CreatedBy
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].Description = incidentTickets9.Description
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].DueAt = incidentTickets9.DueAt
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].ID = incidentTickets9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].IncidentCurrentMilestone = incidentTickets9.IncidentCurrentMilestone
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].IncidentID = incidentTickets9.IncidentID
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].IncidentName = incidentTickets9.IncidentName
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].Link = incidentTickets9.Link
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].Priority = incidentTickets9.Priority
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].State = incidentTickets9.State
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].Summary = incidentTickets9.Summary
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].TagList = incidentTickets9.TagList
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].TaskID = incidentTickets9.TaskID
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].Type = incidentTickets9.Type
-								r.Service.Owner.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount4].UpdatedAt = incidentTickets9.UpdatedAt
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.IncidentURL = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.IncidentURL)
-						if len(resp.Service.Owner.MsTeamsChannel.Incident.Labels) > 0 {
-							r.Service.Owner.MsTeamsChannel.Incident.Labels = make(map[string]types.String)
-							for key17, value30 := range resp.Service.Owner.MsTeamsChannel.Incident.Labels {
-								r.Service.Owner.MsTeamsChannel.Incident.Labels[key17] = types.StringValue(value30)
-							}
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.LastNote == nil {
-							r.Service.Owner.MsTeamsChannel.Incident.LastNote = nil
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.LastNote = &tfTypes.EventNoteEntity{}
-							r.Service.Owner.MsTeamsChannel.Incident.LastNote.Body = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.LastNote.Body)
-							r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							if len(r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations) > len(resp.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations) {
-								r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations = r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations[:len(resp.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations)]
-							}
-							for conversationsCount14, conversationsItem14 := range resp.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations {
-								var conversations29 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem14.Channel == nil {
-									conversations29.Channel = nil
-								} else {
-									conversations29.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations29.Channel.Name = types.StringPointerValue(conversationsItem14.Channel.Name)
-								}
-								conversations29.CommentsURL = types.StringPointerValue(conversationsItem14.CommentsURL)
-								conversations29.Field = types.StringPointerValue(conversationsItem14.Field)
-								conversations29.ID = types.StringPointerValue(conversationsItem14.ID)
-								conversations29.ResourceClass = types.StringPointerValue(conversationsItem14.ResourceClass)
-								conversations29.ResourceID = types.StringPointerValue(conversationsItem14.ResourceID)
-								if conversationsCount14+1 > len(r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations) {
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations = append(r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations, conversations29)
-								} else {
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount14].Channel = conversations29.Channel
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount14].CommentsURL = conversations29.CommentsURL
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount14].Field = conversations29.Field
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount14].ID = conversations29.ID
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount14].ResourceClass = conversations29.ResourceClass
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount14].ResourceID = conversations29.ResourceID
-								}
-							}
-							if resp.Service.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt != nil {
-								r.Service.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringNull()
-							}
-							r.Service.Owner.MsTeamsChannel.Incident.LastNote.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.LastNote.ID)
-							r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-							if len(r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages) > len(resp.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages) {
-								r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[:len(resp.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages)]
-							}
-							for statusPagesCount8, statusPagesItem8 := range resp.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages {
-								var statusPages17 tfTypes.IncidentsStatusPageEntity
-								statusPages17.DisplayName = types.StringPointerValue(statusPagesItem8.DisplayName)
-								statusPages17.ExternalID = types.StringPointerValue(statusPagesItem8.ExternalID)
-								statusPages17.ID = types.StringPointerValue(statusPagesItem8.ID)
-								if statusPagesItem8.Integration == nil {
-									statusPages17.Integration = nil
-								} else {
-									statusPages17.Integration = &tfTypes.IntegrationEntity{}
-									if statusPagesItem8.Integration.CreatedAt != nil {
-										statusPages17.Integration.CreatedAt = types.StringValue(statusPagesItem8.Integration.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										statusPages17.Integration.CreatedAt = types.StringNull()
-									}
-									statusPages17.Integration.DisplayName = types.StringPointerValue(statusPagesItem8.Integration.DisplayName)
-									statusPages17.Integration.ID = types.StringPointerValue(statusPagesItem8.Integration.ID)
-									statusPages17.Integration.IntegrationName = types.StringPointerValue(statusPagesItem8.Integration.IntegrationName)
-									statusPages17.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem8.Integration.IntegrationSlug)
-								}
-								statusPages17.Name = types.StringPointerValue(statusPagesItem8.Name)
-								statusPages17.URL = types.StringPointerValue(statusPagesItem8.URL)
-								if statusPagesCount8+1 > len(r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages) {
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages = append(r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages, statusPages17)
-								} else {
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount8].DisplayName = statusPages17.DisplayName
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount8].ExternalID = statusPages17.ExternalID
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount8].ID = statusPages17.ID
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount8].Integration = statusPages17.Integration
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount8].Name = statusPages17.Name
-									r.Service.Owner.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount8].URL = statusPages17.URL
-								}
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.LastUpdate = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.LastUpdate)
-						r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = []tfTypes.IncidentsLifecycleMeasurementEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements) > len(resp.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements) {
-							r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[:len(resp.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements)]
-						}
-						for lifecycleMeasurementsCount4, lifecycleMeasurementsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements {
-							var lifecycleMeasurements9 tfTypes.IncidentsLifecycleMeasurementEntity
-							if lifecycleMeasurementsItem4.CalculatedAt != nil {
-								lifecycleMeasurements9.CalculatedAt = types.StringValue(lifecycleMeasurementsItem4.CalculatedAt.Format(time.RFC3339Nano))
-							} else {
-								lifecycleMeasurements9.CalculatedAt = types.StringNull()
-							}
-							lifecycleMeasurements9.Description = types.StringPointerValue(lifecycleMeasurementsItem4.Description)
-							lifecycleMeasurements9.EndsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem4.EndsAtMilestone)
-							lifecycleMeasurements9.ID = types.StringPointerValue(lifecycleMeasurementsItem4.ID)
-							lifecycleMeasurements9.Name = types.StringPointerValue(lifecycleMeasurementsItem4.Name)
-							lifecycleMeasurements9.Slug = types.StringPointerValue(lifecycleMeasurementsItem4.Slug)
-							lifecycleMeasurements9.StartsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem4.StartsAtMilestone)
-							lifecycleMeasurements9.Value = types.StringPointerValue(lifecycleMeasurementsItem4.Value)
-							if lifecycleMeasurementsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements) {
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements = append(r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements, lifecycleMeasurements9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount4].CalculatedAt = lifecycleMeasurements9.CalculatedAt
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount4].Description = lifecycleMeasurements9.Description
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount4].EndsAtMilestone = lifecycleMeasurements9.EndsAtMilestone
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount4].ID = lifecycleMeasurements9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount4].Name = lifecycleMeasurements9.Name
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount4].Slug = lifecycleMeasurements9.Slug
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount4].StartsAtMilestone = lifecycleMeasurements9.StartsAtMilestone
-								r.Service.Owner.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount4].Value = lifecycleMeasurements9.Value
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases = []tfTypes.IncidentsLifecyclePhaseEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases) > len(resp.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases) {
-							r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases = r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases[:len(resp.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases)]
-						}
-						for lifecyclePhasesCount4, lifecyclePhasesItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases {
-							var lifecyclePhases9 tfTypes.IncidentsLifecyclePhaseEntity
-							lifecyclePhases9.Description = types.StringPointerValue(lifecyclePhasesItem4.Description)
-							lifecyclePhases9.ID = types.StringPointerValue(lifecyclePhasesItem4.ID)
-							lifecyclePhases9.Milestones = []tfTypes.IncidentsLifecycleMilestoneEntity{}
-							for milestonesCount8, milestonesItem8 := range lifecyclePhasesItem4.Milestones {
-								var milestones17 tfTypes.IncidentsLifecycleMilestoneEntity
-								milestones17.Description = types.StringPointerValue(milestonesItem8.Description)
-								milestones17.Duration = types.StringPointerValue(milestonesItem8.Duration)
-								milestones17.ID = types.StringPointerValue(milestonesItem8.ID)
-								milestones17.Name = types.StringPointerValue(milestonesItem8.Name)
-								if milestonesItem8.OccurredAt != nil {
-									milestones17.OccurredAt = types.StringValue(milestonesItem8.OccurredAt.Format(time.RFC3339Nano))
-								} else {
-									milestones17.OccurredAt = types.StringNull()
-								}
-								if milestonesItem8.Position != nil {
-									milestones17.Position = types.Int64Value(int64(*milestonesItem8.Position))
-								} else {
-									milestones17.Position = types.Int64Null()
-								}
-								milestones17.Slug = types.StringPointerValue(milestonesItem8.Slug)
-								if milestonesItem8.UpdatedAt != nil {
-									milestones17.UpdatedAt = types.StringValue(milestonesItem8.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									milestones17.UpdatedAt = types.StringNull()
-								}
-								if milestonesItem8.UpdatedBy == nil {
-									milestones17.UpdatedBy = nil
-								} else {
-									milestones17.UpdatedBy = &tfTypes.AuthorEntity{}
-									milestones17.UpdatedBy.Email = types.StringPointerValue(milestonesItem8.UpdatedBy.Email)
-									milestones17.UpdatedBy.ID = types.StringPointerValue(milestonesItem8.UpdatedBy.ID)
-									milestones17.UpdatedBy.Name = types.StringPointerValue(milestonesItem8.UpdatedBy.Name)
-									milestones17.UpdatedBy.Source = types.StringPointerValue(milestonesItem8.UpdatedBy.Source)
-								}
-								if milestonesCount8+1 > len(lifecyclePhases9.Milestones) {
-									lifecyclePhases9.Milestones = append(lifecyclePhases9.Milestones, milestones17)
-								} else {
-									lifecyclePhases9.Milestones[milestonesCount8].Description = milestones17.Description
-									lifecyclePhases9.Milestones[milestonesCount8].Duration = milestones17.Duration
-									lifecyclePhases9.Milestones[milestonesCount8].ID = milestones17.ID
-									lifecyclePhases9.Milestones[milestonesCount8].Name = milestones17.Name
-									lifecyclePhases9.Milestones[milestonesCount8].OccurredAt = milestones17.OccurredAt
-									lifecyclePhases9.Milestones[milestonesCount8].Position = milestones17.Position
-									lifecyclePhases9.Milestones[milestonesCount8].Slug = milestones17.Slug
-									lifecyclePhases9.Milestones[milestonesCount8].UpdatedAt = milestones17.UpdatedAt
-									lifecyclePhases9.Milestones[milestonesCount8].UpdatedBy = milestones17.UpdatedBy
-								}
-							}
-							lifecyclePhases9.Name = types.StringPointerValue(lifecyclePhasesItem4.Name)
-							if lifecyclePhasesItem4.Position != nil {
-								lifecyclePhases9.Position = types.Int64Value(int64(*lifecyclePhasesItem4.Position))
-							} else {
-								lifecyclePhases9.Position = types.Int64Null()
-							}
-							lifecyclePhases9.Type = types.StringPointerValue(lifecyclePhasesItem4.Type)
-							if lifecyclePhasesCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases) {
-								r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases = append(r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases, lifecyclePhases9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount4].Description = lifecyclePhases9.Description
-								r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount4].ID = lifecyclePhases9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount4].Milestones = lifecyclePhases9.Milestones
-								r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount4].Name = lifecyclePhases9.Name
-								r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount4].Position = lifecyclePhases9.Position
-								r.Service.Owner.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount4].Type = lifecyclePhases9.Type
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Milestones = []tfTypes.IncidentsMilestoneEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.Milestones) > len(resp.Service.Owner.MsTeamsChannel.Incident.Milestones) {
-							r.Service.Owner.MsTeamsChannel.Incident.Milestones = r.Service.Owner.MsTeamsChannel.Incident.Milestones[:len(resp.Service.Owner.MsTeamsChannel.Incident.Milestones)]
-						}
-						for milestonesCount9, milestonesItem9 := range resp.Service.Owner.MsTeamsChannel.Incident.Milestones {
-							var milestones19 tfTypes.IncidentsMilestoneEntity
-							if milestonesItem9.CreatedAt != nil {
-								milestones19.CreatedAt = types.StringValue(milestonesItem9.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								milestones19.CreatedAt = types.StringNull()
-							}
-							milestones19.Duration = types.StringPointerValue(milestonesItem9.Duration)
-							milestones19.ID = types.StringPointerValue(milestonesItem9.ID)
-							if milestonesItem9.OccurredAt != nil {
-								milestones19.OccurredAt = types.StringValue(milestonesItem9.OccurredAt.Format(time.RFC3339Nano))
-							} else {
-								milestones19.OccurredAt = types.StringNull()
-							}
-							milestones19.Type = types.StringPointerValue(milestonesItem9.Type)
-							if milestonesItem9.UpdatedAt != nil {
-								milestones19.UpdatedAt = types.StringValue(milestonesItem9.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								milestones19.UpdatedAt = types.StringNull()
-							}
-							if milestonesCount9+1 > len(r.Service.Owner.MsTeamsChannel.Incident.Milestones) {
-								r.Service.Owner.MsTeamsChannel.Incident.Milestones = append(r.Service.Owner.MsTeamsChannel.Incident.Milestones, milestones19)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount9].CreatedAt = milestones19.CreatedAt
-								r.Service.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount9].Duration = milestones19.Duration
-								r.Service.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount9].ID = milestones19.ID
-								r.Service.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount9].OccurredAt = milestones19.OccurredAt
-								r.Service.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount9].Type = milestones19.Type
-								r.Service.Owner.MsTeamsChannel.Incident.Milestones[milestonesCount9].UpdatedAt = milestones19.UpdatedAt
-							}
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.MonetaryImpact != nil {
-							r.Service.Owner.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Value(int64(*resp.Service.Owner.MsTeamsChannel.Incident.MonetaryImpact))
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Null()
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.MonetaryImpactCents != nil {
-							r.Service.Owner.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Value(int64(*resp.Service.Owner.MsTeamsChannel.Incident.MonetaryImpactCents))
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Null()
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Name = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Name)
-						if resp.Service.Owner.MsTeamsChannel.Incident.Number != nil {
-							r.Service.Owner.MsTeamsChannel.Incident.Number = types.Int64Value(int64(*resp.Service.Owner.MsTeamsChannel.Incident.Number))
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.Number = types.Int64Null()
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.Organization == nil {
-							r.Service.Owner.MsTeamsChannel.Incident.Organization = nil
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.Organization = &tfTypes.SuccinctEntity{}
-							r.Service.Owner.MsTeamsChannel.Incident.Organization.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Organization.ID)
-							r.Service.Owner.MsTeamsChannel.Incident.Organization.Name = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Organization.Name)
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.OrganizationID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.OrganizationID)
-						r.Service.Owner.MsTeamsChannel.Incident.Priority = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Priority)
-						r.Service.Owner.MsTeamsChannel.Incident.PrivateID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.PrivateID)
-						r.Service.Owner.MsTeamsChannel.Incident.PrivateStatusPageURL = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.PrivateStatusPageURL)
-						r.Service.Owner.MsTeamsChannel.Incident.ReportID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.ReportID)
-						r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments = []tfTypes.IncidentsRoleAssignmentEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments) > len(resp.Service.Owner.MsTeamsChannel.Incident.RoleAssignments) {
-							r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments = r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments[:len(resp.Service.Owner.MsTeamsChannel.Incident.RoleAssignments)]
-						}
-						for roleAssignmentsCount4, roleAssignmentsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.RoleAssignments {
-							var roleAssignments9 tfTypes.IncidentsRoleAssignmentEntity
-							if roleAssignmentsItem4.CreatedAt != nil {
-								roleAssignments9.CreatedAt = types.StringValue(roleAssignmentsItem4.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								roleAssignments9.CreatedAt = types.StringNull()
-							}
-							roleAssignments9.ID = types.StringPointerValue(roleAssignmentsItem4.ID)
-							if roleAssignmentsItem4.IncidentRole == nil {
-								roleAssignments9.IncidentRole = nil
-							} else {
-								roleAssignments9.IncidentRole = &tfTypes.IncidentRoleEntity{}
-								if roleAssignmentsItem4.IncidentRole.CreatedAt != nil {
-									roleAssignments9.IncidentRole.CreatedAt = types.StringValue(roleAssignmentsItem4.IncidentRole.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments9.IncidentRole.CreatedAt = types.StringNull()
-								}
-								roleAssignments9.IncidentRole.Description = types.StringPointerValue(roleAssignmentsItem4.IncidentRole.Description)
-								if roleAssignmentsItem4.IncidentRole.DiscardedAt != nil {
-									roleAssignments9.IncidentRole.DiscardedAt = types.StringValue(roleAssignmentsItem4.IncidentRole.DiscardedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments9.IncidentRole.DiscardedAt = types.StringNull()
-								}
-								roleAssignments9.IncidentRole.ID = types.StringPointerValue(roleAssignmentsItem4.IncidentRole.ID)
-								roleAssignments9.IncidentRole.Name = types.StringPointerValue(roleAssignmentsItem4.IncidentRole.Name)
-								roleAssignments9.IncidentRole.Summary = types.StringPointerValue(roleAssignmentsItem4.IncidentRole.Summary)
-								if roleAssignmentsItem4.IncidentRole.UpdatedAt != nil {
-									roleAssignments9.IncidentRole.UpdatedAt = types.StringValue(roleAssignmentsItem4.IncidentRole.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments9.IncidentRole.UpdatedAt = types.StringNull()
-								}
-							}
-							if roleAssignmentsItem4.Status != nil {
-								roleAssignments9.Status = types.StringValue(string(*roleAssignmentsItem4.Status))
-							} else {
-								roleAssignments9.Status = types.StringNull()
-							}
-							if roleAssignmentsItem4.UpdatedAt != nil {
-								roleAssignments9.UpdatedAt = types.StringValue(roleAssignmentsItem4.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								roleAssignments9.UpdatedAt = types.StringNull()
-							}
-							if roleAssignmentsItem4.User == nil {
-								roleAssignments9.User = nil
-							} else {
-								roleAssignments9.User = &tfTypes.UserEntity{}
-								if roleAssignmentsItem4.User.CreatedAt != nil {
-									roleAssignments9.User.CreatedAt = types.StringValue(roleAssignmentsItem4.User.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments9.User.CreatedAt = types.StringNull()
-								}
-								roleAssignments9.User.Email = types.StringPointerValue(roleAssignmentsItem4.User.Email)
-								roleAssignments9.User.ID = types.StringPointerValue(roleAssignmentsItem4.User.ID)
-								roleAssignments9.User.Name = types.StringPointerValue(roleAssignmentsItem4.User.Name)
-								roleAssignments9.User.SignalsEnabledNotificationTypes = []types.String{}
-								for _, v := range roleAssignmentsItem4.User.SignalsEnabledNotificationTypes {
-									roleAssignments9.User.SignalsEnabledNotificationTypes = append(roleAssignments9.User.SignalsEnabledNotificationTypes, types.StringValue(v))
-								}
-								roleAssignments9.User.SlackLinked = types.BoolPointerValue(roleAssignmentsItem4.User.SlackLinked)
-								roleAssignments9.User.SlackUserID = types.StringPointerValue(roleAssignmentsItem4.User.SlackUserID)
-								if roleAssignmentsItem4.User.UpdatedAt != nil {
-									roleAssignments9.User.UpdatedAt = types.StringValue(roleAssignmentsItem4.User.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments9.User.UpdatedAt = types.StringNull()
-								}
-							}
-							if roleAssignmentsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments) {
-								r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments = append(r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments, roleAssignments9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount4].CreatedAt = roleAssignments9.CreatedAt
-								r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount4].ID = roleAssignments9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount4].IncidentRole = roleAssignments9.IncidentRole
-								r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount4].Status = roleAssignments9.Status
-								r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount4].UpdatedAt = roleAssignments9.UpdatedAt
-								r.Service.Owner.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount4].User = roleAssignments9.User
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Services = []tfTypes.SuccinctEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.Services) > len(resp.Service.Owner.MsTeamsChannel.Incident.Services) {
-							r.Service.Owner.MsTeamsChannel.Incident.Services = r.Service.Owner.MsTeamsChannel.Incident.Services[:len(resp.Service.Owner.MsTeamsChannel.Incident.Services)]
-						}
-						for servicesCount4, servicesItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.Services {
-							var services9 tfTypes.SuccinctEntity
-							services9.ID = types.StringPointerValue(servicesItem4.ID)
-							services9.Name = types.StringPointerValue(servicesItem4.Name)
-							if servicesCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.Services) {
-								r.Service.Owner.MsTeamsChannel.Incident.Services = append(r.Service.Owner.MsTeamsChannel.Incident.Services, services9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Services[servicesCount4].ID = services9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.Services[servicesCount4].Name = services9.Name
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Severity = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Severity)
-						r.Service.Owner.MsTeamsChannel.Incident.SeverityColor = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityColor)
-						r.Service.Owner.MsTeamsChannel.Incident.SeverityCondition = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityCondition)
-						if resp.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject == nil {
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject = nil
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject = &tfTypes.SeverityMatrixConditionEntity{}
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject.ID)
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Name = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Name)
-							if resp.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position != nil {
-								r.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Value(int64(*resp.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position))
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Null()
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.SeverityImpact = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityImpact)
-						if resp.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject == nil {
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject = nil
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject = &tfTypes.SeverityMatrixImpactEntity{}
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID)
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.ID)
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Name = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Name)
-							if resp.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position != nil {
-								r.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Value(int64(*resp.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position))
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Null()
-							}
-							r.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Type = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.SeverityImpactObject.Type)
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.StartedAt != nil {
-							r.Service.Owner.MsTeamsChannel.Incident.StartedAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.StartedAt.Format(time.RFC3339Nano))
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.StartedAt = types.StringNull()
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.StatusPages) > len(resp.Service.Owner.MsTeamsChannel.Incident.StatusPages) {
-							r.Service.Owner.MsTeamsChannel.Incident.StatusPages = r.Service.Owner.MsTeamsChannel.Incident.StatusPages[:len(resp.Service.Owner.MsTeamsChannel.Incident.StatusPages)]
-						}
-						for statusPagesCount9, statusPagesItem9 := range resp.Service.Owner.MsTeamsChannel.Incident.StatusPages {
-							var statusPages19 tfTypes.IncidentsStatusPageEntity
-							statusPages19.DisplayName = types.StringPointerValue(statusPagesItem9.DisplayName)
-							statusPages19.ExternalID = types.StringPointerValue(statusPagesItem9.ExternalID)
-							statusPages19.ID = types.StringPointerValue(statusPagesItem9.ID)
-							if statusPagesItem9.Integration == nil {
-								statusPages19.Integration = nil
-							} else {
-								statusPages19.Integration = &tfTypes.IntegrationEntity{}
-								if statusPagesItem9.Integration.CreatedAt != nil {
-									statusPages19.Integration.CreatedAt = types.StringValue(statusPagesItem9.Integration.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									statusPages19.Integration.CreatedAt = types.StringNull()
-								}
-								statusPages19.Integration.DisplayName = types.StringPointerValue(statusPagesItem9.Integration.DisplayName)
-								statusPages19.Integration.ID = types.StringPointerValue(statusPagesItem9.Integration.ID)
-								statusPages19.Integration.IntegrationName = types.StringPointerValue(statusPagesItem9.Integration.IntegrationName)
-								statusPages19.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem9.Integration.IntegrationSlug)
-							}
-							statusPages19.Name = types.StringPointerValue(statusPagesItem9.Name)
-							statusPages19.URL = types.StringPointerValue(statusPagesItem9.URL)
-							if statusPagesCount9+1 > len(r.Service.Owner.MsTeamsChannel.Incident.StatusPages) {
-								r.Service.Owner.MsTeamsChannel.Incident.StatusPages = append(r.Service.Owner.MsTeamsChannel.Incident.StatusPages, statusPages19)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount9].DisplayName = statusPages19.DisplayName
-								r.Service.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount9].ExternalID = statusPages19.ExternalID
-								r.Service.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount9].ID = statusPages19.ID
-								r.Service.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount9].Integration = statusPages19.Integration
-								r.Service.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount9].Name = statusPages19.Name
-								r.Service.Owner.MsTeamsChannel.Incident.StatusPages[statusPagesCount9].URL = statusPages19.URL
-							}
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.Summary = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Summary)
-						r.Service.Owner.MsTeamsChannel.Incident.TagList = []types.String{}
-						for _, v := range resp.Service.Owner.MsTeamsChannel.Incident.TagList {
-							r.Service.Owner.MsTeamsChannel.Incident.TagList = append(r.Service.Owner.MsTeamsChannel.Incident.TagList, types.StringValue(v))
-						}
-						r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments = []tfTypes.IncidentsTeamAssignmentEntity{}
-						if len(r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments) > len(resp.Service.Owner.MsTeamsChannel.Incident.TeamAssignments) {
-							r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments = r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments[:len(resp.Service.Owner.MsTeamsChannel.Incident.TeamAssignments)]
-						}
-						for teamAssignmentsCount4, teamAssignmentsItem4 := range resp.Service.Owner.MsTeamsChannel.Incident.TeamAssignments {
-							var teamAssignments9 tfTypes.IncidentsTeamAssignmentEntity
-							if teamAssignmentsItem4.CreatedAt != nil {
-								teamAssignments9.CreatedAt = types.StringValue(teamAssignmentsItem4.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								teamAssignments9.CreatedAt = types.StringNull()
-							}
-							teamAssignments9.ID = types.StringPointerValue(teamAssignmentsItem4.ID)
-							teamAssignments9.Status = types.StringPointerValue(teamAssignmentsItem4.Status)
-							if teamAssignmentsItem4.Team == nil {
-								teamAssignments9.Team = nil
-							} else {
-								teamAssignments9.Team = &tfTypes.TeamEntity1{}
-							}
-							if teamAssignmentsItem4.UpdatedAt != nil {
-								teamAssignments9.UpdatedAt = types.StringValue(teamAssignmentsItem4.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								teamAssignments9.UpdatedAt = types.StringNull()
-							}
-							if teamAssignmentsCount4+1 > len(r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments) {
-								r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments = append(r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments, teamAssignments9)
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount4].CreatedAt = teamAssignments9.CreatedAt
-								r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount4].ID = teamAssignments9.ID
-								r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount4].Status = teamAssignments9.Status
-								r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount4].Team = teamAssignments9.Team
-								r.Service.Owner.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount4].UpdatedAt = teamAssignments9.UpdatedAt
-							}
-						}
-						if resp.Service.Owner.MsTeamsChannel.Incident.Ticket == nil {
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket = nil
-						} else {
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket = &tfTypes.TicketingTicketEntity{}
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees = []tfTypes.AuthorEntity{}
-							if len(r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees) > len(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees) {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees = r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees[:len(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees)]
-							}
-							for assigneesCount9, assigneesItem9 := range resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees {
-								var assignees19 tfTypes.AuthorEntity
-								assignees19.Email = types.StringPointerValue(assigneesItem9.Email)
-								assignees19.ID = types.StringPointerValue(assigneesItem9.ID)
-								assignees19.Name = types.StringPointerValue(assigneesItem9.Name)
-								assignees19.Source = types.StringPointerValue(assigneesItem9.Source)
-								if assigneesCount9+1 > len(r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees) {
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees = append(r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees, assignees19)
-								} else {
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount9].Email = assignees19.Email
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount9].ID = assignees19.ID
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount9].Name = assignees19.Name
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount9].Source = assignees19.Source
-								}
-							}
-							if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt != nil {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringNull()
-							}
-							if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy == nil {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy = nil
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy = &tfTypes.AuthorEntity{}
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Email = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Email)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.ID)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Name = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Name)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Source = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.CreatedBy.Source)
-							}
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.Description = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Description)
-							if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.DueAt != nil {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.DueAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.DueAt.Format(time.RFC3339Nano))
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.DueAt = types.StringNull()
-							}
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.ID)
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone)
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.IncidentID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.IncidentID)
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.IncidentName = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.IncidentName)
-							if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Link == nil {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link = nil
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link = &tfTypes.AttachmentsLinkEntity{}
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.Deletable = types.BoolPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.Deletable)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.DisplayText = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.DisplayText)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.Editable = types.BoolPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.Editable)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.HrefURL = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.HrefURL)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.IconURL = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.IconURL)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.ID)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.Type = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Link.Type)
-							}
-							if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority == nil {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority = nil
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority = &tfTypes.TicketingPriorityEntity{}
-								if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt != nil {
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringNull()
-								}
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.ID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.ID)
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.Name = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.Name)
-								if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position != nil {
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Value(int64(*resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position))
-								} else {
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Null()
-								}
-								if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt != nil {
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									r.Service.Owner.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringNull()
-								}
-							}
-							if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.State != nil {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.State = types.StringValue(string(*resp.Service.Owner.MsTeamsChannel.Incident.Ticket.State))
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.State = types.StringNull()
-							}
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.Summary = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Summary)
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.TagList = []types.String{}
-							for _, v := range resp.Service.Owner.MsTeamsChannel.Incident.Ticket.TagList {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.TagList = append(r.Service.Owner.MsTeamsChannel.Incident.Ticket.TagList, types.StringValue(v))
-							}
-							r.Service.Owner.MsTeamsChannel.Incident.Ticket.TaskID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.TaskID)
-							if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Type != nil {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Type = types.StringValue(string(*resp.Service.Owner.MsTeamsChannel.Incident.Ticket.Type))
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.Type = types.StringNull()
-							}
-							if resp.Service.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt != nil {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringValue(resp.Service.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								r.Service.Owner.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringNull()
-							}
-						}
-					}
 					r.Service.Owner.MsTeamsChannel.MsTeamID = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.MsTeamID)
 					r.Service.Owner.MsTeamsChannel.Status = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.Status)
 					r.Service.Owner.MsTeamsChannel.TeamName = types.StringPointerValue(resp.Service.Owner.MsTeamsChannel.TeamName)
@@ -7038,8 +2524,8 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					ownedFunctionalities9.ID = types.StringPointerValue(ownedFunctionalitiesItem4.ID)
 					if len(ownedFunctionalitiesItem4.Labels) > 0 {
 						ownedFunctionalities9.Labels = make(map[string]types.String)
-						for key18, value32 := range ownedFunctionalitiesItem4.Labels {
-							ownedFunctionalities9.Labels[key18] = types.StringValue(value32)
+						for key13, value17 := range ownedFunctionalitiesItem4.Labels {
+							ownedFunctionalities9.Labels[key13] = types.StringValue(value17)
 						}
 					}
 					ownedFunctionalities9.Links = []tfTypes.LinksEntity{}
@@ -7207,22 +2693,22 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 				}
 				teams3.Description = types.StringPointerValue(teamsItem1.Description)
 				teams3.Functionalities = []tfTypes.FunctionalityEntity{}
-				for functionalitiesCount12, functionalitiesItem12 := range teamsItem1.Functionalities {
-					var functionalities25 tfTypes.FunctionalityEntity
-					functionalities25.ActiveIncidents = []types.String{}
-					for _, v := range functionalitiesItem12.ActiveIncidents {
-						functionalities25.ActiveIncidents = append(functionalities25.ActiveIncidents, types.StringValue(v))
+				for functionalitiesCount7, functionalitiesItem7 := range teamsItem1.Functionalities {
+					var functionalities15 tfTypes.FunctionalityEntity
+					functionalities15.ActiveIncidents = []types.String{}
+					for _, v := range functionalitiesItem7.ActiveIncidents {
+						functionalities15.ActiveIncidents = append(functionalities15.ActiveIncidents, types.StringValue(v))
 					}
-					functionalities25.AlertOnAdd = types.BoolPointerValue(functionalitiesItem12.AlertOnAdd)
-					functionalities25.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem12.AutoAddRespondingTeam)
-					if functionalitiesItem12.CreatedAt != nil {
-						functionalities25.CreatedAt = types.StringValue(functionalitiesItem12.CreatedAt.Format(time.RFC3339Nano))
+					functionalities15.AlertOnAdd = types.BoolPointerValue(functionalitiesItem7.AlertOnAdd)
+					functionalities15.AutoAddRespondingTeam = types.BoolPointerValue(functionalitiesItem7.AutoAddRespondingTeam)
+					if functionalitiesItem7.CreatedAt != nil {
+						functionalities15.CreatedAt = types.StringValue(functionalitiesItem7.CreatedAt.Format(time.RFC3339Nano))
 					} else {
-						functionalities25.CreatedAt = types.StringNull()
+						functionalities15.CreatedAt = types.StringNull()
 					}
-					functionalities25.Description = types.StringPointerValue(functionalitiesItem12.Description)
-					functionalities25.ExternalResources = []tfTypes.ExternalResourceEntity{}
-					for externalResourcesCount14, externalResourcesItem14 := range functionalitiesItem12.ExternalResources {
+					functionalities15.Description = types.StringPointerValue(functionalitiesItem7.Description)
+					functionalities15.ExternalResources = []tfTypes.ExternalResourceEntity{}
+					for externalResourcesCount14, externalResourcesItem14 := range functionalitiesItem7.ExternalResources {
 						var externalResources29 tfTypes.ExternalResourceEntity
 						externalResources29.ConnectionID = types.StringPointerValue(externalResourcesItem14.ConnectionID)
 						externalResources29.ConnectionName = types.StringPointerValue(externalResourcesItem14.ConnectionName)
@@ -7240,80 +2726,80 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 						} else {
 							externalResources29.UpdatedAt = types.StringNull()
 						}
-						if externalResourcesCount14+1 > len(functionalities25.ExternalResources) {
-							functionalities25.ExternalResources = append(functionalities25.ExternalResources, externalResources29)
+						if externalResourcesCount14+1 > len(functionalities15.ExternalResources) {
+							functionalities15.ExternalResources = append(functionalities15.ExternalResources, externalResources29)
 						} else {
-							functionalities25.ExternalResources[externalResourcesCount14].ConnectionID = externalResources29.ConnectionID
-							functionalities25.ExternalResources[externalResourcesCount14].ConnectionName = externalResources29.ConnectionName
-							functionalities25.ExternalResources[externalResourcesCount14].ConnectionType = externalResources29.ConnectionType
-							functionalities25.ExternalResources[externalResourcesCount14].CreatedAt = externalResources29.CreatedAt
-							functionalities25.ExternalResources[externalResourcesCount14].Name = externalResources29.Name
-							functionalities25.ExternalResources[externalResourcesCount14].RemoteID = externalResources29.RemoteID
-							functionalities25.ExternalResources[externalResourcesCount14].RemoteURL = externalResources29.RemoteURL
-							functionalities25.ExternalResources[externalResourcesCount14].UpdatedAt = externalResources29.UpdatedAt
+							functionalities15.ExternalResources[externalResourcesCount14].ConnectionID = externalResources29.ConnectionID
+							functionalities15.ExternalResources[externalResourcesCount14].ConnectionName = externalResources29.ConnectionName
+							functionalities15.ExternalResources[externalResourcesCount14].ConnectionType = externalResources29.ConnectionType
+							functionalities15.ExternalResources[externalResourcesCount14].CreatedAt = externalResources29.CreatedAt
+							functionalities15.ExternalResources[externalResourcesCount14].Name = externalResources29.Name
+							functionalities15.ExternalResources[externalResourcesCount14].RemoteID = externalResources29.RemoteID
+							functionalities15.ExternalResources[externalResourcesCount14].RemoteURL = externalResources29.RemoteURL
+							functionalities15.ExternalResources[externalResourcesCount14].UpdatedAt = externalResources29.UpdatedAt
 						}
 					}
-					functionalities25.ID = types.StringPointerValue(functionalitiesItem12.ID)
-					if len(functionalitiesItem12.Labels) > 0 {
-						functionalities25.Labels = make(map[string]types.String)
-						for key19, value34 := range functionalitiesItem12.Labels {
-							functionalities25.Labels[key19] = types.StringValue(value34)
+					functionalities15.ID = types.StringPointerValue(functionalitiesItem7.ID)
+					if len(functionalitiesItem7.Labels) > 0 {
+						functionalities15.Labels = make(map[string]types.String)
+						for key14, value19 := range functionalitiesItem7.Labels {
+							functionalities15.Labels[key14] = types.StringValue(value19)
 						}
 					}
-					functionalities25.Links = []tfTypes.LinksEntity{}
-					for linksCount14, linksItem14 := range functionalitiesItem12.Links {
+					functionalities15.Links = []tfTypes.LinksEntity{}
+					for linksCount14, linksItem14 := range functionalitiesItem7.Links {
 						var links29 tfTypes.LinksEntity
 						links29.HrefURL = types.StringPointerValue(linksItem14.HrefURL)
 						links29.IconURL = types.StringPointerValue(linksItem14.IconURL)
 						links29.ID = types.StringPointerValue(linksItem14.ID)
 						links29.Name = types.StringPointerValue(linksItem14.Name)
-						if linksCount14+1 > len(functionalities25.Links) {
-							functionalities25.Links = append(functionalities25.Links, links29)
+						if linksCount14+1 > len(functionalities15.Links) {
+							functionalities15.Links = append(functionalities15.Links, links29)
 						} else {
-							functionalities25.Links[linksCount14].HrefURL = links29.HrefURL
-							functionalities25.Links[linksCount14].IconURL = links29.IconURL
-							functionalities25.Links[linksCount14].ID = links29.ID
-							functionalities25.Links[linksCount14].Name = links29.Name
+							functionalities15.Links[linksCount14].HrefURL = links29.HrefURL
+							functionalities15.Links[linksCount14].IconURL = links29.IconURL
+							functionalities15.Links[linksCount14].ID = links29.ID
+							functionalities15.Links[linksCount14].Name = links29.Name
 						}
 					}
-					functionalities25.Name = types.StringPointerValue(functionalitiesItem12.Name)
-					if functionalitiesItem12.Owner == nil {
-						functionalities25.Owner = nil
+					functionalities15.Name = types.StringPointerValue(functionalitiesItem7.Name)
+					if functionalitiesItem7.Owner == nil {
+						functionalities15.Owner = nil
 					} else {
-						functionalities25.Owner = &tfTypes.TeamEntity1{}
+						functionalities15.Owner = &tfTypes.TeamEntity1{}
 					}
-					functionalities25.Slug = types.StringPointerValue(functionalitiesItem12.Slug)
-					if functionalitiesItem12.UpdatedAt != nil {
-						functionalities25.UpdatedAt = types.StringValue(functionalitiesItem12.UpdatedAt.Format(time.RFC3339Nano))
+					functionalities15.Slug = types.StringPointerValue(functionalitiesItem7.Slug)
+					if functionalitiesItem7.UpdatedAt != nil {
+						functionalities15.UpdatedAt = types.StringValue(functionalitiesItem7.UpdatedAt.Format(time.RFC3339Nano))
 					} else {
-						functionalities25.UpdatedAt = types.StringNull()
+						functionalities15.UpdatedAt = types.StringNull()
 					}
-					if functionalitiesItem12.UpdatedBy == nil {
-						functionalities25.UpdatedBy = nil
+					if functionalitiesItem7.UpdatedBy == nil {
+						functionalities15.UpdatedBy = nil
 					} else {
-						functionalities25.UpdatedBy = &tfTypes.AuthorEntity{}
-						functionalities25.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem12.UpdatedBy.Email)
-						functionalities25.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem12.UpdatedBy.ID)
-						functionalities25.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem12.UpdatedBy.Name)
-						functionalities25.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem12.UpdatedBy.Source)
+						functionalities15.UpdatedBy = &tfTypes.AuthorEntity{}
+						functionalities15.UpdatedBy.Email = types.StringPointerValue(functionalitiesItem7.UpdatedBy.Email)
+						functionalities15.UpdatedBy.ID = types.StringPointerValue(functionalitiesItem7.UpdatedBy.ID)
+						functionalities15.UpdatedBy.Name = types.StringPointerValue(functionalitiesItem7.UpdatedBy.Name)
+						functionalities15.UpdatedBy.Source = types.StringPointerValue(functionalitiesItem7.UpdatedBy.Source)
 					}
-					if functionalitiesCount12+1 > len(teams3.Functionalities) {
-						teams3.Functionalities = append(teams3.Functionalities, functionalities25)
+					if functionalitiesCount7+1 > len(teams3.Functionalities) {
+						teams3.Functionalities = append(teams3.Functionalities, functionalities15)
 					} else {
-						teams3.Functionalities[functionalitiesCount12].ActiveIncidents = functionalities25.ActiveIncidents
-						teams3.Functionalities[functionalitiesCount12].AlertOnAdd = functionalities25.AlertOnAdd
-						teams3.Functionalities[functionalitiesCount12].AutoAddRespondingTeam = functionalities25.AutoAddRespondingTeam
-						teams3.Functionalities[functionalitiesCount12].CreatedAt = functionalities25.CreatedAt
-						teams3.Functionalities[functionalitiesCount12].Description = functionalities25.Description
-						teams3.Functionalities[functionalitiesCount12].ExternalResources = functionalities25.ExternalResources
-						teams3.Functionalities[functionalitiesCount12].ID = functionalities25.ID
-						teams3.Functionalities[functionalitiesCount12].Labels = functionalities25.Labels
-						teams3.Functionalities[functionalitiesCount12].Links = functionalities25.Links
-						teams3.Functionalities[functionalitiesCount12].Name = functionalities25.Name
-						teams3.Functionalities[functionalitiesCount12].Owner = functionalities25.Owner
-						teams3.Functionalities[functionalitiesCount12].Slug = functionalities25.Slug
-						teams3.Functionalities[functionalitiesCount12].UpdatedAt = functionalities25.UpdatedAt
-						teams3.Functionalities[functionalitiesCount12].UpdatedBy = functionalities25.UpdatedBy
+						teams3.Functionalities[functionalitiesCount7].ActiveIncidents = functionalities15.ActiveIncidents
+						teams3.Functionalities[functionalitiesCount7].AlertOnAdd = functionalities15.AlertOnAdd
+						teams3.Functionalities[functionalitiesCount7].AutoAddRespondingTeam = functionalities15.AutoAddRespondingTeam
+						teams3.Functionalities[functionalitiesCount7].CreatedAt = functionalities15.CreatedAt
+						teams3.Functionalities[functionalitiesCount7].Description = functionalities15.Description
+						teams3.Functionalities[functionalitiesCount7].ExternalResources = functionalities15.ExternalResources
+						teams3.Functionalities[functionalitiesCount7].ID = functionalities15.ID
+						teams3.Functionalities[functionalitiesCount7].Labels = functionalities15.Labels
+						teams3.Functionalities[functionalitiesCount7].Links = functionalities15.Links
+						teams3.Functionalities[functionalitiesCount7].Name = functionalities15.Name
+						teams3.Functionalities[functionalitiesCount7].Owner = functionalities15.Owner
+						teams3.Functionalities[functionalitiesCount7].Slug = functionalities15.Slug
+						teams3.Functionalities[functionalitiesCount7].UpdatedAt = functionalities15.UpdatedAt
+						teams3.Functionalities[functionalitiesCount7].UpdatedBy = functionalities15.UpdatedBy
 					}
 				}
 				teams3.ID = types.StringPointerValue(teamsItem1.ID)
@@ -7393,886 +2879,6 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					teams3.MsTeamsChannel.ChannelName = types.StringPointerValue(teamsItem1.MsTeamsChannel.ChannelName)
 					teams3.MsTeamsChannel.ChannelURL = types.StringPointerValue(teamsItem1.MsTeamsChannel.ChannelURL)
 					teams3.MsTeamsChannel.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.ID)
-					if teamsItem1.MsTeamsChannel.Incident == nil {
-						teams3.MsTeamsChannel.Incident = nil
-					} else {
-						teams3.MsTeamsChannel.Incident = &tfTypes.IncidentEntity{}
-						teams3.MsTeamsChannel.Incident.Active = types.BoolPointerValue(teamsItem1.MsTeamsChannel.Incident.Active)
-						teams3.MsTeamsChannel.Incident.AiIncidentSummary = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.AiIncidentSummary)
-						teams3.MsTeamsChannel.Incident.ChannelID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ChannelID)
-						teams3.MsTeamsChannel.Incident.ChannelName = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ChannelName)
-						teams3.MsTeamsChannel.Incident.ChannelReference = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ChannelReference)
-						teams3.MsTeamsChannel.Incident.ChannelStatus = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ChannelStatus)
-						teams3.MsTeamsChannel.Incident.ConferenceBridges = []tfTypes.IncidentsConferenceBridgeEntity{}
-						for conferenceBridgesCount5, conferenceBridgesItem5 := range teamsItem1.MsTeamsChannel.Incident.ConferenceBridges {
-							var conferenceBridges11 tfTypes.IncidentsConferenceBridgeEntity
-							conferenceBridges11.ID = types.StringPointerValue(conferenceBridgesItem5.ID)
-							if conferenceBridgesCount5+1 > len(teams3.MsTeamsChannel.Incident.ConferenceBridges) {
-								teams3.MsTeamsChannel.Incident.ConferenceBridges = append(teams3.MsTeamsChannel.Incident.ConferenceBridges, conferenceBridges11)
-							} else {
-								teams3.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount5].ID = conferenceBridges11.ID
-							}
-						}
-						if teamsItem1.MsTeamsChannel.Incident.ContextObject == nil {
-							teams3.MsTeamsChannel.Incident.ContextObject = nil
-						} else {
-							teams3.MsTeamsChannel.Incident.ContextObject = &tfTypes.IncidentsContextObjectEntity{}
-							teams3.MsTeamsChannel.Incident.ContextObject.ContextDescription = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ContextObject.ContextDescription)
-							teams3.MsTeamsChannel.Incident.ContextObject.ContextTag = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ContextObject.ContextTag)
-							teams3.MsTeamsChannel.Incident.ContextObject.ObjectID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ContextObject.ObjectID)
-							teams3.MsTeamsChannel.Incident.ContextObject.ObjectType = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ContextObject.ObjectType)
-						}
-						teams3.MsTeamsChannel.Incident.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-						for conversationsCount15, conversationsItem15 := range teamsItem1.MsTeamsChannel.Incident.Conversations {
-							var conversations31 tfTypes.ConversationsAPIEntitiesReference
-							if conversationsItem15.Channel == nil {
-								conversations31.Channel = nil
-							} else {
-								conversations31.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-								conversations31.Channel.Name = types.StringPointerValue(conversationsItem15.Channel.Name)
-							}
-							conversations31.CommentsURL = types.StringPointerValue(conversationsItem15.CommentsURL)
-							conversations31.Field = types.StringPointerValue(conversationsItem15.Field)
-							conversations31.ID = types.StringPointerValue(conversationsItem15.ID)
-							conversations31.ResourceClass = types.StringPointerValue(conversationsItem15.ResourceClass)
-							conversations31.ResourceID = types.StringPointerValue(conversationsItem15.ResourceID)
-							if conversationsCount15+1 > len(teams3.MsTeamsChannel.Incident.Conversations) {
-								teams3.MsTeamsChannel.Incident.Conversations = append(teams3.MsTeamsChannel.Incident.Conversations, conversations31)
-							} else {
-								teams3.MsTeamsChannel.Incident.Conversations[conversationsCount15].Channel = conversations31.Channel
-								teams3.MsTeamsChannel.Incident.Conversations[conversationsCount15].CommentsURL = conversations31.CommentsURL
-								teams3.MsTeamsChannel.Incident.Conversations[conversationsCount15].Field = conversations31.Field
-								teams3.MsTeamsChannel.Incident.Conversations[conversationsCount15].ID = conversations31.ID
-								teams3.MsTeamsChannel.Incident.Conversations[conversationsCount15].ResourceClass = conversations31.ResourceClass
-								teams3.MsTeamsChannel.Incident.Conversations[conversationsCount15].ResourceID = conversations31.ResourceID
-							}
-						}
-						if teamsItem1.MsTeamsChannel.Incident.CreatedAt != nil {
-							teams3.MsTeamsChannel.Incident.CreatedAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.CreatedAt.Format(time.RFC3339Nano))
-						} else {
-							teams3.MsTeamsChannel.Incident.CreatedAt = types.StringNull()
-						}
-						if teamsItem1.MsTeamsChannel.Incident.CreatedBy == nil {
-							teams3.MsTeamsChannel.Incident.CreatedBy = nil
-						} else {
-							teams3.MsTeamsChannel.Incident.CreatedBy = &tfTypes.AuthorEntity{}
-							teams3.MsTeamsChannel.Incident.CreatedBy.Email = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.CreatedBy.Email)
-							teams3.MsTeamsChannel.Incident.CreatedBy.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.CreatedBy.ID)
-							teams3.MsTeamsChannel.Incident.CreatedBy.Name = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.CreatedBy.Name)
-							teams3.MsTeamsChannel.Incident.CreatedBy.Source = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.CreatedBy.Source)
-						}
-						teams3.MsTeamsChannel.Incident.CurrentMilestone = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.CurrentMilestone)
-						teams3.MsTeamsChannel.Incident.CustomFields = []tfTypes.CustomFieldsFieldValue{}
-						for customFieldsCount5, customFieldsItem5 := range teamsItem1.MsTeamsChannel.Incident.CustomFields {
-							var customFields11 tfTypes.CustomFieldsFieldValue
-							customFields11.Description = types.StringPointerValue(customFieldsItem5.Description)
-							customFields11.DisplayName = types.StringPointerValue(customFieldsItem5.DisplayName)
-							customFields11.FieldID = types.StringPointerValue(customFieldsItem5.FieldID)
-							customFields11.Name = types.StringPointerValue(customFieldsItem5.Name)
-							customFields11.Slug = types.StringPointerValue(customFieldsItem5.Slug)
-							customFields11.Value = types.StringPointerValue(customFieldsItem5.Value)
-							customFields11.ValueArray = types.StringPointerValue(customFieldsItem5.ValueArray)
-							customFields11.ValueString = types.StringPointerValue(customFieldsItem5.ValueString)
-							customFields11.ValueType = types.StringPointerValue(customFieldsItem5.ValueType)
-							if customFieldsCount5+1 > len(teams3.MsTeamsChannel.Incident.CustomFields) {
-								teams3.MsTeamsChannel.Incident.CustomFields = append(teams3.MsTeamsChannel.Incident.CustomFields, customFields11)
-							} else {
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].Description = customFields11.Description
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].DisplayName = customFields11.DisplayName
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].FieldID = customFields11.FieldID
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].Name = customFields11.Name
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].Slug = customFields11.Slug
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].Value = customFields11.Value
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].ValueArray = customFields11.ValueArray
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].ValueString = customFields11.ValueString
-								teams3.MsTeamsChannel.Incident.CustomFields[customFieldsCount5].ValueType = customFields11.ValueType
-							}
-						}
-						teams3.MsTeamsChannel.Incident.CustomerImpactSummary = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.CustomerImpactSummary)
-						if teamsItem1.MsTeamsChannel.Incident.CustomersImpacted != nil {
-							teams3.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Value(int64(*teamsItem1.MsTeamsChannel.Incident.CustomersImpacted))
-						} else {
-							teams3.MsTeamsChannel.Incident.CustomersImpacted = types.Int64Null()
-						}
-						teams3.MsTeamsChannel.Incident.Description = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Description)
-						if teamsItem1.MsTeamsChannel.Incident.DiscardedAt != nil {
-							teams3.MsTeamsChannel.Incident.DiscardedAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.DiscardedAt.Format(time.RFC3339Nano))
-						} else {
-							teams3.MsTeamsChannel.Incident.DiscardedAt = types.StringNull()
-						}
-						teams3.MsTeamsChannel.Incident.Environments = []tfTypes.SuccinctEntity{}
-						for environmentsCount5, environmentsItem5 := range teamsItem1.MsTeamsChannel.Incident.Environments {
-							var environments11 tfTypes.SuccinctEntity
-							environments11.ID = types.StringPointerValue(environmentsItem5.ID)
-							environments11.Name = types.StringPointerValue(environmentsItem5.Name)
-							if environmentsCount5+1 > len(teams3.MsTeamsChannel.Incident.Environments) {
-								teams3.MsTeamsChannel.Incident.Environments = append(teams3.MsTeamsChannel.Incident.Environments, environments11)
-							} else {
-								teams3.MsTeamsChannel.Incident.Environments[environmentsCount5].ID = environments11.ID
-								teams3.MsTeamsChannel.Incident.Environments[environmentsCount5].Name = environments11.Name
-							}
-						}
-						teams3.MsTeamsChannel.Incident.FieldRequirements = []tfTypes.IncidentEntityFieldRequirementEntity{}
-						for fieldRequirementsCount5, fieldRequirementsItem5 := range teamsItem1.MsTeamsChannel.Incident.FieldRequirements {
-							var fieldRequirements11 tfTypes.IncidentEntityFieldRequirementEntity
-							fieldRequirements11.FieldID = types.StringPointerValue(fieldRequirementsItem5.FieldID)
-							fieldRequirements11.RequiredAtMilestoneID = types.StringPointerValue(fieldRequirementsItem5.RequiredAtMilestoneID)
-							if fieldRequirementsCount5+1 > len(teams3.MsTeamsChannel.Incident.FieldRequirements) {
-								teams3.MsTeamsChannel.Incident.FieldRequirements = append(teams3.MsTeamsChannel.Incident.FieldRequirements, fieldRequirements11)
-							} else {
-								teams3.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount5].FieldID = fieldRequirements11.FieldID
-								teams3.MsTeamsChannel.Incident.FieldRequirements[fieldRequirementsCount5].RequiredAtMilestoneID = fieldRequirements11.RequiredAtMilestoneID
-							}
-						}
-						teams3.MsTeamsChannel.Incident.Functionalities = []tfTypes.SuccinctEntity{}
-						for functionalitiesCount13, functionalitiesItem13 := range teamsItem1.MsTeamsChannel.Incident.Functionalities {
-							var functionalities27 tfTypes.SuccinctEntity
-							functionalities27.ID = types.StringPointerValue(functionalitiesItem13.ID)
-							functionalities27.Name = types.StringPointerValue(functionalitiesItem13.Name)
-							if functionalitiesCount13+1 > len(teams3.MsTeamsChannel.Incident.Functionalities) {
-								teams3.MsTeamsChannel.Incident.Functionalities = append(teams3.MsTeamsChannel.Incident.Functionalities, functionalities27)
-							} else {
-								teams3.MsTeamsChannel.Incident.Functionalities[functionalitiesCount13].ID = functionalities27.ID
-								teams3.MsTeamsChannel.Incident.Functionalities[functionalitiesCount13].Name = functionalities27.Name
-							}
-						}
-						teams3.MsTeamsChannel.Incident.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ID)
-						teams3.MsTeamsChannel.Incident.Impacts = []tfTypes.IncidentsImpactEntity{}
-						for impactsCount5, impactsItem5 := range teamsItem1.MsTeamsChannel.Incident.Impacts {
-							var impacts11 tfTypes.IncidentsImpactEntity
-							if impactsItem5.Condition == nil {
-								impacts11.Condition = nil
-							} else {
-								impacts11.Condition = &tfTypes.SeverityMatrixConditionEntity{}
-								impacts11.Condition.ID = types.StringPointerValue(impactsItem5.Condition.ID)
-								impacts11.Condition.Name = types.StringPointerValue(impactsItem5.Condition.Name)
-								if impactsItem5.Condition.Position != nil {
-									impacts11.Condition.Position = types.Int64Value(int64(*impactsItem5.Condition.Position))
-								} else {
-									impacts11.Condition.Position = types.Int64Null()
-								}
-							}
-							impacts11.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							for conversationsCount16, conversationsItem16 := range impactsItem5.Conversations {
-								var conversations33 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem16.Channel == nil {
-									conversations33.Channel = nil
-								} else {
-									conversations33.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations33.Channel.Name = types.StringPointerValue(conversationsItem16.Channel.Name)
-								}
-								conversations33.CommentsURL = types.StringPointerValue(conversationsItem16.CommentsURL)
-								conversations33.Field = types.StringPointerValue(conversationsItem16.Field)
-								conversations33.ID = types.StringPointerValue(conversationsItem16.ID)
-								conversations33.ResourceClass = types.StringPointerValue(conversationsItem16.ResourceClass)
-								conversations33.ResourceID = types.StringPointerValue(conversationsItem16.ResourceID)
-								if conversationsCount16+1 > len(impacts11.Conversations) {
-									impacts11.Conversations = append(impacts11.Conversations, conversations33)
-								} else {
-									impacts11.Conversations[conversationsCount16].Channel = conversations33.Channel
-									impacts11.Conversations[conversationsCount16].CommentsURL = conversations33.CommentsURL
-									impacts11.Conversations[conversationsCount16].Field = conversations33.Field
-									impacts11.Conversations[conversationsCount16].ID = conversations33.ID
-									impacts11.Conversations[conversationsCount16].ResourceClass = conversations33.ResourceClass
-									impacts11.Conversations[conversationsCount16].ResourceID = conversations33.ResourceID
-								}
-							}
-							impacts11.ID = types.StringPointerValue(impactsItem5.ID)
-							if impactsItem5.Impact == nil {
-								impacts11.Impact = nil
-							} else {
-								impacts11.Impact = &tfTypes.SuccinctEntity{}
-								impacts11.Impact.ID = types.StringPointerValue(impactsItem5.Impact.ID)
-								impacts11.Impact.Name = types.StringPointerValue(impactsItem5.Impact.Name)
-							}
-							if impactsItem5.Type != nil {
-								impacts11.Type = types.StringValue(string(*impactsItem5.Type))
-							} else {
-								impacts11.Type = types.StringNull()
-							}
-							if impactsCount5+1 > len(teams3.MsTeamsChannel.Incident.Impacts) {
-								teams3.MsTeamsChannel.Incident.Impacts = append(teams3.MsTeamsChannel.Incident.Impacts, impacts11)
-							} else {
-								teams3.MsTeamsChannel.Incident.Impacts[impactsCount5].Condition = impacts11.Condition
-								teams3.MsTeamsChannel.Incident.Impacts[impactsCount5].Conversations = impacts11.Conversations
-								teams3.MsTeamsChannel.Incident.Impacts[impactsCount5].ID = impacts11.ID
-								teams3.MsTeamsChannel.Incident.Impacts[impactsCount5].Impact = impacts11.Impact
-								teams3.MsTeamsChannel.Incident.Impacts[impactsCount5].Type = impacts11.Type
-							}
-						}
-						teams3.MsTeamsChannel.Incident.IncidentChannels = []tfTypes.IncidentsChannelEntity{}
-						for incidentChannelsCount5, incidentChannelsItem5 := range teamsItem1.MsTeamsChannel.Incident.IncidentChannels {
-							var incidentChannels11 tfTypes.IncidentsChannelEntity
-							incidentChannels11.IconURL = types.StringPointerValue(incidentChannelsItem5.IconURL)
-							incidentChannels11.ID = types.StringPointerValue(incidentChannelsItem5.ID)
-							incidentChannels11.Name = types.StringPointerValue(incidentChannelsItem5.Name)
-							incidentChannels11.Source = types.StringPointerValue(incidentChannelsItem5.Source)
-							incidentChannels11.SourceID = types.StringPointerValue(incidentChannelsItem5.SourceID)
-							incidentChannels11.SourceName = types.StringPointerValue(incidentChannelsItem5.SourceName)
-							incidentChannels11.Status = types.StringPointerValue(incidentChannelsItem5.Status)
-							incidentChannels11.URL = types.StringPointerValue(incidentChannelsItem5.URL)
-							if incidentChannelsCount5+1 > len(teams3.MsTeamsChannel.Incident.IncidentChannels) {
-								teams3.MsTeamsChannel.Incident.IncidentChannels = append(teams3.MsTeamsChannel.Incident.IncidentChannels, incidentChannels11)
-							} else {
-								teams3.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount5].IconURL = incidentChannels11.IconURL
-								teams3.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount5].ID = incidentChannels11.ID
-								teams3.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount5].Name = incidentChannels11.Name
-								teams3.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount5].Source = incidentChannels11.Source
-								teams3.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount5].SourceID = incidentChannels11.SourceID
-								teams3.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount5].SourceName = incidentChannels11.SourceName
-								teams3.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount5].Status = incidentChannels11.Status
-								teams3.MsTeamsChannel.Incident.IncidentChannels[incidentChannelsCount5].URL = incidentChannels11.URL
-							}
-						}
-						teams3.MsTeamsChannel.Incident.IncidentTickets = []tfTypes.TicketingTicketEntity{}
-						for incidentTicketsCount5, incidentTicketsItem5 := range teamsItem1.MsTeamsChannel.Incident.IncidentTickets {
-							var incidentTickets11 tfTypes.TicketingTicketEntity
-							incidentTickets11.Assignees = []tfTypes.AuthorEntity{}
-							for assigneesCount10, assigneesItem10 := range incidentTicketsItem5.Assignees {
-								var assignees21 tfTypes.AuthorEntity
-								assignees21.Email = types.StringPointerValue(assigneesItem10.Email)
-								assignees21.ID = types.StringPointerValue(assigneesItem10.ID)
-								assignees21.Name = types.StringPointerValue(assigneesItem10.Name)
-								assignees21.Source = types.StringPointerValue(assigneesItem10.Source)
-								if assigneesCount10+1 > len(incidentTickets11.Assignees) {
-									incidentTickets11.Assignees = append(incidentTickets11.Assignees, assignees21)
-								} else {
-									incidentTickets11.Assignees[assigneesCount10].Email = assignees21.Email
-									incidentTickets11.Assignees[assigneesCount10].ID = assignees21.ID
-									incidentTickets11.Assignees[assigneesCount10].Name = assignees21.Name
-									incidentTickets11.Assignees[assigneesCount10].Source = assignees21.Source
-								}
-							}
-							if incidentTicketsItem5.CreatedAt != nil {
-								incidentTickets11.CreatedAt = types.StringValue(incidentTicketsItem5.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets11.CreatedAt = types.StringNull()
-							}
-							if incidentTicketsItem5.CreatedBy == nil {
-								incidentTickets11.CreatedBy = nil
-							} else {
-								incidentTickets11.CreatedBy = &tfTypes.AuthorEntity{}
-								incidentTickets11.CreatedBy.Email = types.StringPointerValue(incidentTicketsItem5.CreatedBy.Email)
-								incidentTickets11.CreatedBy.ID = types.StringPointerValue(incidentTicketsItem5.CreatedBy.ID)
-								incidentTickets11.CreatedBy.Name = types.StringPointerValue(incidentTicketsItem5.CreatedBy.Name)
-								incidentTickets11.CreatedBy.Source = types.StringPointerValue(incidentTicketsItem5.CreatedBy.Source)
-							}
-							incidentTickets11.Description = types.StringPointerValue(incidentTicketsItem5.Description)
-							if incidentTicketsItem5.DueAt != nil {
-								incidentTickets11.DueAt = types.StringValue(incidentTicketsItem5.DueAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets11.DueAt = types.StringNull()
-							}
-							incidentTickets11.ID = types.StringPointerValue(incidentTicketsItem5.ID)
-							incidentTickets11.IncidentCurrentMilestone = types.StringPointerValue(incidentTicketsItem5.IncidentCurrentMilestone)
-							incidentTickets11.IncidentID = types.StringPointerValue(incidentTicketsItem5.IncidentID)
-							incidentTickets11.IncidentName = types.StringPointerValue(incidentTicketsItem5.IncidentName)
-							if incidentTicketsItem5.Link == nil {
-								incidentTickets11.Link = nil
-							} else {
-								incidentTickets11.Link = &tfTypes.AttachmentsLinkEntity{}
-								incidentTickets11.Link.Deletable = types.BoolPointerValue(incidentTicketsItem5.Link.Deletable)
-								incidentTickets11.Link.DisplayText = types.StringPointerValue(incidentTicketsItem5.Link.DisplayText)
-								incidentTickets11.Link.Editable = types.BoolPointerValue(incidentTicketsItem5.Link.Editable)
-								incidentTickets11.Link.HrefURL = types.StringPointerValue(incidentTicketsItem5.Link.HrefURL)
-								incidentTickets11.Link.IconURL = types.StringPointerValue(incidentTicketsItem5.Link.IconURL)
-								incidentTickets11.Link.ID = types.StringPointerValue(incidentTicketsItem5.Link.ID)
-								incidentTickets11.Link.Type = types.StringPointerValue(incidentTicketsItem5.Link.Type)
-							}
-							if incidentTicketsItem5.Priority == nil {
-								incidentTickets11.Priority = nil
-							} else {
-								incidentTickets11.Priority = &tfTypes.TicketingPriorityEntity{}
-								if incidentTicketsItem5.Priority.CreatedAt != nil {
-									incidentTickets11.Priority.CreatedAt = types.StringValue(incidentTicketsItem5.Priority.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets11.Priority.CreatedAt = types.StringNull()
-								}
-								incidentTickets11.Priority.ID = types.StringPointerValue(incidentTicketsItem5.Priority.ID)
-								incidentTickets11.Priority.Name = types.StringPointerValue(incidentTicketsItem5.Priority.Name)
-								if incidentTicketsItem5.Priority.Position != nil {
-									incidentTickets11.Priority.Position = types.Int64Value(int64(*incidentTicketsItem5.Priority.Position))
-								} else {
-									incidentTickets11.Priority.Position = types.Int64Null()
-								}
-								if incidentTicketsItem5.Priority.UpdatedAt != nil {
-									incidentTickets11.Priority.UpdatedAt = types.StringValue(incidentTicketsItem5.Priority.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									incidentTickets11.Priority.UpdatedAt = types.StringNull()
-								}
-							}
-							if incidentTicketsItem5.State != nil {
-								incidentTickets11.State = types.StringValue(string(*incidentTicketsItem5.State))
-							} else {
-								incidentTickets11.State = types.StringNull()
-							}
-							incidentTickets11.Summary = types.StringPointerValue(incidentTicketsItem5.Summary)
-							incidentTickets11.TagList = []types.String{}
-							for _, v := range incidentTicketsItem5.TagList {
-								incidentTickets11.TagList = append(incidentTickets11.TagList, types.StringValue(v))
-							}
-							incidentTickets11.TaskID = types.StringPointerValue(incidentTicketsItem5.TaskID)
-							if incidentTicketsItem5.Type != nil {
-								incidentTickets11.Type = types.StringValue(string(*incidentTicketsItem5.Type))
-							} else {
-								incidentTickets11.Type = types.StringNull()
-							}
-							if incidentTicketsItem5.UpdatedAt != nil {
-								incidentTickets11.UpdatedAt = types.StringValue(incidentTicketsItem5.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								incidentTickets11.UpdatedAt = types.StringNull()
-							}
-							if incidentTicketsCount5+1 > len(teams3.MsTeamsChannel.Incident.IncidentTickets) {
-								teams3.MsTeamsChannel.Incident.IncidentTickets = append(teams3.MsTeamsChannel.Incident.IncidentTickets, incidentTickets11)
-							} else {
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].Assignees = incidentTickets11.Assignees
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].CreatedAt = incidentTickets11.CreatedAt
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].CreatedBy = incidentTickets11.CreatedBy
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].Description = incidentTickets11.Description
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].DueAt = incidentTickets11.DueAt
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].ID = incidentTickets11.ID
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].IncidentCurrentMilestone = incidentTickets11.IncidentCurrentMilestone
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].IncidentID = incidentTickets11.IncidentID
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].IncidentName = incidentTickets11.IncidentName
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].Link = incidentTickets11.Link
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].Priority = incidentTickets11.Priority
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].State = incidentTickets11.State
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].Summary = incidentTickets11.Summary
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].TagList = incidentTickets11.TagList
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].TaskID = incidentTickets11.TaskID
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].Type = incidentTickets11.Type
-								teams3.MsTeamsChannel.Incident.IncidentTickets[incidentTicketsCount5].UpdatedAt = incidentTickets11.UpdatedAt
-							}
-						}
-						teams3.MsTeamsChannel.Incident.IncidentURL = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.IncidentURL)
-						if len(teamsItem1.MsTeamsChannel.Incident.Labels) > 0 {
-							teams3.MsTeamsChannel.Incident.Labels = make(map[string]types.String)
-							for key20, value36 := range teamsItem1.MsTeamsChannel.Incident.Labels {
-								teams3.MsTeamsChannel.Incident.Labels[key20] = types.StringValue(value36)
-							}
-						}
-						if teamsItem1.MsTeamsChannel.Incident.LastNote == nil {
-							teams3.MsTeamsChannel.Incident.LastNote = nil
-						} else {
-							teams3.MsTeamsChannel.Incident.LastNote = &tfTypes.EventNoteEntity{}
-							teams3.MsTeamsChannel.Incident.LastNote.Body = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.LastNote.Body)
-							teams3.MsTeamsChannel.Incident.LastNote.Conversations = []tfTypes.ConversationsAPIEntitiesReference{}
-							for conversationsCount17, conversationsItem17 := range teamsItem1.MsTeamsChannel.Incident.LastNote.Conversations {
-								var conversations35 tfTypes.ConversationsAPIEntitiesReference
-								if conversationsItem17.Channel == nil {
-									conversations35.Channel = nil
-								} else {
-									conversations35.Channel = &tfTypes.ConversationsAPIEntitiesChannel{}
-									conversations35.Channel.Name = types.StringPointerValue(conversationsItem17.Channel.Name)
-								}
-								conversations35.CommentsURL = types.StringPointerValue(conversationsItem17.CommentsURL)
-								conversations35.Field = types.StringPointerValue(conversationsItem17.Field)
-								conversations35.ID = types.StringPointerValue(conversationsItem17.ID)
-								conversations35.ResourceClass = types.StringPointerValue(conversationsItem17.ResourceClass)
-								conversations35.ResourceID = types.StringPointerValue(conversationsItem17.ResourceID)
-								if conversationsCount17+1 > len(teams3.MsTeamsChannel.Incident.LastNote.Conversations) {
-									teams3.MsTeamsChannel.Incident.LastNote.Conversations = append(teams3.MsTeamsChannel.Incident.LastNote.Conversations, conversations35)
-								} else {
-									teams3.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount17].Channel = conversations35.Channel
-									teams3.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount17].CommentsURL = conversations35.CommentsURL
-									teams3.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount17].Field = conversations35.Field
-									teams3.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount17].ID = conversations35.ID
-									teams3.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount17].ResourceClass = conversations35.ResourceClass
-									teams3.MsTeamsChannel.Incident.LastNote.Conversations[conversationsCount17].ResourceID = conversations35.ResourceID
-								}
-							}
-							if teamsItem1.MsTeamsChannel.Incident.LastNote.CreatedAt != nil {
-								teams3.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.LastNote.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								teams3.MsTeamsChannel.Incident.LastNote.CreatedAt = types.StringNull()
-							}
-							teams3.MsTeamsChannel.Incident.LastNote.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.LastNote.ID)
-							teams3.MsTeamsChannel.Incident.LastNote.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-							for statusPagesCount10, statusPagesItem10 := range teamsItem1.MsTeamsChannel.Incident.LastNote.StatusPages {
-								var statusPages21 tfTypes.IncidentsStatusPageEntity
-								statusPages21.DisplayName = types.StringPointerValue(statusPagesItem10.DisplayName)
-								statusPages21.ExternalID = types.StringPointerValue(statusPagesItem10.ExternalID)
-								statusPages21.ID = types.StringPointerValue(statusPagesItem10.ID)
-								if statusPagesItem10.Integration == nil {
-									statusPages21.Integration = nil
-								} else {
-									statusPages21.Integration = &tfTypes.IntegrationEntity{}
-									if statusPagesItem10.Integration.CreatedAt != nil {
-										statusPages21.Integration.CreatedAt = types.StringValue(statusPagesItem10.Integration.CreatedAt.Format(time.RFC3339Nano))
-									} else {
-										statusPages21.Integration.CreatedAt = types.StringNull()
-									}
-									statusPages21.Integration.DisplayName = types.StringPointerValue(statusPagesItem10.Integration.DisplayName)
-									statusPages21.Integration.ID = types.StringPointerValue(statusPagesItem10.Integration.ID)
-									statusPages21.Integration.IntegrationName = types.StringPointerValue(statusPagesItem10.Integration.IntegrationName)
-									statusPages21.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem10.Integration.IntegrationSlug)
-								}
-								statusPages21.Name = types.StringPointerValue(statusPagesItem10.Name)
-								statusPages21.URL = types.StringPointerValue(statusPagesItem10.URL)
-								if statusPagesCount10+1 > len(teams3.MsTeamsChannel.Incident.LastNote.StatusPages) {
-									teams3.MsTeamsChannel.Incident.LastNote.StatusPages = append(teams3.MsTeamsChannel.Incident.LastNote.StatusPages, statusPages21)
-								} else {
-									teams3.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount10].DisplayName = statusPages21.DisplayName
-									teams3.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount10].ExternalID = statusPages21.ExternalID
-									teams3.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount10].ID = statusPages21.ID
-									teams3.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount10].Integration = statusPages21.Integration
-									teams3.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount10].Name = statusPages21.Name
-									teams3.MsTeamsChannel.Incident.LastNote.StatusPages[statusPagesCount10].URL = statusPages21.URL
-								}
-							}
-						}
-						teams3.MsTeamsChannel.Incident.LastUpdate = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.LastUpdate)
-						teams3.MsTeamsChannel.Incident.LifecycleMeasurements = []tfTypes.IncidentsLifecycleMeasurementEntity{}
-						for lifecycleMeasurementsCount5, lifecycleMeasurementsItem5 := range teamsItem1.MsTeamsChannel.Incident.LifecycleMeasurements {
-							var lifecycleMeasurements11 tfTypes.IncidentsLifecycleMeasurementEntity
-							if lifecycleMeasurementsItem5.CalculatedAt != nil {
-								lifecycleMeasurements11.CalculatedAt = types.StringValue(lifecycleMeasurementsItem5.CalculatedAt.Format(time.RFC3339Nano))
-							} else {
-								lifecycleMeasurements11.CalculatedAt = types.StringNull()
-							}
-							lifecycleMeasurements11.Description = types.StringPointerValue(lifecycleMeasurementsItem5.Description)
-							lifecycleMeasurements11.EndsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem5.EndsAtMilestone)
-							lifecycleMeasurements11.ID = types.StringPointerValue(lifecycleMeasurementsItem5.ID)
-							lifecycleMeasurements11.Name = types.StringPointerValue(lifecycleMeasurementsItem5.Name)
-							lifecycleMeasurements11.Slug = types.StringPointerValue(lifecycleMeasurementsItem5.Slug)
-							lifecycleMeasurements11.StartsAtMilestone = types.StringPointerValue(lifecycleMeasurementsItem5.StartsAtMilestone)
-							lifecycleMeasurements11.Value = types.StringPointerValue(lifecycleMeasurementsItem5.Value)
-							if lifecycleMeasurementsCount5+1 > len(teams3.MsTeamsChannel.Incident.LifecycleMeasurements) {
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements = append(teams3.MsTeamsChannel.Incident.LifecycleMeasurements, lifecycleMeasurements11)
-							} else {
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount5].CalculatedAt = lifecycleMeasurements11.CalculatedAt
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount5].Description = lifecycleMeasurements11.Description
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount5].EndsAtMilestone = lifecycleMeasurements11.EndsAtMilestone
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount5].ID = lifecycleMeasurements11.ID
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount5].Name = lifecycleMeasurements11.Name
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount5].Slug = lifecycleMeasurements11.Slug
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount5].StartsAtMilestone = lifecycleMeasurements11.StartsAtMilestone
-								teams3.MsTeamsChannel.Incident.LifecycleMeasurements[lifecycleMeasurementsCount5].Value = lifecycleMeasurements11.Value
-							}
-						}
-						teams3.MsTeamsChannel.Incident.LifecyclePhases = []tfTypes.IncidentsLifecyclePhaseEntity{}
-						for lifecyclePhasesCount5, lifecyclePhasesItem5 := range teamsItem1.MsTeamsChannel.Incident.LifecyclePhases {
-							var lifecyclePhases11 tfTypes.IncidentsLifecyclePhaseEntity
-							lifecyclePhases11.Description = types.StringPointerValue(lifecyclePhasesItem5.Description)
-							lifecyclePhases11.ID = types.StringPointerValue(lifecyclePhasesItem5.ID)
-							lifecyclePhases11.Milestones = []tfTypes.IncidentsLifecycleMilestoneEntity{}
-							for milestonesCount10, milestonesItem10 := range lifecyclePhasesItem5.Milestones {
-								var milestones21 tfTypes.IncidentsLifecycleMilestoneEntity
-								milestones21.Description = types.StringPointerValue(milestonesItem10.Description)
-								milestones21.Duration = types.StringPointerValue(milestonesItem10.Duration)
-								milestones21.ID = types.StringPointerValue(milestonesItem10.ID)
-								milestones21.Name = types.StringPointerValue(milestonesItem10.Name)
-								if milestonesItem10.OccurredAt != nil {
-									milestones21.OccurredAt = types.StringValue(milestonesItem10.OccurredAt.Format(time.RFC3339Nano))
-								} else {
-									milestones21.OccurredAt = types.StringNull()
-								}
-								if milestonesItem10.Position != nil {
-									milestones21.Position = types.Int64Value(int64(*milestonesItem10.Position))
-								} else {
-									milestones21.Position = types.Int64Null()
-								}
-								milestones21.Slug = types.StringPointerValue(milestonesItem10.Slug)
-								if milestonesItem10.UpdatedAt != nil {
-									milestones21.UpdatedAt = types.StringValue(milestonesItem10.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									milestones21.UpdatedAt = types.StringNull()
-								}
-								if milestonesItem10.UpdatedBy == nil {
-									milestones21.UpdatedBy = nil
-								} else {
-									milestones21.UpdatedBy = &tfTypes.AuthorEntity{}
-									milestones21.UpdatedBy.Email = types.StringPointerValue(milestonesItem10.UpdatedBy.Email)
-									milestones21.UpdatedBy.ID = types.StringPointerValue(milestonesItem10.UpdatedBy.ID)
-									milestones21.UpdatedBy.Name = types.StringPointerValue(milestonesItem10.UpdatedBy.Name)
-									milestones21.UpdatedBy.Source = types.StringPointerValue(milestonesItem10.UpdatedBy.Source)
-								}
-								if milestonesCount10+1 > len(lifecyclePhases11.Milestones) {
-									lifecyclePhases11.Milestones = append(lifecyclePhases11.Milestones, milestones21)
-								} else {
-									lifecyclePhases11.Milestones[milestonesCount10].Description = milestones21.Description
-									lifecyclePhases11.Milestones[milestonesCount10].Duration = milestones21.Duration
-									lifecyclePhases11.Milestones[milestonesCount10].ID = milestones21.ID
-									lifecyclePhases11.Milestones[milestonesCount10].Name = milestones21.Name
-									lifecyclePhases11.Milestones[milestonesCount10].OccurredAt = milestones21.OccurredAt
-									lifecyclePhases11.Milestones[milestonesCount10].Position = milestones21.Position
-									lifecyclePhases11.Milestones[milestonesCount10].Slug = milestones21.Slug
-									lifecyclePhases11.Milestones[milestonesCount10].UpdatedAt = milestones21.UpdatedAt
-									lifecyclePhases11.Milestones[milestonesCount10].UpdatedBy = milestones21.UpdatedBy
-								}
-							}
-							lifecyclePhases11.Name = types.StringPointerValue(lifecyclePhasesItem5.Name)
-							if lifecyclePhasesItem5.Position != nil {
-								lifecyclePhases11.Position = types.Int64Value(int64(*lifecyclePhasesItem5.Position))
-							} else {
-								lifecyclePhases11.Position = types.Int64Null()
-							}
-							lifecyclePhases11.Type = types.StringPointerValue(lifecyclePhasesItem5.Type)
-							if lifecyclePhasesCount5+1 > len(teams3.MsTeamsChannel.Incident.LifecyclePhases) {
-								teams3.MsTeamsChannel.Incident.LifecyclePhases = append(teams3.MsTeamsChannel.Incident.LifecyclePhases, lifecyclePhases11)
-							} else {
-								teams3.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount5].Description = lifecyclePhases11.Description
-								teams3.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount5].ID = lifecyclePhases11.ID
-								teams3.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount5].Milestones = lifecyclePhases11.Milestones
-								teams3.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount5].Name = lifecyclePhases11.Name
-								teams3.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount5].Position = lifecyclePhases11.Position
-								teams3.MsTeamsChannel.Incident.LifecyclePhases[lifecyclePhasesCount5].Type = lifecyclePhases11.Type
-							}
-						}
-						teams3.MsTeamsChannel.Incident.Milestones = []tfTypes.IncidentsMilestoneEntity{}
-						for milestonesCount11, milestonesItem11 := range teamsItem1.MsTeamsChannel.Incident.Milestones {
-							var milestones23 tfTypes.IncidentsMilestoneEntity
-							if milestonesItem11.CreatedAt != nil {
-								milestones23.CreatedAt = types.StringValue(milestonesItem11.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								milestones23.CreatedAt = types.StringNull()
-							}
-							milestones23.Duration = types.StringPointerValue(milestonesItem11.Duration)
-							milestones23.ID = types.StringPointerValue(milestonesItem11.ID)
-							if milestonesItem11.OccurredAt != nil {
-								milestones23.OccurredAt = types.StringValue(milestonesItem11.OccurredAt.Format(time.RFC3339Nano))
-							} else {
-								milestones23.OccurredAt = types.StringNull()
-							}
-							milestones23.Type = types.StringPointerValue(milestonesItem11.Type)
-							if milestonesItem11.UpdatedAt != nil {
-								milestones23.UpdatedAt = types.StringValue(milestonesItem11.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								milestones23.UpdatedAt = types.StringNull()
-							}
-							if milestonesCount11+1 > len(teams3.MsTeamsChannel.Incident.Milestones) {
-								teams3.MsTeamsChannel.Incident.Milestones = append(teams3.MsTeamsChannel.Incident.Milestones, milestones23)
-							} else {
-								teams3.MsTeamsChannel.Incident.Milestones[milestonesCount11].CreatedAt = milestones23.CreatedAt
-								teams3.MsTeamsChannel.Incident.Milestones[milestonesCount11].Duration = milestones23.Duration
-								teams3.MsTeamsChannel.Incident.Milestones[milestonesCount11].ID = milestones23.ID
-								teams3.MsTeamsChannel.Incident.Milestones[milestonesCount11].OccurredAt = milestones23.OccurredAt
-								teams3.MsTeamsChannel.Incident.Milestones[milestonesCount11].Type = milestones23.Type
-								teams3.MsTeamsChannel.Incident.Milestones[milestonesCount11].UpdatedAt = milestones23.UpdatedAt
-							}
-						}
-						if teamsItem1.MsTeamsChannel.Incident.MonetaryImpact != nil {
-							teams3.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Value(int64(*teamsItem1.MsTeamsChannel.Incident.MonetaryImpact))
-						} else {
-							teams3.MsTeamsChannel.Incident.MonetaryImpact = types.Int64Null()
-						}
-						if teamsItem1.MsTeamsChannel.Incident.MonetaryImpactCents != nil {
-							teams3.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Value(int64(*teamsItem1.MsTeamsChannel.Incident.MonetaryImpactCents))
-						} else {
-							teams3.MsTeamsChannel.Incident.MonetaryImpactCents = types.Int64Null()
-						}
-						teams3.MsTeamsChannel.Incident.Name = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Name)
-						if teamsItem1.MsTeamsChannel.Incident.Number != nil {
-							teams3.MsTeamsChannel.Incident.Number = types.Int64Value(int64(*teamsItem1.MsTeamsChannel.Incident.Number))
-						} else {
-							teams3.MsTeamsChannel.Incident.Number = types.Int64Null()
-						}
-						if teamsItem1.MsTeamsChannel.Incident.Organization == nil {
-							teams3.MsTeamsChannel.Incident.Organization = nil
-						} else {
-							teams3.MsTeamsChannel.Incident.Organization = &tfTypes.SuccinctEntity{}
-							teams3.MsTeamsChannel.Incident.Organization.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Organization.ID)
-							teams3.MsTeamsChannel.Incident.Organization.Name = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Organization.Name)
-						}
-						teams3.MsTeamsChannel.Incident.OrganizationID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.OrganizationID)
-						teams3.MsTeamsChannel.Incident.Priority = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Priority)
-						teams3.MsTeamsChannel.Incident.PrivateID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.PrivateID)
-						teams3.MsTeamsChannel.Incident.PrivateStatusPageURL = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.PrivateStatusPageURL)
-						teams3.MsTeamsChannel.Incident.ReportID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.ReportID)
-						teams3.MsTeamsChannel.Incident.RoleAssignments = []tfTypes.IncidentsRoleAssignmentEntity{}
-						for roleAssignmentsCount5, roleAssignmentsItem5 := range teamsItem1.MsTeamsChannel.Incident.RoleAssignments {
-							var roleAssignments11 tfTypes.IncidentsRoleAssignmentEntity
-							if roleAssignmentsItem5.CreatedAt != nil {
-								roleAssignments11.CreatedAt = types.StringValue(roleAssignmentsItem5.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								roleAssignments11.CreatedAt = types.StringNull()
-							}
-							roleAssignments11.ID = types.StringPointerValue(roleAssignmentsItem5.ID)
-							if roleAssignmentsItem5.IncidentRole == nil {
-								roleAssignments11.IncidentRole = nil
-							} else {
-								roleAssignments11.IncidentRole = &tfTypes.IncidentRoleEntity{}
-								if roleAssignmentsItem5.IncidentRole.CreatedAt != nil {
-									roleAssignments11.IncidentRole.CreatedAt = types.StringValue(roleAssignmentsItem5.IncidentRole.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments11.IncidentRole.CreatedAt = types.StringNull()
-								}
-								roleAssignments11.IncidentRole.Description = types.StringPointerValue(roleAssignmentsItem5.IncidentRole.Description)
-								if roleAssignmentsItem5.IncidentRole.DiscardedAt != nil {
-									roleAssignments11.IncidentRole.DiscardedAt = types.StringValue(roleAssignmentsItem5.IncidentRole.DiscardedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments11.IncidentRole.DiscardedAt = types.StringNull()
-								}
-								roleAssignments11.IncidentRole.ID = types.StringPointerValue(roleAssignmentsItem5.IncidentRole.ID)
-								roleAssignments11.IncidentRole.Name = types.StringPointerValue(roleAssignmentsItem5.IncidentRole.Name)
-								roleAssignments11.IncidentRole.Summary = types.StringPointerValue(roleAssignmentsItem5.IncidentRole.Summary)
-								if roleAssignmentsItem5.IncidentRole.UpdatedAt != nil {
-									roleAssignments11.IncidentRole.UpdatedAt = types.StringValue(roleAssignmentsItem5.IncidentRole.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments11.IncidentRole.UpdatedAt = types.StringNull()
-								}
-							}
-							if roleAssignmentsItem5.Status != nil {
-								roleAssignments11.Status = types.StringValue(string(*roleAssignmentsItem5.Status))
-							} else {
-								roleAssignments11.Status = types.StringNull()
-							}
-							if roleAssignmentsItem5.UpdatedAt != nil {
-								roleAssignments11.UpdatedAt = types.StringValue(roleAssignmentsItem5.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								roleAssignments11.UpdatedAt = types.StringNull()
-							}
-							if roleAssignmentsItem5.User == nil {
-								roleAssignments11.User = nil
-							} else {
-								roleAssignments11.User = &tfTypes.UserEntity{}
-								if roleAssignmentsItem5.User.CreatedAt != nil {
-									roleAssignments11.User.CreatedAt = types.StringValue(roleAssignmentsItem5.User.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments11.User.CreatedAt = types.StringNull()
-								}
-								roleAssignments11.User.Email = types.StringPointerValue(roleAssignmentsItem5.User.Email)
-								roleAssignments11.User.ID = types.StringPointerValue(roleAssignmentsItem5.User.ID)
-								roleAssignments11.User.Name = types.StringPointerValue(roleAssignmentsItem5.User.Name)
-								roleAssignments11.User.SignalsEnabledNotificationTypes = []types.String{}
-								for _, v := range roleAssignmentsItem5.User.SignalsEnabledNotificationTypes {
-									roleAssignments11.User.SignalsEnabledNotificationTypes = append(roleAssignments11.User.SignalsEnabledNotificationTypes, types.StringValue(v))
-								}
-								roleAssignments11.User.SlackLinked = types.BoolPointerValue(roleAssignmentsItem5.User.SlackLinked)
-								roleAssignments11.User.SlackUserID = types.StringPointerValue(roleAssignmentsItem5.User.SlackUserID)
-								if roleAssignmentsItem5.User.UpdatedAt != nil {
-									roleAssignments11.User.UpdatedAt = types.StringValue(roleAssignmentsItem5.User.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									roleAssignments11.User.UpdatedAt = types.StringNull()
-								}
-							}
-							if roleAssignmentsCount5+1 > len(teams3.MsTeamsChannel.Incident.RoleAssignments) {
-								teams3.MsTeamsChannel.Incident.RoleAssignments = append(teams3.MsTeamsChannel.Incident.RoleAssignments, roleAssignments11)
-							} else {
-								teams3.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount5].CreatedAt = roleAssignments11.CreatedAt
-								teams3.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount5].ID = roleAssignments11.ID
-								teams3.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount5].IncidentRole = roleAssignments11.IncidentRole
-								teams3.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount5].Status = roleAssignments11.Status
-								teams3.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount5].UpdatedAt = roleAssignments11.UpdatedAt
-								teams3.MsTeamsChannel.Incident.RoleAssignments[roleAssignmentsCount5].User = roleAssignments11.User
-							}
-						}
-						teams3.MsTeamsChannel.Incident.Services = []tfTypes.SuccinctEntity{}
-						for servicesCount5, servicesItem5 := range teamsItem1.MsTeamsChannel.Incident.Services {
-							var services11 tfTypes.SuccinctEntity
-							services11.ID = types.StringPointerValue(servicesItem5.ID)
-							services11.Name = types.StringPointerValue(servicesItem5.Name)
-							if servicesCount5+1 > len(teams3.MsTeamsChannel.Incident.Services) {
-								teams3.MsTeamsChannel.Incident.Services = append(teams3.MsTeamsChannel.Incident.Services, services11)
-							} else {
-								teams3.MsTeamsChannel.Incident.Services[servicesCount5].ID = services11.ID
-								teams3.MsTeamsChannel.Incident.Services[servicesCount5].Name = services11.Name
-							}
-						}
-						teams3.MsTeamsChannel.Incident.Severity = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Severity)
-						teams3.MsTeamsChannel.Incident.SeverityColor = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityColor)
-						teams3.MsTeamsChannel.Incident.SeverityCondition = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityCondition)
-						if teamsItem1.MsTeamsChannel.Incident.SeverityConditionObject == nil {
-							teams3.MsTeamsChannel.Incident.SeverityConditionObject = nil
-						} else {
-							teams3.MsTeamsChannel.Incident.SeverityConditionObject = &tfTypes.SeverityMatrixConditionEntity{}
-							teams3.MsTeamsChannel.Incident.SeverityConditionObject.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityConditionObject.ID)
-							teams3.MsTeamsChannel.Incident.SeverityConditionObject.Name = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityConditionObject.Name)
-							if teamsItem1.MsTeamsChannel.Incident.SeverityConditionObject.Position != nil {
-								teams3.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Value(int64(*teamsItem1.MsTeamsChannel.Incident.SeverityConditionObject.Position))
-							} else {
-								teams3.MsTeamsChannel.Incident.SeverityConditionObject.Position = types.Int64Null()
-							}
-						}
-						teams3.MsTeamsChannel.Incident.SeverityImpact = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityImpact)
-						if teamsItem1.MsTeamsChannel.Incident.SeverityImpactObject == nil {
-							teams3.MsTeamsChannel.Incident.SeverityImpactObject = nil
-						} else {
-							teams3.MsTeamsChannel.Incident.SeverityImpactObject = &tfTypes.SeverityMatrixImpactEntity{}
-							teams3.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityImpactObject.AffectsID)
-							teams3.MsTeamsChannel.Incident.SeverityImpactObject.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityImpactObject.ID)
-							teams3.MsTeamsChannel.Incident.SeverityImpactObject.Name = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityImpactObject.Name)
-							if teamsItem1.MsTeamsChannel.Incident.SeverityImpactObject.Position != nil {
-								teams3.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Value(int64(*teamsItem1.MsTeamsChannel.Incident.SeverityImpactObject.Position))
-							} else {
-								teams3.MsTeamsChannel.Incident.SeverityImpactObject.Position = types.Int64Null()
-							}
-							teams3.MsTeamsChannel.Incident.SeverityImpactObject.Type = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.SeverityImpactObject.Type)
-						}
-						if teamsItem1.MsTeamsChannel.Incident.StartedAt != nil {
-							teams3.MsTeamsChannel.Incident.StartedAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.StartedAt.Format(time.RFC3339Nano))
-						} else {
-							teams3.MsTeamsChannel.Incident.StartedAt = types.StringNull()
-						}
-						teams3.MsTeamsChannel.Incident.StatusPages = []tfTypes.IncidentsStatusPageEntity{}
-						for statusPagesCount11, statusPagesItem11 := range teamsItem1.MsTeamsChannel.Incident.StatusPages {
-							var statusPages23 tfTypes.IncidentsStatusPageEntity
-							statusPages23.DisplayName = types.StringPointerValue(statusPagesItem11.DisplayName)
-							statusPages23.ExternalID = types.StringPointerValue(statusPagesItem11.ExternalID)
-							statusPages23.ID = types.StringPointerValue(statusPagesItem11.ID)
-							if statusPagesItem11.Integration == nil {
-								statusPages23.Integration = nil
-							} else {
-								statusPages23.Integration = &tfTypes.IntegrationEntity{}
-								if statusPagesItem11.Integration.CreatedAt != nil {
-									statusPages23.Integration.CreatedAt = types.StringValue(statusPagesItem11.Integration.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									statusPages23.Integration.CreatedAt = types.StringNull()
-								}
-								statusPages23.Integration.DisplayName = types.StringPointerValue(statusPagesItem11.Integration.DisplayName)
-								statusPages23.Integration.ID = types.StringPointerValue(statusPagesItem11.Integration.ID)
-								statusPages23.Integration.IntegrationName = types.StringPointerValue(statusPagesItem11.Integration.IntegrationName)
-								statusPages23.Integration.IntegrationSlug = types.StringPointerValue(statusPagesItem11.Integration.IntegrationSlug)
-							}
-							statusPages23.Name = types.StringPointerValue(statusPagesItem11.Name)
-							statusPages23.URL = types.StringPointerValue(statusPagesItem11.URL)
-							if statusPagesCount11+1 > len(teams3.MsTeamsChannel.Incident.StatusPages) {
-								teams3.MsTeamsChannel.Incident.StatusPages = append(teams3.MsTeamsChannel.Incident.StatusPages, statusPages23)
-							} else {
-								teams3.MsTeamsChannel.Incident.StatusPages[statusPagesCount11].DisplayName = statusPages23.DisplayName
-								teams3.MsTeamsChannel.Incident.StatusPages[statusPagesCount11].ExternalID = statusPages23.ExternalID
-								teams3.MsTeamsChannel.Incident.StatusPages[statusPagesCount11].ID = statusPages23.ID
-								teams3.MsTeamsChannel.Incident.StatusPages[statusPagesCount11].Integration = statusPages23.Integration
-								teams3.MsTeamsChannel.Incident.StatusPages[statusPagesCount11].Name = statusPages23.Name
-								teams3.MsTeamsChannel.Incident.StatusPages[statusPagesCount11].URL = statusPages23.URL
-							}
-						}
-						teams3.MsTeamsChannel.Incident.Summary = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Summary)
-						teams3.MsTeamsChannel.Incident.TagList = []types.String{}
-						for _, v := range teamsItem1.MsTeamsChannel.Incident.TagList {
-							teams3.MsTeamsChannel.Incident.TagList = append(teams3.MsTeamsChannel.Incident.TagList, types.StringValue(v))
-						}
-						teams3.MsTeamsChannel.Incident.TeamAssignments = []tfTypes.IncidentsTeamAssignmentEntity{}
-						for teamAssignmentsCount5, teamAssignmentsItem5 := range teamsItem1.MsTeamsChannel.Incident.TeamAssignments {
-							var teamAssignments11 tfTypes.IncidentsTeamAssignmentEntity
-							if teamAssignmentsItem5.CreatedAt != nil {
-								teamAssignments11.CreatedAt = types.StringValue(teamAssignmentsItem5.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								teamAssignments11.CreatedAt = types.StringNull()
-							}
-							teamAssignments11.ID = types.StringPointerValue(teamAssignmentsItem5.ID)
-							teamAssignments11.Status = types.StringPointerValue(teamAssignmentsItem5.Status)
-							if teamAssignmentsItem5.Team == nil {
-								teamAssignments11.Team = nil
-							} else {
-								teamAssignments11.Team = &tfTypes.TeamEntity1{}
-							}
-							if teamAssignmentsItem5.UpdatedAt != nil {
-								teamAssignments11.UpdatedAt = types.StringValue(teamAssignmentsItem5.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								teamAssignments11.UpdatedAt = types.StringNull()
-							}
-							if teamAssignmentsCount5+1 > len(teams3.MsTeamsChannel.Incident.TeamAssignments) {
-								teams3.MsTeamsChannel.Incident.TeamAssignments = append(teams3.MsTeamsChannel.Incident.TeamAssignments, teamAssignments11)
-							} else {
-								teams3.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount5].CreatedAt = teamAssignments11.CreatedAt
-								teams3.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount5].ID = teamAssignments11.ID
-								teams3.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount5].Status = teamAssignments11.Status
-								teams3.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount5].Team = teamAssignments11.Team
-								teams3.MsTeamsChannel.Incident.TeamAssignments[teamAssignmentsCount5].UpdatedAt = teamAssignments11.UpdatedAt
-							}
-						}
-						if teamsItem1.MsTeamsChannel.Incident.Ticket == nil {
-							teams3.MsTeamsChannel.Incident.Ticket = nil
-						} else {
-							teams3.MsTeamsChannel.Incident.Ticket = &tfTypes.TicketingTicketEntity{}
-							teams3.MsTeamsChannel.Incident.Ticket.Assignees = []tfTypes.AuthorEntity{}
-							for assigneesCount11, assigneesItem11 := range teamsItem1.MsTeamsChannel.Incident.Ticket.Assignees {
-								var assignees23 tfTypes.AuthorEntity
-								assignees23.Email = types.StringPointerValue(assigneesItem11.Email)
-								assignees23.ID = types.StringPointerValue(assigneesItem11.ID)
-								assignees23.Name = types.StringPointerValue(assigneesItem11.Name)
-								assignees23.Source = types.StringPointerValue(assigneesItem11.Source)
-								if assigneesCount11+1 > len(teams3.MsTeamsChannel.Incident.Ticket.Assignees) {
-									teams3.MsTeamsChannel.Incident.Ticket.Assignees = append(teams3.MsTeamsChannel.Incident.Ticket.Assignees, assignees23)
-								} else {
-									teams3.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount11].Email = assignees23.Email
-									teams3.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount11].ID = assignees23.ID
-									teams3.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount11].Name = assignees23.Name
-									teams3.MsTeamsChannel.Incident.Ticket.Assignees[assigneesCount11].Source = assignees23.Source
-								}
-							}
-							if teamsItem1.MsTeamsChannel.Incident.Ticket.CreatedAt != nil {
-								teams3.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.Ticket.CreatedAt.Format(time.RFC3339Nano))
-							} else {
-								teams3.MsTeamsChannel.Incident.Ticket.CreatedAt = types.StringNull()
-							}
-							if teamsItem1.MsTeamsChannel.Incident.Ticket.CreatedBy == nil {
-								teams3.MsTeamsChannel.Incident.Ticket.CreatedBy = nil
-							} else {
-								teams3.MsTeamsChannel.Incident.Ticket.CreatedBy = &tfTypes.AuthorEntity{}
-								teams3.MsTeamsChannel.Incident.Ticket.CreatedBy.Email = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.CreatedBy.Email)
-								teams3.MsTeamsChannel.Incident.Ticket.CreatedBy.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.CreatedBy.ID)
-								teams3.MsTeamsChannel.Incident.Ticket.CreatedBy.Name = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.CreatedBy.Name)
-								teams3.MsTeamsChannel.Incident.Ticket.CreatedBy.Source = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.CreatedBy.Source)
-							}
-							teams3.MsTeamsChannel.Incident.Ticket.Description = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Description)
-							if teamsItem1.MsTeamsChannel.Incident.Ticket.DueAt != nil {
-								teams3.MsTeamsChannel.Incident.Ticket.DueAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.Ticket.DueAt.Format(time.RFC3339Nano))
-							} else {
-								teams3.MsTeamsChannel.Incident.Ticket.DueAt = types.StringNull()
-							}
-							teams3.MsTeamsChannel.Incident.Ticket.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.ID)
-							teams3.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.IncidentCurrentMilestone)
-							teams3.MsTeamsChannel.Incident.Ticket.IncidentID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.IncidentID)
-							teams3.MsTeamsChannel.Incident.Ticket.IncidentName = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.IncidentName)
-							if teamsItem1.MsTeamsChannel.Incident.Ticket.Link == nil {
-								teams3.MsTeamsChannel.Incident.Ticket.Link = nil
-							} else {
-								teams3.MsTeamsChannel.Incident.Ticket.Link = &tfTypes.AttachmentsLinkEntity{}
-								teams3.MsTeamsChannel.Incident.Ticket.Link.Deletable = types.BoolPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Link.Deletable)
-								teams3.MsTeamsChannel.Incident.Ticket.Link.DisplayText = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Link.DisplayText)
-								teams3.MsTeamsChannel.Incident.Ticket.Link.Editable = types.BoolPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Link.Editable)
-								teams3.MsTeamsChannel.Incident.Ticket.Link.HrefURL = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Link.HrefURL)
-								teams3.MsTeamsChannel.Incident.Ticket.Link.IconURL = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Link.IconURL)
-								teams3.MsTeamsChannel.Incident.Ticket.Link.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Link.ID)
-								teams3.MsTeamsChannel.Incident.Ticket.Link.Type = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Link.Type)
-							}
-							if teamsItem1.MsTeamsChannel.Incident.Ticket.Priority == nil {
-								teams3.MsTeamsChannel.Incident.Ticket.Priority = nil
-							} else {
-								teams3.MsTeamsChannel.Incident.Ticket.Priority = &tfTypes.TicketingPriorityEntity{}
-								if teamsItem1.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt != nil {
-									teams3.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt.Format(time.RFC3339Nano))
-								} else {
-									teams3.MsTeamsChannel.Incident.Ticket.Priority.CreatedAt = types.StringNull()
-								}
-								teams3.MsTeamsChannel.Incident.Ticket.Priority.ID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Priority.ID)
-								teams3.MsTeamsChannel.Incident.Ticket.Priority.Name = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Priority.Name)
-								if teamsItem1.MsTeamsChannel.Incident.Ticket.Priority.Position != nil {
-									teams3.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Value(int64(*teamsItem1.MsTeamsChannel.Incident.Ticket.Priority.Position))
-								} else {
-									teams3.MsTeamsChannel.Incident.Ticket.Priority.Position = types.Int64Null()
-								}
-								if teamsItem1.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt != nil {
-									teams3.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt.Format(time.RFC3339Nano))
-								} else {
-									teams3.MsTeamsChannel.Incident.Ticket.Priority.UpdatedAt = types.StringNull()
-								}
-							}
-							if teamsItem1.MsTeamsChannel.Incident.Ticket.State != nil {
-								teams3.MsTeamsChannel.Incident.Ticket.State = types.StringValue(string(*teamsItem1.MsTeamsChannel.Incident.Ticket.State))
-							} else {
-								teams3.MsTeamsChannel.Incident.Ticket.State = types.StringNull()
-							}
-							teams3.MsTeamsChannel.Incident.Ticket.Summary = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.Summary)
-							teams3.MsTeamsChannel.Incident.Ticket.TagList = []types.String{}
-							for _, v := range teamsItem1.MsTeamsChannel.Incident.Ticket.TagList {
-								teams3.MsTeamsChannel.Incident.Ticket.TagList = append(teams3.MsTeamsChannel.Incident.Ticket.TagList, types.StringValue(v))
-							}
-							teams3.MsTeamsChannel.Incident.Ticket.TaskID = types.StringPointerValue(teamsItem1.MsTeamsChannel.Incident.Ticket.TaskID)
-							if teamsItem1.MsTeamsChannel.Incident.Ticket.Type != nil {
-								teams3.MsTeamsChannel.Incident.Ticket.Type = types.StringValue(string(*teamsItem1.MsTeamsChannel.Incident.Ticket.Type))
-							} else {
-								teams3.MsTeamsChannel.Incident.Ticket.Type = types.StringNull()
-							}
-							if teamsItem1.MsTeamsChannel.Incident.Ticket.UpdatedAt != nil {
-								teams3.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringValue(teamsItem1.MsTeamsChannel.Incident.Ticket.UpdatedAt.Format(time.RFC3339Nano))
-							} else {
-								teams3.MsTeamsChannel.Incident.Ticket.UpdatedAt = types.StringNull()
-							}
-						}
-					}
 					teams3.MsTeamsChannel.MsTeamID = types.StringPointerValue(teamsItem1.MsTeamsChannel.MsTeamID)
 					teams3.MsTeamsChannel.Status = types.StringPointerValue(teamsItem1.MsTeamsChannel.Status)
 					teams3.MsTeamsChannel.TeamName = types.StringPointerValue(teamsItem1.MsTeamsChannel.TeamName)
@@ -8328,8 +2934,8 @@ func (r *ServiceDependencyDataSourceModel) RefreshFromSharedServiceDependencyEnt
 					ownedFunctionalities11.ID = types.StringPointerValue(ownedFunctionalitiesItem5.ID)
 					if len(ownedFunctionalitiesItem5.Labels) > 0 {
 						ownedFunctionalities11.Labels = make(map[string]types.String)
-						for key21, value38 := range ownedFunctionalitiesItem5.Labels {
-							ownedFunctionalities11.Labels[key21] = types.StringValue(value38)
+						for key15, value20 := range ownedFunctionalitiesItem5.Labels {
+							ownedFunctionalities11.Labels[key15] = types.StringValue(value20)
 						}
 					}
 					ownedFunctionalities11.Links = []tfTypes.LinksEntity{}

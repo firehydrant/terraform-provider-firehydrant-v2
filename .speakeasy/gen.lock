@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 74a1a2a8-f6b2-4a51-9f9c-8b04f085a82b
 management:
-  docChecksum: e6346278481dde6cf86284dda0fb473a
+  docChecksum: 6129679855e701ad5b1bc85e842eb0e9
   docVersion: 0.0.1
   speakeasyVersion: 1.418.3
   generationVersion: 2.438.3
-  releaseVersion: 0.1.0
-  configChecksum: 8a07fcc562fcaa2668463b309db35140
+  releaseVersion: 0.1.1
+  configChecksum: 340eca34fce2eeeda1bc6e7ff6331249
   repoURL: https://github.com/firehydrant/terraform-provider-firehydrant-v2.git
   published: true
 features:
@@ -186,16 +186,11 @@ generatedFiles:
   - internal/provider/teams_data_source.go
   - internal/provider/teams_data_source_sdk.go
   - internal/provider/types/attachment_rule.go
-  - internal/provider/types/attachments_link_entity.go
   - internal/provider/types/author_entity.go
   - internal/provider/types/checklist_check_entity.go
   - internal/provider/types/checklists.go
   - internal/provider/types/checks.go
-  - internal/provider/types/conversations_api_entities_channel.go
-  - internal/provider/types/conversations_api_entities_reference.go
-  - internal/provider/types/custom_fields_field_value.go
   - internal/provider/types/environment_entry_entity.go
-  - internal/provider/types/event_note_entity.go
   - internal/provider/types/external_resource_entity.go
   - internal/provider/types/external_resource_entity1.go
   - internal/provider/types/fh_types_generic_entity.go
@@ -204,25 +199,11 @@ generatedFiles:
   - internal/provider/types/imports_import_error_entity.go
   - internal/provider/types/imports_import_error_entity_resource_entity.go
   - internal/provider/types/imports_importable_resource_entity.go
-  - internal/provider/types/incident_entity.go
-  - internal/provider/types/incident_entity_field_requirement_entity.go
   - internal/provider/types/incident_role_entity.go
   - internal/provider/types/incident_type_entity.go
   - internal/provider/types/incident_type_entity_template_entity.go
   - internal/provider/types/incident_type_entity_template_impact_entity.go
   - internal/provider/types/incident_type_entity_template_values_entity.go
-  - internal/provider/types/incidents_channel_entity.go
-  - internal/provider/types/incidents_conference_bridge_entity.go
-  - internal/provider/types/incidents_context_object_entity.go
-  - internal/provider/types/incidents_impact_entity.go
-  - internal/provider/types/incidents_lifecycle_measurement_entity.go
-  - internal/provider/types/incidents_lifecycle_milestone_entity.go
-  - internal/provider/types/incidents_lifecycle_phase_entity.go
-  - internal/provider/types/incidents_milestone_entity.go
-  - internal/provider/types/incidents_role_assignment_entity.go
-  - internal/provider/types/incidents_status_page_entity.go
-  - internal/provider/types/incidents_team_assignment_entity.go
-  - internal/provider/types/integration_entity.go
   - internal/provider/types/integrations_microsoft_teams_v2_channel_entity.go
   - internal/provider/types/integrations_slack_slack_channel_entity.go
   - internal/provider/types/links_entity.go
@@ -239,16 +220,11 @@ generatedFiles:
   - internal/provider/types/schedule_entity.go
   - internal/provider/types/service_entity.go
   - internal/provider/types/severity_entity.go
-  - internal/provider/types/severity_matrix_condition_entity.go
-  - internal/provider/types/severity_matrix_impact_entity.go
   - internal/provider/types/slim_runbook_entity.go
-  - internal/provider/types/succinct_entity.go
   - internal/provider/types/task_list_items.go
   - internal/provider/types/team_entity.go
   - internal/provider/types/team_entity1.go
   - internal/provider/types/template.go
-  - internal/provider/types/ticketing_priority_entity.go
-  - internal/provider/types/ticketing_ticket_entity.go
   - internal/provider/types/user_entity.go
   - internal/provider/users_data_source.go
   - internal/provider/users_data_source_sdk.go
