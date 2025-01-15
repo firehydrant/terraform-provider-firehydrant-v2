@@ -1,4 +1,4 @@
-# terraform-provider-firehydrant-v2
+# Firehydrant Terraform Provider V2
 
 Developer-friendly & type-safe Terraform SDK specifically catered to leverage *firehydrant-terraform-sdk* API.
 
@@ -8,15 +8,6 @@ Developer-friendly & type-safe Terraform SDK specifically catered to leverage *f
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
 </div>
-
-
-## 🏗 **Welcome to your new Terraform Provider!** 🏗
-
-It has been generated successfully based on your OpenAPI spec. However, it is not yet ready for production use. Here are some next steps:
-- [ ] 🛠 Add resources and datasources to your SDK by [annotating your OAS](https://www.speakeasy.com/docs/customize-terraform/terraform-extensions#map-api-entities-to-terraform-resources)
-- [ ] ♻️ Refine your terraform provider quickly by iterating locally with the [Speakeasy CLI](https://github.com/speakeasy-api/speakeasy)
-- [ ] 🎁 Publish your terraform provider to hashicorp registry by [configuring automatic publishing](https://www.speakeasy.com/docs/terraform-publishing)
-- [ ] ✨ When ready to productionize, delete this section from the README
 
 <!-- Start Summary [summary] -->
 ## Summary
