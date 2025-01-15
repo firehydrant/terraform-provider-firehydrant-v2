@@ -3,8 +3,8 @@
 package provider
 
 import (
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/shared"
 	"time"
 )
 

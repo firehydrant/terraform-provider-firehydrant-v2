@@ -5,18 +5,18 @@ package sdk
 import (
 	"context"
 	"fmt"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/internal/hooks"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/internal/utils"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/errors"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/operations"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/shared"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/hooks"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/errors"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/operations"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
 	"net/url"
 )
 
 // Scim - Operations about scims
 type Scim struct {
-	Users *FirehydrantTerraformSDKUsers
+	Users *FirehydrantUsers
 
 	sdkConfiguration sdkConfiguration
 }
@@ -24,7 +24,7 @@ type Scim struct {
 func newScim(sdkConfig sdkConfiguration) *Scim {
 	return &Scim{
 		sdkConfiguration: sdkConfig,
-		Users:            newFirehydrantTerraformSDKUsers(sdkConfig),
+		Users:            newFirehydrantUsers(sdkConfig),
 	}
 }
 

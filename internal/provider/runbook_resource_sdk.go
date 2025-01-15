@@ -3,7 +3,7 @@
 package provider
 
 import (
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/shared"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 )
 
 func (r *RunbookResourceModel) ToSharedPostV1Runbooks() *shared.PostV1Runbooks {

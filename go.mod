@@ -1,4 +1,4 @@
-module github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk
+module github.com/firehydrant/terraform-provider-firehydrant
 
 go 1.22.0
 

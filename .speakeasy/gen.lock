@@ -5,8 +5,8 @@ management:
   docVersion: 0.0.1
   speakeasyVersion: 1.418.3
   generationVersion: 2.438.3
-  releaseVersion: 0.1.1
-  configChecksum: 340eca34fce2eeeda1bc6e7ff6331249
+  releaseVersion: 0.1.2
+  configChecksum: dd127f2d75e2ac69c409ff78a76ca7c3
   repoURL: https://github.com/firehydrant/terraform-provider-firehydrant-v2.git
   published: true
 features:
@@ -27,63 +27,63 @@ generatedFiles:
   - CONTRIBUTING.md
   - USAGE.md
   - examples/README.md
-  - examples/data-sources/firehydrant-terraform-sdk_checklist_template/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_checklist_templates/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_environment/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_environments/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_functionalities/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_functionality/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_incident_role/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_incident_type/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_incident_types/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_priorities/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_priority/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_runbook/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_runbooks/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_service/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_service_dependency/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_services/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_severities/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_severity/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_status_update_template/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_status_update_templates/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_task_list/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_task_lists/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_team/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_teams/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_users/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_webhook/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_webhook_target/data-source.tf
-  - examples/data-sources/firehydrant-terraform-sdk_webhooks/data-source.tf
+  - examples/data-sources/firehydrant_checklist_template/data-source.tf
+  - examples/data-sources/firehydrant_checklist_templates/data-source.tf
+  - examples/data-sources/firehydrant_environment/data-source.tf
+  - examples/data-sources/firehydrant_environments/data-source.tf
+  - examples/data-sources/firehydrant_functionalities/data-source.tf
+  - examples/data-sources/firehydrant_functionality/data-source.tf
+  - examples/data-sources/firehydrant_incident_role/data-source.tf
+  - examples/data-sources/firehydrant_incident_type/data-source.tf
+  - examples/data-sources/firehydrant_incident_types/data-source.tf
+  - examples/data-sources/firehydrant_priorities/data-source.tf
+  - examples/data-sources/firehydrant_priority/data-source.tf
+  - examples/data-sources/firehydrant_runbook/data-source.tf
+  - examples/data-sources/firehydrant_runbooks/data-source.tf
+  - examples/data-sources/firehydrant_service/data-source.tf
+  - examples/data-sources/firehydrant_service_dependency/data-source.tf
+  - examples/data-sources/firehydrant_services/data-source.tf
+  - examples/data-sources/firehydrant_severities/data-source.tf
+  - examples/data-sources/firehydrant_severity/data-source.tf
+  - examples/data-sources/firehydrant_status_update_template/data-source.tf
+  - examples/data-sources/firehydrant_status_update_templates/data-source.tf
+  - examples/data-sources/firehydrant_task_list/data-source.tf
+  - examples/data-sources/firehydrant_task_lists/data-source.tf
+  - examples/data-sources/firehydrant_team/data-source.tf
+  - examples/data-sources/firehydrant_teams/data-source.tf
+  - examples/data-sources/firehydrant_users/data-source.tf
+  - examples/data-sources/firehydrant_webhook/data-source.tf
+  - examples/data-sources/firehydrant_webhook_target/data-source.tf
+  - examples/data-sources/firehydrant_webhooks/data-source.tf
   - examples/provider/provider.tf
-  - examples/resources/firehydrant-terraform-sdk_checklist_template/import.sh
-  - examples/resources/firehydrant-terraform-sdk_checklist_template/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_environment/import.sh
-  - examples/resources/firehydrant-terraform-sdk_environment/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_functionality/import.sh
-  - examples/resources/firehydrant-terraform-sdk_functionality/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_incident_role/import.sh
-  - examples/resources/firehydrant-terraform-sdk_incident_role/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_incident_type/import.sh
-  - examples/resources/firehydrant-terraform-sdk_incident_type/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_priority/import.sh
-  - examples/resources/firehydrant-terraform-sdk_priority/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_runbook/import.sh
-  - examples/resources/firehydrant-terraform-sdk_runbook/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_service/import.sh
-  - examples/resources/firehydrant-terraform-sdk_service/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_service_dependency/import.sh
-  - examples/resources/firehydrant-terraform-sdk_service_dependency/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_severity/import.sh
-  - examples/resources/firehydrant-terraform-sdk_severity/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_status_update_template/import.sh
-  - examples/resources/firehydrant-terraform-sdk_status_update_template/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_task_list/import.sh
-  - examples/resources/firehydrant-terraform-sdk_task_list/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_team/import.sh
-  - examples/resources/firehydrant-terraform-sdk_team/resource.tf
-  - examples/resources/firehydrant-terraform-sdk_webhook/import.sh
-  - examples/resources/firehydrant-terraform-sdk_webhook/resource.tf
+  - examples/resources/firehydrant_checklist_template/import.sh
+  - examples/resources/firehydrant_checklist_template/resource.tf
+  - examples/resources/firehydrant_environment/import.sh
+  - examples/resources/firehydrant_environment/resource.tf
+  - examples/resources/firehydrant_functionality/import.sh
+  - examples/resources/firehydrant_functionality/resource.tf
+  - examples/resources/firehydrant_incident_role/import.sh
+  - examples/resources/firehydrant_incident_role/resource.tf
+  - examples/resources/firehydrant_incident_type/import.sh
+  - examples/resources/firehydrant_incident_type/resource.tf
+  - examples/resources/firehydrant_priority/import.sh
+  - examples/resources/firehydrant_priority/resource.tf
+  - examples/resources/firehydrant_runbook/import.sh
+  - examples/resources/firehydrant_runbook/resource.tf
+  - examples/resources/firehydrant_service/import.sh
+  - examples/resources/firehydrant_service/resource.tf
+  - examples/resources/firehydrant_service_dependency/import.sh
+  - examples/resources/firehydrant_service_dependency/resource.tf
+  - examples/resources/firehydrant_severity/import.sh
+  - examples/resources/firehydrant_severity/resource.tf
+  - examples/resources/firehydrant_status_update_template/import.sh
+  - examples/resources/firehydrant_status_update_template/resource.tf
+  - examples/resources/firehydrant_task_list/import.sh
+  - examples/resources/firehydrant_task_list/resource.tf
+  - examples/resources/firehydrant_team/import.sh
+  - examples/resources/firehydrant_team/resource.tf
+  - examples/resources/firehydrant_webhook/import.sh
+  - examples/resources/firehydrant_webhook/resource.tf
   - go.mod
   - go.sum
   - internal/planmodifiers/boolplanmodifier/suppress_diff.go
@@ -261,10 +261,10 @@ generatedFiles:
   - internal/sdk/escalationpolicies.go
   - internal/sdk/events.go
   - internal/sdk/executions.go
-  - internal/sdk/firehydrantterraformsdk.go
-  - internal/sdk/firehydrantterraformsdkpriorities.go
-  - internal/sdk/firehydrantterraformsdkreports.go
-  - internal/sdk/firehydrantterraformsdkusers.go
+  - internal/sdk/firehydrant.go
+  - internal/sdk/firehydrantpriorities.go
+  - internal/sdk/firehydrantreports.go
+  - internal/sdk/firehydrantusers.go
   - internal/sdk/formconfigurations.go
   - internal/sdk/functionalities.go
   - internal/sdk/impact.go

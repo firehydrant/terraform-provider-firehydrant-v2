@@ -5,15 +5,15 @@ package provider
 import (
 	"context"
 	"fmt"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/operations"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/validators"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/operations"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/validators"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -26,7 +26,7 @@ func NewPriorityResource() resource.Resource {
 
 // PriorityResource defines the resource implementation.
 type PriorityResource struct {
-	client *sdk.FirehydrantTerraformSDK
+	client *sdk.Firehydrant
 }
 
 // PriorityResourceModel describes the resource data model.
@@ -83,12 +83,12 @@ func (r *PriorityResource) Configure(ctx context.Context, req resource.Configure
 		return
 	}
 
-	client, ok := req.ProviderData.(*sdk.FirehydrantTerraformSDK)
+	client, ok := req.ProviderData.(*sdk.Firehydrant)
 
 	if !ok {
 		resp.Diagnostics.AddError(
 			"Unexpected Resource Configure Type",
-			fmt.Sprintf("Expected *sdk.FirehydrantTerraformSDK, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected *sdk.Firehydrant, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 
 		return

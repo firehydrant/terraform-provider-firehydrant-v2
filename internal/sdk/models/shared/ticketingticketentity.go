@@ -5,7 +5,7 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/internal/utils"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
 	"time"
 )
 

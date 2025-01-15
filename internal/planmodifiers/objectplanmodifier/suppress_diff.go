@@ -4,7 +4,7 @@ package objectplanmodifier
 
 import (
 	"context"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/planmodifiers/utils"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/planmodifiers/utils"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 )

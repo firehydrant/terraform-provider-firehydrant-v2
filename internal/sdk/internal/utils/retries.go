@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/cenkalti/backoff/v4"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/retry"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/retry"
 	"net/http"
 	"net/url"
 	"strconv"

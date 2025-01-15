@@ -3,7 +3,7 @@
 package provider
 
 import (
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/shared"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 )
 
 func (r *TaskListResourceModel) ToSharedPostV1TaskLists() *shared.PostV1TaskLists {
