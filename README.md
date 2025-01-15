@@ -40,14 +40,14 @@ To install this provider, copy and paste this code into your Terraform configura
 ```hcl
 terraform {
   required_providers {
-    firehydrant-terraform-sdk = {
-      source  = "speakeasy/firehydrant-terraform-sdk"
-      version = "0.1.1"
+    firehydrant = {
+      source  = "firehydrant/firehydrant"
+      version = "0.1.2"
     }
   }
 }
 
-provider "firehydrant-terraform-sdk" {
+provider "firehydrant" {
   # Configuration options
 }
 ```
@@ -58,50 +58,50 @@ provider "firehydrant-terraform-sdk" {
 
 ### Resources
 
-* [firehydrant-terraform-sdk_checklist_template](docs/resources/checklist_template.md)
-* [firehydrant-terraform-sdk_environment](docs/resources/environment.md)
-* [firehydrant-terraform-sdk_functionality](docs/resources/functionality.md)
-* [firehydrant-terraform-sdk_incident_role](docs/resources/incident_role.md)
-* [firehydrant-terraform-sdk_incident_type](docs/resources/incident_type.md)
-* [firehydrant-terraform-sdk_priority](docs/resources/priority.md)
-* [firehydrant-terraform-sdk_runbook](docs/resources/runbook.md)
-* [firehydrant-terraform-sdk_service](docs/resources/service.md)
-* [firehydrant-terraform-sdk_service_dependency](docs/resources/service_dependency.md)
-* [firehydrant-terraform-sdk_severity](docs/resources/severity.md)
-* [firehydrant-terraform-sdk_status_update_template](docs/resources/status_update_template.md)
-* [firehydrant-terraform-sdk_task_list](docs/resources/task_list.md)
-* [firehydrant-terraform-sdk_team](docs/resources/team.md)
-* [firehydrant-terraform-sdk_webhook](docs/resources/webhook.md)
+* [firehydrant_checklist_template](docs/resources/checklist_template.md)
+* [firehydrant_environment](docs/resources/environment.md)
+* [firehydrant_functionality](docs/resources/functionality.md)
+* [firehydrant_incident_role](docs/resources/incident_role.md)
+* [firehydrant_incident_type](docs/resources/incident_type.md)
+* [firehydrant_priority](docs/resources/priority.md)
+* [firehydrant_runbook](docs/resources/runbook.md)
+* [firehydrant_service](docs/resources/service.md)
+* [firehydrant_service_dependency](docs/resources/service_dependency.md)
+* [firehydrant_severity](docs/resources/severity.md)
+* [firehydrant_status_update_template](docs/resources/status_update_template.md)
+* [firehydrant_task_list](docs/resources/task_list.md)
+* [firehydrant_team](docs/resources/team.md)
+* [firehydrant_webhook](docs/resources/webhook.md)
 ### Data Sources
 
-* [firehydrant-terraform-sdk_checklist_template](docs/data-sources/checklist_template.md)
-* [firehydrant-terraform-sdk_checklist_templates](docs/data-sources/checklist_templates.md)
-* [firehydrant-terraform-sdk_environment](docs/data-sources/environment.md)
-* [firehydrant-terraform-sdk_environments](docs/data-sources/environments.md)
-* [firehydrant-terraform-sdk_functionalities](docs/data-sources/functionalities.md)
-* [firehydrant-terraform-sdk_functionality](docs/data-sources/functionality.md)
-* [firehydrant-terraform-sdk_incident_role](docs/data-sources/incident_role.md)
-* [firehydrant-terraform-sdk_incident_type](docs/data-sources/incident_type.md)
-* [firehydrant-terraform-sdk_incident_types](docs/data-sources/incident_types.md)
-* [firehydrant-terraform-sdk_priorities](docs/data-sources/priorities.md)
-* [firehydrant-terraform-sdk_priority](docs/data-sources/priority.md)
-* [firehydrant-terraform-sdk_runbook](docs/data-sources/runbook.md)
-* [firehydrant-terraform-sdk_runbooks](docs/data-sources/runbooks.md)
-* [firehydrant-terraform-sdk_service](docs/data-sources/service.md)
-* [firehydrant-terraform-sdk_service_dependency](docs/data-sources/service_dependency.md)
-* [firehydrant-terraform-sdk_services](docs/data-sources/services.md)
-* [firehydrant-terraform-sdk_severities](docs/data-sources/severities.md)
-* [firehydrant-terraform-sdk_severity](docs/data-sources/severity.md)
-* [firehydrant-terraform-sdk_status_update_template](docs/data-sources/status_update_template.md)
-* [firehydrant-terraform-sdk_status_update_templates](docs/data-sources/status_update_templates.md)
-* [firehydrant-terraform-sdk_task_list](docs/data-sources/task_list.md)
-* [firehydrant-terraform-sdk_task_lists](docs/data-sources/task_lists.md)
-* [firehydrant-terraform-sdk_team](docs/data-sources/team.md)
-* [firehydrant-terraform-sdk_teams](docs/data-sources/teams.md)
-* [firehydrant-terraform-sdk_users](docs/data-sources/users.md)
-* [firehydrant-terraform-sdk_webhook](docs/data-sources/webhook.md)
-* [firehydrant-terraform-sdk_webhooks](docs/data-sources/webhooks.md)
-* [firehydrant-terraform-sdk_webhook_target](docs/data-sources/webhook_target.md)
+* [firehydrant_checklist_template](docs/data-sources/checklist_template.md)
+* [firehydrant_checklist_templates](docs/data-sources/checklist_templates.md)
+* [firehydrant_environment](docs/data-sources/environment.md)
+* [firehydrant_environments](docs/data-sources/environments.md)
+* [firehydrant_functionalities](docs/data-sources/functionalities.md)
+* [firehydrant_functionality](docs/data-sources/functionality.md)
+* [firehydrant_incident_role](docs/data-sources/incident_role.md)
+* [firehydrant_incident_type](docs/data-sources/incident_type.md)
+* [firehydrant_incident_types](docs/data-sources/incident_types.md)
+* [firehydrant_priorities](docs/data-sources/priorities.md)
+* [firehydrant_priority](docs/data-sources/priority.md)
+* [firehydrant_runbook](docs/data-sources/runbook.md)
+* [firehydrant_runbooks](docs/data-sources/runbooks.md)
+* [firehydrant_service](docs/data-sources/service.md)
+* [firehydrant_service_dependency](docs/data-sources/service_dependency.md)
+* [firehydrant_services](docs/data-sources/services.md)
+* [firehydrant_severities](docs/data-sources/severities.md)
+* [firehydrant_severity](docs/data-sources/severity.md)
+* [firehydrant_status_update_template](docs/data-sources/status_update_template.md)
+* [firehydrant_status_update_templates](docs/data-sources/status_update_templates.md)
+* [firehydrant_task_list](docs/data-sources/task_list.md)
+* [firehydrant_task_lists](docs/data-sources/task_lists.md)
+* [firehydrant_team](docs/data-sources/team.md)
+* [firehydrant_teams](docs/data-sources/teams.md)
+* [firehydrant_users](docs/data-sources/users.md)
+* [firehydrant_webhook](docs/data-sources/webhook.md)
+* [firehydrant_webhooks](docs/data-sources/webhooks.md)
+* [firehydrant_webhook_target](docs/data-sources/webhook_target.md)
 <!-- End Available Resources and Data Sources [operations] -->
 
 <!-- Start Testing the provider locally [usage] -->
@@ -126,7 +126,7 @@ TF_REATTACH_PROVIDERS=... terraform apply
 
 Terraform allows you to use local provider builds by setting a `dev_overrides` block in a configuration file called `.terraformrc`. This block overrides all other configured installation methods.
 
-1. Execute `go build` to construct a binary called `terraform-provider-firehydrant-terraform-sdk`
+1. Execute `go build` to construct a binary called `terraform-provider-firehydrant`
 2. Ensure that the `.terraformrc` file is configured with a `dev_overrides` section such that your local copy of terraform can see the provider binary
 
 Terraform searches for the `.terraformrc` file in your home directory and applies any configuration settings you set.
@@ -135,7 +135,7 @@ Terraform searches for the `.terraformrc` file in your home directory and applie
 provider_installation {
 
   dev_overrides {
-      "registry.terraform.io/speakeasy/firehydrant-terraform-sdk" = "<PATH>"
+      "registry.terraform.io/firehydrant/firehydrant" = "<PATH>"
   }
 
   # For all other providers, install them directly from their origin provider

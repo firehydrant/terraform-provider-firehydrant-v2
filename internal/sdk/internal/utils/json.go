@@ -13,7 +13,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/types"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/types"
 
 	"github.com/ericlagergren/decimal"
 )

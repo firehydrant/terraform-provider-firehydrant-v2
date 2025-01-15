@@ -3,9 +3,9 @@
 package provider
 
 import (
+	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/operations"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	tfTypes "github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/provider/types"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/operations"
 )
 
 func (r *WebhookTargetDataSourceModel) RefreshFromOperationsGetV1SignalsWebhookTargetsIDResponseBody(resp *operations.GetV1SignalsWebhookTargetsIDResponseBody) {

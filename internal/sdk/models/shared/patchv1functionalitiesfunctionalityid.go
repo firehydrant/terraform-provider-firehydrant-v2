@@ -3,7 +3,7 @@
 package shared
 
 import (
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/internal/utils"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
 )
 
 type PatchV1FunctionalitiesFunctionalityIDServices struct {

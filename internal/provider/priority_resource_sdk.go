@@ -3,7 +3,7 @@
 package provider
 
 import (
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/shared"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 )
 
 func (r *PriorityResourceModel) ToSharedPostV1Priorities() *shared.PostV1Priorities {

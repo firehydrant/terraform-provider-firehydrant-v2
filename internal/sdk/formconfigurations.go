@@ -5,10 +5,10 @@ package sdk
 import (
 	"context"
 	"fmt"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/internal/hooks"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/internal/utils"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/errors"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/operations"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/hooks"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/errors"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/operations"
 	"net/http"
 )
 

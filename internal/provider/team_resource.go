@@ -5,18 +5,18 @@ package provider
 import (
 	"context"
 	"fmt"
+	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/operations"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/validators"
+	speakeasy_objectvalidators "github.com/firehydrant/terraform-provider-firehydrant/internal/validators/objectvalidators"
+	speakeasy_stringvalidators "github.com/firehydrant/terraform-provider-firehydrant/internal/validators/stringvalidators"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	tfTypes "github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/provider/types"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/sdk/models/operations"
-	"github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/validators"
-	speakeasy_objectvalidators "github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/validators/objectvalidators"
-	speakeasy_stringvalidators "github.com/speakeasy/terraform-provider-firehydrant-terraform-sdk/internal/validators/stringvalidators"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -29,7 +29,7 @@ func NewTeamResource() resource.Resource {
 
 // TeamResource defines the resource implementation.
 type TeamResource struct {
-	client *sdk.FirehydrantTerraformSDK
+	client *sdk.Firehydrant
 }
 
 // TeamResourceModel describes the resource data model.
@@ -601,12 +601,12 @@ func (r *TeamResource) Configure(ctx context.Context, req resource.ConfigureRequ
 		return
 	}
 
-	client, ok := req.ProviderData.(*sdk.FirehydrantTerraformSDK)
+	client, ok := req.ProviderData.(*sdk.Firehydrant)
 
 	if !ok {
 		resp.Diagnostics.AddError(
 			"Unexpected Resource Configure Type",
-			fmt.Sprintf("Expected *sdk.FirehydrantTerraformSDK, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected *sdk.Firehydrant, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 
 		return
