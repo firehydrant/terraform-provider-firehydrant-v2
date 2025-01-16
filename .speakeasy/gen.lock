@@ -5,8 +5,8 @@ management:
   docVersion: 0.0.1
   speakeasyVersion: 1.418.3
   generationVersion: 2.438.3
-  releaseVersion: 0.1.2
-  configChecksum: dd127f2d75e2ac69c409ff78a76ca7c3
+  releaseVersion: 0.1.3
+  configChecksum: f75e7e9a451062aaa31ccd474a3e8ebe
   repoURL: https://github.com/firehydrant/terraform-provider-firehydrant-v2.git
   published: true
 features:
