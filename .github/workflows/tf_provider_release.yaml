@@ -5,7 +5,7 @@ name: Release Terraform Provider
 on:
   push:
     tags:
-      - '*v'
+      - 'v*'
   workflow_dispatch:
 
 permissions:
