@@ -12,9 +12,11 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
 terraform:
-  version: 0.1.5
+  version: 0.1.6
   additionalDataSources: []
   additionalDependencies: {}
+  additionalProviderAttributes:
+    httpHeaders: ""
   additionalResources: []
   allowUnknownFieldsInWeakUnions: false
   author: firehydrant
