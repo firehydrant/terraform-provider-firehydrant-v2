@@ -9,25 +9,25 @@ import (
 	"net/http"
 )
 
-type GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType string
+type ResourceType string
 
 const (
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeChangeEvents          GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "change_events"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeIncidents             GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "incidents"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeServices              GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "services"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeScheduledMaintenances GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "scheduled_maintenances"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeTicketTasks           GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "ticket_tasks"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeTicketFollowUps       GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "ticket_follow_ups"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeAnalytics             GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "analytics"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeImpactAnalytics       GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "impact_analytics"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeAlerts                GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "alerts"
-	GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeIncidentEvents        GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "incident_events"
+	ResourceTypeChangeEvents          ResourceType = "change_events"
+	ResourceTypeIncidents             ResourceType = "incidents"
+	ResourceTypeServices              ResourceType = "services"
+	ResourceTypeScheduledMaintenances ResourceType = "scheduled_maintenances"
+	ResourceTypeTicketTasks           ResourceType = "ticket_tasks"
+	ResourceTypeTicketFollowUps       ResourceType = "ticket_follow_ups"
+	ResourceTypeAnalytics             ResourceType = "analytics"
+	ResourceTypeImpactAnalytics       ResourceType = "impact_analytics"
+	ResourceTypeAlerts                ResourceType = "alerts"
+	ResourceTypeIncidentEvents        ResourceType = "incident_events"
 )
 
-func (e GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType) ToPointer() *GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType {
+func (e ResourceType) ToPointer() *ResourceType {
 	return &e
 }
-func (e *GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType) UnmarshalJSON(data []byte) error {
+func (e *ResourceType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -52,21 +52,21 @@ func (e *GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType) Unmar
 	case "alerts":
 		fallthrough
 	case "incident_events":
-		*e = GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType(v)
+		*e = ResourceType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType: %v", v)
+		return fmt.Errorf("invalid value for ResourceType: %v", v)
 	}
 }
 
 type GetV1SavedSearchesResourceTypeSavedSearchIDRequest struct {
-	ResourceType  GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType `pathParam:"style=simple,explode=false,name=resource_type"`
-	SavedSearchID string                                                           `pathParam:"style=simple,explode=false,name=saved_search_id"`
+	ResourceType  ResourceType `pathParam:"style=simple,explode=false,name=resource_type"`
+	SavedSearchID string       `pathParam:"style=simple,explode=false,name=saved_search_id"`
 }
 
-func (o *GetV1SavedSearchesResourceTypeSavedSearchIDRequest) GetResourceType() GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType {
+func (o *GetV1SavedSearchesResourceTypeSavedSearchIDRequest) GetResourceType() ResourceType {
 	if o == nil {
-		return GetV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType("")
+		return ResourceType("")
 	}
 	return o.ResourceType
 }

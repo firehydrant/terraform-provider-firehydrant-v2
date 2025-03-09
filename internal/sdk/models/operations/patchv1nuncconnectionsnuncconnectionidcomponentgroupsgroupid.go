@@ -7,9 +7,9 @@ import (
 )
 
 type PatchV1NuncConnectionsNuncConnectionIDComponentGroupsGroupIDRequestBody struct {
-	Name             *string `form:"name=name"`
-	ComponentGroupID *string `form:"name=component_group_id"`
-	Position         *int    `form:"name=position"`
+	Name             *string `json:"name,omitempty"`
+	ComponentGroupID *string `json:"component_group_id,omitempty"`
+	Position         *int    `json:"position,omitempty"`
 }
 
 func (o *PatchV1NuncConnectionsNuncConnectionIDComponentGroupsGroupIDRequestBody) GetName() *string {
@@ -36,7 +36,7 @@ func (o *PatchV1NuncConnectionsNuncConnectionIDComponentGroupsGroupIDRequestBody
 type PatchV1NuncConnectionsNuncConnectionIDComponentGroupsGroupIDRequest struct {
 	NuncConnectionID string                                                                   `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
 	GroupID          string                                                                   `pathParam:"style=simple,explode=false,name=group_id"`
-	RequestBody      *PatchV1NuncConnectionsNuncConnectionIDComponentGroupsGroupIDRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody      *PatchV1NuncConnectionsNuncConnectionIDComponentGroupsGroupIDRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PatchV1NuncConnectionsNuncConnectionIDComponentGroupsGroupIDRequest) GetNuncConnectionID() string {

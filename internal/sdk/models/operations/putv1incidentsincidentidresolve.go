@@ -9,7 +9,7 @@ import (
 
 type PutV1IncidentsIncidentIDResolveRequestBody struct {
 	// The slug of any milestone in the post-incident or closed phase to set on the incident (and its children, if `resolve_children` os set). Must be one of the configured milestones available on this incident.
-	Milestone *string `form:"name=milestone"`
+	Milestone *string `json:"milestone,omitempty"`
 }
 
 func (o *PutV1IncidentsIncidentIDResolveRequestBody) GetMilestone() *string {
@@ -21,7 +21,7 @@ func (o *PutV1IncidentsIncidentIDResolveRequestBody) GetMilestone() *string {
 
 type PutV1IncidentsIncidentIDResolveRequest struct {
 	IncidentID  string                                      `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody *PutV1IncidentsIncidentIDResolveRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody *PutV1IncidentsIncidentIDResolveRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PutV1IncidentsIncidentIDResolveRequest) GetIncidentID() string {

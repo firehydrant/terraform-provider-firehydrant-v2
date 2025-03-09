@@ -9,18 +9,18 @@ import (
 	"net/http"
 )
 
-// Type of Entitlement
-type Type string
+// GetV1EntitlementsQueryParamType - Type of Entitlement
+type GetV1EntitlementsQueryParamType string
 
 const (
-	TypeQuota  Type = "quota"
-	TypeAccess Type = "access"
+	GetV1EntitlementsQueryParamTypeQuota  GetV1EntitlementsQueryParamType = "quota"
+	GetV1EntitlementsQueryParamTypeAccess GetV1EntitlementsQueryParamType = "access"
 )
 
-func (e Type) ToPointer() *Type {
+func (e GetV1EntitlementsQueryParamType) ToPointer() *GetV1EntitlementsQueryParamType {
 	return &e
 }
-func (e *Type) UnmarshalJSON(data []byte) error {
+func (e *GetV1EntitlementsQueryParamType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -29,10 +29,10 @@ func (e *Type) UnmarshalJSON(data []byte) error {
 	case "quota":
 		fallthrough
 	case "access":
-		*e = Type(v)
+		*e = GetV1EntitlementsQueryParamType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Type: %v", v)
+		return fmt.Errorf("invalid value for GetV1EntitlementsQueryParamType: %v", v)
 	}
 }
 
@@ -40,7 +40,7 @@ type GetV1EntitlementsRequest struct {
 	// Name of Entitlement
 	Name *string `queryParam:"style=form,explode=true,name=name"`
 	// Type of Entitlement
-	Type *Type `queryParam:"style=form,explode=true,name=type"`
+	Type *GetV1EntitlementsQueryParamType `queryParam:"style=form,explode=true,name=type"`
 }
 
 func (o *GetV1EntitlementsRequest) GetName() *string {
@@ -50,7 +50,7 @@ func (o *GetV1EntitlementsRequest) GetName() *string {
 	return o.Name
 }
 
-func (o *GetV1EntitlementsRequest) GetType() *Type {
+func (o *GetV1EntitlementsRequest) GetType() *GetV1EntitlementsQueryParamType {
 	if o == nil {
 		return nil
 	}

@@ -9,19 +9,19 @@ import (
 	"net/http"
 )
 
-type PathParamType string
+type PostV1IncidentsIncidentIDImpactTypePathParamType string
 
 const (
-	PathParamTypeEnvironments    PathParamType = "environments"
-	PathParamTypeFunctionalities PathParamType = "functionalities"
-	PathParamTypeServices        PathParamType = "services"
-	PathParamTypeCustomers       PathParamType = "customers"
+	PostV1IncidentsIncidentIDImpactTypePathParamTypeEnvironments    PostV1IncidentsIncidentIDImpactTypePathParamType = "environments"
+	PostV1IncidentsIncidentIDImpactTypePathParamTypeFunctionalities PostV1IncidentsIncidentIDImpactTypePathParamType = "functionalities"
+	PostV1IncidentsIncidentIDImpactTypePathParamTypeServices        PostV1IncidentsIncidentIDImpactTypePathParamType = "services"
+	PostV1IncidentsIncidentIDImpactTypePathParamTypeCustomers       PostV1IncidentsIncidentIDImpactTypePathParamType = "customers"
 )
 
-func (e PathParamType) ToPointer() *PathParamType {
+func (e PostV1IncidentsIncidentIDImpactTypePathParamType) ToPointer() *PostV1IncidentsIncidentIDImpactTypePathParamType {
 	return &e
 }
-func (e *PathParamType) UnmarshalJSON(data []byte) error {
+func (e *PostV1IncidentsIncidentIDImpactTypePathParamType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -34,17 +34,17 @@ func (e *PathParamType) UnmarshalJSON(data []byte) error {
 	case "services":
 		fallthrough
 	case "customers":
-		*e = PathParamType(v)
+		*e = PostV1IncidentsIncidentIDImpactTypePathParamType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PathParamType: %v", v)
+		return fmt.Errorf("invalid value for PostV1IncidentsIncidentIDImpactTypePathParamType: %v", v)
 	}
 }
 
 type PostV1IncidentsIncidentIDImpactTypeRequest struct {
-	IncidentID                          string                                     `pathParam:"style=simple,explode=false,name=incident_id"`
-	Type                                PathParamType                              `pathParam:"style=simple,explode=false,name=type"`
-	PostV1IncidentsIncidentIDImpactType shared.PostV1IncidentsIncidentIDImpactType `request:"mediaType=application/json"`
+	IncidentID                          string                                           `pathParam:"style=simple,explode=false,name=incident_id"`
+	Type                                PostV1IncidentsIncidentIDImpactTypePathParamType `pathParam:"style=simple,explode=false,name=type"`
+	PostV1IncidentsIncidentIDImpactType shared.PostV1IncidentsIncidentIDImpactType       `request:"mediaType=application/json"`
 }
 
 func (o *PostV1IncidentsIncidentIDImpactTypeRequest) GetIncidentID() string {
@@ -54,9 +54,9 @@ func (o *PostV1IncidentsIncidentIDImpactTypeRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *PostV1IncidentsIncidentIDImpactTypeRequest) GetType() PathParamType {
+func (o *PostV1IncidentsIncidentIDImpactTypeRequest) GetType() PostV1IncidentsIncidentIDImpactTypePathParamType {
 	if o == nil {
-		return PathParamType("")
+		return PostV1IncidentsIncidentIDImpactTypePathParamType("")
 	}
 	return o.Type
 }

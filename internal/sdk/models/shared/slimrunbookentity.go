@@ -16,10 +16,9 @@ type SlimRunbookEntity struct {
 	CreatedAt      *time.Time       `json:"created_at,omitempty"`
 	UpdatedAt      *time.Time       `json:"updated_at,omitempty"`
 	AttachmentRule *RulesRuleEntity `json:"attachment_rule,omitempty"`
-	// TeamEntity model
-	Owner *TeamEntity `json:"owner,omitempty"`
+	Owner          *TeamEntityLite  `json:"owner,omitempty"`
 	// categories the runbook applies to
-	Categories *string `json:"categories,omitempty"`
+	Categories []string `json:"categories,omitempty"`
 }
 
 func (s SlimRunbookEntity) MarshalJSON() ([]byte, error) {
@@ -89,14 +88,14 @@ func (o *SlimRunbookEntity) GetAttachmentRule() *RulesRuleEntity {
 	return o.AttachmentRule
 }
 
-func (o *SlimRunbookEntity) GetOwner() *TeamEntity {
+func (o *SlimRunbookEntity) GetOwner() *TeamEntityLite {
 	if o == nil {
 		return nil
 	}
 	return o.Owner
 }
 
-func (o *SlimRunbookEntity) GetCategories() *string {
+func (o *SlimRunbookEntity) GetCategories() []string {
 	if o == nil {
 		return nil
 	}

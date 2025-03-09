@@ -8,7 +8,7 @@ import (
 )
 
 type PutV1NuncConnectionsNuncConnectionIDImagesTypeFile struct {
-	FileName string `multipartForm:"name=file"`
+	FileName string `multipartForm:"name=fileName"`
 	Content  []byte `multipartForm:"content"`
 }
 
@@ -27,7 +27,7 @@ func (o *PutV1NuncConnectionsNuncConnectionIDImagesTypeFile) GetContent() []byte
 }
 
 type PutV1NuncConnectionsNuncConnectionIDImagesTypeRequestBody struct {
-	File *PutV1NuncConnectionsNuncConnectionIDImagesTypeFile `multipartForm:"file"`
+	File *PutV1NuncConnectionsNuncConnectionIDImagesTypeFile `multipartForm:"file,name=file"`
 }
 
 func (o *PutV1NuncConnectionsNuncConnectionIDImagesTypeRequestBody) GetFile() *PutV1NuncConnectionsNuncConnectionIDImagesTypeFile {

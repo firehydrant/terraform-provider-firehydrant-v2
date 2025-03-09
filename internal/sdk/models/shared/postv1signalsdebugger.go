@@ -2,6 +2,9 @@
 
 package shared
 
+type Annotations struct {
+}
+
 type Images struct {
 	Src *string `json:"src,omitempty"`
 	Alt *string `json:"alt,omitempty"`
@@ -41,11 +44,29 @@ func (o *PostV1SignalsDebuggerLinks) GetText() *string {
 }
 
 type Signals struct {
-	Summary *string                      `json:"summary,omitempty"`
-	Body    *string                      `json:"body,omitempty"`
-	Level   *string                      `json:"level,omitempty"`
-	Images  []Images                     `json:"images,omitempty"`
-	Links   []PostV1SignalsDebuggerLinks `json:"links,omitempty"`
+	ID             *string                      `json:"id,omitempty"`
+	OrganizationID *string                      `json:"organization_id,omitempty"`
+	Summary        *string                      `json:"summary,omitempty"`
+	Body           *string                      `json:"body,omitempty"`
+	Level          *string                      `json:"level,omitempty"`
+	Annotations    *Annotations                 `json:"annotations,omitempty"`
+	Tags           []string                     `json:"tags,omitempty"`
+	Images         []Images                     `json:"images,omitempty"`
+	Links          []PostV1SignalsDebuggerLinks `json:"links,omitempty"`
+}
+
+func (o *Signals) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *Signals) GetOrganizationID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OrganizationID
 }
 
 func (o *Signals) GetSummary() *string {
@@ -67,6 +88,20 @@ func (o *Signals) GetLevel() *string {
 		return nil
 	}
 	return o.Level
+}
+
+func (o *Signals) GetAnnotations() *Annotations {
+	if o == nil {
+		return nil
+	}
+	return o.Annotations
+}
+
+func (o *Signals) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
 }
 
 func (o *Signals) GetImages() []Images {

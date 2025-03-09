@@ -42,6 +42,49 @@ func (e *GetV1MetricsMilestoneFunnelQueryParamTagMatchStrategy) UnmarshalJSON(da
 	}
 }
 
+type GetV1MetricsMilestoneFunnelGroupBy string
+
+const (
+	GetV1MetricsMilestoneFunnelGroupByStartedDay   GetV1MetricsMilestoneFunnelGroupBy = "started_day"
+	GetV1MetricsMilestoneFunnelGroupByStartedWeek  GetV1MetricsMilestoneFunnelGroupBy = "started_week"
+	GetV1MetricsMilestoneFunnelGroupByStartedMonth GetV1MetricsMilestoneFunnelGroupBy = "started_month"
+	GetV1MetricsMilestoneFunnelGroupByAllTime      GetV1MetricsMilestoneFunnelGroupBy = "all_time"
+)
+
+func (e GetV1MetricsMilestoneFunnelGroupBy) ToPointer() *GetV1MetricsMilestoneFunnelGroupBy {
+	return &e
+}
+func (e *GetV1MetricsMilestoneFunnelGroupBy) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "started_day":
+		fallthrough
+	case "started_week":
+		fallthrough
+	case "started_month":
+		fallthrough
+	case "all_time":
+		*e = GetV1MetricsMilestoneFunnelGroupBy(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GetV1MetricsMilestoneFunnelGroupBy: %v", v)
+	}
+}
+
+type GetV1MetricsMilestoneFunnelRequestBody struct {
+	GroupBy []GetV1MetricsMilestoneFunnelGroupBy `multipartForm:"name=group_by"`
+}
+
+func (o *GetV1MetricsMilestoneFunnelRequestBody) GetGroupBy() []GetV1MetricsMilestoneFunnelGroupBy {
+	if o == nil {
+		return nil
+	}
+	return o.GroupBy
+}
+
 type GetV1MetricsMilestoneFunnelRequest struct {
 	// A JSON string that defines 'logic' and 'user_data'
 	Conditions *string `queryParam:"style=form,explode=true,name=conditions"`
@@ -67,6 +110,10 @@ type GetV1MetricsMilestoneFunnelRequest struct {
 	ResolvedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=resolved_at_or_after"`
 	// Filters for incidents that were resolved at or before this time. Combine this with the `current_milestones` parameter if you wish to omit incidents that were re-opened and are still active.
 	ResolvedAtOrBefore *time.Time `queryParam:"style=form,explode=true,name=resolved_at_or_before"`
+	// Filters for incidents that were closed at or after this time
+	ClosedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=closed_at_or_after"`
+	// Filters for incidents that were closed at or before this time
+	ClosedAtOrBefore *time.Time `queryParam:"style=form,explode=true,name=closed_at_or_before"`
 	// Filters for incidents that were created at or after this time
 	CreatedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=created_at_or_after"`
 	// Filters for incidents that were created at or before this time
@@ -98,8 +145,8 @@ type GetV1MetricsMilestoneFunnelRequest struct {
 	// Filters for incidents that were updated before this date
 	UpdatedBefore *time.Time `queryParam:"style=form,explode=true,name=updated_before"`
 	// A comma separated list of incident type IDs
-	IncidentTypeID           *string                          `queryParam:"style=form,explode=true,name=incident_type_id"`
-	GetV1MetricsTicketFunnel *shared.GetV1MetricsTicketFunnel `request:"mediaType=application/x-www-form-urlencoded"`
+	IncidentTypeID *string                                 `queryParam:"style=form,explode=true,name=incident_type_id"`
+	RequestBody    *GetV1MetricsMilestoneFunnelRequestBody `request:"mediaType=multipart/form-data"`
 }
 
 func (g GetV1MetricsMilestoneFunnelRequest) MarshalJSON() ([]byte, error) {
@@ -195,6 +242,20 @@ func (o *GetV1MetricsMilestoneFunnelRequest) GetResolvedAtOrBefore() *time.Time 
 		return nil
 	}
 	return o.ResolvedAtOrBefore
+}
+
+func (o *GetV1MetricsMilestoneFunnelRequest) GetClosedAtOrAfter() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAtOrAfter
+}
+
+func (o *GetV1MetricsMilestoneFunnelRequest) GetClosedAtOrBefore() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAtOrBefore
 }
 
 func (o *GetV1MetricsMilestoneFunnelRequest) GetCreatedAtOrAfter() *time.Time {
@@ -309,11 +370,11 @@ func (o *GetV1MetricsMilestoneFunnelRequest) GetIncidentTypeID() *string {
 	return o.IncidentTypeID
 }
 
-func (o *GetV1MetricsMilestoneFunnelRequest) GetGetV1MetricsTicketFunnel() *shared.GetV1MetricsTicketFunnel {
+func (o *GetV1MetricsMilestoneFunnelRequest) GetRequestBody() *GetV1MetricsMilestoneFunnelRequestBody {
 	if o == nil {
 		return nil
 	}
-	return o.GetV1MetricsTicketFunnel
+	return o.RequestBody
 }
 
 type GetV1MetricsMilestoneFunnelResponse struct {
