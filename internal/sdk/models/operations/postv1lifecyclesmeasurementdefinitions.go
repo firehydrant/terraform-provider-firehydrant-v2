@@ -7,11 +7,11 @@ import (
 )
 
 type PostV1LifecyclesMeasurementDefinitionsRequestBody struct {
-	Name                string  `form:"name=name"`
-	Slug                *string `form:"name=slug"`
-	Description         *string `form:"name=description"`
-	StartsAtMilestoneID string  `form:"name=starts_at_milestone_id"`
-	EndsAtMilestoneID   string  `form:"name=ends_at_milestone_id"`
+	Name                string  `json:"name"`
+	Slug                *string `json:"slug,omitempty"`
+	Description         *string `json:"description,omitempty"`
+	StartsAtMilestoneID string  `json:"starts_at_milestone_id"`
+	EndsAtMilestoneID   string  `json:"ends_at_milestone_id"`
 }
 
 func (o *PostV1LifecyclesMeasurementDefinitionsRequestBody) GetName() string {

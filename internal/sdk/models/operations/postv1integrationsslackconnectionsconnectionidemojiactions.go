@@ -8,9 +8,9 @@ import (
 
 type PostV1IntegrationsSlackConnectionsConnectionIDEmojiActionsRequestBody struct {
 	// The name of the emoji to associate with this action
-	EmojiName string `form:"name=emoji_name"`
+	EmojiName string `json:"emoji_name"`
 	// The ID of the incident type to associate with this emoji action
-	IncidentTypeID *string `form:"name=incident_type_id"`
+	IncidentTypeID *string `json:"incident_type_id,omitempty"`
 }
 
 func (o *PostV1IntegrationsSlackConnectionsConnectionIDEmojiActionsRequestBody) GetEmojiName() string {
@@ -30,7 +30,7 @@ func (o *PostV1IntegrationsSlackConnectionsConnectionIDEmojiActionsRequestBody) 
 type PostV1IntegrationsSlackConnectionsConnectionIDEmojiActionsRequest struct {
 	// Slack Connection UUID
 	ConnectionID string                                                                `pathParam:"style=simple,explode=false,name=connection_id"`
-	RequestBody  PostV1IntegrationsSlackConnectionsConnectionIDEmojiActionsRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody  PostV1IntegrationsSlackConnectionsConnectionIDEmojiActionsRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PostV1IntegrationsSlackConnectionsConnectionIDEmojiActionsRequest) GetConnectionID() string {

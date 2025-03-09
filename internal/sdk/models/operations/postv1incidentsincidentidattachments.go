@@ -12,7 +12,7 @@ import (
 )
 
 type File struct {
-	FileName string `multipartForm:"name=file"`
+	FileName string `multipartForm:"name=fileName"`
 	Content  []byte `multipartForm:"content"`
 }
 
@@ -57,7 +57,7 @@ func (e *VoteDirection) UnmarshalJSON(data []byte) error {
 }
 
 type PostV1IncidentsIncidentIDAttachmentsRequestBody struct {
-	File          File           `multipartForm:"file"`
+	File          File           `multipartForm:"file,name=file"`
 	Description   *string        `multipartForm:"name=description"`
 	OccurredAt    *time.Time     `multipartForm:"name=occurred_at"`
 	VoteDirection *VoteDirection `multipartForm:"name=vote_direction"`

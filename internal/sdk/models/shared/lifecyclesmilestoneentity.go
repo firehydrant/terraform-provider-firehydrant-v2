@@ -8,15 +8,16 @@ import (
 )
 
 type LifecyclesMilestoneEntity struct {
-	ID          *string       `json:"id,omitempty"`
-	Name        *string       `json:"name,omitempty"`
-	Description *string       `json:"description,omitempty"`
-	Slug        *string       `json:"slug,omitempty"`
-	Position    *int          `json:"position,omitempty"`
-	CreatedBy   *AuthorEntity `json:"created_by,omitempty"`
-	UpdatedBy   *AuthorEntity `json:"updated_by,omitempty"`
-	CreatedAt   *time.Time    `json:"created_at,omitempty"`
-	UpdatedAt   *time.Time    `json:"updated_at,omitempty"`
+	ID                          *string       `json:"id,omitempty"`
+	Name                        *string       `json:"name,omitempty"`
+	Description                 *string       `json:"description,omitempty"`
+	Slug                        *string       `json:"slug,omitempty"`
+	AutoAssignTimestampOnCreate *string       `json:"auto_assign_timestamp_on_create,omitempty"`
+	Position                    *int          `json:"position,omitempty"`
+	CreatedBy                   *AuthorEntity `json:"created_by,omitempty"`
+	UpdatedBy                   *AuthorEntity `json:"updated_by,omitempty"`
+	CreatedAt                   *time.Time    `json:"created_at,omitempty"`
+	UpdatedAt                   *time.Time    `json:"updated_at,omitempty"`
 }
 
 func (l LifecyclesMilestoneEntity) MarshalJSON() ([]byte, error) {
@@ -56,6 +57,13 @@ func (o *LifecyclesMilestoneEntity) GetSlug() *string {
 		return nil
 	}
 	return o.Slug
+}
+
+func (o *LifecyclesMilestoneEntity) GetAutoAssignTimestampOnCreate() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AutoAssignTimestampOnCreate
 }
 
 func (o *LifecyclesMilestoneEntity) GetPosition() *int {

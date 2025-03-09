@@ -8,9 +8,9 @@ import (
 )
 
 type PostV1NuncConnectionsNuncConnectionIDComponentGroupsRequestBody struct {
-	Name             string  `form:"name=name"`
-	ComponentGroupID *string `form:"name=component_group_id"`
-	Position         *int    `form:"name=position"`
+	Name             string  `json:"name"`
+	ComponentGroupID *string `json:"component_group_id,omitempty"`
+	Position         *int    `json:"position,omitempty"`
 }
 
 func (o *PostV1NuncConnectionsNuncConnectionIDComponentGroupsRequestBody) GetName() string {
@@ -36,7 +36,7 @@ func (o *PostV1NuncConnectionsNuncConnectionIDComponentGroupsRequestBody) GetPos
 
 type PostV1NuncConnectionsNuncConnectionIDComponentGroupsRequest struct {
 	NuncConnectionID string                                                          `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
-	RequestBody      PostV1NuncConnectionsNuncConnectionIDComponentGroupsRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody      PostV1NuncConnectionsNuncConnectionIDComponentGroupsRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PostV1NuncConnectionsNuncConnectionIDComponentGroupsRequest) GetNuncConnectionID() string {

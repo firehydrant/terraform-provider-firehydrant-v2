@@ -2,13 +2,17 @@
 
 package shared
 
+// IncidentTypeEntityTemplateEntityLabels - Arbitrary key:value pairs of labels for your incidents.
+type IncidentTypeEntityTemplateEntityLabels struct {
+}
+
 type IncidentTypeEntityTemplateEntity struct {
 	IncidentName          *string `json:"incident_name,omitempty"`
 	Summary               *string `json:"summary,omitempty"`
 	Description           *string `json:"description,omitempty"`
 	CustomerImpactSummary *string `json:"customer_impact_summary,omitempty"`
 	// Arbitrary key:value pairs of labels for your incidents.
-	Labels          map[string]string                        `json:"labels,omitempty"`
+	Labels          *IncidentTypeEntityTemplateEntityLabels  `json:"labels,omitempty"`
 	Severity        *string                                  `json:"severity,omitempty"`
 	Priority        *string                                  `json:"priority,omitempty"`
 	TagList         []string                                 `json:"tag_list,omitempty"`
@@ -47,7 +51,7 @@ func (o *IncidentTypeEntityTemplateEntity) GetCustomerImpactSummary() *string {
 	return o.CustomerImpactSummary
 }
 
-func (o *IncidentTypeEntityTemplateEntity) GetLabels() map[string]string {
+func (o *IncidentTypeEntityTemplateEntity) GetLabels() *IncidentTypeEntityTemplateEntityLabels {
 	if o == nil {
 		return nil
 	}

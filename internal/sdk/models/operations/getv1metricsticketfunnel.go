@@ -42,6 +42,49 @@ func (e *QueryParamTagMatchStrategy) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type GroupBy string
+
+const (
+	GroupByStartedDay   GroupBy = "started_day"
+	GroupByStartedWeek  GroupBy = "started_week"
+	GroupByStartedMonth GroupBy = "started_month"
+	GroupByAllTime      GroupBy = "all_time"
+)
+
+func (e GroupBy) ToPointer() *GroupBy {
+	return &e
+}
+func (e *GroupBy) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "started_day":
+		fallthrough
+	case "started_week":
+		fallthrough
+	case "started_month":
+		fallthrough
+	case "all_time":
+		*e = GroupBy(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for GroupBy: %v", v)
+	}
+}
+
+type GetV1MetricsTicketFunnelRequestBody struct {
+	GroupBy []GroupBy `multipartForm:"name=group_by"`
+}
+
+func (o *GetV1MetricsTicketFunnelRequestBody) GetGroupBy() []GroupBy {
+	if o == nil {
+		return nil
+	}
+	return o.GroupBy
+}
+
 type GetV1MetricsTicketFunnelRequest struct {
 	// A JSON string that defines 'logic' and 'user_data'
 	Conditions *string `queryParam:"style=form,explode=true,name=conditions"`
@@ -67,6 +110,10 @@ type GetV1MetricsTicketFunnelRequest struct {
 	ResolvedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=resolved_at_or_after"`
 	// Filters for incidents that were resolved at or before this time. Combine this with the `current_milestones` parameter if you wish to omit incidents that were re-opened and are still active.
 	ResolvedAtOrBefore *time.Time `queryParam:"style=form,explode=true,name=resolved_at_or_before"`
+	// Filters for incidents that were closed at or after this time
+	ClosedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=closed_at_or_after"`
+	// Filters for incidents that were closed at or before this time
+	ClosedAtOrBefore *time.Time `queryParam:"style=form,explode=true,name=closed_at_or_before"`
 	// Filters for incidents that were created at or after this time
 	CreatedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=created_at_or_after"`
 	// Filters for incidents that were created at or before this time
@@ -98,8 +145,8 @@ type GetV1MetricsTicketFunnelRequest struct {
 	// Filters for incidents that were updated before this date
 	UpdatedBefore *time.Time `queryParam:"style=form,explode=true,name=updated_before"`
 	// A comma separated list of incident type IDs
-	IncidentTypeID           *string                          `queryParam:"style=form,explode=true,name=incident_type_id"`
-	GetV1MetricsTicketFunnel *shared.GetV1MetricsTicketFunnel `request:"mediaType=application/x-www-form-urlencoded"`
+	IncidentTypeID *string                              `queryParam:"style=form,explode=true,name=incident_type_id"`
+	RequestBody    *GetV1MetricsTicketFunnelRequestBody `request:"mediaType=multipart/form-data"`
 }
 
 func (g GetV1MetricsTicketFunnelRequest) MarshalJSON() ([]byte, error) {
@@ -195,6 +242,20 @@ func (o *GetV1MetricsTicketFunnelRequest) GetResolvedAtOrBefore() *time.Time {
 		return nil
 	}
 	return o.ResolvedAtOrBefore
+}
+
+func (o *GetV1MetricsTicketFunnelRequest) GetClosedAtOrAfter() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAtOrAfter
+}
+
+func (o *GetV1MetricsTicketFunnelRequest) GetClosedAtOrBefore() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAtOrBefore
 }
 
 func (o *GetV1MetricsTicketFunnelRequest) GetCreatedAtOrAfter() *time.Time {
@@ -309,11 +370,11 @@ func (o *GetV1MetricsTicketFunnelRequest) GetIncidentTypeID() *string {
 	return o.IncidentTypeID
 }
 
-func (o *GetV1MetricsTicketFunnelRequest) GetGetV1MetricsTicketFunnel() *shared.GetV1MetricsTicketFunnel {
+func (o *GetV1MetricsTicketFunnelRequest) GetRequestBody() *GetV1MetricsTicketFunnelRequestBody {
 	if o == nil {
 		return nil
 	}
-	return o.GetV1MetricsTicketFunnel
+	return o.RequestBody
 }
 
 type GetV1MetricsTicketFunnelResponse struct {

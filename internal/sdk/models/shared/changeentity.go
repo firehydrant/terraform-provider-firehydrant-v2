@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+// ChangeEntityLabels - Arbitrary key/value pairs of labels.
+type ChangeEntityLabels struct {
+}
+
 // ChangeEntity model
 type ChangeEntity struct {
 	// UUID of the Change
@@ -17,7 +21,7 @@ type ChangeEntity struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// Arbitrary key/value pairs of labels.
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels *ChangeEntityLabels `json:"labels,omitempty"`
 	// Description of the Change
 	Description *string `json:"description,omitempty"`
 }
@@ -61,7 +65,7 @@ func (o *ChangeEntity) GetUpdatedAt() *time.Time {
 	return o.UpdatedAt
 }
 
-func (o *ChangeEntity) GetLabels() map[string]string {
+func (o *ChangeEntity) GetLabels() *ChangeEntityLabels {
 	if o == nil {
 		return nil
 	}

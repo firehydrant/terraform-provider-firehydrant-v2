@@ -7,11 +7,11 @@ import (
 )
 
 type PatchV1LifecyclesMeasurementDefinitionsMeasurementDefinitionIDRequestBody struct {
-	Name                *string `form:"name=name"`
-	Slug                *string `form:"name=slug"`
-	Description         *string `form:"name=description"`
-	StartsAtMilestoneID *string `form:"name=starts_at_milestone_id"`
-	EndsAtMilestoneID   *string `form:"name=ends_at_milestone_id"`
+	Name                *string `json:"name,omitempty"`
+	Slug                *string `json:"slug,omitempty"`
+	Description         *string `json:"description,omitempty"`
+	StartsAtMilestoneID *string `json:"starts_at_milestone_id,omitempty"`
+	EndsAtMilestoneID   *string `json:"ends_at_milestone_id,omitempty"`
 }
 
 func (o *PatchV1LifecyclesMeasurementDefinitionsMeasurementDefinitionIDRequestBody) GetName() *string {
@@ -51,7 +51,7 @@ func (o *PatchV1LifecyclesMeasurementDefinitionsMeasurementDefinitionIDRequestBo
 
 type PatchV1LifecyclesMeasurementDefinitionsMeasurementDefinitionIDRequest struct {
 	MeasurementDefinitionID string                                                                     `pathParam:"style=simple,explode=false,name=measurement_definition_id"`
-	RequestBody             *PatchV1LifecyclesMeasurementDefinitionsMeasurementDefinitionIDRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody             *PatchV1LifecyclesMeasurementDefinitionsMeasurementDefinitionIDRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PatchV1LifecyclesMeasurementDefinitionsMeasurementDefinitionIDRequest) GetMeasurementDefinitionID() string {

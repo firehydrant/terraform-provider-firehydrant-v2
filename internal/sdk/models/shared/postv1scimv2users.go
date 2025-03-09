@@ -45,6 +45,10 @@ func (o *PostV1ScimV2UsersEmails) GetPrimary() bool {
 	return o.Primary
 }
 
+// PostV1ScimV2UsersRoles - Roles for the User. Options are owner, member, collaborator, or viewer. Roles may be specified as strings or SCIM role objects.
+type PostV1ScimV2UsersRoles struct {
+}
+
 // PostV1ScimV2Users - SCIM endpoint to create and provision a new User. This endpoint will provision the User, which allows them to accept their account throught their IDP or via the Forgot Password flow.
 type PostV1ScimV2Users struct {
 	// A service provider's unique identifier for the user
@@ -53,8 +57,8 @@ type PostV1ScimV2Users struct {
 	Name PostV1ScimV2UsersName `json:"name"`
 	// Email addresses for the User
 	Emails []PostV1ScimV2UsersEmails `json:"emails"`
-	// Roles for the User. Options are owner, member or collaborator
-	Roles []string `json:"roles,omitempty"`
+	// Roles for the User. Options are owner, member, collaborator, or viewer. Roles may be specified as strings or SCIM role objects.
+	Roles *PostV1ScimV2UsersRoles `json:"roles,omitempty"`
 	// This attribute is intended to be used as a means to set, replace, or compare (i.e., filter for equality) a password
 	Password *string `json:"password,omitempty"`
 }
@@ -80,7 +84,7 @@ func (o *PostV1ScimV2Users) GetEmails() []PostV1ScimV2UsersEmails {
 	return o.Emails
 }
 
-func (o *PostV1ScimV2Users) GetRoles() []string {
+func (o *PostV1ScimV2Users) GetRoles() *PostV1ScimV2UsersRoles {
 	if o == nil {
 		return nil
 	}

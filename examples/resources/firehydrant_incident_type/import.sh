@@ -1,1 +1,0 @@
-terraform import firehydrant_incident_type.my_firehydrant_incident_type ""
