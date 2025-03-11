@@ -25,13 +25,6 @@ func newOnCallSchedules(sdkConfig sdkConfiguration) *OnCallSchedules {
 // Create an on-call schedule
 // Create a Signals on-call schedule for a team.
 func (s *OnCallSchedules) Create(ctx context.Context, request operations.PostV1TeamsTeamIDOnCallSchedulesRequest, opts ...operations.Option) (*operations.PostV1TeamsTeamIDOnCallSchedulesResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "postV1TeamsTeamIdOnCallSchedules",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -43,12 +36,24 @@ func (s *OnCallSchedules) Create(ctx context.Context, request operations.PostV1T
 		}
 	}
 
-	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/teams/{team_id}/on_call_schedules", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "postV1TeamsTeamIdOnCallSchedules",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "PostV1TeamsTeamIDOnCallSchedules", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -71,10 +76,16 @@ func (s *OnCallSchedules) Create(ctx context.Context, request operations.PostV1T
 	}
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-	req.Header.Set("Content-Type", reqContentType)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
 	}
 
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
@@ -119,7 +130,7 @@ func (s *OnCallSchedules) Create(ctx context.Context, request operations.PostV1T
 		if err != nil {
 			return nil, err
 		}
-		return nil, errors.NewSDKError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+		return nil, errors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
 	return res, nil
@@ -129,13 +140,6 @@ func (s *OnCallSchedules) Create(ctx context.Context, request operations.PostV1T
 // Get an on-call schedule
 // Get a Signals on-call schedule by ID
 func (s *OnCallSchedules) Get(ctx context.Context, request operations.GetV1TeamsTeamIDOnCallSchedulesScheduleIDRequest, opts ...operations.Option) (*operations.GetV1TeamsTeamIDOnCallSchedulesScheduleIDResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "getV1TeamsTeamIdOnCallSchedulesScheduleId",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -147,10 +151,23 @@ func (s *OnCallSchedules) Get(ctx context.Context, request operations.GetV1Teams
 		}
 	}
 
-	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/teams/{team_id}/on_call_schedules/{schedule_id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "getV1TeamsTeamIdOnCallSchedulesScheduleId",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -173,6 +190,10 @@ func (s *OnCallSchedules) Get(ctx context.Context, request operations.GetV1Teams
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
 	}
 
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
@@ -217,7 +238,7 @@ func (s *OnCallSchedules) Get(ctx context.Context, request operations.GetV1Teams
 		if err != nil {
 			return nil, err
 		}
-		return nil, errors.NewSDKError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+		return nil, errors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
 	return res, nil

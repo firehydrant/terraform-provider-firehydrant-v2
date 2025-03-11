@@ -25,13 +25,6 @@ func newLinks(sdkConfig sdkConfiguration) *Links {
 // Update - Updates the external incident link
 // Updates the external incident link attributes
 func (s *Links) Update(ctx context.Context, request operations.PutV1IncidentsIncidentIDLinksLinkIDRequest, opts ...operations.Option) (*operations.PutV1IncidentsIncidentIDLinksLinkIDResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "putV1IncidentsIncidentIdLinksLinkId",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -43,12 +36,24 @@ func (s *Links) Update(ctx context.Context, request operations.PutV1IncidentsInc
 		}
 	}
 
-	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/incidents/{incident_id}/links/{link_id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "putV1IncidentsIncidentIdLinksLinkId",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
+	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "PutV1IncidentsIncidentIDLinksLinkID", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
@@ -71,10 +76,16 @@ func (s *Links) Update(ctx context.Context, request operations.PutV1IncidentsInc
 	}
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
-	req.Header.Set("Content-Type", reqContentType)
+	if reqContentType != "" {
+		req.Header.Set("Content-Type", reqContentType)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
 	}
 
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
@@ -119,7 +130,7 @@ func (s *Links) Update(ctx context.Context, request operations.PutV1IncidentsInc
 		if err != nil {
 			return nil, err
 		}
-		return nil, errors.NewSDKError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+		return nil, errors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
 	return res, nil

@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+// AlertsAlertEntityLabels - Arbitrary key:value pairs of labels.
+type AlertsAlertEntityLabels struct {
+}
+
 // AlertsAlertEntity - Alerts_AlertEntity model
 type AlertsAlertEntity struct {
 	ID              *string    `json:"id,omitempty"`
@@ -22,19 +26,22 @@ type AlertsAlertEntity struct {
 	RemoteID        *string    `json:"remote_id,omitempty"`
 	RemoteURL       *string    `json:"remote_url,omitempty"`
 	// Arbitrary key:value pairs of labels.
-	Labels       map[string]string                    `json:"labels,omitempty"`
+	Labels       *AlertsAlertEntityLabels             `json:"labels,omitempty"`
 	Environments []SuccinctEntity                     `json:"environments,omitempty"`
 	Services     []SuccinctEntity                     `json:"services,omitempty"`
 	Tags         []string                             `json:"tags,omitempty"`
 	SourceIcon   *string                              `json:"source_icon,omitempty"`
 	SignalID     *string                              `json:"signal_id,omitempty"`
 	SignalRule   *SignalsAPIRuleEntity                `json:"signal_rule,omitempty"`
+	SignalTarget *SignalsAPITargetEntity              `json:"signal_target,omitempty"`
 	TeamName     *string                              `json:"team_name,omitempty"`
 	TeamID       *string                              `json:"team_id,omitempty"`
 	Position     *int                                 `json:"position,omitempty"`
 	Incidents    []PublicAPIV1IncidentsSuccinctEntity `json:"incidents,omitempty"`
 	Events       []AlertsSirenEventEntity             `json:"events,omitempty"`
 	IsExpired    *bool                                `json:"is_expired,omitempty"`
+	ParentAlerts []AlertsSirenAlertEntity             `json:"parent_alerts,omitempty"`
+	ChildAlerts  []AlertsSirenAlertEntity             `json:"child_alerts,omitempty"`
 }
 
 func (a AlertsAlertEntity) MarshalJSON() ([]byte, error) {
@@ -132,7 +139,7 @@ func (o *AlertsAlertEntity) GetRemoteURL() *string {
 	return o.RemoteURL
 }
 
-func (o *AlertsAlertEntity) GetLabels() map[string]string {
+func (o *AlertsAlertEntity) GetLabels() *AlertsAlertEntityLabels {
 	if o == nil {
 		return nil
 	}
@@ -181,6 +188,13 @@ func (o *AlertsAlertEntity) GetSignalRule() *SignalsAPIRuleEntity {
 	return o.SignalRule
 }
 
+func (o *AlertsAlertEntity) GetSignalTarget() *SignalsAPITargetEntity {
+	if o == nil {
+		return nil
+	}
+	return o.SignalTarget
+}
+
 func (o *AlertsAlertEntity) GetTeamName() *string {
 	if o == nil {
 		return nil
@@ -221,4 +235,18 @@ func (o *AlertsAlertEntity) GetIsExpired() *bool {
 		return nil
 	}
 	return o.IsExpired
+}
+
+func (o *AlertsAlertEntity) GetParentAlerts() []AlertsSirenAlertEntity {
+	if o == nil {
+		return nil
+	}
+	return o.ParentAlerts
+}
+
+func (o *AlertsAlertEntity) GetChildAlerts() []AlertsSirenAlertEntity {
+	if o == nil {
+		return nil
+	}
+	return o.ChildAlerts
 }

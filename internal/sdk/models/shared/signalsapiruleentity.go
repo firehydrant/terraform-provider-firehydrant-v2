@@ -38,6 +38,32 @@ func (e *SignalsAPIRuleEntityNotificationPriorityOverride) UnmarshalJSON(data []
 	}
 }
 
+type SignalsAPIRuleEntityCreateIncidentConditionWhen string
+
+const (
+	SignalsAPIRuleEntityCreateIncidentConditionWhenWhenUnspecified SignalsAPIRuleEntityCreateIncidentConditionWhen = "WHEN_UNSPECIFIED"
+	SignalsAPIRuleEntityCreateIncidentConditionWhenWhenAlways      SignalsAPIRuleEntityCreateIncidentConditionWhen = "WHEN_ALWAYS"
+)
+
+func (e SignalsAPIRuleEntityCreateIncidentConditionWhen) ToPointer() *SignalsAPIRuleEntityCreateIncidentConditionWhen {
+	return &e
+}
+func (e *SignalsAPIRuleEntityCreateIncidentConditionWhen) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "WHEN_UNSPECIFIED":
+		fallthrough
+	case "WHEN_ALWAYS":
+		*e = SignalsAPIRuleEntityCreateIncidentConditionWhen(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for SignalsAPIRuleEntityCreateIncidentConditionWhen: %v", v)
+	}
+}
+
 type SignalsAPIRuleEntity struct {
 	ID                           *string                                           `json:"id,omitempty"`
 	Name                         *string                                           `json:"name,omitempty"`
@@ -49,6 +75,7 @@ type SignalsAPIRuleEntity struct {
 	UpdatedAt                    *time.Time                                        `json:"updated_at,omitempty"`
 	IncidentType                 *SuccinctEntity                                   `json:"incident_type,omitempty"`
 	NotificationPriorityOverride *SignalsAPIRuleEntityNotificationPriorityOverride `json:"notification_priority_override,omitempty"`
+	CreateIncidentConditionWhen  *SignalsAPIRuleEntityCreateIncidentConditionWhen  `json:"create_incident_condition_when,omitempty"`
 }
 
 func (s SignalsAPIRuleEntity) MarshalJSON() ([]byte, error) {
@@ -130,4 +157,11 @@ func (o *SignalsAPIRuleEntity) GetNotificationPriorityOverride() *SignalsAPIRule
 		return nil
 	}
 	return o.NotificationPriorityOverride
+}
+
+func (o *SignalsAPIRuleEntity) GetCreateIncidentConditionWhen() *SignalsAPIRuleEntityCreateIncidentConditionWhen {
+	if o == nil {
+		return nil
+	}
+	return o.CreateIncidentConditionWhen
 }

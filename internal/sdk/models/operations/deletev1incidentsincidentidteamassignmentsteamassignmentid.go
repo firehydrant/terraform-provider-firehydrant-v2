@@ -8,7 +8,7 @@ import (
 
 type DeleteV1IncidentsIncidentIDTeamAssignmentsTeamAssignmentIDRequestBody struct {
 	// Team role assignments to unassign from the incident
-	RoleAssignmentIds []string `form:"name=role_assignment_ids"`
+	RoleAssignmentIds []string `multipartForm:"name=role_assignment_ids"`
 }
 
 func (o *DeleteV1IncidentsIncidentIDTeamAssignmentsTeamAssignmentIDRequestBody) GetRoleAssignmentIds() []string {
@@ -21,7 +21,7 @@ func (o *DeleteV1IncidentsIncidentIDTeamAssignmentsTeamAssignmentIDRequestBody) 
 type DeleteV1IncidentsIncidentIDTeamAssignmentsTeamAssignmentIDRequest struct {
 	IncidentID       string                                                                 `pathParam:"style=simple,explode=false,name=incident_id"`
 	TeamAssignmentID string                                                                 `pathParam:"style=simple,explode=false,name=team_assignment_id"`
-	RequestBody      *DeleteV1IncidentsIncidentIDTeamAssignmentsTeamAssignmentIDRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody      *DeleteV1IncidentsIncidentIDTeamAssignmentsTeamAssignmentIDRequestBody `request:"mediaType=multipart/form-data"`
 }
 
 func (o *DeleteV1IncidentsIncidentIDTeamAssignmentsTeamAssignmentIDRequest) GetIncidentID() string {

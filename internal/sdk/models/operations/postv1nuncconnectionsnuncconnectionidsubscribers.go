@@ -9,7 +9,7 @@ import (
 
 type PostV1NuncConnectionsNuncConnectionIDSubscribersRequestBody struct {
 	// A comma-separated list of emails to subscribe.
-	Emails string `form:"name=emails"`
+	Emails string `json:"emails"`
 }
 
 func (o *PostV1NuncConnectionsNuncConnectionIDSubscribersRequestBody) GetEmails() string {
@@ -21,7 +21,7 @@ func (o *PostV1NuncConnectionsNuncConnectionIDSubscribersRequestBody) GetEmails(
 
 type PostV1NuncConnectionsNuncConnectionIDSubscribersRequest struct {
 	NuncConnectionID string                                                      `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
-	RequestBody      PostV1NuncConnectionsNuncConnectionIDSubscribersRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody      PostV1NuncConnectionsNuncConnectionIDSubscribersRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PostV1NuncConnectionsNuncConnectionIDSubscribersRequest) GetNuncConnectionID() string {

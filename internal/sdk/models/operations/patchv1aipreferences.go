@@ -9,21 +9,21 @@ import (
 
 type PatchV1AiPreferencesRequestBody struct {
 	// Whether to enable AI features
-	Ai *bool `form:"name=ai"`
+	Ai *bool `json:"ai,omitempty"`
 	// Whether to enable incident summaries
-	Summaries *bool `form:"name=summaries"`
+	Summaries *bool `json:"summaries,omitempty"`
 	// Whether to enable incident descriptions
-	Description *bool `form:"name=description"`
+	Description *bool `json:"description,omitempty"`
 	// Whether to enable incident impact
-	Impact *bool `form:"name=impact"`
+	Impact *bool `json:"impact,omitempty"`
 	// Whether to enable incident updates
-	Updates *bool `form:"name=updates"`
+	Updates *bool `json:"updates,omitempty"`
 	// Whether to enable incident retrospectives
-	Retros *bool `form:"name=retros"`
+	Retros *bool `json:"retros,omitempty"`
 	// Whether to enable incident followups
-	Followups *bool `form:"name=followups"`
+	Followups *bool `json:"followups,omitempty"`
 	// Whether to enable similar incidents
-	SimilarIncidents *bool `form:"name=similar_incidents"`
+	SimilarIncidents *bool `json:"similar_incidents,omitempty"`
 }
 
 func (o *PatchV1AiPreferencesRequestBody) GetAi() *bool {

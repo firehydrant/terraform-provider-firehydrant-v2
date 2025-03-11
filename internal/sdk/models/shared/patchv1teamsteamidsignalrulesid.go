@@ -73,6 +73,33 @@ func (e *PatchV1TeamsTeamIDSignalRulesIDNotificationPriorityOverride) UnmarshalJ
 	}
 }
 
+// PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen - Determines when an incident should be created when this rule is matched
+type PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen string
+
+const (
+	PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhenWhenUnspecified PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen = "WHEN_UNSPECIFIED"
+	PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhenWhenAlways      PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen = "WHEN_ALWAYS"
+)
+
+func (e PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen) ToPointer() *PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen {
+	return &e
+}
+func (e *PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "WHEN_UNSPECIFIED":
+		fallthrough
+	case "WHEN_ALWAYS":
+		*e = PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen: %v", v)
+	}
+}
+
 // PatchV1TeamsTeamIDSignalRulesID - Update a Signals rule by ID
 type PatchV1TeamsTeamIDSignalRulesID struct {
 	// The rule's name.
@@ -87,6 +114,8 @@ type PatchV1TeamsTeamIDSignalRulesID struct {
 	IncidentTypeID *string `json:"incident_type_id,omitempty"`
 	// A notification priority that will be set on the resulting alert (default: HIGH)
 	NotificationPriorityOverride *PatchV1TeamsTeamIDSignalRulesIDNotificationPriorityOverride `json:"notification_priority_override,omitempty"`
+	// Determines when an incident should be created when this rule is matched
+	CreateIncidentConditionWhen *PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen `json:"create_incident_condition_when,omitempty"`
 }
 
 func (o *PatchV1TeamsTeamIDSignalRulesID) GetName() *string {
@@ -129,4 +158,11 @@ func (o *PatchV1TeamsTeamIDSignalRulesID) GetNotificationPriorityOverride() *Pat
 		return nil
 	}
 	return o.NotificationPriorityOverride
+}
+
+func (o *PatchV1TeamsTeamIDSignalRulesID) GetCreateIncidentConditionWhen() *PatchV1TeamsTeamIDSignalRulesIDCreateIncidentConditionWhen {
+	if o == nil {
+		return nil
+	}
+	return o.CreateIncidentConditionWhen
 }

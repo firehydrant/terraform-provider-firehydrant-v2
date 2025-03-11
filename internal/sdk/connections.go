@@ -25,13 +25,6 @@ func newConnections(sdkConfig sdkConfiguration) *Connections {
 // Update an incident type
 // Update a single incident type from its ID
 func (s *Connections) Update(ctx context.Context, request operations.PatchV1IntegrationsConnectionsSlugConnectionIDRequest, opts ...operations.Option) (*operations.PatchV1IntegrationsConnectionsSlugConnectionIDResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "patchV1IntegrationsConnectionsSlugConnectionId",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -43,10 +36,23 @@ func (s *Connections) Update(ctx context.Context, request operations.PatchV1Inte
 		}
 	}
 
-	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/integrations/connections/{slug}/{connection_id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "patchV1IntegrationsConnectionsSlugConnectionId",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -69,6 +75,10 @@ func (s *Connections) Update(ctx context.Context, request operations.PatchV1Inte
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
 	}
 
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
@@ -113,7 +123,7 @@ func (s *Connections) Update(ctx context.Context, request operations.PatchV1Inte
 		if err != nil {
 			return nil, err
 		}
-		return nil, errors.NewSDKError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+		return nil, errors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
 	return res, nil

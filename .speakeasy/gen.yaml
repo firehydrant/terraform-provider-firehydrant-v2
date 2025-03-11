@@ -7,14 +7,19 @@ generation:
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
+    nameResolutionFeb2025: false
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
+    securityFeb2025: false
   auth:
     oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: false
 terraform:
-  version: 0.1.5
+  version: 0.2.0
   additionalDataSources: []
   additionalDependencies: {}
+  additionalProviderAttributes:
+    httpHeaders: ""
   additionalResources: []
   allowUnknownFieldsInWeakUnions: false
   author: firehydrant

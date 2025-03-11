@@ -3,21 +3,55 @@
 package operations
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
 )
 
+// PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate - The setting for auto-assigning the milestone's timestamp during incident declaration
+type PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate string
+
+const (
+	PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreateAlwaysSetOnCreate     PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate = "always_set_on_create"
+	PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreateOnlySetOnManualCreate PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate = "only_set_on_manual_create"
+	PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreateNeverSetOnCreate      PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate = "never_set_on_create"
+)
+
+func (e PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate) ToPointer() *PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate {
+	return &e
+}
+func (e *PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "always_set_on_create":
+		fallthrough
+	case "only_set_on_manual_create":
+		fallthrough
+	case "never_set_on_create":
+		*e = PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate: %v", v)
+	}
+}
+
 type PatchV1LifecyclesMilestonesMilestoneIDRequestBody struct {
 	// The name of the milestone
-	Name *string `form:"name=name"`
+	Name *string `json:"name,omitempty"`
 	// A long-form description of the milestone's purpose
-	Description *string `form:"name=description"`
+	Description *string `json:"description,omitempty"`
 	// A unique identifier for the milestone. If not provided, one will be generated from the name.
-	Slug *string `form:"name=slug"`
+	Slug *string `json:"slug,omitempty"`
 	// The position of the milestone within the phase. If not provided, the milestone will be added as the last milestone in the phase.
-	Position *int `form:"name=position"`
+	Position *int `json:"position,omitempty"`
 	// The ID of a later milestone that cannot be started until this milestone has a timestamp populated
-	RequiredAtMilestoneID *string `form:"name=required_at_milestone_id"`
+	RequiredAtMilestoneID *string `json:"required_at_milestone_id,omitempty"`
+	// The setting for auto-assigning the milestone's timestamp during incident declaration
+	AutoAssignTimestampOnCreate *PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate `json:"auto_assign_timestamp_on_create,omitempty"`
 }
 
 func (o *PatchV1LifecyclesMilestonesMilestoneIDRequestBody) GetName() *string {
@@ -55,9 +89,16 @@ func (o *PatchV1LifecyclesMilestonesMilestoneIDRequestBody) GetRequiredAtMilesto
 	return o.RequiredAtMilestoneID
 }
 
+func (o *PatchV1LifecyclesMilestonesMilestoneIDRequestBody) GetAutoAssignTimestampOnCreate() *PatchV1LifecyclesMilestonesMilestoneIDAutoAssignTimestampOnCreate {
+	if o == nil {
+		return nil
+	}
+	return o.AutoAssignTimestampOnCreate
+}
+
 type PatchV1LifecyclesMilestonesMilestoneIDRequest struct {
 	MilestoneID string                                             `pathParam:"style=simple,explode=false,name=milestone_id"`
-	RequestBody *PatchV1LifecyclesMilestonesMilestoneIDRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody *PatchV1LifecyclesMilestonesMilestoneIDRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PatchV1LifecyclesMilestonesMilestoneIDRequest) GetMilestoneID() string {

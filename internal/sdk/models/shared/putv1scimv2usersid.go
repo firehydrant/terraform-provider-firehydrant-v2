@@ -45,6 +45,10 @@ func (o *Emails) GetPrimary() *bool {
 	return o.Primary
 }
 
+// Roles for the User. Options are owner, member, collaborator, or viewer. Roles may be specified as strings or SCIM role objects.
+type Roles struct {
+}
+
 // PutV1ScimV2UsersID - PUT SCIM endpoint to update a User. This endpoint is used to replace a resource's attributes.
 type PutV1ScimV2UsersID struct {
 	// A service provider's unique identifier for the user
@@ -53,8 +57,8 @@ type PutV1ScimV2UsersID struct {
 	Name *Name `json:"name,omitempty"`
 	// Email addresses for the User
 	Emails []Emails `json:"emails,omitempty"`
-	// Roles for the User
-	Roles []string `json:"roles,omitempty"`
+	// Roles for the User. Options are owner, member, collaborator, or viewer. Roles may be specified as strings or SCIM role objects.
+	Roles *Roles `json:"roles,omitempty"`
 	// Boolean that represents whether user is active
 	Active *bool `json:"active,omitempty"`
 }
@@ -80,7 +84,7 @@ func (o *PutV1ScimV2UsersID) GetEmails() []Emails {
 	return o.Emails
 }
 
-func (o *PutV1ScimV2UsersID) GetRoles() []string {
+func (o *PutV1ScimV2UsersID) GetRoles() *Roles {
 	if o == nil {
 		return nil
 	}

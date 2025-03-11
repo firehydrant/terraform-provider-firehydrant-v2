@@ -10,7 +10,6 @@ type GetV1ScimV2GroupsRequest struct {
 	StartIndex *int `queryParam:"style=form,explode=true,name=startIndex"`
 	Count      *int `queryParam:"style=form,explode=true,name=count"`
 	// This is a string used to query groups by displayName.
-	//
 	//         Proper example syntax for this would be `?filter=displayName eq "My Team Name"`.
 	//         Currently we only support the `eq` operator
 	Filter *string `queryParam:"style=form,explode=true,name=filter"`

@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+// ScheduledMaintenanceEntityLabels - An object of label key and values
+type ScheduledMaintenanceEntityLabels struct {
+}
+
 // ScheduledMaintenanceEntity model
 type ScheduledMaintenanceEntity struct {
 	ID          *string    `json:"id,omitempty"`
@@ -22,7 +26,7 @@ type ScheduledMaintenanceEntity struct {
 	StatusPages []ScheduledMaintenancesStatusPageEntity `json:"status_pages,omitempty"`
 	Impacts     []ScheduledMaintenancesImpactEntity     `json:"impacts,omitempty"`
 	// An object of label key and values
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels *ScheduledMaintenanceEntityLabels `json:"labels,omitempty"`
 }
 
 func (s ScheduledMaintenanceEntity) MarshalJSON() ([]byte, error) {
@@ -113,7 +117,7 @@ func (o *ScheduledMaintenanceEntity) GetImpacts() []ScheduledMaintenancesImpactE
 	return o.Impacts
 }
 
-func (o *ScheduledMaintenanceEntity) GetLabels() map[string]string {
+func (o *ScheduledMaintenanceEntity) GetLabels() *ScheduledMaintenanceEntityLabels {
 	if o == nil {
 		return nil
 	}

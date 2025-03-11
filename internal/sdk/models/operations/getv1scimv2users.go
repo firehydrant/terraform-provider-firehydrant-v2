@@ -8,7 +8,6 @@ import (
 
 type GetV1ScimV2UsersRequest struct {
 	// This is a string used to query users by either userName or email.
-	//
 	//         Proper example syntax for this would be `?filter=userName eq john` or `?filter=userName eq "john@firehydrant.com"`.
 	//         Currently we only support the `eq` operator
 	Filter *string `queryParam:"style=form,explode=true,name=filter"`

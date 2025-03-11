@@ -8,25 +8,25 @@ import (
 	"net/http"
 )
 
-type ResourceType string
+type PathParamResourceType string
 
 const (
-	ResourceTypeChangeEvents          ResourceType = "change_events"
-	ResourceTypeIncidents             ResourceType = "incidents"
-	ResourceTypeServices              ResourceType = "services"
-	ResourceTypeScheduledMaintenances ResourceType = "scheduled_maintenances"
-	ResourceTypeTicketTasks           ResourceType = "ticket_tasks"
-	ResourceTypeTicketFollowUps       ResourceType = "ticket_follow_ups"
-	ResourceTypeAnalytics             ResourceType = "analytics"
-	ResourceTypeImpactAnalytics       ResourceType = "impact_analytics"
-	ResourceTypeAlerts                ResourceType = "alerts"
-	ResourceTypeIncidentEvents        ResourceType = "incident_events"
+	PathParamResourceTypeChangeEvents          PathParamResourceType = "change_events"
+	PathParamResourceTypeIncidents             PathParamResourceType = "incidents"
+	PathParamResourceTypeServices              PathParamResourceType = "services"
+	PathParamResourceTypeScheduledMaintenances PathParamResourceType = "scheduled_maintenances"
+	PathParamResourceTypeTicketTasks           PathParamResourceType = "ticket_tasks"
+	PathParamResourceTypeTicketFollowUps       PathParamResourceType = "ticket_follow_ups"
+	PathParamResourceTypeAnalytics             PathParamResourceType = "analytics"
+	PathParamResourceTypeImpactAnalytics       PathParamResourceType = "impact_analytics"
+	PathParamResourceTypeAlerts                PathParamResourceType = "alerts"
+	PathParamResourceTypeIncidentEvents        PathParamResourceType = "incident_events"
 )
 
-func (e ResourceType) ToPointer() *ResourceType {
+func (e PathParamResourceType) ToPointer() *PathParamResourceType {
 	return &e
 }
-func (e *ResourceType) UnmarshalJSON(data []byte) error {
+func (e *PathParamResourceType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -51,21 +51,21 @@ func (e *ResourceType) UnmarshalJSON(data []byte) error {
 	case "alerts":
 		fallthrough
 	case "incident_events":
-		*e = ResourceType(v)
+		*e = PathParamResourceType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for ResourceType: %v", v)
+		return fmt.Errorf("invalid value for PathParamResourceType: %v", v)
 	}
 }
 
 type DeleteV1SavedSearchesResourceTypeSavedSearchIDRequest struct {
-	ResourceType  ResourceType `pathParam:"style=simple,explode=false,name=resource_type"`
-	SavedSearchID string       `pathParam:"style=simple,explode=false,name=saved_search_id"`
+	ResourceType  PathParamResourceType `pathParam:"style=simple,explode=false,name=resource_type"`
+	SavedSearchID string                `pathParam:"style=simple,explode=false,name=saved_search_id"`
 }
 
-func (o *DeleteV1SavedSearchesResourceTypeSavedSearchIDRequest) GetResourceType() ResourceType {
+func (o *DeleteV1SavedSearchesResourceTypeSavedSearchIDRequest) GetResourceType() PathParamResourceType {
 	if o == nil {
-		return ResourceType("")
+		return PathParamResourceType("")
 	}
 	return o.ResourceType
 }

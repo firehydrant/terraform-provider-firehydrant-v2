@@ -22,14 +22,13 @@ type RunbookEntity struct {
 	Steps             *RunbookStepEntity `json:"steps,omitempty"`
 	AttachmentRule    *RulesRuleEntity   `json:"attachment_rule,omitempty"`
 	// VotesEntity model
-	Votes      *VotesEntity `json:"votes,omitempty"`
-	IsEditable *bool        `json:"is_editable,omitempty"`
-	// TeamEntity model
-	Owner *TeamEntity `json:"owner,omitempty"`
+	Votes      *VotesEntity    `json:"votes,omitempty"`
+	IsEditable *bool           `json:"is_editable,omitempty"`
+	Owner      *TeamEntityLite `json:"owner,omitempty"`
 	// categories the runbook applies to
-	Categories                      *string `json:"categories,omitempty"`
-	AutoAttachToRestrictedIncidents *bool   `json:"auto_attach_to_restricted_incidents,omitempty"`
-	Tutorial                        *bool   `json:"tutorial,omitempty"`
+	Categories                      []string `json:"categories,omitempty"`
+	AutoAttachToRestrictedIncidents *bool    `json:"auto_attach_to_restricted_incidents,omitempty"`
+	Tutorial                        *bool    `json:"tutorial,omitempty"`
 }
 
 func (r RunbookEntity) MarshalJSON() ([]byte, error) {
@@ -141,14 +140,14 @@ func (o *RunbookEntity) GetIsEditable() *bool {
 	return o.IsEditable
 }
 
-func (o *RunbookEntity) GetOwner() *TeamEntity {
+func (o *RunbookEntity) GetOwner() *TeamEntityLite {
 	if o == nil {
 		return nil
 	}
 	return o.Owner
 }
 
-func (o *RunbookEntity) GetCategories() *string {
+func (o *RunbookEntity) GetCategories() []string {
 	if o == nil {
 		return nil
 	}

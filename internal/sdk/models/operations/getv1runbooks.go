@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-// QueryParamSort - Sort runbooks by their updated date. Accepts 'asc', 'desc'
+// QueryParamSort - Sort runbooks by their updated date. Accepts 'asc', 'desc'. This parameter is deprecated in favor of 'order_by' and 'order_direction'.
 type QueryParamSort string
 
 const (
@@ -36,6 +36,63 @@ func (e *QueryParamSort) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OrderBy - Sort runbooks by their updated date or name. Accepts 'updated_at', 'name', and 'created_at'.
+type OrderBy string
+
+const (
+	OrderByUpdatedAt OrderBy = "updated_at"
+	OrderByName      OrderBy = "name"
+	OrderByCreatedAt OrderBy = "created_at"
+)
+
+func (e OrderBy) ToPointer() *OrderBy {
+	return &e
+}
+func (e *OrderBy) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "updated_at":
+		fallthrough
+	case "name":
+		fallthrough
+	case "created_at":
+		*e = OrderBy(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OrderBy: %v", v)
+	}
+}
+
+// OrderDirection - Allows assigning a direction to how the specified `order_by` parameter is sorted. This parameter must be paired with `order_by` and does nothing on its own.
+type OrderDirection string
+
+const (
+	OrderDirectionAsc  OrderDirection = "asc"
+	OrderDirectionDesc OrderDirection = "desc"
+)
+
+func (e OrderDirection) ToPointer() *OrderDirection {
+	return &e
+}
+func (e *OrderDirection) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "asc":
+		fallthrough
+	case "desc":
+		*e = OrderDirection(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OrderDirection: %v", v)
+	}
+}
+
 type GetV1RunbooksRequest struct {
 	Page    *int `queryParam:"style=form,explode=true,name=page"`
 	PerPage *int `queryParam:"style=form,explode=true,name=per_page"`
@@ -43,8 +100,12 @@ type GetV1RunbooksRequest struct {
 	Name *string `queryParam:"style=form,explode=true,name=name"`
 	// A query to search runbooks by their owners
 	Owners *string `queryParam:"style=form,explode=true,name=owners"`
-	// Sort runbooks by their updated date. Accepts 'asc', 'desc'
+	// Sort runbooks by their updated date. Accepts 'asc', 'desc'. This parameter is deprecated in favor of 'order_by' and 'order_direction'.
 	Sort *QueryParamSort `queryParam:"style=form,explode=true,name=sort"`
+	// Sort runbooks by their updated date or name. Accepts 'updated_at', 'name', and 'created_at'.
+	OrderBy *OrderBy `queryParam:"style=form,explode=true,name=order_by"`
+	// Allows assigning a direction to how the specified `order_by` parameter is sorted. This parameter must be paired with `order_by` and does nothing on its own.
+	OrderDirection *OrderDirection `queryParam:"style=form,explode=true,name=order_direction"`
 }
 
 func (o *GetV1RunbooksRequest) GetPage() *int {
@@ -80,6 +141,20 @@ func (o *GetV1RunbooksRequest) GetSort() *QueryParamSort {
 		return nil
 	}
 	return o.Sort
+}
+
+func (o *GetV1RunbooksRequest) GetOrderBy() *OrderBy {
+	if o == nil {
+		return nil
+	}
+	return o.OrderBy
+}
+
+func (o *GetV1RunbooksRequest) GetOrderDirection() *OrderDirection {
+	if o == nil {
+		return nil
+	}
+	return o.OrderDirection
 }
 
 type GetV1RunbooksResponse struct {

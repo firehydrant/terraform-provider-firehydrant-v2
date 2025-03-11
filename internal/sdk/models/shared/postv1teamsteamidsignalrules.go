@@ -73,6 +73,33 @@ func (e *NotificationPriorityOverride) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CreateIncidentConditionWhen - Determines when an incident should be created when this rule is matched
+type CreateIncidentConditionWhen string
+
+const (
+	CreateIncidentConditionWhenWhenUnspecified CreateIncidentConditionWhen = "WHEN_UNSPECIFIED"
+	CreateIncidentConditionWhenWhenAlways      CreateIncidentConditionWhen = "WHEN_ALWAYS"
+)
+
+func (e CreateIncidentConditionWhen) ToPointer() *CreateIncidentConditionWhen {
+	return &e
+}
+func (e *CreateIncidentConditionWhen) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "WHEN_UNSPECIFIED":
+		fallthrough
+	case "WHEN_ALWAYS":
+		*e = CreateIncidentConditionWhen(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateIncidentConditionWhen: %v", v)
+	}
+}
+
 // PostV1TeamsTeamIDSignalRules - Create a Signals rule for a team.
 type PostV1TeamsTeamIDSignalRules struct {
 	// The rule's name.
@@ -87,6 +114,8 @@ type PostV1TeamsTeamIDSignalRules struct {
 	IncidentTypeID *string `json:"incident_type_id,omitempty"`
 	// A notification priority that will be set on the resulting alert (default: HIGH)
 	NotificationPriorityOverride *NotificationPriorityOverride `json:"notification_priority_override,omitempty"`
+	// Determines when an incident should be created when this rule is matched
+	CreateIncidentConditionWhen *CreateIncidentConditionWhen `json:"create_incident_condition_when,omitempty"`
 }
 
 func (o *PostV1TeamsTeamIDSignalRules) GetName() string {
@@ -129,4 +158,11 @@ func (o *PostV1TeamsTeamIDSignalRules) GetNotificationPriorityOverride() *Notifi
 		return nil
 	}
 	return o.NotificationPriorityOverride
+}
+
+func (o *PostV1TeamsTeamIDSignalRules) GetCreateIncidentConditionWhen() *CreateIncidentConditionWhen {
+	if o == nil {
+		return nil
+	}
+	return o.CreateIncidentConditionWhen
 }

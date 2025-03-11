@@ -15,10 +15,9 @@ type ChecklistTemplateEntity struct {
 	CreatedAt   *string                `json:"created_at,omitempty"`
 	UpdatedAt   *time.Time             `json:"updated_at,omitempty"`
 	Checks      []ChecklistCheckEntity `json:"checks,omitempty"`
-	// TeamEntity model
-	Owner *TeamEntity `json:"owner,omitempty"`
+	Owner       *TeamEntityLite        `json:"owner,omitempty"`
 	// List of services that use this checklist
-	ConnectedServices []ServiceEntity `json:"connected_services,omitempty"`
+	ConnectedServices []ServiceEntityChecklist `json:"connected_services,omitempty"`
 }
 
 func (c ChecklistTemplateEntity) MarshalJSON() ([]byte, error) {
@@ -74,14 +73,14 @@ func (o *ChecklistTemplateEntity) GetChecks() []ChecklistCheckEntity {
 	return o.Checks
 }
 
-func (o *ChecklistTemplateEntity) GetOwner() *TeamEntity {
+func (o *ChecklistTemplateEntity) GetOwner() *TeamEntityLite {
 	if o == nil {
 		return nil
 	}
 	return o.Owner
 }
 
-func (o *ChecklistTemplateEntity) GetConnectedServices() []ServiceEntity {
+func (o *ChecklistTemplateEntity) GetConnectedServices() []ServiceEntityChecklist {
 	if o == nil {
 		return nil
 	}

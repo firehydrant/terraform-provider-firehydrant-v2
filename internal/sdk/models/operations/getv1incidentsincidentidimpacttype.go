@@ -9,19 +9,19 @@ import (
 	"net/http"
 )
 
-type GetV1IncidentsIncidentIDImpactTypePathParamType string
+type PathParamType string
 
 const (
-	GetV1IncidentsIncidentIDImpactTypePathParamTypeEnvironments    GetV1IncidentsIncidentIDImpactTypePathParamType = "environments"
-	GetV1IncidentsIncidentIDImpactTypePathParamTypeFunctionalities GetV1IncidentsIncidentIDImpactTypePathParamType = "functionalities"
-	GetV1IncidentsIncidentIDImpactTypePathParamTypeServices        GetV1IncidentsIncidentIDImpactTypePathParamType = "services"
-	GetV1IncidentsIncidentIDImpactTypePathParamTypeCustomers       GetV1IncidentsIncidentIDImpactTypePathParamType = "customers"
+	PathParamTypeEnvironments    PathParamType = "environments"
+	PathParamTypeFunctionalities PathParamType = "functionalities"
+	PathParamTypeServices        PathParamType = "services"
+	PathParamTypeCustomers       PathParamType = "customers"
 )
 
-func (e GetV1IncidentsIncidentIDImpactTypePathParamType) ToPointer() *GetV1IncidentsIncidentIDImpactTypePathParamType {
+func (e PathParamType) ToPointer() *PathParamType {
 	return &e
 }
-func (e *GetV1IncidentsIncidentIDImpactTypePathParamType) UnmarshalJSON(data []byte) error {
+func (e *PathParamType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -34,16 +34,16 @@ func (e *GetV1IncidentsIncidentIDImpactTypePathParamType) UnmarshalJSON(data []b
 	case "services":
 		fallthrough
 	case "customers":
-		*e = GetV1IncidentsIncidentIDImpactTypePathParamType(v)
+		*e = PathParamType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GetV1IncidentsIncidentIDImpactTypePathParamType: %v", v)
+		return fmt.Errorf("invalid value for PathParamType: %v", v)
 	}
 }
 
 type GetV1IncidentsIncidentIDImpactTypeRequest struct {
-	IncidentID string                                          `pathParam:"style=simple,explode=false,name=incident_id"`
-	Type       GetV1IncidentsIncidentIDImpactTypePathParamType `pathParam:"style=simple,explode=false,name=type"`
+	IncidentID string        `pathParam:"style=simple,explode=false,name=incident_id"`
+	Type       PathParamType `pathParam:"style=simple,explode=false,name=type"`
 }
 
 func (o *GetV1IncidentsIncidentIDImpactTypeRequest) GetIncidentID() string {
@@ -53,9 +53,9 @@ func (o *GetV1IncidentsIncidentIDImpactTypeRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *GetV1IncidentsIncidentIDImpactTypeRequest) GetType() GetV1IncidentsIncidentIDImpactTypePathParamType {
+func (o *GetV1IncidentsIncidentIDImpactTypeRequest) GetType() PathParamType {
 	if o == nil {
-		return GetV1IncidentsIncidentIDImpactTypePathParamType("")
+		return PathParamType("")
 	}
 	return o.Type
 }

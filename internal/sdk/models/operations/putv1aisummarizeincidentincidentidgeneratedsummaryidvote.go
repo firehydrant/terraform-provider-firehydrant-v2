@@ -35,7 +35,7 @@ func (e *Direction) UnmarshalJSON(data []byte) error {
 }
 
 type PutV1AiSummarizeIncidentIncidentIDGeneratedSummaryIDVoteRequestBody struct {
-	Direction Direction `form:"name=direction"`
+	Direction Direction `json:"direction"`
 }
 
 func (o *PutV1AiSummarizeIncidentIncidentIDGeneratedSummaryIDVoteRequestBody) GetDirection() Direction {
@@ -48,7 +48,7 @@ func (o *PutV1AiSummarizeIncidentIncidentIDGeneratedSummaryIDVoteRequestBody) Ge
 type PutV1AiSummarizeIncidentIncidentIDGeneratedSummaryIDVoteRequest struct {
 	IncidentID         string                                                              `pathParam:"style=simple,explode=false,name=incident_id"`
 	GeneratedSummaryID string                                                              `pathParam:"style=simple,explode=false,name=generated_summary_id"`
-	RequestBody        PutV1AiSummarizeIncidentIncidentIDGeneratedSummaryIDVoteRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody        PutV1AiSummarizeIncidentIncidentIDGeneratedSummaryIDVoteRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PutV1AiSummarizeIncidentIncidentIDGeneratedSummaryIDVoteRequest) GetIncidentID() string {

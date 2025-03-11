@@ -9,25 +9,25 @@ import (
 	"net/http"
 )
 
-type PathParamResourceType string
+type PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType string
 
 const (
-	PathParamResourceTypeChangeEvents          PathParamResourceType = "change_events"
-	PathParamResourceTypeIncidents             PathParamResourceType = "incidents"
-	PathParamResourceTypeServices              PathParamResourceType = "services"
-	PathParamResourceTypeScheduledMaintenances PathParamResourceType = "scheduled_maintenances"
-	PathParamResourceTypeTicketTasks           PathParamResourceType = "ticket_tasks"
-	PathParamResourceTypeTicketFollowUps       PathParamResourceType = "ticket_follow_ups"
-	PathParamResourceTypeAnalytics             PathParamResourceType = "analytics"
-	PathParamResourceTypeImpactAnalytics       PathParamResourceType = "impact_analytics"
-	PathParamResourceTypeAlerts                PathParamResourceType = "alerts"
-	PathParamResourceTypeIncidentEvents        PathParamResourceType = "incident_events"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeChangeEvents          PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "change_events"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeIncidents             PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "incidents"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeServices              PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "services"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeScheduledMaintenances PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "scheduled_maintenances"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeTicketTasks           PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "ticket_tasks"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeTicketFollowUps       PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "ticket_follow_ups"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeAnalytics             PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "analytics"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeImpactAnalytics       PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "impact_analytics"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeAlerts                PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "alerts"
+	PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceTypeIncidentEvents        PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType = "incident_events"
 )
 
-func (e PathParamResourceType) ToPointer() *PathParamResourceType {
+func (e PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType) ToPointer() *PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType {
 	return &e
 }
-func (e *PathParamResourceType) UnmarshalJSON(data []byte) error {
+func (e *PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -52,22 +52,22 @@ func (e *PathParamResourceType) UnmarshalJSON(data []byte) error {
 	case "alerts":
 		fallthrough
 	case "incident_events":
-		*e = PathParamResourceType(v)
+		*e = PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PathParamResourceType: %v", v)
+		return fmt.Errorf("invalid value for PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType: %v", v)
 	}
 }
 
 type PatchV1SavedSearchesResourceTypeSavedSearchIDRequest struct {
-	ResourceType                                  PathParamResourceType                                `pathParam:"style=simple,explode=false,name=resource_type"`
-	SavedSearchID                                 string                                               `pathParam:"style=simple,explode=false,name=saved_search_id"`
-	PatchV1SavedSearchesResourceTypeSavedSearchID shared.PatchV1SavedSearchesResourceTypeSavedSearchID `request:"mediaType=application/json"`
+	ResourceType                                  PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType `pathParam:"style=simple,explode=false,name=resource_type"`
+	SavedSearchID                                 string                                                             `pathParam:"style=simple,explode=false,name=saved_search_id"`
+	PatchV1SavedSearchesResourceTypeSavedSearchID shared.PatchV1SavedSearchesResourceTypeSavedSearchID               `request:"mediaType=application/json"`
 }
 
-func (o *PatchV1SavedSearchesResourceTypeSavedSearchIDRequest) GetResourceType() PathParamResourceType {
+func (o *PatchV1SavedSearchesResourceTypeSavedSearchIDRequest) GetResourceType() PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType {
 	if o == nil {
-		return PathParamResourceType("")
+		return PatchV1SavedSearchesResourceTypeSavedSearchIDPathParamResourceType("")
 	}
 	return o.ResourceType
 }

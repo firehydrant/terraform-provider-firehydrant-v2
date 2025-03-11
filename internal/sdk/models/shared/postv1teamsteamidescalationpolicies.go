@@ -65,11 +65,43 @@ func (o *Targets) GetID() string {
 	return o.ID
 }
 
+// DistributionType - The round robin configuration for the step. One of 'unspecified', 'round_robin_by_alert', or 'round_robin_by_escalation_policy'.
+type DistributionType string
+
+const (
+	DistributionTypeUnspecified                  DistributionType = "unspecified"
+	DistributionTypeRoundRobinByAlert            DistributionType = "round_robin_by_alert"
+	DistributionTypeRoundRobinByEscalationPolicy DistributionType = "round_robin_by_escalation_policy"
+)
+
+func (e DistributionType) ToPointer() *DistributionType {
+	return &e
+}
+func (e *DistributionType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "unspecified":
+		fallthrough
+	case "round_robin_by_alert":
+		fallthrough
+	case "round_robin_by_escalation_policy":
+		*e = DistributionType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for DistributionType: %v", v)
+	}
+}
+
 type Steps struct {
 	// A list of targets that the step will notify. You can specify up to 15 targets per step.
 	Targets []Targets `json:"targets"`
 	// An ISO8601 duration string specifying how long to wait before moving on to the next step. For the last step, this value specifies how long to wait before the escalation policy should repeat, if it repeats.
 	Timeout string `json:"timeout"`
+	// The round robin configuration for the step. One of 'unspecified', 'round_robin_by_alert', or 'round_robin_by_escalation_policy'.
+	DistributionType *DistributionType `json:"distribution_type,omitempty"`
 }
 
 func (o *Steps) GetTargets() []Targets {
@@ -84,6 +116,13 @@ func (o *Steps) GetTimeout() string {
 		return ""
 	}
 	return o.Timeout
+}
+
+func (o *Steps) GetDistributionType() *DistributionType {
+	if o == nil {
+		return nil
+	}
+	return o.DistributionType
 }
 
 // PostV1TeamsTeamIDEscalationPoliciesTargetType - The type of target to which the policy will hand off.

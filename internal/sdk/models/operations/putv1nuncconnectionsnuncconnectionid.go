@@ -8,24 +8,24 @@ import (
 )
 
 type PutV1NuncConnectionsNuncConnectionIDRequestBody struct {
-	CompanyName        *string `form:"name=company_name"`
-	CompanyWebsite     *string `form:"name=company_website"`
-	CompanyTosURL      *string `form:"name=company_tos_url"`
-	GreetingTitle      *string `form:"name=greeting_title"`
-	GreetingBody       *string `form:"name=greeting_body"`
-	OperationalMessage *string `form:"name=operational_message"`
-	Title              *string `form:"name=title"`
+	CompanyName        *string `json:"company_name,omitempty"`
+	CompanyWebsite     *string `json:"company_website,omitempty"`
+	CompanyTosURL      *string `json:"company_tos_url,omitempty"`
+	GreetingTitle      *string `json:"greeting_title,omitempty"`
+	GreetingBody       *string `json:"greeting_body,omitempty"`
+	OperationalMessage *string `json:"operational_message,omitempty"`
+	Title              *string `json:"title,omitempty"`
 	// Status page condition to map your severity matrix condition to
-	ConditionsNuncCondition []string `form:"name=conditions[nunc_condition]"`
+	ConditionsNuncCondition []string `json:"conditions[nunc_condition]"`
 	// Severity matrix condition id
-	ConditionsConditionID        []string `form:"name=conditions[condition_id]"`
-	ComponentsInfrastructureType []string `form:"name=components[infrastructure_type]"`
-	ComponentsInfrastructureID   []string `form:"name=components[infrastructure_id]"`
-	PrimaryColor                 *string  `form:"name=primary_color"`
-	SecondaryColor               *string  `form:"name=secondary_color"`
-	ExposedFields                []string `form:"name=exposed_fields"`
-	EnableHistogram              *bool    `form:"name=enable_histogram"`
-	UIVersion                    *int     `form:"name=ui_version"`
+	ConditionsConditionID        []string `json:"conditions[condition_id]"`
+	ComponentsInfrastructureType []string `json:"components[infrastructure_type]"`
+	ComponentsInfrastructureID   []string `json:"components[infrastructure_id]"`
+	PrimaryColor                 *string  `json:"primary_color,omitempty"`
+	SecondaryColor               *string  `json:"secondary_color,omitempty"`
+	ExposedFields                []string `json:"exposed_fields,omitempty"`
+	EnableHistogram              *bool    `json:"enable_histogram,omitempty"`
+	UIVersion                    *int     `json:"ui_version,omitempty"`
 }
 
 func (o *PutV1NuncConnectionsNuncConnectionIDRequestBody) GetCompanyName() *string {
@@ -141,8 +141,8 @@ func (o *PutV1NuncConnectionsNuncConnectionIDRequestBody) GetUIVersion() *int {
 }
 
 type PutV1NuncConnectionsNuncConnectionIDRequest struct {
-	NuncConnectionID string                                           `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
-	RequestBody      *PutV1NuncConnectionsNuncConnectionIDRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	NuncConnectionID string                                          `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
+	RequestBody      PutV1NuncConnectionsNuncConnectionIDRequestBody `request:"mediaType=application/json"`
 }
 
 func (o *PutV1NuncConnectionsNuncConnectionIDRequest) GetNuncConnectionID() string {
@@ -152,9 +152,9 @@ func (o *PutV1NuncConnectionsNuncConnectionIDRequest) GetNuncConnectionID() stri
 	return o.NuncConnectionID
 }
 
-func (o *PutV1NuncConnectionsNuncConnectionIDRequest) GetRequestBody() *PutV1NuncConnectionsNuncConnectionIDRequestBody {
+func (o *PutV1NuncConnectionsNuncConnectionIDRequest) GetRequestBody() PutV1NuncConnectionsNuncConnectionIDRequestBody {
 	if o == nil {
-		return nil
+		return PutV1NuncConnectionsNuncConnectionIDRequestBody{}
 	}
 	return o.RequestBody
 }

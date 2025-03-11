@@ -2,38 +2,38 @@
 
 package shared
 
-type PutV1IncidentsIncidentIDImpactImpact struct {
+type Impact struct {
 	ID          string `json:"id"`
 	ConditionID string `json:"condition_id"`
 }
 
-func (o *PutV1IncidentsIncidentIDImpactImpact) GetID() string {
+func (o *Impact) GetID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ID
 }
 
-func (o *PutV1IncidentsIncidentIDImpactImpact) GetConditionID() string {
+func (o *Impact) GetConditionID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ConditionID
 }
 
-type PutV1IncidentsIncidentIDImpactStatusPages struct {
+type StatusPages struct {
 	ID              string `json:"id"`
 	IntegrationSlug string `json:"integration_slug"`
 }
 
-func (o *PutV1IncidentsIncidentIDImpactStatusPages) GetID() string {
+func (o *StatusPages) GetID() string {
 	if o == nil {
 		return ""
 	}
 	return o.ID
 }
 
-func (o *PutV1IncidentsIncidentIDImpactStatusPages) GetIntegrationSlug() string {
+func (o *StatusPages) GetIntegrationSlug() string {
 	if o == nil {
 		return ""
 	}
@@ -48,10 +48,10 @@ func (o *PutV1IncidentsIncidentIDImpactStatusPages) GetIntegrationSlug() string 
 // all impacts). If this method is requested with the PATCH verb, the provided
 // impacts will be added or updated, but no impacts will be removed.
 type PutV1IncidentsIncidentIDImpact struct {
-	Note        *string                                     `json:"note,omitempty"`
-	Milestone   *string                                     `json:"milestone,omitempty"`
-	Impact      []PutV1IncidentsIncidentIDImpactImpact      `json:"impact,omitempty"`
-	StatusPages []PutV1IncidentsIncidentIDImpactStatusPages `json:"status_pages,omitempty"`
+	Note        *string       `json:"note,omitempty"`
+	Milestone   *string       `json:"milestone,omitempty"`
+	Impact      []Impact      `json:"impact,omitempty"`
+	StatusPages []StatusPages `json:"status_pages,omitempty"`
 }
 
 func (o *PutV1IncidentsIncidentIDImpact) GetNote() *string {
@@ -68,14 +68,14 @@ func (o *PutV1IncidentsIncidentIDImpact) GetMilestone() *string {
 	return o.Milestone
 }
 
-func (o *PutV1IncidentsIncidentIDImpact) GetImpact() []PutV1IncidentsIncidentIDImpactImpact {
+func (o *PutV1IncidentsIncidentIDImpact) GetImpact() []Impact {
 	if o == nil {
 		return nil
 	}
 	return o.Impact
 }
 
-func (o *PutV1IncidentsIncidentIDImpact) GetStatusPages() []PutV1IncidentsIncidentIDImpactStatusPages {
+func (o *PutV1IncidentsIncidentIDImpact) GetStatusPages() []StatusPages {
 	if o == nil {
 		return nil
 	}

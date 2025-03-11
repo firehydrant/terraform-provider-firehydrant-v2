@@ -98,25 +98,25 @@ func (e *SortBy) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type GroupBy string
+type GetV1MetricsMttxGroupBy string
 
 const (
-	GroupByServices        GroupBy = "services"
-	GroupByEnvironments    GroupBy = "environments"
-	GroupByFunctionalities GroupBy = "functionalities"
-	GroupByTeams           GroupBy = "teams"
-	GroupBySeverities      GroupBy = "severities"
-	GroupByUsers           GroupBy = "users"
-	GroupByStartedDay      GroupBy = "started_day"
-	GroupByStartedWeek     GroupBy = "started_week"
-	GroupByStartedMonth    GroupBy = "started_month"
-	GroupByCustomFields    GroupBy = "custom_fields"
+	GetV1MetricsMttxGroupByServices        GetV1MetricsMttxGroupBy = "services"
+	GetV1MetricsMttxGroupByEnvironments    GetV1MetricsMttxGroupBy = "environments"
+	GetV1MetricsMttxGroupByFunctionalities GetV1MetricsMttxGroupBy = "functionalities"
+	GetV1MetricsMttxGroupByTeams           GetV1MetricsMttxGroupBy = "teams"
+	GetV1MetricsMttxGroupBySeverities      GetV1MetricsMttxGroupBy = "severities"
+	GetV1MetricsMttxGroupByUsers           GetV1MetricsMttxGroupBy = "users"
+	GetV1MetricsMttxGroupByStartedDay      GetV1MetricsMttxGroupBy = "started_day"
+	GetV1MetricsMttxGroupByStartedWeek     GetV1MetricsMttxGroupBy = "started_week"
+	GetV1MetricsMttxGroupByStartedMonth    GetV1MetricsMttxGroupBy = "started_month"
+	GetV1MetricsMttxGroupByCustomFields    GetV1MetricsMttxGroupBy = "custom_fields"
 )
 
-func (e GroupBy) ToPointer() *GroupBy {
+func (e GetV1MetricsMttxGroupBy) ToPointer() *GetV1MetricsMttxGroupBy {
 	return &e
 }
-func (e *GroupBy) UnmarshalJSON(data []byte) error {
+func (e *GetV1MetricsMttxGroupBy) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -141,18 +141,18 @@ func (e *GroupBy) UnmarshalJSON(data []byte) error {
 	case "started_month":
 		fallthrough
 	case "custom_fields":
-		*e = GroupBy(v)
+		*e = GetV1MetricsMttxGroupBy(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for GroupBy: %v", v)
+		return fmt.Errorf("invalid value for GetV1MetricsMttxGroupBy: %v", v)
 	}
 }
 
 type GetV1MetricsMttxRequestBody struct {
-	GroupBy []GroupBy `form:"name=group_by"`
+	GroupBy []GetV1MetricsMttxGroupBy `multipartForm:"name=group_by"`
 }
 
-func (o *GetV1MetricsMttxRequestBody) GetGroupBy() []GroupBy {
+func (o *GetV1MetricsMttxRequestBody) GetGroupBy() []GetV1MetricsMttxGroupBy {
 	if o == nil {
 		return nil
 	}
@@ -186,6 +186,10 @@ type GetV1MetricsMttxRequest struct {
 	ResolvedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=resolved_at_or_after"`
 	// Filters for incidents that were resolved at or before this time. Combine this with the `current_milestones` parameter if you wish to omit incidents that were re-opened and are still active.
 	ResolvedAtOrBefore *time.Time `queryParam:"style=form,explode=true,name=resolved_at_or_before"`
+	// Filters for incidents that were closed at or after this time
+	ClosedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=closed_at_or_after"`
+	// Filters for incidents that were closed at or before this time
+	ClosedAtOrBefore *time.Time `queryParam:"style=form,explode=true,name=closed_at_or_before"`
 	// Filters for incidents that were created at or after this time
 	CreatedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=created_at_or_after"`
 	// Filters for incidents that were created at or before this time
@@ -222,7 +226,7 @@ type GetV1MetricsMttxRequest struct {
 	SortBy         *SortBy `queryParam:"style=form,explode=true,name=sort_by"`
 	// Comma-separated list of measurements to include in the response
 	Measurements *string                      `queryParam:"style=form,explode=true,name=measurements"`
-	RequestBody  *GetV1MetricsMttxRequestBody `request:"mediaType=application/x-www-form-urlencoded"`
+	RequestBody  *GetV1MetricsMttxRequestBody `request:"mediaType=multipart/form-data"`
 }
 
 func (g GetV1MetricsMttxRequest) MarshalJSON() ([]byte, error) {
@@ -332,6 +336,20 @@ func (o *GetV1MetricsMttxRequest) GetResolvedAtOrBefore() *time.Time {
 		return nil
 	}
 	return o.ResolvedAtOrBefore
+}
+
+func (o *GetV1MetricsMttxRequest) GetClosedAtOrAfter() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAtOrAfter
+}
+
+func (o *GetV1MetricsMttxRequest) GetClosedAtOrBefore() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAtOrBefore
 }
 
 func (o *GetV1MetricsMttxRequest) GetCreatedAtOrAfter() *time.Time {

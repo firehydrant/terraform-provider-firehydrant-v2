@@ -19,7 +19,7 @@ type NuncConnectionEntity struct {
 	ButtonTextColor       *string                   `json:"button_text_color,omitempty"`
 	LinkColor             *string                   `json:"link_color,omitempty"`
 	Title                 *string                   `json:"title,omitempty"`
-	ExposedFields         *string                   `json:"exposed_fields,omitempty"`
+	ExposedFields         []string                  `json:"exposed_fields,omitempty"`
 	Conditions            *NuncConditionEntity      `json:"conditions,omitempty"`
 	Components            *NuncComponentEntity      `json:"components,omitempty"`
 	ComponentGroups       *NuncComponentGroupEntity `json:"component_groups,omitempty"`
@@ -139,7 +139,7 @@ func (o *NuncConnectionEntity) GetTitle() *string {
 	return o.Title
 }
 
-func (o *NuncConnectionEntity) GetExposedFields() *string {
+func (o *NuncConnectionEntity) GetExposedFields() []string {
 	if o == nil {
 		return nil
 	}

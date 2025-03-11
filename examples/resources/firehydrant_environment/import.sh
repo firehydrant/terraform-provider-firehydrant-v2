@@ -1,1 +1,0 @@
-terraform import firehydrant_environment.my_firehydrant_environment ""

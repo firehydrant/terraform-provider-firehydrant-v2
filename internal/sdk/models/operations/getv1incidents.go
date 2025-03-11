@@ -69,6 +69,10 @@ type GetV1IncidentsRequest struct {
 	ResolvedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=resolved_at_or_after"`
 	// Filters for incidents that were resolved at or before this time. Combine this with the `current_milestones` parameter if you wish to omit incidents that were re-opened and are still active.
 	ResolvedAtOrBefore *time.Time `queryParam:"style=form,explode=true,name=resolved_at_or_before"`
+	// Filters for incidents that were closed at or after this time
+	ClosedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=closed_at_or_after"`
+	// Filters for incidents that were closed at or before this time
+	ClosedAtOrBefore *time.Time `queryParam:"style=form,explode=true,name=closed_at_or_before"`
 	// Filters for incidents that were created at or after this time
 	CreatedAtOrAfter *time.Time `queryParam:"style=form,explode=true,name=created_at_or_after"`
 	// Filters for incidents that were created at or before this time
@@ -210,6 +214,20 @@ func (o *GetV1IncidentsRequest) GetResolvedAtOrBefore() *time.Time {
 		return nil
 	}
 	return o.ResolvedAtOrBefore
+}
+
+func (o *GetV1IncidentsRequest) GetClosedAtOrAfter() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAtOrAfter
+}
+
+func (o *GetV1IncidentsRequest) GetClosedAtOrBefore() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.ClosedAtOrBefore
 }
 
 func (o *GetV1IncidentsRequest) GetCreatedAtOrAfter() *time.Time {

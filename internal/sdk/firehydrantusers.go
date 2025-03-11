@@ -25,13 +25,6 @@ func newFirehydrantUsers(sdkConfig sdkConfiguration) *FirehydrantUsers {
 // Delete - Deletes a User using SCIM protocol
 // SCIM endpoint to delete a User. This endpoint will deactivate a confirmed User record in our system.
 func (s *FirehydrantUsers) Delete(ctx context.Context, request operations.DeleteV1ScimV2UsersIDRequest, opts ...operations.Option) (*operations.DeleteV1ScimV2UsersIDResponse, error) {
-	hookCtx := hooks.HookContext{
-		Context:        ctx,
-		OperationID:    "deleteV1ScimV2UsersId",
-		OAuth2Scopes:   []string{},
-		SecuritySource: s.sdkConfiguration.Security,
-	}
-
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -43,10 +36,23 @@ func (s *FirehydrantUsers) Delete(ctx context.Context, request operations.Delete
 		}
 	}
 
-	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	var baseURL string
+	if o.ServerURL == nil {
+		baseURL = utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+	} else {
+		baseURL = *o.ServerURL
+	}
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v1/scim/v2/Users/{id}", request, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
+
+	hookCtx := hooks.HookContext{
+		BaseURL:        baseURL,
+		Context:        ctx,
+		OperationID:    "deleteV1ScimV2UsersId",
+		OAuth2Scopes:   []string{},
+		SecuritySource: s.sdkConfiguration.Security,
 	}
 
 	timeout := o.Timeout
@@ -69,6 +75,10 @@ func (s *FirehydrantUsers) Delete(ctx context.Context, request operations.Delete
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
+	}
+
+	for k, v := range o.SetHeaders {
+		req.Header.Set(k, v)
 	}
 
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
@@ -113,7 +123,7 @@ func (s *FirehydrantUsers) Delete(ctx context.Context, request operations.Delete
 		if err != nil {
 			return nil, err
 		}
-		return nil, errors.NewSDKError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+		return nil, errors.NewAPIError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
 	return res, nil

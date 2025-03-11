@@ -65,11 +65,43 @@ func (o *PatchV1TeamsTeamIDEscalationPoliciesIDTargets) GetID() string {
 	return o.ID
 }
 
+// PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType - The round robin configuration for the step. One of 'unspecified', 'round_robin_by_alert', or 'round_robin_by_escalation_policy'.
+type PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType string
+
+const (
+	PatchV1TeamsTeamIDEscalationPoliciesIDDistributionTypeUnspecified                  PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType = "unspecified"
+	PatchV1TeamsTeamIDEscalationPoliciesIDDistributionTypeRoundRobinByAlert            PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType = "round_robin_by_alert"
+	PatchV1TeamsTeamIDEscalationPoliciesIDDistributionTypeRoundRobinByEscalationPolicy PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType = "round_robin_by_escalation_policy"
+)
+
+func (e PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType) ToPointer() *PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType {
+	return &e
+}
+func (e *PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "unspecified":
+		fallthrough
+	case "round_robin_by_alert":
+		fallthrough
+	case "round_robin_by_escalation_policy":
+		*e = PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType: %v", v)
+	}
+}
+
 type PatchV1TeamsTeamIDEscalationPoliciesIDSteps struct {
 	// A list of targets that the step will notify. You can specify up to 15 targets per step.
 	Targets []PatchV1TeamsTeamIDEscalationPoliciesIDTargets `json:"targets,omitempty"`
 	// An ISO8601 duration string specifying how long to wait before moving on to the next step. For the last step, this value specifies how long to wait before the escalation policy should repeat, if it repeats.
 	Timeout string `json:"timeout"`
+	// The round robin configuration for the step. One of 'unspecified', 'round_robin_by_alert', or 'round_robin_by_escalation_policy'.
+	DistributionType *PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType `json:"distribution_type,omitempty"`
 }
 
 func (o *PatchV1TeamsTeamIDEscalationPoliciesIDSteps) GetTargets() []PatchV1TeamsTeamIDEscalationPoliciesIDTargets {
@@ -84,6 +116,13 @@ func (o *PatchV1TeamsTeamIDEscalationPoliciesIDSteps) GetTimeout() string {
 		return ""
 	}
 	return o.Timeout
+}
+
+func (o *PatchV1TeamsTeamIDEscalationPoliciesIDSteps) GetDistributionType() *PatchV1TeamsTeamIDEscalationPoliciesIDDistributionType {
+	if o == nil {
+		return nil
+	}
+	return o.DistributionType
 }
 
 // PatchV1TeamsTeamIDEscalationPoliciesIDTargetType - The type of target to which the policy will hand off.

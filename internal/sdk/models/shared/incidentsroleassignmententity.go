@@ -43,7 +43,8 @@ type IncidentsRoleAssignmentEntity struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// IncidentRoleEntity model
 	IncidentRole *IncidentRoleEntity `json:"incident_role,omitempty"`
-	User         *UserEntity         `json:"user,omitempty"`
+	// UserEntity model
+	User *UserEntity `json:"user,omitempty"`
 }
 
 func (i IncidentsRoleAssignmentEntity) MarshalJSON() ([]byte, error) {
