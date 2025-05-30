@@ -2,9 +2,12 @@
 
 package sdk
 
+// Generated from OpenAPI doc version 0.0.1 and generator version 2.616.1
+
 import (
 	"context"
 	"fmt"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/config"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/hooks"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
@@ -15,10 +18,10 @@ import (
 
 // ServerList contains the list of servers available to the SDK
 var ServerList = []string{
-	"https://api.firehydrant.io",
+	"https://api.firehydrant.io/",
 }
 
-// HTTPClient provides an interface for suplying the SDK with a custom HTTP client
+// HTTPClient provides an interface for supplying the SDK with a custom HTTP client
 type HTTPClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
@@ -44,116 +47,154 @@ func Float64(f float64) *float64 { return &f }
 // Pointer provides a helper function to return a pointer to a type
 func Pointer[T any](v T) *T { return &v }
 
-type sdkConfiguration struct {
-	Client            HTTPClient
-	Security          func(context.Context) (interface{}, error)
-	ServerURL         string
-	ServerIndex       int
-	Language          string
-	OpenAPIDocVersion string
-	SDKVersion        string
-	GenVersion        string
-	UserAgent         string
-	RetryConfig       *retry.Config
-	Hooks             *hooks.Hooks
-	Timeout           *time.Duration
-}
-
-func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
-	if c.ServerURL != "" {
-		return c.ServerURL, nil
-	}
-
-	return ServerList[c.ServerIndex], nil
-}
-
+// Firehydrant - FireHydrant API: The FireHydrant API is based around REST. It uses Bearer token authentication and returns JSON responses. You can use the FireHydrant API to configure integrations, define incidents, and set up webhooks--anything you can do on the FireHydrant UI.
+//
+// * [Dig into our API endpoints](https://developers.firehydrant.io/docs/api)
+// * [View your bot users](https://app.firehydrant.io/organizations/bots)
+//
+// ## Base API endpoint
+//
+// [https://api.firehydrant.io/v1](https://api.firehydrant.io/v1)
+//
+// ## Current version
+//
+// v1
+//
+// ## Authentication
+//
+// All requests to the FireHydrant API require an `Authorization` header with the value set to `Bearer {token}`. FireHydrant supports bot tokens to act on behalf of a computer instead of a user's account. This prevents integrations from breaking when people leave your organization or their token is revoked. See the Bot tokens section (below) for more information on this.
+//
+// An example of a header to authenticate against FireHydrant would look like:
+//
+// ```
+// Authorization: Bearer fhb-thisismytoken
+// ```
+//
+// ## Bot tokens
+//
+// To access the FireHydrant API, you must authenticate with a bot token. (You must have owner permissions on your organization to see bot tokens.) Bot users allow you to interact with the FireHydrant API by using token-based authentication. To create bot tokens, log in to your organization and refer to the **Bot users** [page](https://app.firehydrant.io/organizations/bots).
+//
+// Bot tokens enable you to create a bot that has no ties to any user. Normally, all actions associated with an API token are associated with the user who created it. Bot tokens attribute all actions to the bot user itself. This way, all data associated with the token actions can be performed against the FireHydrant API without a user.
+//
+// Every request to the API is authenticated unless specified otherwise.
+//
+// ### Rate Limiting
+//
+// Currently, requests made with bot tokens are rate limited on a per-account level. If your account has multiple bot token then the rate limit is shared across all of them. As of February 7th, 2023, the rate limit is at least 50 requests per account every 10 seconds, or 300 requests per minute.
+//
+// Rate limited responses will be served with a `429` status code and a JSON body of:
+//
+// ```json
+// {"error": "rate limit exceeded"}
+// ```
+// and headers of:
+// ```
+// "RateLimit-Limit" -> the maximum number of requests in the rate limit pool
+// "Retry-After" -> the number of seconds to wait before trying again
+// ```
+//
+// ## How lists are returned
+//
+// API lists are returned as arrays. A paginated entity in FireHydrant will return two top-level keys in the response object: a data key and a pagination key.
+//
+// ### Paginated requests
+//
+// The `data` key is returned as an array. Each item in the array includes all of the entity data specified in the API endpoint. (The per-page default for the array is 20 items.)
+//
+// Pagination is the second key (`pagination`) returned in the overall response body. It includes medtadata around the current page, total count of items, and options to go to the next and previous page. All of the specifications returned in the pagination object are available as URL parameters. So if you want to specify, for example, going to the second page of a response, you can send a request to the same endpoint but pass the URL parameter **page=2**.
+//
+// For example, you might request **https://api.firehydrant.io/v1/environments/** to retrieve environments data. The JSON returned contains the above-mentioned data section and pagination section. The data section includes various details about an incident, such as the environment name, description, and when it was created.
+//
+// ```
+//
+//	{
+//	  "data": [
+//	    {
+//	      "id": "f8125cf4-b3a7-4f88-b5ab-57a60b9ed89b",
+//	      "name": "Production - GCP",
+//	      "description": "",
+//	      "created_at": "2021-02-17T20:02:10.679Z"
+//	    },
+//	    {
+//	      "id": "a69f1f58-af77-4708-802d-7e73c0bf261c",
+//	      "name": "Staging",
+//	      "description": "",
+//	      "created_at": "2021-04-16T13:41:59.418Z"
+//	    }
+//	  ],
+//	  "pagination": {
+//	    "count": 2,
+//	    "page": 1,
+//	    "items": 2,
+//	    "pages": 1,
+//	    "last": 1,
+//	    "prev": null,
+//	    "next": null
+//	  }
+//	}
+//
+// ```
+//
+// To request the second page, you'd request the same endpoint with the additional query parameter of `page` in the URL:
+//
+// ```
+// GET https://api.firehydrant.io/v1/environments?page=2
+// ```
+//
+// If you need to modify the number of records coming back from FireHydrant, you can use the `per_page` parameter (max is 200):
+//
+// ```
+// GET https://api.firehydrant.io/v1/environments?per_page=50
+// ```
 type Firehydrant struct {
-	// Operations about pings
-	Ping *Ping
-	// Operations about environments
-	Environments *Environments
-	// Operations about services
-	Services            *Services
-	ServiceDependencies *ServiceDependencies
-	// Operations about functionalities
-	Functionalities *Functionalities
-	// Operations about teams
+	SDKVersion string
+	// Operations related to Account Settings
+	AccountSettings *AccountSettings
+	// Operations related to Catalog Entries
+	CatalogEntries *CatalogEntries
+	// Operations related to Teams
 	Teams *Teams
-	// Operations about changes
-	Changes *Changes
-	// Operations about change_types
-	ChangeTypes *ChangeTypes
-	// Operations about entitlements
-	Entitlements *Entitlements
-	// Operations about incidents
-	Incidents     *Incidents
-	IncidentRoles *IncidentRoles
-	IncidentTags  *IncidentTags
-	IncidentTypes *IncidentTypes
-	// Operations about integrations
-	Integrations *Integrations
-	// Operations about users
-	Users       *Users
-	CurrentUser *CurrentUser
-	// Operations about reports
-	Reports *Reports
-	// Operations about metrics
-	Metrics *Metrics
-	// Operations about runbooks
-	Runbooks      *Runbooks
-	RunbookAudits *RunbookAudits
-	// Operations about nunc_connections
-	NuncConnections *NuncConnections
-	SavedSearches   *SavedSearches
-	// Operations about lifecycles
-	Lifecycles *Lifecycles
-	// Operations about priorities
-	Priorities *Priorities
-	// Operations about severities
-	Severities     *Severities
-	SeverityMatrix *SeverityMatrix
-	// Operations about scheduled_maintenances
-	ScheduledMaintenances *ScheduledMaintenances
-	// Operations about schedules
-	Schedules *Schedules
-	// Operations about infrastructures
-	Infrastructures *Infrastructures
-	// Operations about nuncs
-	Nunc *Nunc
-	// Operations about status_update_templates
-	StatusUpdateTemplates *StatusUpdateTemplates
-	CustomFields          *CustomFields
-	PostMortems           *PostMortems
-	// Operations about alerts
-	Alerts *Alerts
-	// Operations about processing_log_entries
-	ProcessingLogEntries *ProcessingLogEntries
-	// Operations about ticketings
-	Ticketing *Ticketing
-	// Operations about task_lists
-	TaskLists *TaskLists
-	// Operations about noauths
-	Noauth *Noauth
-	// Operations about scims
-	Scim *Scim
-	// Operations about catalogs
-	Catalogs           *Catalogs
-	ChecklistTemplates *ChecklistTemplates
-	// Operations about bootstraps
-	Bootstrap          *Bootstrap
-	FormConfigurations *FormConfigurations
-	// Operations about conversations
-	Conversations *Conversations
-	// Operations about signals
+	// Operations related to Signals
 	Signals *Signals
-	// Operations about signals_on_calls
-	SignalsOnCall *SignalsOnCall
-	// Operations about webhooks
+	// Operations related to Changes
+	Changes *Changes
+	// Operations related to Incidents
+	Incidents *Incidents
+	// Operations related to Alerts
+	Alerts *Alerts
+	// Operations related to Status Pages
+	StatusPages *StatusPages
+	// Operations related to Tasks
+	Tasks *Tasks
+	// Operations related to Conversations
+	Conversations *Conversations
+	// Operations related to Retrospectives
+	Retrospectives *Retrospectives
+	// Operations related to Incident Settings
+	IncidentSettings *IncidentSettings
+	// Operations related to Integrations
+	Integrations *Integrations
+	// Operations related to Users
+	Users *Users
+	// Operations related to Metrics & Reporting
+	MetricsReporting *MetricsReporting
+	// Operations related to Runbooks
+	Runbooks *Runbooks
+	// Operations related to Communication
+	Communication *Communication
+	// Operations related to Ticketing
+	Ticketing *Ticketing
+	// Operations related to SCIM
+	Scim *Scim
+	// Operations about Call Routes
+	CallRoutes *CallRoutes
+	// Operations related to Webhooks
 	Webhooks *Webhooks
-	// Operations about ais
-	Ai *Ai
+	// Operations related to Audiences
+	Audiences *Audiences
 
-	sdkConfiguration sdkConfiguration
+	sdkConfiguration config.SDKConfiguration
+	hooks            *hooks.Hooks
 }
 
 type SDKOption func(*Firehydrant)
@@ -226,14 +267,12 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Firehydrant {
 	sdk := &Firehydrant{
-		sdkConfiguration: sdkConfiguration{
-			Language:          "go",
-			OpenAPIDocVersion: "0.0.1",
-			SDKVersion:        "0.0.1",
-			GenVersion:        "2.438.3",
-			UserAgent:         "speakeasy-sdk/go 0.0.1 2.438.3 0.0.1 github.com/firehydrant/terraform-provider-firehydrant/internal/sdk",
-			Hooks:             hooks.New(),
+		SDKVersion: "1.0.0",
+		sdkConfiguration: config.SDKConfiguration{
+			UserAgent:  "speakeasy-sdk/terraform 1.0.0 2.616.1 0.0.1 github.com/firehydrant/terraform-provider-firehydrant/internal/sdk",
+			ServerList: ServerList,
 		},
+		hooks: hooks.New(),
 	}
 	for _, opt := range opts {
 		opt(sdk)
@@ -246,106 +285,33 @@ func New(opts ...SDKOption) *Firehydrant {
 
 	currentServerURL, _ := sdk.sdkConfiguration.GetServerDetails()
 	serverURL := currentServerURL
-	serverURL, sdk.sdkConfiguration.Client = sdk.sdkConfiguration.Hooks.SDKInit(currentServerURL, sdk.sdkConfiguration.Client)
-	if serverURL != currentServerURL {
+	serverURL, sdk.sdkConfiguration.Client = sdk.hooks.SDKInit(currentServerURL, sdk.sdkConfiguration.Client)
+	if currentServerURL != serverURL {
 		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 
-	sdk.Ping = newPing(sdk.sdkConfiguration)
-
-	sdk.Environments = newEnvironments(sdk.sdkConfiguration)
-
-	sdk.Services = newServices(sdk.sdkConfiguration)
-
-	sdk.ServiceDependencies = newServiceDependencies(sdk.sdkConfiguration)
-
-	sdk.Functionalities = newFunctionalities(sdk.sdkConfiguration)
-
-	sdk.Teams = newTeams(sdk.sdkConfiguration)
-
-	sdk.Changes = newChanges(sdk.sdkConfiguration)
-
-	sdk.ChangeTypes = newChangeTypes(sdk.sdkConfiguration)
-
-	sdk.Entitlements = newEntitlements(sdk.sdkConfiguration)
-
-	sdk.Incidents = newIncidents(sdk.sdkConfiguration)
-
-	sdk.IncidentRoles = newIncidentRoles(sdk.sdkConfiguration)
-
-	sdk.IncidentTags = newIncidentTags(sdk.sdkConfiguration)
-
-	sdk.IncidentTypes = newIncidentTypes(sdk.sdkConfiguration)
-
-	sdk.Integrations = newIntegrations(sdk.sdkConfiguration)
-
-	sdk.Users = newUsers(sdk.sdkConfiguration)
-
-	sdk.CurrentUser = newCurrentUser(sdk.sdkConfiguration)
-
-	sdk.Reports = newReports(sdk.sdkConfiguration)
-
-	sdk.Metrics = newMetrics(sdk.sdkConfiguration)
-
-	sdk.Runbooks = newRunbooks(sdk.sdkConfiguration)
-
-	sdk.RunbookAudits = newRunbookAudits(sdk.sdkConfiguration)
-
-	sdk.NuncConnections = newNuncConnections(sdk.sdkConfiguration)
-
-	sdk.SavedSearches = newSavedSearches(sdk.sdkConfiguration)
-
-	sdk.Lifecycles = newLifecycles(sdk.sdkConfiguration)
-
-	sdk.Priorities = newPriorities(sdk.sdkConfiguration)
-
-	sdk.Severities = newSeverities(sdk.sdkConfiguration)
-
-	sdk.SeverityMatrix = newSeverityMatrix(sdk.sdkConfiguration)
-
-	sdk.ScheduledMaintenances = newScheduledMaintenances(sdk.sdkConfiguration)
-
-	sdk.Schedules = newSchedules(sdk.sdkConfiguration)
-
-	sdk.Infrastructures = newInfrastructures(sdk.sdkConfiguration)
-
-	sdk.Nunc = newNunc(sdk.sdkConfiguration)
-
-	sdk.StatusUpdateTemplates = newStatusUpdateTemplates(sdk.sdkConfiguration)
-
-	sdk.CustomFields = newCustomFields(sdk.sdkConfiguration)
-
-	sdk.PostMortems = newPostMortems(sdk.sdkConfiguration)
-
-	sdk.Alerts = newAlerts(sdk.sdkConfiguration)
-
-	sdk.ProcessingLogEntries = newProcessingLogEntries(sdk.sdkConfiguration)
-
-	sdk.Ticketing = newTicketing(sdk.sdkConfiguration)
-
-	sdk.TaskLists = newTaskLists(sdk.sdkConfiguration)
-
-	sdk.Noauth = newNoauth(sdk.sdkConfiguration)
-
-	sdk.Scim = newScim(sdk.sdkConfiguration)
-
-	sdk.Catalogs = newCatalogs(sdk.sdkConfiguration)
-
-	sdk.ChecklistTemplates = newChecklistTemplates(sdk.sdkConfiguration)
-
-	sdk.Bootstrap = newBootstrap(sdk.sdkConfiguration)
-
-	sdk.FormConfigurations = newFormConfigurations(sdk.sdkConfiguration)
-
-	sdk.Conversations = newConversations(sdk.sdkConfiguration)
-
-	sdk.Signals = newSignals(sdk.sdkConfiguration)
-
-	sdk.SignalsOnCall = newSignalsOnCall(sdk.sdkConfiguration)
-
-	sdk.Webhooks = newWebhooks(sdk.sdkConfiguration)
-
-	sdk.Ai = newAi(sdk.sdkConfiguration)
+	sdk.AccountSettings = newAccountSettings(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.CatalogEntries = newCatalogEntries(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Teams = newTeams(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Signals = newSignals(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Changes = newChanges(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Incidents = newIncidents(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Alerts = newAlerts(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.StatusPages = newStatusPages(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Tasks = newTasks(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Conversations = newConversations(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Retrospectives = newRetrospectives(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.IncidentSettings = newIncidentSettings(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Integrations = newIntegrations(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Users = newUsers(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.MetricsReporting = newMetricsReporting(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Runbooks = newRunbooks(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Communication = newCommunication(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Ticketing = newTicketing(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Scim = newScim(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.CallRoutes = newCallRoutes(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Webhooks = newWebhooks(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Audiences = newAudiences(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

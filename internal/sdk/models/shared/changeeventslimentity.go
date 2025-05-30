@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+// ChangeEventSlimEntityLabels - An object of label key and values
+type ChangeEventSlimEntityLabels struct {
+}
+
 type ChangeEventSlimEntity struct {
 	ID              *string                  `json:"id,omitempty"`
 	Summary         *string                  `json:"summary,omitempty"`
@@ -21,8 +25,8 @@ type ChangeEventSlimEntity struct {
 	Environments    []EnvironmentEntryEntity `json:"environments,omitempty"`
 	Authors         []AuthorEntity           `json:"authors,omitempty"`
 	// An object of label key and values
-	Labels   map[string]string `json:"labels,omitempty"`
-	Services []ServiceEntity   `json:"services,omitempty"`
+	Labels   *ChangeEventSlimEntityLabels `json:"labels,omitempty"`
+	Services []ServiceEntityLite          `json:"services,omitempty"`
 }
 
 func (c ChangeEventSlimEntity) MarshalJSON() ([]byte, error) {
@@ -120,14 +124,14 @@ func (o *ChangeEventSlimEntity) GetAuthors() []AuthorEntity {
 	return o.Authors
 }
 
-func (o *ChangeEventSlimEntity) GetLabels() map[string]string {
+func (o *ChangeEventSlimEntity) GetLabels() *ChangeEventSlimEntityLabels {
 	if o == nil {
 		return nil
 	}
 	return o.Labels
 }
 
-func (o *ChangeEventSlimEntity) GetServices() []ServiceEntity {
+func (o *ChangeEventSlimEntity) GetServices() []ServiceEntityLite {
 	if o == nil {
 		return nil
 	}

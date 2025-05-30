@@ -7,8 +7,12 @@ import (
 	"time"
 )
 
-// ManagedBySettings - Indicates the settings of the catalog that manages this service
-type ManagedBySettings struct {
+// ServiceEntityLabels - An object of label key and values
+type ServiceEntityLabels struct {
+}
+
+// ServiceEntityManagedBySettings - Indicates the settings of the catalog that manages this service
+type ServiceEntityManagedBySettings struct {
 }
 
 // ServiceEntity model
@@ -22,31 +26,30 @@ type ServiceEntity struct {
 	UpdatedAt     *time.Time `json:"updated_at,omitempty"`
 	AllowedParams []string   `json:"allowed_params,omitempty"`
 	// An object of label key and values
-	Labels map[string]string `json:"labels,omitempty"`
+	Labels                *ServiceEntityLabels `json:"labels,omitempty"`
+	AlertOnAdd            *bool                `json:"alert_on_add,omitempty"`
+	AutoAddRespondingTeam *bool                `json:"auto_add_responding_team,omitempty"`
 	// List of active incident guids
-	ActiveIncidents       []string `json:"active_incidents,omitempty"`
-	AlertOnAdd            *bool    `json:"alert_on_add,omitempty"`
-	AutoAddRespondingTeam *bool    `json:"auto_add_responding_team,omitempty"`
+	ActiveIncidents []string `json:"active_incidents,omitempty"`
 	// List of checklists associated with a service
 	Checklists      []ChecklistTemplateEntity `json:"checklists,omitempty"`
 	CompletedChecks *int                      `json:"completed_checks,omitempty"`
 	// Information about known linkages to representations of services outside of FireHydrant.
 	ExternalResources []ExternalResourceEntity `json:"external_resources,omitempty"`
 	// List of functionalities attached to the service
-	Functionalities []FunctionalityEntity            `json:"functionalities,omitempty"`
-	LastImport      *ImportsImportableResourceEntity `json:"last_import,omitempty"`
+	Functionalities []FunctionalityEntity                    `json:"functionalities,omitempty"`
+	LastImport      *NullableImportsImportableResourceEntity `json:"last_import,omitempty"`
 	// List of links attached to this service.
 	Links []LinksEntity `json:"links,omitempty"`
 	// If set, this field indicates that the service is managed by an integration and thus cannot be set manually
 	ManagedBy *string `json:"managed_by,omitempty"`
 	// Indicates the settings of the catalog that manages this service
-	ManagedBySettings *ManagedBySettings `json:"managed_by_settings,omitempty"`
-	// TeamEntity model
-	Owner                     *TeamEntity `json:"owner,omitempty"`
-	ServiceChecklistUpdatedAt *time.Time  `json:"service_checklist_updated_at,omitempty"`
+	ManagedBySettings         *ServiceEntityManagedBySettings `json:"managed_by_settings,omitempty"`
+	Owner                     *NullableTeamEntityLite         `json:"owner,omitempty"`
+	ServiceChecklistUpdatedAt *time.Time                      `json:"service_checklist_updated_at,omitempty"`
 	// List of teams attached to the service
-	Teams     []TeamEntity  `json:"teams,omitempty"`
-	UpdatedBy *AuthorEntity `json:"updated_by,omitempty"`
+	Teams     []TeamEntityLite      `json:"teams,omitempty"`
+	UpdatedBy *NullableAuthorEntity `json:"updated_by,omitempty"`
 }
 
 func (s ServiceEntity) MarshalJSON() ([]byte, error) {
@@ -116,18 +119,11 @@ func (o *ServiceEntity) GetAllowedParams() []string {
 	return o.AllowedParams
 }
 
-func (o *ServiceEntity) GetLabels() map[string]string {
+func (o *ServiceEntity) GetLabels() *ServiceEntityLabels {
 	if o == nil {
 		return nil
 	}
 	return o.Labels
-}
-
-func (o *ServiceEntity) GetActiveIncidents() []string {
-	if o == nil {
-		return nil
-	}
-	return o.ActiveIncidents
 }
 
 func (o *ServiceEntity) GetAlertOnAdd() *bool {
@@ -142,6 +138,13 @@ func (o *ServiceEntity) GetAutoAddRespondingTeam() *bool {
 		return nil
 	}
 	return o.AutoAddRespondingTeam
+}
+
+func (o *ServiceEntity) GetActiveIncidents() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ActiveIncidents
 }
 
 func (o *ServiceEntity) GetChecklists() []ChecklistTemplateEntity {
@@ -172,7 +175,7 @@ func (o *ServiceEntity) GetFunctionalities() []FunctionalityEntity {
 	return o.Functionalities
 }
 
-func (o *ServiceEntity) GetLastImport() *ImportsImportableResourceEntity {
+func (o *ServiceEntity) GetLastImport() *NullableImportsImportableResourceEntity {
 	if o == nil {
 		return nil
 	}
@@ -193,14 +196,14 @@ func (o *ServiceEntity) GetManagedBy() *string {
 	return o.ManagedBy
 }
 
-func (o *ServiceEntity) GetManagedBySettings() *ManagedBySettings {
+func (o *ServiceEntity) GetManagedBySettings() *ServiceEntityManagedBySettings {
 	if o == nil {
 		return nil
 	}
 	return o.ManagedBySettings
 }
 
-func (o *ServiceEntity) GetOwner() *TeamEntity {
+func (o *ServiceEntity) GetOwner() *NullableTeamEntityLite {
 	if o == nil {
 		return nil
 	}
@@ -214,14 +217,14 @@ func (o *ServiceEntity) GetServiceChecklistUpdatedAt() *time.Time {
 	return o.ServiceChecklistUpdatedAt
 }
 
-func (o *ServiceEntity) GetTeams() []TeamEntity {
+func (o *ServiceEntity) GetTeams() []TeamEntityLite {
 	if o == nil {
 		return nil
 	}
 	return o.Teams
 }
 
-func (o *ServiceEntity) GetUpdatedBy() *AuthorEntity {
+func (o *ServiceEntity) GetUpdatedBy() *NullableAuthorEntity {
 	if o == nil {
 		return nil
 	}

@@ -16,6 +16,7 @@ const (
 	ImportsImportEntityStateReadyForImport ImportsImportEntityState = "ready_for_import"
 	ImportsImportEntityStateImporting      ImportsImportEntityState = "importing"
 	ImportsImportEntityStateCompleted      ImportsImportEntityState = "completed"
+	ImportsImportEntityStateFailed         ImportsImportEntityState = "failed"
 )
 
 func (e ImportsImportEntityState) ToPointer() *ImportsImportEntityState {
@@ -34,6 +35,8 @@ func (e *ImportsImportEntityState) UnmarshalJSON(data []byte) error {
 	case "importing":
 		fallthrough
 	case "completed":
+		fallthrough
+	case "failed":
 		*e = ImportsImportEntityState(v)
 		return nil
 	default:

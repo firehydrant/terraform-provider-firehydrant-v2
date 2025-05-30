@@ -9,16 +9,15 @@ import (
 
 // ChecklistTemplateEntity model
 type ChecklistTemplateEntity struct {
-	ID          *string                `json:"id,omitempty"`
-	Name        *string                `json:"name,omitempty"`
-	Description *string                `json:"description,omitempty"`
-	CreatedAt   *string                `json:"created_at,omitempty"`
-	UpdatedAt   *time.Time             `json:"updated_at,omitempty"`
-	Checks      []ChecklistCheckEntity `json:"checks,omitempty"`
-	// TeamEntity model
-	Owner *TeamEntity `json:"owner,omitempty"`
+	ID          *string                 `json:"id,omitempty"`
+	Name        *string                 `json:"name,omitempty"`
+	Description *string                 `json:"description,omitempty"`
+	CreatedAt   *string                 `json:"created_at,omitempty"`
+	UpdatedAt   *time.Time              `json:"updated_at,omitempty"`
+	Checks      []ChecklistCheckEntity  `json:"checks,omitempty"`
+	Owner       *NullableTeamEntityLite `json:"owner,omitempty"`
 	// List of services that use this checklist
-	ConnectedServices []ServiceEntity `json:"connected_services,omitempty"`
+	ConnectedServices []ServiceEntityChecklist `json:"connected_services,omitempty"`
 }
 
 func (c ChecklistTemplateEntity) MarshalJSON() ([]byte, error) {
@@ -74,14 +73,14 @@ func (o *ChecklistTemplateEntity) GetChecks() []ChecklistCheckEntity {
 	return o.Checks
 }
 
-func (o *ChecklistTemplateEntity) GetOwner() *TeamEntity {
+func (o *ChecklistTemplateEntity) GetOwner() *NullableTeamEntityLite {
 	if o == nil {
 		return nil
 	}
 	return o.Owner
 }
 
-func (o *ChecklistTemplateEntity) GetConnectedServices() []ServiceEntity {
+func (o *ChecklistTemplateEntity) GetConnectedServices() []ServiceEntityChecklist {
 	if o == nil {
 		return nil
 	}

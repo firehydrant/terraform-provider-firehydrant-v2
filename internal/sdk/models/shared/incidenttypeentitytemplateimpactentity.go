@@ -10,6 +10,7 @@ import (
 type IncidentTypeEntityTemplateImpactEntityType string
 
 const (
+	IncidentTypeEntityTemplateImpactEntityTypeCustomer      IncidentTypeEntityTemplateImpactEntityType = "customer"
 	IncidentTypeEntityTemplateImpactEntityTypeEnvironment   IncidentTypeEntityTemplateImpactEntityType = "environment"
 	IncidentTypeEntityTemplateImpactEntityTypeFunctionality IncidentTypeEntityTemplateImpactEntityType = "functionality"
 	IncidentTypeEntityTemplateImpactEntityTypeService       IncidentTypeEntityTemplateImpactEntityType = "service"
@@ -24,6 +25,8 @@ func (e *IncidentTypeEntityTemplateImpactEntityType) UnmarshalJSON(data []byte) 
 		return err
 	}
 	switch v {
+	case "customer":
+		fallthrough
 	case "environment":
 		fallthrough
 	case "functionality":
