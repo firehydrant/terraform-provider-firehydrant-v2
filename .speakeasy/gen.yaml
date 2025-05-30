@@ -1,5 +1,8 @@
 configVersion: 2.0.0
 generation:
+  devContainers:
+    enabled: true
+    schemaPath: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-oas:main
   sdkClassName: firehydrant
   maintainOpenAPIOrder: true
   usageSnippets:
@@ -7,10 +10,14 @@ generation:
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
+    nameResolutionFeb2025: true
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
+    securityFeb2025: false
+    sharedErrorComponentsApr2025: false
   auth:
     oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: true
 terraform:
   version: 0.1.5
   additionalDataSources: []
