@@ -45,9 +45,25 @@ jobs:
           
       - name: Copy OpenAPI spec
         run: |
-          mkdir -p .speakeasy
-          cp /tmp/dev-repo/docs/public/openapi3_doc.json ${GITHUB_WORKSPACE}/openapi.json
+          cp /tmp/dev-repo/docs/public/openapi3_doc.json ${GITHUB_WORKSPACE}/openapi-raw.json
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 'stable'
           
+      - name: Process OpenAPI spec
+        run: |
+          # Normalize the schema
+          go run scripts/normalize/normalize-schema.go openapi-raw.json openapi.json
+          
+          # Generate Terraform overlay
+          go run scripts/overlay/generate-terraform-overlay.go openapi.json
+          
+          # Move overlay to Speakeasy directory
+          mkdir -p .speakeasy
+          mv terraform-overlay.yaml .speakeasy/
+
       - name: Generate SDK
         uses: speakeasy-api/sdk-generation-action@v15
         with:
