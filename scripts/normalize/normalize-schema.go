@@ -101,6 +101,12 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 		return report
 	}
 
+	// Get paths for parameter normalization
+	paths, pathsOk := spec["paths"].(map[string]interface{})
+	if !pathsOk {
+		fmt.Println("Warning: No paths found in spec")
+	}
+
 	// Build entity relationships
 	entityMap := buildEntityRelationships(schemas)
 
@@ -130,9 +136,15 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 		}
 	}
 
-	// Apply global normalizations
+	// Apply global normalizations to schemas
 	globalFixes := applyGlobalNormalizations(schemas)
 	report.ConflictDetails = append(report.ConflictDetails, globalFixes...)
+
+	// Normalize path parameters to match entity IDs
+	if pathsOk {
+		parameterFixes := normalizePathParameters(paths, schemas)
+		report.ConflictDetails = append(report.ConflictDetails, parameterFixes...)
+	}
 
 	// Calculate totals
 	report.TotalFixes = len(report.ConflictDetails)
@@ -422,6 +434,80 @@ func normalizeAdditionalProperties(schemaName string, obj interface{}, path stri
 	return conflicts
 }
 
+// Normalize path parameters to match entity ID types
+func normalizePathParameters(paths map[string]interface{}, schemas map[string]interface{}) []ConflictDetail {
+	conflicts := make([]ConflictDetail, 0)
+
+	fmt.Printf("\n=== Normalizing Path Parameters ===\n")
+
+	for pathName, pathItem := range paths {
+		pathMap, ok := pathItem.(map[string]interface{})
+		if !ok {
+			continue
+		}
+
+		// Check all HTTP methods in this path
+		methods := []string{"get", "post", "put", "patch", "delete"}
+		for _, method := range methods {
+			if operation, exists := pathMap[method]; exists {
+				opMap, ok := operation.(map[string]interface{})
+				if !ok {
+					continue
+				}
+
+				// Check parameters in this operation
+				if parameters, hasParams := opMap["parameters"]; hasParams {
+					paramsList, ok := parameters.([]interface{})
+					if !ok {
+						continue
+					}
+
+					for _, param := range paramsList {
+						paramMap, ok := param.(map[string]interface{})
+						if !ok {
+							continue
+						}
+
+						// Check if this is a path parameter with integer type that should be string
+						paramIn, _ := paramMap["in"].(string)
+						paramName, _ := paramMap["name"].(string)
+
+						if paramIn == "path" && (strings.Contains(paramName, "id") || strings.HasSuffix(paramName, "_id")) {
+							schema, hasSchema := paramMap["schema"]
+							if hasSchema {
+								schemaMap, ok := schema.(map[string]interface{})
+								if ok {
+									paramType, _ := schemaMap["type"].(string)
+									paramFormat, _ := schemaMap["format"].(string)
+
+									// Convert integer ID parameters to string
+									if paramType == "integer" {
+										fmt.Printf("  Found integer ID parameter: %s %s.%s (type: %s, format: %s)\n",
+											method, pathName, paramName, paramType, paramFormat)
+
+										schemaMap["type"] = "string"
+										delete(schemaMap, "format") // Remove int32/int64 format
+
+										conflicts = append(conflicts, ConflictDetail{
+											Schema:       fmt.Sprintf("path:%s", pathName),
+											Property:     fmt.Sprintf("%s.%s", method, paramName),
+											ConflictType: "parameter-type",
+											Resolution:   fmt.Sprintf("Converted path parameter %s from integer to string", paramName),
+										})
+
+										fmt.Printf("    ✅ Converted %s parameter from integer to string\n", paramName)
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return conflicts
+}
 func printNormalizationReport(report NormalizationReport) {
 	fmt.Println("\n=== Normalization Report ===")
 	fmt.Printf("Total fixes applied: %d\n", report.TotalFixes)

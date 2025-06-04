@@ -552,9 +552,9 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 			Update: entityUpdate,
 		})
 
-		// Add terraform ignore for mismatched properties in request AND response schemas
+		// Add speakeasy ignore for mismatched properties in request AND response schemas
 		if mismatches, exists := resourceMismatches[resource.EntityName]; exists {
-			// Add terraform ignore for create schema properties
+			// Add speakeasy ignore for create schema properties
 			if resource.CreateSchema != "" {
 				for _, mismatch := range mismatches {
 					// Ignore in request schema
@@ -573,7 +573,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 						},
 					})
 
-					fmt.Printf("  ✅ Added terraform ignore for %s.%s in both request (%s) and response (%s) schemas\n",
+					fmt.Printf("  ✅ Added speakeasy ignore for %s.%s in both request (%s) and response (%s) schemas\n",
 						resource.EntityName, mismatch.PropertyName, resource.CreateSchema, resource.EntityName)
 				}
 			}
@@ -600,7 +600,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 						})
 					}
 
-					fmt.Printf("  ✅ Added terraform ignore for %s.%s in update schema\n", resource.EntityName, mismatch.PropertyName)
+					fmt.Printf("  ✅ Added speakeasy ignore for %s.%s in update schema\n", resource.EntityName, mismatch.PropertyName)
 				}
 			}
 		}
@@ -632,7 +632,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 	fmt.Println("\n=== Overlay Generation Complete ===")
 	fmt.Printf("Generated %d actions for %d resources\n", len(overlay.Actions), len(resources))
 
-	// Count terraform ignore actions
+	// Count ignore actions
 	ignoreCount := 0
 	for _, action := range overlay.Actions {
 		if _, hasIgnore := action.Update["x-speakeasy-ignore"]; hasIgnore {
@@ -642,7 +642,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 
 	if len(resourceMismatches) > 0 {
 		fmt.Printf("✅ %d resources had property mismatches\n", len(resourceMismatches))
-		fmt.Printf("✅ %d terraform ignore actions added\n", ignoreCount)
+		fmt.Printf("✅ %d speakeasy ignore actions added\n", ignoreCount)
 	}
 
 	return overlay
@@ -742,9 +742,14 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 
 	for propName, entityProp := range entityProps {
 		if requestProp, exists := requestProps[propName]; exists {
-			if mismatch := detectPropertyMismatch(propName, entityProp, requestProp, operation); mismatch != nil {
-				fmt.Printf("    ✅ Found mismatch: %s - %s\n", propName, mismatch.Description)
-				mismatches = append(mismatches, *mismatch)
+			if hasStructuralMismatch(propName, entityProp, requestProp) {
+				mismatch := PropertyMismatch{
+					PropertyName: propName,
+					MismatchType: "structural-mismatch",
+					Description:  describeStructuralDifference(entityProp, requestProp),
+				}
+				fmt.Printf("    ✅ Found structural mismatch: %s - %s\n", propName, mismatch.Description)
+				mismatches = append(mismatches, mismatch)
 			}
 		}
 	}
@@ -752,138 +757,101 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 	return mismatches
 }
 
-func detectPropertyMismatch(propName string, entityProp, requestProp interface{}, operation string) *PropertyMismatch {
-	entityMap, _ := entityProp.(map[string]interface{})
-	requestMap, _ := requestProp.(map[string]interface{})
+// Check if two property structures are different
+func hasStructuralMismatch(propName string, entityProp, requestProp interface{}) bool {
+	// Convert both to normalized structure representations
+	entityStructure := getPropertyStructure(entityProp)
+	requestStructure := getPropertyStructure(requestProp)
 
-	if entityMap == nil || requestMap == nil {
-		return nil
+	fmt.Printf("      Property '%s':\n", propName)
+	fmt.Printf("        Request structure: %s\n", requestStructure)
+	fmt.Printf("        Entity structure: %s\n", entityStructure)
+
+	// If structures are different, we have a mismatch
+	different := entityStructure != requestStructure
+	if different {
+		fmt.Printf("        ✅ Structures differ - will ignore\n")
+	} else {
+		fmt.Printf("        ✓ Structures match\n")
 	}
 
-	entityType, _ := entityMap["type"].(string)
-	requestType, _ := requestMap["type"].(string)
-
-	fmt.Printf("      Checking property '%s': request=%s, entity=%s\n", propName, requestType, entityType)
-
-	// Type mismatch detection
-	if entityType != requestType && entityType != "" && requestType != "" {
-		fmt.Printf("      ✅ Found basic type mismatch: %s != %s\n", requestType, entityType)
-		return &PropertyMismatch{
-			PropertyName: propName,
-			MismatchType: "type-mismatch",
-			Description:  fmt.Sprintf("request type '%s' != response type '%s'", requestType, entityType),
-		}
-	}
-
-	// Array item type mismatch detection - this is the key one for string != class
-	if entityType == "array" && requestType == "array" {
-		entityItems, _ := entityMap["items"].(map[string]interface{})
-		requestItems, _ := requestMap["items"].(map[string]interface{})
-
-		fmt.Printf("      Both are arrays - checking item types\n")
-
-		// Special debug for environments property
-		if propName == "environments" {
-			fmt.Printf("      🔍 ENVIRONMENTS DEBUG:\n")
-			fmt.Printf("        Request items: %+v\n", requestItems)
-			fmt.Printf("        Entity items: %+v\n", entityItems)
-		}
-
-		if entityItems != nil && requestItems != nil {
-			requestItemType, _ := requestItems["type"].(string)
-			entityRef, entityHasRef := entityItems["$ref"].(string)
-			requestRef, requestHasRef := requestItems["$ref"].(string)
-
-			fmt.Printf("      Request: itemType='%s', hasRef=%v\n", requestItemType, requestHasRef)
-			fmt.Printf("      Entity: ref='%s', hasRef=%v\n", entityRef, entityHasRef)
-
-			// Case 1: Request uses string[], Entity uses object[] (refs) - THE KEY CASE
-			if requestItemType == "string" && entityHasRef {
-				fmt.Printf("      ✅ Found string[] vs object[] mismatch (Case 1)\n")
-				fmt.Printf("        Request: string[], Entity: %s\n", entityRef)
-				return &PropertyMismatch{
-					PropertyName: propName,
-					MismatchType: "array-item-mismatch",
-					Description:  fmt.Sprintf("request uses string[], response uses object[] (%s)", entityRef),
-				}
-			}
-
-			// Case 2: Different object references in arrays
-			if entityHasRef && requestHasRef && entityRef != requestRef {
-				fmt.Printf("      ✅ Found different object ref mismatch (Case 2)\n")
-				return &PropertyMismatch{
-					PropertyName: propName,
-					MismatchType: "array-ref-mismatch",
-					Description:  fmt.Sprintf("request references %s, response references %s", requestRef, entityRef),
-				}
-			}
-
-			// Case 3: Request uses inline objects, Entity uses refs
-			requestItemType2, _ := requestItems["type"].(string)
-			if !requestHasRef && requestItemType2 == "object" && entityHasRef {
-				fmt.Printf("      ✅ Found inline object vs ref mismatch (Case 3)\n")
-				return &PropertyMismatch{
-					PropertyName: propName,
-					MismatchType: "array-item-mismatch",
-					Description:  fmt.Sprintf("request uses inline objects, response uses object references (%s)", entityRef),
-				}
-			}
-
-			// Case 4: Request uses refs, Entity uses string[] (reverse of Case 1)
-			entityItemType, _ := entityItems["type"].(string)
-			if requestHasRef && entityItemType == "string" {
-				fmt.Printf("      ✅ Found object[] vs string[] mismatch (Case 4)\n")
-				return &PropertyMismatch{
-					PropertyName: propName,
-					MismatchType: "array-item-mismatch",
-					Description:  fmt.Sprintf("request uses object[] (%s), response uses string[]", requestRef),
-				}
-			}
-		} else {
-			fmt.Printf("      Warning: Could not access array items\n")
-			if entityItems == nil {
-				fmt.Printf("        Entity items is nil\n")
-			}
-			if requestItems == nil {
-				fmt.Printf("        Request items is nil\n")
-			}
-		}
-	}
-
-	// Object structure mismatch detection (class vs map)
-	if entityType == "object" && requestType == "object" {
-		_, entityHasProps := entityMap["properties"]
-		_, entityHasAdditional := entityMap["additionalProperties"]
-		_, requestHasProps := requestMap["properties"]
-		_, requestHasAdditional := requestMap["additionalProperties"]
-
-		fmt.Printf("      Both are objects - checking structure\n")
-		fmt.Printf("      Entity: hasProps=%v, hasAdditional=%v\n", entityHasProps, entityHasAdditional)
-		fmt.Printf("      Request: hasProps=%v, hasAdditional=%v\n", requestHasProps, requestHasAdditional)
-
-		// Map vs Class mismatch
-		if entityHasProps && !entityHasAdditional && requestHasAdditional && !requestHasProps {
-			fmt.Printf("      ✅ Found map vs class mismatch (entity=class, request=map)\n")
-			return &PropertyMismatch{
-				PropertyName: propName,
-				MismatchType: "object-structure-mismatch",
-				Description:  "request uses map structure, response uses class structure",
-			}
-		}
-
-		if requestHasProps && !requestHasAdditional && entityHasAdditional && !entityHasProps {
-			fmt.Printf("      ✅ Found class vs map mismatch (request=class, entity=map)\n")
-			return &PropertyMismatch{
-				PropertyName: propName,
-				MismatchType: "object-structure-mismatch",
-				Description:  "request uses class structure, response uses map structure",
-			}
-		}
-	}
-
-	fmt.Printf("      No mismatch detected for %s\n", propName)
-	return nil
+	return different
 }
+
+// Get a normalized string representation of a property's structure
+func getPropertyStructure(prop interface{}) string {
+	propMap, ok := prop.(map[string]interface{})
+	if !ok {
+		return "unknown"
+	}
+
+	// Check for $ref
+	if ref, hasRef := propMap["$ref"].(string); hasRef {
+		return fmt.Sprintf("$ref:%s", ref)
+	}
+
+	propType, _ := propMap["type"].(string)
+
+	switch propType {
+	case "array":
+		items, hasItems := propMap["items"]
+		if hasItems {
+			itemStructure := getPropertyStructure(items)
+			return fmt.Sprintf("array[%s]", itemStructure)
+		}
+		return "array[unknown]"
+
+	case "object":
+		properties, hasProps := propMap["properties"]
+		additionalProps, hasAdditional := propMap["additionalProperties"]
+
+		if hasProps {
+			propsMap, _ := properties.(map[string]interface{})
+			if len(propsMap) == 0 {
+				return "object{empty}"
+			}
+
+			// Get structure of nested properties
+			var propStructures []string
+			for key, value := range propsMap {
+				propStructures = append(propStructures, fmt.Sprintf("%s:%s", key, getPropertyStructure(value)))
+			}
+			return fmt.Sprintf("object{%v}", propStructures)
+		}
+
+		if hasAdditional {
+			additionalStructure := getPropertyStructure(additionalProps)
+			return fmt.Sprintf("object{additional:%s}", additionalStructure)
+		}
+
+		return "object{}"
+
+	case "string", "integer", "number", "boolean":
+		return propType
+
+	default:
+		if propType == "" {
+			// No explicit type - check what we have
+			if _, hasProps := propMap["properties"]; hasProps {
+				return "implicit-object"
+			}
+			if _, hasItems := propMap["items"]; hasItems {
+				return "implicit-array"
+			}
+		}
+		return fmt.Sprintf("type:%s", propType)
+	}
+}
+
+// Describe the structural difference for reporting
+func describeStructuralDifference(entityProp, requestProp interface{}) string {
+	entityStructure := getPropertyStructure(entityProp)
+	requestStructure := getPropertyStructure(requestProp)
+
+	return fmt.Sprintf("request structure '%s' != response structure '%s'", requestStructure, entityStructure)
+}
+
+// Remove the old detectPropertyMismatch function - replaced with comprehensive structural comparison
 
 func mapCrudToEntityOperation(crudType, entityName string) string {
 	switch crudType {
