@@ -291,59 +291,131 @@ func applyGlobalNormalizations(schemas map[string]interface{}) []ConflictDetail 
 
 	fmt.Printf("Applying global normalizations to %d schemas\n", len(schemas))
 
-	// Fix common patterns across all schemas
+	// First pass: Find and report all additionalProperties instances
+	fmt.Printf("\n=== Scanning for all additionalProperties instances ===\n")
 	for schemaName, schema := range schemas {
 		schemaMap, ok := schema.(map[string]interface{})
 		if !ok {
 			continue
 		}
 
-		// Apply global normalizations to ALL schemas (don't skip request schemas)
-		props, ok := schemaMap["properties"].(map[string]interface{})
+		additionalPropsFound := findAllAdditionalProperties(schemaName, schemaMap, "")
+		if len(additionalPropsFound) > 0 {
+			fmt.Printf("Schema %s has additionalProperties at:\n", schemaName)
+			for _, path := range additionalPropsFound {
+				fmt.Printf("  - %s\n", path)
+			}
+		}
+	}
+
+	// Second pass: Fix all additionalProperties instances
+	for schemaName, schema := range schemas {
+		schemaMap, ok := schema.(map[string]interface{})
 		if !ok {
 			continue
 		}
 
-		fmt.Printf("  Checking schema: %s\n", schemaName)
+		fmt.Printf("  Normalizing schema: %s\n", schemaName)
+		schemaConflicts := normalizeAdditionalProperties(schemaName, schemaMap, "")
+		conflicts = append(conflicts, schemaConflicts...)
+	}
 
-		// Check for common problematic properties
-		for propName, prop := range props {
-			propMap, ok := prop.(map[string]interface{})
-			if !ok {
-				continue
+	return conflicts
+}
+
+// Recursively find all additionalProperties in a schema
+func findAllAdditionalProperties(schemaName string, obj interface{}, path string) []string {
+	var found []string
+
+	switch v := obj.(type) {
+	case map[string]interface{}:
+		// Check if this object has additionalProperties
+		if _, hasAdditional := v["additionalProperties"]; hasAdditional {
+			fullPath := schemaName
+			if path != "" {
+				fullPath += "." + path
 			}
+			found = append(found, fullPath)
+		}
 
-			// Fix empty properties objects - but don't add additionalProperties
-			if propType, _ := propMap["type"].(string); propType == "object" {
-				if propsObj, hasProps := propMap["properties"].(map[string]interface{}); hasProps && len(propsObj) == 0 {
-					_, hasAdditional := propMap["additionalProperties"]
+		// Recursively check all nested objects
+		for key, value := range v {
+			newPath := path
+			if newPath != "" {
+				newPath += "." + key
+			} else {
+				newPath = key
+			}
+			nested := findAllAdditionalProperties(schemaName, value, newPath)
+			found = append(found, nested...)
+		}
+	case []interface{}:
+		// Check array items
+		for i, item := range v {
+			newPath := fmt.Sprintf("%s[%d]", path, i)
+			nested := findAllAdditionalProperties(schemaName, item, newPath)
+			found = append(found, nested...)
+		}
+	}
 
-					// Debug output for labels property specifically
-					if propName == "labels" {
-						fmt.Printf("    Found labels property in %s:\n", schemaName)
-						fmt.Printf("      Has empty properties: %v\n", hasProps)
-						fmt.Printf("      Has additionalProperties: %v\n", hasAdditional)
-					}
+	return found
+}
 
-					// Only normalize if it has additionalProperties - convert to consistent empty properties
-					if hasAdditional {
-						delete(propMap, "additionalProperties")
-						// Keep the empty properties object for consistency
-						props[propName] = propMap
+// Recursively normalize all additionalProperties in a schema
+func normalizeAdditionalProperties(schemaName string, obj interface{}, path string) []ConflictDetail {
+	var conflicts []ConflictDetail
 
-						conflicts = append(conflicts, ConflictDetail{
-							Schema:       schemaName,
-							Property:     propName,
-							ConflictType: "map-class",
-							Resolution:   "Converted additionalProperties to empty properties for consistency",
-						})
+	switch v := obj.(type) {
+	case map[string]interface{}:
+		// Check if this object has additionalProperties
+		if _, hasAdditional := v["additionalProperties"]; hasAdditional {
+			objType, _ := v["type"].(string)
+			_, hasProperties := v["properties"]
 
-						if propName == "labels" {
-							fmt.Printf("      ✅ Converted labels from additionalProperties to empty properties in %s\n", schemaName)
-						}
-					}
+			// Remove additionalProperties if:
+			// 1. It's explicitly type "object", OR
+			// 2. It has "properties" (implicit object), OR
+			// 3. It has additionalProperties but no other structure
+			if objType == "object" || hasProperties || (!hasProperties && hasAdditional) {
+				// Remove additionalProperties and ensure empty properties
+				delete(v, "additionalProperties")
+				if !hasProperties {
+					v["properties"] = map[string]interface{}{}
 				}
+
+				fullPath := schemaName
+				if path != "" {
+					fullPath += "." + path
+				}
+
+				conflicts = append(conflicts, ConflictDetail{
+					Schema:       schemaName,
+					Property:     path,
+					ConflictType: "map-class",
+					Resolution:   fmt.Sprintf("Converted additionalProperties to empty properties at %s", fullPath),
+				})
+
+				fmt.Printf("      ✅ Converted additionalProperties to empty properties at %s\n", fullPath)
 			}
+		}
+
+		// Recursively normalize all nested objects
+		for key, value := range v {
+			newPath := path
+			if newPath != "" {
+				newPath += "." + key
+			} else {
+				newPath = key
+			}
+			nested := normalizeAdditionalProperties(schemaName, value, newPath)
+			conflicts = append(conflicts, nested...)
+		}
+	case []interface{}:
+		// Normalize array items
+		for i, item := range v {
+			newPath := fmt.Sprintf("%s[%d]", path, i)
+			nested := normalizeAdditionalProperties(schemaName, item, newPath)
+			conflicts = append(conflicts, nested...)
 		}
 	}
 
