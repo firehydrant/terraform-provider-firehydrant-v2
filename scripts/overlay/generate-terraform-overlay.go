@@ -932,8 +932,8 @@ func addParameterMatches(overlay *Overlay, path, method, resourceName string) {
 	for _, match := range matches {
 		paramName := match[1]
 
-		// Check if this looks like an ID parameter
-		if strings.Contains(paramName, "id") || paramName == resourceName {
+		if paramName != "id" && (strings.Contains(paramName, "id") || paramName == resourceName) {
+			fmt.Printf("    Adding x-speakeasy-match for parameter: %s (not exact 'id')\n", paramName)
 			overlay.Actions = append(overlay.Actions, OverlayAction{
 				Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
 					path, method, paramName),
@@ -941,6 +941,10 @@ func addParameterMatches(overlay *Overlay, path, method, resourceName string) {
 					"x-speakeasy-match": "id",
 				},
 			})
+		} else if paramName == "id" {
+			fmt.Printf("    Skipping x-speakeasy-match for parameter: %s (already exact 'id')\n", paramName)
+		} else {
+			fmt.Printf("    Skipping x-speakeasy-match for parameter: %s (not an ID parameter)\n", paramName)
 		}
 	}
 }
