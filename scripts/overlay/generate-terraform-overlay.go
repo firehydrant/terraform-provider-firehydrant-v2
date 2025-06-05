@@ -36,19 +36,15 @@ func main() {
 
 	fmt.Printf("Found %d paths and %d schemas\n\n", len(spec.Paths), len(spec.Components.Schemas))
 
-	// Analyze the spec to find resources
 	resources := analyzeSpec(spec)
 
-	// Generate overlay
 	overlay := generateOverlay(resources, spec)
 
-	// Write overlay file
 	if err := writeOverlay(overlay); err != nil {
 		fmt.Printf("Error writing overlay: %v\n", err)
 		os.Exit(1)
 	}
 
-	// Print summary
 	printOverlaySummary(resources, overlay)
 }
 
@@ -58,10 +54,6 @@ func printUsage() {
 	fmt.Println("Usage:")
 	fmt.Println("  openapi-overlay <input.json>")
 }
-
-// ============================================================================
-// OVERLAY GENERATION LOGIC
-// ============================================================================
 
 type OpenAPISpec struct {
 	OpenAPI    string                 `json:"openapi"`
@@ -113,21 +105,28 @@ type ResourceInfo struct {
 	SchemaName   string
 	ResourceName string
 	Operations   map[string]OperationInfo
-	CreateSchema string // Track the create request schema
-	UpdateSchema string // Track the update request schema
+	CreateSchema string
+	UpdateSchema string
 }
 
 type OperationInfo struct {
 	OperationID   string
 	Path          string
 	Method        string
-	RequestSchema string // Track request schema separately
+	RequestSchema string
 }
 
 type PropertyMismatch struct {
 	PropertyName string
 	MismatchType string
 	Description  string
+}
+
+type CRUDInconsistency struct {
+	PropertyName      string
+	InconsistencyType string
+	Description       string
+	SchemasToIgnore   []string
 }
 
 type OverlayAction struct {
@@ -157,22 +156,23 @@ func analyzeSpec(spec OpenAPISpec) map[string]*ResourceInfo {
 		analyzePathOperations(path, pathItem, entitySchemas, resources, spec)
 	}
 
-	// Third pass: validate and filter resources
-	validResources := make(map[string]*ResourceInfo)
+	// Third pass: validate resources but keep all for analysis
+	fmt.Printf("\n=== Resource Validation ===\n")
 	for name, resource := range resources {
-		if isValidTerraformResource(resource) {
-			validResources[name] = resource
-			opTypes := make([]string, 0)
-			for crudType := range resource.Operations {
-				entityOp := mapCrudToEntityOperation(crudType, resource.EntityName)
-				opTypes = append(opTypes, fmt.Sprintf("%s->%s", crudType, entityOp))
-			}
-			fmt.Printf("Valid Terraform resource: %s with operations: %v\n",
-				name, opTypes)
+		opTypes := make([]string, 0)
+		for crudType := range resource.Operations {
+			opTypes = append(opTypes, crudType)
+		}
+		fmt.Printf("Resource: %s with operations: %v\n", name, opTypes)
+
+		if isTerraformViable(resource, spec) {
+			fmt.Printf("  ✅ Viable for Terraform\n")
+		} else {
+			fmt.Printf("  ❌ Not viable for Terraform - will skip annotations\n")
 		}
 	}
 
-	return validResources
+	return resources
 }
 
 func identifyEntitySchemas(schemas map[string]Schema) map[string]bool {
@@ -239,10 +239,6 @@ func analyzePathOperations(path string, pathItem PathItem, entitySchemas map[str
 		resourceInfo := extractResourceInfo(path, item.method, item.op, entitySchemas, spec)
 		if resourceInfo != nil {
 			if existing, exists := resources[resourceInfo.ResourceName]; exists {
-				fmt.Printf("    Merging operations for %s\n", resourceInfo.ResourceName)
-				fmt.Printf("      Existing: CreateSchema='%s', UpdateSchema='%s'\n", existing.CreateSchema, existing.UpdateSchema)
-				fmt.Printf("      New: CreateSchema='%s', UpdateSchema='%s'\n", resourceInfo.CreateSchema, resourceInfo.UpdateSchema)
-
 				// Merge operations
 				for opType, opInfo := range resourceInfo.Operations {
 					existing.Operations[opType] = opInfo
@@ -255,12 +251,8 @@ func analyzePathOperations(path string, pathItem PathItem, entitySchemas map[str
 				if resourceInfo.UpdateSchema != "" {
 					existing.UpdateSchema = resourceInfo.UpdateSchema
 				}
-
-				fmt.Printf("      After merge: CreateSchema='%s', UpdateSchema='%s'\n", existing.CreateSchema, existing.UpdateSchema)
 			} else {
 				resources[resourceInfo.ResourceName] = resourceInfo
-				fmt.Printf("    New resource: %s with CreateSchema='%s', UpdateSchema='%s'\n",
-					resourceInfo.ResourceName, resourceInfo.CreateSchema, resourceInfo.UpdateSchema)
 			}
 		}
 	}
@@ -298,46 +290,27 @@ func extractResourceInfo(path, method string, op *Operation,
 
 	// Extract request schema for create/update operations
 	if crudType == "create" || crudType == "update" {
-		fmt.Printf("    Extracting request schema for %s %s operation\n", entityName, crudType)
-		fmt.Printf("      Operation: %s %s %s\n", method, path, op.OperationID)
-
 		if op.RequestBody != nil {
-			fmt.Printf("      RequestBody exists\n")
 			if content, ok := op.RequestBody["content"].(map[string]interface{}); ok {
-				fmt.Printf("      Content exists\n")
 				if jsonContent, ok := content["application/json"].(map[string]interface{}); ok {
-					fmt.Printf("      JSON content exists\n")
 					if schema, ok := jsonContent["schema"].(map[string]interface{}); ok {
-						fmt.Printf("      Schema exists: %+v\n", schema)
 						if ref, ok := schema["$ref"].(string); ok {
 							requestSchemaName := extractSchemaName(ref)
 							opInfo.RequestSchema = requestSchemaName
-							fmt.Printf("      ✅ Found request schema: %s\n", requestSchemaName)
 
 							if crudType == "create" {
 								info.CreateSchema = requestSchemaName
 							} else if crudType == "update" {
 								info.UpdateSchema = requestSchemaName
 							}
-						} else {
-							fmt.Printf("      No $ref found in schema\n")
 						}
-					} else {
-						fmt.Printf("      No schema found in JSON content\n")
 					}
-				} else {
-					fmt.Printf("      No application/json content found\n")
 				}
-			} else {
-				fmt.Printf("      No content found in RequestBody\n")
 			}
-		} else {
-			fmt.Printf("      No RequestBody found\n")
 		}
 	}
 
 	info.Operations[crudType] = opInfo
-
 	return info
 }
 
@@ -493,17 +466,110 @@ func toLower(r rune) rune {
 	return r
 }
 
-func isValidTerraformResource(resource *ResourceInfo) bool {
-	// Must have at least create and read operations for a full Terraform resource
+// Check if a resource is viable for Terraform
+func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
+	// Must have at least create and read operations
 	_, hasCreate := resource.Operations["create"]
 	_, hasRead := resource.Operations["read"]
 
-	// Some resources might be read-only data sources
-	if hasRead && !hasCreate {
-		fmt.Printf("  Note: %s appears to be a read-only data source\n", resource.EntityName)
+	if !hasCreate || !hasRead {
+		return false
 	}
 
-	return hasCreate && hasRead
+	// Check for problematic CRUD patterns that can't be handled by property ignoring
+	if resource.CreateSchema != "" && resource.UpdateSchema != "" {
+		// Re-parse the spec to get raw schema data for analysis
+		specData, err := json.Marshal(spec)
+		if err != nil {
+			return true // If we can't analyze, assume it's viable
+		}
+
+		var rawSpec map[string]interface{}
+		if err := json.Unmarshal(specData, &rawSpec); err != nil {
+			return true // If we can't analyze, assume it's viable
+		}
+
+		components, _ := rawSpec["components"].(map[string]interface{})
+		schemas, _ := components["schemas"].(map[string]interface{})
+
+		createProps := getSchemaProperties(schemas, resource.CreateSchema)
+		updateProps := getSchemaProperties(schemas, resource.UpdateSchema)
+
+		// Count manageable properties (non-system fields)
+		createManageableProps := 0
+		updateManageableProps := 0
+		commonManageableProps := 0
+
+		for prop := range createProps {
+			if !isSystemProperty(prop) {
+				createManageableProps++
+			}
+		}
+
+		for prop := range updateProps {
+			if !isSystemProperty(prop) {
+				updateManageableProps++
+				// Check if this property also exists in create
+				if createProps[prop] != nil && !isSystemProperty(prop) {
+					commonManageableProps++
+				}
+			}
+		}
+
+		// Reject resources with fundamentally incompatible CRUD patterns
+		if createManageableProps <= 1 && updateManageableProps >= 3 && commonManageableProps == 0 {
+			fmt.Printf("    Incompatible CRUD pattern: Create=%d manageable, Update=%d manageable, Common=%d\n",
+				createManageableProps, updateManageableProps, commonManageableProps)
+			return false
+		}
+	}
+
+	return true
+}
+
+func getSchemaProperties(schemas map[string]interface{}, schemaName string) map[string]interface{} {
+	if schemaName == "" {
+		return map[string]interface{}{}
+	}
+
+	schema, exists := schemas[schemaName]
+	if !exists {
+		return map[string]interface{}{}
+	}
+
+	schemaMap, ok := schema.(map[string]interface{})
+	if !ok {
+		return map[string]interface{}{}
+	}
+
+	properties, ok := schemaMap["properties"].(map[string]interface{})
+	if !ok {
+		return map[string]interface{}{}
+	}
+
+	return properties
+}
+
+func isSystemProperty(propName string) bool {
+	systemProps := []string{
+		"id", "created_at", "updated_at", "created_by", "updated_by",
+		"version", "etag", "revision", "last_modified",
+	}
+
+	lowerProp := strings.ToLower(propName)
+
+	for _, sysProp := range systemProps {
+		if lowerProp == sysProp || strings.HasSuffix(lowerProp, "_"+sysProp) {
+			return true
+		}
+	}
+
+	// Also consider ID fields as system properties
+	if strings.HasSuffix(lowerProp, "_id") {
+		return true
+	}
+
+	return false
 }
 
 func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Overlay {
@@ -513,35 +579,46 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 
 	overlay.Info.Title = "Terraform Provider Overlay"
 	overlay.Info.Version = "1.0.0"
-	overlay.Info.Description = fmt.Sprintf("Auto-generated overlay for %d Terraform resources", len(resources))
+	overlay.Info.Description = "Auto-generated overlay for Terraform resources"
 
-	// Detect property mismatches between request and response schemas
-	resourceMismatches := detectPropertyMismatches(resources, spec)
+	// Separate viable and non-viable resources
+	viableResources := make(map[string]*ResourceInfo)
+	skippedResources := make([]string, 0)
 
-	// Report on request/response patterns
-	fmt.Println("\n=== Request/Response Schema Analysis ===")
-	for _, resource := range resources {
-		if resource.CreateSchema != "" || resource.UpdateSchema != "" {
-			fmt.Printf("%s:\n", resource.EntityName)
-			if resource.CreateSchema != "" {
-				fmt.Printf("  Create: %s (request) -> %s (response)\n", resource.CreateSchema, resource.EntityName)
-			}
-			if resource.UpdateSchema != "" {
-				fmt.Printf("  Update: %s (request) -> %s (response)\n", resource.UpdateSchema, resource.EntityName)
-			}
-			if mismatches, hasMismatch := resourceMismatches[resource.EntityName]; hasMismatch {
-				fmt.Printf("  ⚠️  WARNING: Has property mismatches:\n")
-				for _, mismatch := range mismatches {
-					fmt.Printf("    - %s: %s\n", mismatch.PropertyName, mismatch.Description)
-				}
-			} else {
-				fmt.Printf("  ✅ No property mismatches detected\n")
-			}
+	for name, resource := range resources {
+		if isTerraformViable(resource, spec) {
+			viableResources[name] = resource
+		} else {
+			skippedResources = append(skippedResources, name)
 		}
 	}
 
-	// Generate actions
-	for _, resource := range resources {
+	fmt.Printf("\n=== Overlay Generation Analysis ===\n")
+	fmt.Printf("Total resources found: %d\n", len(resources))
+	fmt.Printf("Viable for Terraform: %d\n", len(viableResources))
+	fmt.Printf("Skipped (non-viable): %d\n", len(skippedResources))
+
+	if len(skippedResources) > 0 {
+		fmt.Printf("\nSkipped resources:\n")
+		for _, skipped := range skippedResources {
+			fmt.Printf("  - %s\n", skipped)
+		}
+	}
+
+	// Update description with actual count
+	overlay.Info.Description = fmt.Sprintf("Auto-generated overlay for %d viable Terraform resources", len(viableResources))
+
+	// Detect property mismatches for viable resources only
+	resourceMismatches := detectPropertyMismatches(viableResources, spec)
+
+	// Detect CRUD inconsistencies for viable resources only
+	resourceCRUDInconsistencies := detectCRUDInconsistencies(viableResources, spec)
+
+	// Track which properties already have ignore actions to avoid duplicates
+	ignoreTracker := make(map[string]map[string]bool) // map[schemaName][propertyName]bool
+
+	// Generate actions only for viable resources
+	for _, resource := range viableResources {
 		// Mark the response entity schema
 		entityUpdate := map[string]interface{}{
 			"x-speakeasy-entity": resource.EntityName,
@@ -552,66 +629,30 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 			Update: entityUpdate,
 		})
 
-		// Add speakeasy ignore for mismatched properties in request AND response schemas
+		// Initialize ignore tracker for this resource's schemas
+		if ignoreTracker[resource.EntityName] == nil {
+			ignoreTracker[resource.EntityName] = make(map[string]bool)
+		}
+		if resource.CreateSchema != "" && ignoreTracker[resource.CreateSchema] == nil {
+			ignoreTracker[resource.CreateSchema] = make(map[string]bool)
+		}
+		if resource.UpdateSchema != "" && ignoreTracker[resource.UpdateSchema] == nil {
+			ignoreTracker[resource.UpdateSchema] = make(map[string]bool)
+		}
+
+		// Add speakeasy ignore for property mismatches
 		if mismatches, exists := resourceMismatches[resource.EntityName]; exists {
-			// Add speakeasy ignore for create schema properties
-			if resource.CreateSchema != "" {
-				for _, mismatch := range mismatches {
-					// Ignore in request schema
-					overlay.Actions = append(overlay.Actions, OverlayAction{
-						Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.CreateSchema, mismatch.PropertyName),
-						Update: map[string]interface{}{
-							"x-speakeasy-ignore": true,
-						},
-					})
+			addIgnoreActionsForMismatches(overlay, resource, mismatches, ignoreTracker)
+		}
 
-					// Also ignore in response entity schema
-					overlay.Actions = append(overlay.Actions, OverlayAction{
-						Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.EntityName, mismatch.PropertyName),
-						Update: map[string]interface{}{
-							"x-speakeasy-ignore": true,
-						},
-					})
-
-					fmt.Printf("  ✅ Added speakeasy ignore for %s.%s in both request (%s) and response (%s) schemas\n",
-						resource.EntityName, mismatch.PropertyName, resource.CreateSchema, resource.EntityName)
-				}
-			}
-
-			// Add terraform ignore for update schema properties
-			if resource.UpdateSchema != "" {
-				for _, mismatch := range mismatches {
-					// Ignore in request schema
-					overlay.Actions = append(overlay.Actions, OverlayAction{
-						Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.UpdateSchema, mismatch.PropertyName),
-						Update: map[string]interface{}{
-							"x-speakeasy-ignore": true,
-						},
-					})
-
-					// Also ignore in response entity schema (avoid duplicates)
-					// Only add if we didn't already add it for create schema
-					if resource.CreateSchema == "" {
-						overlay.Actions = append(overlay.Actions, OverlayAction{
-							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.EntityName, mismatch.PropertyName),
-							Update: map[string]interface{}{
-								"x-speakeasy-ignore": true,
-							},
-						})
-					}
-
-					fmt.Printf("  ✅ Added speakeasy ignore for %s.%s in update schema\n", resource.EntityName, mismatch.PropertyName)
-				}
-			}
+		// Add speakeasy ignore for CRUD inconsistencies
+		if inconsistencies, exists := resourceCRUDInconsistencies[resource.EntityName]; exists {
+			addIgnoreActionsForInconsistencies(overlay, resource, inconsistencies, ignoreTracker)
 		}
 
 		// Add entity operations
 		for crudType, opInfo := range resource.Operations {
 			entityOp := mapCrudToEntityOperation(crudType, resource.EntityName)
-
-			if crudType == "list" {
-				fmt.Printf("  List operation: %s -> %s\n", resource.EntityName, entityOp)
-			}
 
 			operationUpdate := map[string]interface{}{
 				"x-speakeasy-entity-operation": entityOp,
@@ -629,69 +670,125 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 		}
 	}
 
-	fmt.Println("\n=== Overlay Generation Complete ===")
-	fmt.Printf("Generated %d actions for %d resources\n", len(overlay.Actions), len(resources))
+	fmt.Printf("\n=== Overlay Generation Complete ===\n")
+	fmt.Printf("Generated %d actions for %d viable resources\n", len(overlay.Actions), len(viableResources))
 
 	// Count ignore actions
-	ignoreCount := 0
+	totalIgnores := 0
 	for _, action := range overlay.Actions {
 		if _, hasIgnore := action.Update["x-speakeasy-ignore"]; hasIgnore {
-			ignoreCount++
+			totalIgnores++
 		}
 	}
 
-	if len(resourceMismatches) > 0 {
-		fmt.Printf("✅ %d resources had property mismatches\n", len(resourceMismatches))
-		fmt.Printf("✅ %d speakeasy ignore actions added\n", ignoreCount)
+	if totalIgnores > 0 {
+		fmt.Printf("✅ %d speakeasy ignore actions added for property issues\n", totalIgnores)
 	}
 
 	return overlay
 }
 
-// Enhanced mismatch detection that covers all types of impedance mismatches
+func addIgnoreActionsForMismatches(overlay *Overlay, resource *ResourceInfo, mismatches []PropertyMismatch, ignoreTracker map[string]map[string]bool) {
+	// Add speakeasy ignore for create schema properties
+	if resource.CreateSchema != "" {
+		for _, mismatch := range mismatches {
+			// Ignore in request schema
+			if !ignoreTracker[resource.CreateSchema][mismatch.PropertyName] {
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.CreateSchema, mismatch.PropertyName),
+					Update: map[string]interface{}{
+						"x-speakeasy-ignore": true,
+					},
+				})
+				ignoreTracker[resource.CreateSchema][mismatch.PropertyName] = true
+			}
+
+			// Also ignore in response entity schema
+			if !ignoreTracker[resource.EntityName][mismatch.PropertyName] {
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.EntityName, mismatch.PropertyName),
+					Update: map[string]interface{}{
+						"x-speakeasy-ignore": true,
+					},
+				})
+				ignoreTracker[resource.EntityName][mismatch.PropertyName] = true
+			}
+		}
+	}
+
+	// Add speakeasy ignore for update schema properties
+	if resource.UpdateSchema != "" {
+		for _, mismatch := range mismatches {
+			// Ignore in request schema
+			if !ignoreTracker[resource.UpdateSchema][mismatch.PropertyName] {
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.UpdateSchema, mismatch.PropertyName),
+					Update: map[string]interface{}{
+						"x-speakeasy-ignore": true,
+					},
+				})
+				ignoreTracker[resource.UpdateSchema][mismatch.PropertyName] = true
+			}
+
+			// Also ignore in response entity schema (avoid duplicates)
+			if !ignoreTracker[resource.EntityName][mismatch.PropertyName] {
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.EntityName, mismatch.PropertyName),
+					Update: map[string]interface{}{
+						"x-speakeasy-ignore": true,
+					},
+				})
+				ignoreTracker[resource.EntityName][mismatch.PropertyName] = true
+			}
+		}
+	}
+}
+
+func addIgnoreActionsForInconsistencies(overlay *Overlay, resource *ResourceInfo, inconsistencies []CRUDInconsistency, ignoreTracker map[string]map[string]bool) {
+	for _, inconsistency := range inconsistencies {
+		// Add ignore actions for each schema listed in SchemasToIgnore
+		for _, schemaName := range inconsistency.SchemasToIgnore {
+			if !ignoreTracker[schemaName][inconsistency.PropertyName] {
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", schemaName, inconsistency.PropertyName),
+					Update: map[string]interface{}{
+						"x-speakeasy-ignore": true,
+					},
+				})
+				ignoreTracker[schemaName][inconsistency.PropertyName] = true
+			}
+		}
+	}
+}
+
+// Enhanced mismatch detection - same as before but only for viable resources
 func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISpec) map[string][]PropertyMismatch {
 	mismatches := make(map[string][]PropertyMismatch)
 
-	// We need to work with the raw schemas as map[string]interface{} for proper detection
 	// Re-parse the spec to get raw schema data
 	specData, err := json.Marshal(spec)
 	if err != nil {
-		fmt.Printf("Error marshaling spec for mismatch detection: %v\n", err)
 		return mismatches
 	}
 
 	var rawSpec map[string]interface{}
 	if err := json.Unmarshal(specData, &rawSpec); err != nil {
-		fmt.Printf("Error unmarshaling spec for mismatch detection: %v\n", err)
 		return mismatches
 	}
 
 	components, _ := rawSpec["components"].(map[string]interface{})
 	schemas, _ := components["schemas"].(map[string]interface{})
 
-	fmt.Printf("\n=== Mismatch Detection Debug ===\n")
-	fmt.Printf("Total resources to check: %d\n", len(resources))
-
 	for _, resource := range resources {
 		var resourceMismatches []PropertyMismatch
-
-		fmt.Printf("Checking resource: %s\n", resource.EntityName)
-		fmt.Printf("  CreateSchema: %s\n", resource.CreateSchema)
-		fmt.Printf("  UpdateSchema: %s\n", resource.UpdateSchema)
 
 		// Check create operation mismatches
 		if resource.CreateSchema != "" {
 			if entitySchema, exists := schemas[resource.EntityName].(map[string]interface{}); exists {
 				if requestSchema, exists := schemas[resource.CreateSchema].(map[string]interface{}); exists {
-					fmt.Printf("  Found both entity and create schemas - checking for mismatches\n")
 					createMismatches := findPropertyMismatches(entitySchema, requestSchema, "create")
 					resourceMismatches = append(resourceMismatches, createMismatches...)
-					fmt.Printf("  Create mismatches found: %d\n", len(createMismatches))
-				} else {
-					fmt.Printf("  Warning: Create schema %s not found\n", resource.CreateSchema)
 				}
-			} else {
-				fmt.Printf("  Warning: Entity schema %s not found\n", resource.EntityName)
 			}
 		}
 
@@ -699,30 +796,17 @@ func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISp
 		if resource.UpdateSchema != "" {
 			if entitySchema, exists := schemas[resource.EntityName].(map[string]interface{}); exists {
 				if requestSchema, exists := schemas[resource.UpdateSchema].(map[string]interface{}); exists {
-					fmt.Printf("  Found both entity and update schemas - checking for mismatches\n")
 					updateMismatches := findPropertyMismatches(entitySchema, requestSchema, "update")
 					resourceMismatches = append(resourceMismatches, updateMismatches...)
-					fmt.Printf("  Update mismatches found: %d\n", len(updateMismatches))
-				} else {
-					fmt.Printf("  Warning: Update schema %s not found\n", resource.UpdateSchema)
 				}
-			} else {
-				fmt.Printf("  Warning: Entity schema %s not found\n", resource.EntityName)
 			}
 		}
 
 		if len(resourceMismatches) > 0 {
 			mismatches[resource.EntityName] = resourceMismatches
-			fmt.Printf("  Total mismatches for %s: %d\n", resource.EntityName, len(resourceMismatches))
-			for _, mismatch := range resourceMismatches {
-				fmt.Printf("    - %s: %s\n", mismatch.PropertyName, mismatch.Description)
-			}
-		} else {
-			fmt.Printf("  No mismatches found for %s\n", resource.EntityName)
 		}
 	}
 
-	fmt.Printf("=== End Mismatch Detection Debug ===\n\n")
 	return mismatches
 }
 
@@ -733,12 +817,8 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 	requestProps, _ := requestSchema["properties"].(map[string]interface{})
 
 	if entityProps == nil || requestProps == nil {
-		fmt.Printf("    Warning: Could not access properties for %s operation\n", operation)
 		return mismatches
 	}
-
-	fmt.Printf("    Checking %d entity properties vs %d request properties for %s\n",
-		len(entityProps), len(requestProps), operation)
 
 	for propName, entityProp := range entityProps {
 		if requestProp, exists := requestProps[propName]; exists {
@@ -748,7 +828,6 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 					MismatchType: "structural-mismatch",
 					Description:  describeStructuralDifference(entityProp, requestProp),
 				}
-				fmt.Printf("    ✅ Found structural mismatch: %s - %s\n", propName, mismatch.Description)
 				mismatches = append(mismatches, mismatch)
 			}
 		}
@@ -759,23 +838,9 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 
 // Check if two property structures are different
 func hasStructuralMismatch(propName string, entityProp, requestProp interface{}) bool {
-	// Convert both to normalized structure representations
 	entityStructure := getPropertyStructure(entityProp)
 	requestStructure := getPropertyStructure(requestProp)
-
-	fmt.Printf("      Property '%s':\n", propName)
-	fmt.Printf("        Request structure: %s\n", requestStructure)
-	fmt.Printf("        Entity structure: %s\n", entityStructure)
-
-	// If structures are different, we have a mismatch
-	different := entityStructure != requestStructure
-	if different {
-		fmt.Printf("        ✅ Structures differ - will ignore\n")
-	} else {
-		fmt.Printf("        ✓ Structures match\n")
-	}
-
-	return different
+	return entityStructure != requestStructure
 }
 
 // Get a normalized string representation of a property's structure
@@ -803,25 +868,18 @@ func getPropertyStructure(prop interface{}) string {
 
 	case "object":
 		properties, hasProps := propMap["properties"]
-		additionalProps, hasAdditional := propMap["additionalProperties"]
+		_, hasAdditional := propMap["additionalProperties"]
 
 		if hasProps {
 			propsMap, _ := properties.(map[string]interface{})
 			if len(propsMap) == 0 {
 				return "object{empty}"
 			}
-
-			// Get structure of nested properties
-			var propStructures []string
-			for key, value := range propsMap {
-				propStructures = append(propStructures, fmt.Sprintf("%s:%s", key, getPropertyStructure(value)))
-			}
-			return fmt.Sprintf("object{%v}", propStructures)
+			return "object{defined}"
 		}
 
 		if hasAdditional {
-			additionalStructure := getPropertyStructure(additionalProps)
-			return fmt.Sprintf("object{additional:%s}", additionalStructure)
+			return "object{additional}"
 		}
 
 		return "object{}"
@@ -831,7 +889,6 @@ func getPropertyStructure(prop interface{}) string {
 
 	default:
 		if propType == "" {
-			// No explicit type - check what we have
 			if _, hasProps := propMap["properties"]; hasProps {
 				return "implicit-object"
 			}
@@ -847,11 +904,123 @@ func getPropertyStructure(prop interface{}) string {
 func describeStructuralDifference(entityProp, requestProp interface{}) string {
 	entityStructure := getPropertyStructure(entityProp)
 	requestStructure := getPropertyStructure(requestProp)
-
 	return fmt.Sprintf("request structure '%s' != response structure '%s'", requestStructure, entityStructure)
 }
 
-// Remove the old detectPropertyMismatch function - replaced with comprehensive structural comparison
+// Detect CRUD inconsistencies - same as before but only for viable resources
+func detectCRUDInconsistencies(resources map[string]*ResourceInfo, spec OpenAPISpec) map[string][]CRUDInconsistency {
+	inconsistencies := make(map[string][]CRUDInconsistency)
+
+	// Re-parse the spec to get raw schema data
+	specData, err := json.Marshal(spec)
+	if err != nil {
+		return inconsistencies
+	}
+
+	var rawSpec map[string]interface{}
+	if err := json.Unmarshal(specData, &rawSpec); err != nil {
+		return inconsistencies
+	}
+
+	components, _ := rawSpec["components"].(map[string]interface{})
+	schemas, _ := components["schemas"].(map[string]interface{})
+
+	for _, resource := range resources {
+		// Get properties from each schema
+		entityProps := getSchemaProperties(schemas, resource.EntityName)
+		createProps := map[string]interface{}{}
+		updateProps := map[string]interface{}{}
+
+		if resource.CreateSchema != "" {
+			createProps = getSchemaProperties(schemas, resource.CreateSchema)
+		}
+		if resource.UpdateSchema != "" {
+			updateProps = getSchemaProperties(schemas, resource.UpdateSchema)
+		}
+
+		// Collect all property names across CRUD operations
+		allProps := make(map[string]bool)
+		for prop := range entityProps {
+			allProps[prop] = true
+		}
+		for prop := range createProps {
+			allProps[prop] = true
+		}
+		for prop := range updateProps {
+			allProps[prop] = true
+		}
+
+		var resourceInconsistencies []CRUDInconsistency
+
+		// Check each property for consistency across CRUD operations
+		for propName := range allProps {
+			// Skip ID properties - they have separate handling logic
+			if propName == "id" {
+				continue
+			}
+
+			entityHas := entityProps[propName] != nil
+			createHas := createProps[propName] != nil
+			updateHas := updateProps[propName] != nil
+
+			// Check for CRUD inconsistencies
+			var schemasToIgnore []string
+			var inconsistencyType string
+			var description string
+			hasInconsistency := false
+
+			if resource.CreateSchema != "" && resource.UpdateSchema != "" {
+				// Full CRUD resource - all three must be consistent
+				if !(entityHas && createHas && updateHas) {
+					hasInconsistency = true
+					inconsistencyType = "crud-property-mismatch"
+					description = fmt.Sprintf("Property not present in all CRUD operations (Entity:%v, Create:%v, Update:%v)", entityHas, createHas, updateHas)
+
+					// Ignore in schemas where property exists but shouldn't for consistency
+					if entityHas && (!createHas || !updateHas) {
+						schemasToIgnore = append(schemasToIgnore, resource.EntityName)
+					}
+					if createHas && (!entityHas || !updateHas) {
+						schemasToIgnore = append(schemasToIgnore, resource.CreateSchema)
+					}
+					if updateHas && (!entityHas || !createHas) {
+						schemasToIgnore = append(schemasToIgnore, resource.UpdateSchema)
+					}
+				}
+			} else if resource.CreateSchema != "" {
+				// Create + Read resource - both must be consistent
+				if !(entityHas && createHas) {
+					hasInconsistency = true
+					inconsistencyType = "create-read-mismatch"
+					description = fmt.Sprintf("Property not present in both CREATE and READ (Entity:%v, Create:%v)", entityHas, createHas)
+
+					if entityHas && !createHas {
+						schemasToIgnore = append(schemasToIgnore, resource.EntityName)
+					}
+					if createHas && !entityHas {
+						schemasToIgnore = append(schemasToIgnore, resource.CreateSchema)
+					}
+				}
+			}
+
+			if hasInconsistency {
+				inconsistency := CRUDInconsistency{
+					PropertyName:      propName,
+					InconsistencyType: inconsistencyType,
+					Description:       description,
+					SchemasToIgnore:   schemasToIgnore,
+				}
+				resourceInconsistencies = append(resourceInconsistencies, inconsistency)
+			}
+		}
+
+		if len(resourceInconsistencies) > 0 {
+			inconsistencies[resource.EntityName] = resourceInconsistencies
+		}
+	}
+
+	return inconsistencies
+}
 
 func mapCrudToEntityOperation(crudType, entityName string) string {
 	switch crudType {
@@ -872,37 +1041,12 @@ func mapCrudToEntityOperation(crudType, entityName string) string {
 	}
 }
 
-// Simplified pluralization logic - keeping essential rules
+// Simplified pluralization logic
 func pluralizeEntityName(entityName string) string {
 	// Remove "Entity" suffix
 	baseName := strings.TrimSuffix(entityName, "Entity")
 
-	// Essential special cases
-	specialCases := map[string]string{
-		"Person":   "People",
-		"Child":    "Children",
-		"Status":   "Statuses",
-		"Process":  "Processes",
-		"Policy":   "Policies",
-		"Category": "Categories",
-		"Entry":    "Entries",
-		"Activity": "Activities",
-		"Property": "Properties",
-		"Entity":   "Entities",
-		"Query":    "Queries",
-		"Library":  "Libraries",
-		"History":  "Histories",
-		"Summary":  "Summaries",
-		"Country":  "Countries",
-		"City":     "Cities",
-		"Company":  "Companies",
-	}
-
-	if plural, ok := specialCases[baseName]; ok {
-		return plural + "Entities"
-	}
-
-	// Simple pluralization rules
+	// Simple pluralization
 	if strings.HasSuffix(baseName, "y") && len(baseName) > 1 && !isVowel(baseName[len(baseName)-2]) {
 		baseName = baseName[:len(baseName)-1] + "ies"
 	} else if strings.HasSuffix(baseName, "s") ||
@@ -933,7 +1077,6 @@ func addParameterMatches(overlay *Overlay, path, method, resourceName string) {
 		paramName := match[1]
 
 		if paramName != "id" && (strings.Contains(paramName, "id") || paramName == resourceName) {
-			fmt.Printf("    Adding x-speakeasy-match for parameter: %s (not exact 'id')\n", paramName)
 			overlay.Actions = append(overlay.Actions, OverlayAction{
 				Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
 					path, method, paramName),
@@ -941,10 +1084,6 @@ func addParameterMatches(overlay *Overlay, path, method, resourceName string) {
 					"x-speakeasy-match": "id",
 				},
 			})
-		} else if paramName == "id" {
-			fmt.Printf("    Skipping x-speakeasy-match for parameter: %s (already exact 'id')\n", paramName)
-		} else {
-			fmt.Printf("    Skipping x-speakeasy-match for parameter: %s (not an ID parameter)\n", paramName)
 		}
 	}
 }
@@ -967,24 +1106,24 @@ func writeOverlay(overlay *Overlay) error {
 }
 
 func printOverlaySummary(resources map[string]*ResourceInfo, overlay *Overlay) {
+	viableCount := 0
+	for _, resource := range resources {
+		if isTerraformViable(resource, OpenAPISpec{}) {
+			viableCount++
+		}
+	}
+
 	fmt.Println("\n=== Summary ===")
-	fmt.Printf("✅ Successfully generated overlay with %d actions for %d resources\n",
-		len(overlay.Actions), len(resources))
+	fmt.Printf("✅ Successfully generated overlay with %d actions\n", len(overlay.Actions))
+	fmt.Printf("📊 Resources: %d total, %d viable for Terraform, %d skipped\n",
+		len(resources), viableCount, len(resources)-viableCount)
 
 	fmt.Println("\nOverlay approach:")
-	fmt.Println("1. Mark entity schemas with x-speakeasy-entity")
-	fmt.Println("2. Tag operations with x-speakeasy-entity-operation")
-	fmt.Println("3. Mark ID parameters with x-speakeasy-match")
-	fmt.Println("4. Apply x-speakeasy-ignore: true to mismatched properties")
-
-	fmt.Println("\nResources configured:")
-	for name, resource := range resources {
-		ops := make([]string, 0, len(resource.Operations))
-		for op := range resource.Operations {
-			ops = append(ops, op)
-		}
-		fmt.Printf("  - %s: [%s]\n", name, strings.Join(ops, ", "))
-	}
+	fmt.Println("1. Skip annotations for non-viable resources")
+	fmt.Println("2. Mark viable entity schemas with x-speakeasy-entity")
+	fmt.Println("3. Tag operations with x-speakeasy-entity-operation")
+	fmt.Println("4. Mark ID parameters with x-speakeasy-match")
+	fmt.Println("5. Apply x-speakeasy-ignore: true to problematic properties")
 }
 
 // UnmarshalJSON custom unmarshaler for Schema to handle both structured and raw data
