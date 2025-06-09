@@ -58,7 +58,7 @@ jobs:
           go run scripts/normalize/normalize-schema.go openapi-raw.json openapi.json
           
           # Generate Terraform overlay
-          go run scripts/overlay/generate-terraform-overlay.go openapi.json
+          go run scripts/overlay/generate-terraform-overlay.go openapi.json scripts/overlay/manual-mappings.yaml
           
           # Move overlay to Speakeasy directory
           mkdir -p .speakeasy

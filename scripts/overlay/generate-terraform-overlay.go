@@ -11,48 +11,16 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func main() {
-	if len(os.Args) < 2 {
-		printUsage()
-		os.Exit(1)
-	}
-
-	specPath := os.Args[1]
-
-	fmt.Printf("=== Terraform Overlay Generator ===\n")
-	fmt.Printf("Input: %s\n", specPath)
-
-	specData, err := ioutil.ReadFile(specPath)
-	if err != nil {
-		fmt.Printf("Error reading spec file: %v\n", err)
-		os.Exit(1)
-	}
-
-	var spec OpenAPISpec
-	if err := json.Unmarshal(specData, &spec); err != nil {
-		fmt.Printf("Error parsing JSON: %v\n", err)
-		os.Exit(1)
-	}
-
-	fmt.Printf("Found %d paths and %d schemas\n\n", len(spec.Paths), len(spec.Components.Schemas))
-
-	resources := analyzeSpec(spec)
-
-	overlay := generateOverlay(resources, spec)
-
-	if err := writeOverlay(overlay); err != nil {
-		fmt.Printf("Error writing overlay: %v\n", err)
-		os.Exit(1)
-	}
-
-	printOverlaySummary(resources, overlay)
+// Manual mapping configuration
+type ManualMapping struct {
+	Path   string `yaml:"path"`
+	Method string `yaml:"method"`
+	Action string `yaml:"action"` // "ignore", "entity", "match"
+	Value  string `yaml:"value,omitempty"`
 }
 
-func printUsage() {
-	fmt.Println("OpenAPI Terraform Overlay Generator")
-	fmt.Println()
-	fmt.Println("Usage:")
-	fmt.Println("  openapi-overlay <input.json>")
+type ManualMappings struct {
+	Operations []ManualMapping `yaml:"operations"`
 }
 
 type OpenAPISpec struct {
@@ -160,6 +128,115 @@ type PathParameterInconsistency struct {
 	Operations        []string
 }
 
+func main() {
+	if len(os.Args) < 2 {
+		printUsage()
+		os.Exit(1)
+	}
+
+	specPath := os.Args[1]
+	var mappingsPath string
+	if len(os.Args) > 2 {
+		mappingsPath = os.Args[2]
+	} else {
+		mappingsPath = "manual-mappings.yaml"
+	}
+
+	fmt.Printf("=== Terraform Overlay Generator ===\n")
+	fmt.Printf("Input: %s\n", specPath)
+
+	// Load manual mappings
+	manualMappings := loadManualMappings(mappingsPath)
+
+	specData, err := ioutil.ReadFile(specPath)
+	if err != nil {
+		fmt.Printf("Error reading spec file: %v\n", err)
+		os.Exit(1)
+	}
+
+	var spec OpenAPISpec
+	if err := json.Unmarshal(specData, &spec); err != nil {
+		fmt.Printf("Error parsing JSON: %v\n", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Found %d paths and %d schemas\n\n", len(spec.Paths), len(spec.Components.Schemas))
+
+	resources := analyzeSpec(spec, manualMappings)
+
+	overlay := generateOverlay(resources, spec, manualMappings)
+
+	if err := writeOverlay(overlay); err != nil {
+		fmt.Printf("Error writing overlay: %v\n", err)
+		os.Exit(1)
+	}
+
+	printOverlaySummary(resources, overlay)
+}
+
+func printUsage() {
+	fmt.Println("OpenAPI Terraform Overlay Generator")
+	fmt.Println()
+	fmt.Println("Usage:")
+	fmt.Println("  openapi-overlay <input.json>")
+}
+
+// Load manual mappings from file
+func loadManualMappings(mappingsPath string) *ManualMappings {
+	data, err := ioutil.ReadFile(mappingsPath)
+	if err != nil {
+		// File doesn't exist - return empty mappings
+		fmt.Printf("No manual mappings file found at %s (this is optional)\n", mappingsPath)
+		return &ManualMappings{}
+	}
+
+	var mappings ManualMappings
+	if err := yaml.Unmarshal(data, &mappings); err != nil {
+		fmt.Printf("Error parsing manual mappings file: %v\n", err)
+		return &ManualMappings{}
+	}
+
+	fmt.Printf("Loaded %d manual mappings from %s\n", len(mappings.Operations), mappingsPath)
+	return &mappings
+}
+
+// Check if an operation should be manually ignored
+func shouldIgnoreOperation(path, method string, manualMappings *ManualMappings) bool {
+	for _, mapping := range manualMappings.Operations {
+		if mapping.Path == path && strings.ToLower(mapping.Method) == strings.ToLower(method) && mapping.Action == "ignore" {
+			fmt.Printf("    Manual mapping: Ignoring operation %s %s\n", method, path)
+			return true
+		}
+	}
+	return false
+}
+
+// Check if an operation has a manual entity mapping
+func getManualEntityMapping(path, method string, manualMappings *ManualMappings) (string, bool) {
+	for _, mapping := range manualMappings.Operations {
+		if mapping.Path == path && strings.ToLower(mapping.Method) == strings.ToLower(method) && mapping.Action == "entity" {
+			fmt.Printf("    Manual mapping: Operation %s %s -> Entity %s\n", method, path, mapping.Value)
+			return mapping.Value, true
+		}
+	}
+	return "", false
+}
+
+// Check if a parameter has a manual match mapping
+func getManualParameterMatch(path, method, paramName string, manualMappings *ManualMappings) (string, bool) {
+	for _, mapping := range manualMappings.Operations {
+		if mapping.Path == path && strings.ToLower(mapping.Method) == strings.ToLower(method) && mapping.Action == "match" {
+			// For match mappings, we expect the value to be in format "param_name:field_name"
+			parts := strings.SplitN(mapping.Value, ":", 2)
+			if len(parts) == 2 && parts[0] == paramName {
+				fmt.Printf("    Manual mapping: Parameter %s in %s %s -> %s\n", paramName, method, path, parts[1])
+				return parts[1], true
+			}
+		}
+	}
+	return "", false
+}
+
 // UnmarshalJSON custom unmarshaler for Schema to handle both structured and raw data
 func (s *Schema) UnmarshalJSON(data []byte) error {
 	type Alias Schema
@@ -181,7 +258,7 @@ func (s *Schema) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func analyzeSpec(spec OpenAPISpec) map[string]*ResourceInfo {
+func analyzeSpec(spec OpenAPISpec, manualMappings *ManualMappings) map[string]*ResourceInfo {
 	resources := make(map[string]*ResourceInfo)
 
 	// First pass: identify all entity schemas
@@ -190,7 +267,7 @@ func analyzeSpec(spec OpenAPISpec) map[string]*ResourceInfo {
 
 	// Second pass: match operations to entities
 	for path, pathItem := range spec.Paths {
-		analyzePathOperations(path, pathItem, entitySchemas, resources, spec)
+		analyzePathOperations(path, pathItem, entitySchemas, resources, spec, manualMappings)
 	}
 
 	// Third pass: validate resources but keep all for analysis
@@ -255,7 +332,7 @@ func isEntitySchema(name string, schema Schema) bool {
 }
 
 func analyzePathOperations(path string, pathItem PathItem, entitySchemas map[string]bool,
-	resources map[string]*ResourceInfo, spec OpenAPISpec) {
+	resources map[string]*ResourceInfo, spec OpenAPISpec, manualMappings *ManualMappings) {
 
 	operations := []struct {
 		method string
@@ -273,7 +350,12 @@ func analyzePathOperations(path string, pathItem PathItem, entitySchemas map[str
 			continue
 		}
 
-		resourceInfo := extractResourceInfo(path, item.method, item.op, entitySchemas, spec)
+		// Check if this operation should be manually ignored
+		if shouldIgnoreOperation(path, item.method, manualMappings) {
+			continue
+		}
+
+		resourceInfo := extractResourceInfo(path, item.method, item.op, entitySchemas, spec, manualMappings)
 		if resourceInfo != nil {
 			if existing, exists := resources[resourceInfo.ResourceName]; exists {
 				// Merge operations
@@ -296,7 +378,7 @@ func analyzePathOperations(path string, pathItem PathItem, entitySchemas map[str
 }
 
 func extractResourceInfo(path, method string, op *Operation,
-	entitySchemas map[string]bool, spec OpenAPISpec) *ResourceInfo {
+	entitySchemas map[string]bool, spec OpenAPISpec, manualMappings *ManualMappings) *ResourceInfo {
 
 	// Determine CRUD type
 	crudType := determineCrudType(path, method, op.OperationID)
@@ -304,7 +386,52 @@ func extractResourceInfo(path, method string, op *Operation,
 		return nil
 	}
 
-	// Find associated entity schema
+	// Check for manual entity mapping first
+	if manualEntityName, hasManual := getManualEntityMapping(path, method, manualMappings); hasManual {
+		// Use manual entity mapping
+		entityName := manualEntityName
+		resourceName := deriveResourceName(entityName, op.OperationID, path)
+
+		info := &ResourceInfo{
+			EntityName:   entityName,
+			SchemaName:   entityName,
+			ResourceName: resourceName,
+			Operations:   make(map[string]OperationInfo),
+		}
+
+		opInfo := OperationInfo{
+			OperationID: op.OperationID,
+			Path:        path,
+			Method:      method,
+		}
+
+		// Extract request schema for create/update operations
+		if crudType == "create" || crudType == "update" {
+			if op.RequestBody != nil {
+				if content, ok := op.RequestBody["content"].(map[string]interface{}); ok {
+					if jsonContent, ok := content["application/json"].(map[string]interface{}); ok {
+						if schema, ok := jsonContent["schema"].(map[string]interface{}); ok {
+							if ref, ok := schema["$ref"].(string); ok {
+								requestSchemaName := extractSchemaName(ref)
+								opInfo.RequestSchema = requestSchemaName
+
+								if crudType == "create" {
+									info.CreateSchema = requestSchemaName
+								} else if crudType == "update" {
+									info.UpdateSchema = requestSchemaName
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		info.Operations[crudType] = opInfo
+		return info
+	}
+
+	// Find associated entity schema using automatic detection
 	entityName := findEntityFromOperation(op, entitySchemas, spec)
 	if entityName == "" {
 		return nil
@@ -892,7 +1019,7 @@ func isSystemProperty(propName string) bool {
 	return false
 }
 
-func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Overlay {
+func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manualMappings *ManualMappings) *Overlay {
 	overlay := &Overlay{
 		Overlay: "1.0.0",
 	}
@@ -901,11 +1028,14 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 	overlay.Info.Version = "1.0.0"
 	overlay.Info.Description = "Auto-generated overlay for Terraform resources"
 
+	// Clean up resources by removing manually ignored operations
+	cleanedResources := cleanResourcesWithManualMappings(resources, manualMappings)
+
 	// Separate viable and non-viable resources
 	viableResources := make(map[string]*ResourceInfo)
 	skippedResources := make([]string, 0)
 
-	for name, resource := range resources {
+	for name, resource := range cleanedResources {
 		if isTerraformViable(resource, spec) {
 			viableResources[name] = resource
 		} else {
@@ -914,7 +1044,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 	}
 
 	fmt.Printf("\n=== Overlay Generation Analysis ===\n")
-	fmt.Printf("Total resources found: %d\n", len(resources))
+	fmt.Printf("Total resources found: %d\n", len(cleanedResources))
 	fmt.Printf("Viable for Terraform: %d\n", len(viableResources))
 	fmt.Printf("Skipped (non-viable): %d\n", len(skippedResources))
 
@@ -976,6 +1106,12 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 
 		// Add entity operations and parameter matching
 		for crudType, opInfo := range resource.Operations {
+			// Double-check that this specific operation isn't in the ignore list
+			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) {
+				fmt.Printf("    Skipping ignored operation during overlay generation: %s %s\n", opInfo.Method, opInfo.Path)
+				continue
+			}
+
 			entityOp := mapCrudToEntityOperation(crudType, resource.EntityName)
 
 			operationUpdate := map[string]interface{}{
@@ -992,15 +1128,36 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 				pathParams := extractPathParameters(opInfo.Path)
 				for _, param := range pathParams {
 					if param == resource.PrimaryID {
-						// Apply x-speakeasy-match to the primary ID parameter
-						fmt.Printf("    Applying x-speakeasy-match to %s in %s %s\n", param, opInfo.Method, opInfo.Path)
-						overlay.Actions = append(overlay.Actions, OverlayAction{
-							Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
-								opInfo.Path, opInfo.Method, param),
-							Update: map[string]interface{}{
-								"x-speakeasy-match": "id",
-							},
-						})
+						// Check for manual parameter mapping first
+						if manualMatch, hasManual := getManualParameterMatch(opInfo.Path, opInfo.Method, param, manualMappings); hasManual {
+							// Only apply manual match if it's different from the parameter name
+							if manualMatch != param {
+								fmt.Printf("    Manual parameter mapping: %s in %s %s -> %s\n", param, opInfo.Method, opInfo.Path, manualMatch)
+								overlay.Actions = append(overlay.Actions, OverlayAction{
+									Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
+										opInfo.Path, opInfo.Method, param),
+									Update: map[string]interface{}{
+										"x-speakeasy-match": manualMatch,
+									},
+								})
+							} else {
+								fmt.Printf("    Skipping manual parameter mapping: %s already matches target field %s\n", param, manualMatch)
+							}
+						} else {
+							// Only apply automatic x-speakeasy-match if parameter name doesn't already match "id"
+							if param != "id" {
+								fmt.Printf("    Applying x-speakeasy-match to %s in %s %s -> id\n", param, opInfo.Method, opInfo.Path)
+								overlay.Actions = append(overlay.Actions, OverlayAction{
+									Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
+										opInfo.Path, opInfo.Method, param),
+									Update: map[string]interface{}{
+										"x-speakeasy-match": "id",
+									},
+								})
+							} else {
+								fmt.Printf("    Skipping x-speakeasy-match: parameter %s already matches target field 'id'\n", param)
+							}
+						}
 					}
 				}
 			}
@@ -1033,6 +1190,52 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 	}
 
 	return overlay
+}
+
+// Clean up resources by removing operations that are manually ignored
+func cleanResourcesWithManualMappings(resources map[string]*ResourceInfo, manualMappings *ManualMappings) map[string]*ResourceInfo {
+	cleanedResources := make(map[string]*ResourceInfo)
+
+	fmt.Printf("\n=== Cleaning Resources with Manual Mappings ===\n")
+
+	for name, resource := range resources {
+		cleanedResource := &ResourceInfo{
+			EntityName:   resource.EntityName,
+			SchemaName:   resource.SchemaName,
+			ResourceName: resource.ResourceName,
+			Operations:   make(map[string]OperationInfo),
+			CreateSchema: resource.CreateSchema,
+			UpdateSchema: resource.UpdateSchema,
+			PrimaryID:    resource.PrimaryID,
+		}
+
+		operationsRemoved := 0
+
+		// Copy operations that aren't manually ignored
+		for crudType, opInfo := range resource.Operations {
+			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) {
+				fmt.Printf("  Removing manually ignored operation: %s %s (was %s for %s)\n",
+					opInfo.Method, opInfo.Path, crudType, resource.EntityName)
+				operationsRemoved++
+			} else {
+				cleanedResource.Operations[crudType] = opInfo
+			}
+		}
+
+		// Only include resource if it still has operations after cleaning
+		if len(cleanedResource.Operations) > 0 {
+			cleanedResources[name] = cleanedResource
+			if operationsRemoved > 0 {
+				fmt.Printf("  Resource %s: kept %d operations, removed %d manually ignored\n",
+					name, len(cleanedResource.Operations), operationsRemoved)
+			}
+		} else {
+			fmt.Printf("  Resource %s: removed entirely (all operations were manually ignored)\n", name)
+		}
+	}
+
+	fmt.Printf("Manual mapping cleanup: %d → %d resources\n", len(resources), len(cleanedResources))
+	return cleanedResources
 }
 
 func addIgnoreActionsForMismatches(overlay *Overlay, resource *ResourceInfo, mismatches []PropertyMismatch, ignoreTracker map[string]map[string]bool) {
@@ -1560,13 +1763,15 @@ func printOverlaySummary(resources map[string]*ResourceInfo, overlay *Overlay) {
 		len(resources), viableCount, len(resources)-viableCount)
 
 	fmt.Println("\nOverlay approach:")
-	fmt.Println("1. Skip annotations for non-viable resources")
-	fmt.Println("2. Filter out operations with unmappable path parameters")
-	fmt.Println("3. Mark viable entity schemas with x-speakeasy-entity")
-	fmt.Println("4. Tag viable operations with x-speakeasy-entity-operation")
-	fmt.Println("5. Analyze ID patterns across filtered operations per entity")
-	fmt.Println("6. Choose consistent primary ID for each entity")
-	fmt.Println("7. Mark chosen primary ID with x-speakeasy-match")
-	fmt.Println("8. Ignore secondary ID parameters not in entity schema")
-	fmt.Println("9. Apply x-speakeasy-ignore: true to problematic properties")
+	fmt.Println("1. Load manual mappings for edge cases")
+	fmt.Println("2. Identify entity schemas and match operations to entities")
+	fmt.Println("3. Apply manual ignore/entity/match mappings during analysis")
+	fmt.Println("4. Clean resources by removing manually ignored operations")
+	fmt.Println("5. Analyze ID patterns and choose consistent primary ID per entity")
+	fmt.Println("6. Filter operations with unmappable path parameters")
+	fmt.Println("7. Skip annotations for non-viable resources")
+	fmt.Println("8. Mark viable entity schemas with x-speakeasy-entity")
+	fmt.Println("9. Tag viable operations with x-speakeasy-entity-operation")
+	fmt.Println("10. Mark chosen primary ID with x-speakeasy-match")
+	fmt.Println("11. Apply x-speakeasy-ignore: true to problematic properties")
 }

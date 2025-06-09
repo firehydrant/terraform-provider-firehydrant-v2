@@ -1,0 +1,33 @@
+# Action types:
+# - "ignore": Skip this operation entirely (won't get any x-speakeasy annotations)
+# - "entity": Force operation to map to specific entity (value = entity name)
+# - "match": Override parameter mapping (value = "param_name:field_name")
+
+operations:
+  # IGNORE: Skip operations that shouldn't be treated as entity operations
+  # Contains a parameter we cannot reconcile across entity operations
+  - path: "/v1/incidents/{incident_id}/impact"
+    method: "patch"
+    action: "ignore"
+  - path: "v1/incidents/{incident_id}/resolve"
+    method: "put"
+    action: "ignore"
+  - path: "/v1/incidents/{incident_id}/impact"
+    method: "put"
+    action: "ignore"
+
+  # ENTITY: Force specific operations to map to a particular entity
+  # example:
+  # - path: "/v1/custom/{custom_id}/special"
+  #   method: "get"
+  #   action: "entity"
+  #   value: "CustomEntity"
+
+  # MATCH: Override parameter matching (format: "param_name:field_name")
+  # example:
+  # - path: "/v1/organizations/{org_id}/projects/{project_id}"
+  #   method: "get"
+  #   action: "match"
+  #   value: "project_id:id"  # Map project_id parameter to "id" field
+    
+
