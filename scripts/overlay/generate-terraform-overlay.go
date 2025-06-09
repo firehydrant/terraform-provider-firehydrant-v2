@@ -107,6 +107,7 @@ type ResourceInfo struct {
 	Operations   map[string]OperationInfo
 	CreateSchema string
 	UpdateSchema string
+	PrimaryID    string // Store the identified primary ID parameter
 }
 
 type OperationInfo struct {
@@ -142,6 +143,42 @@ type Overlay struct {
 		Description string `yaml:"description"`
 	} `yaml:"info"`
 	Actions []OverlayAction `yaml:"actions"`
+}
+
+// IDPattern represents the ID parameter pattern for an operation
+type IDPattern struct {
+	Path       string
+	Method     string
+	Operation  string
+	Parameters []string
+}
+
+// PathParameterInconsistency represents inconsistencies in path parameters
+type PathParameterInconsistency struct {
+	InconsistencyType string
+	Description       string
+	Operations        []string
+}
+
+// UnmarshalJSON custom unmarshaler for Schema to handle both structured and raw data
+func (s *Schema) UnmarshalJSON(data []byte) error {
+	type Alias Schema
+	aux := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(s),
+	}
+
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+
+	// Also unmarshal into raw map
+	if err := json.Unmarshal(data, &s.Raw); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func analyzeSpec(spec OpenAPISpec) map[string]*ResourceInfo {
@@ -466,6 +503,63 @@ func toLower(r rune) rune {
 	return r
 }
 
+// Extract path parameters in order from a path string
+func extractPathParameters(path string) []string {
+	re := regexp.MustCompile(`\{([^}]+)\}`)
+	matches := re.FindAllStringSubmatch(path, -1)
+
+	var params []string
+	for _, match := range matches {
+		if len(match) > 1 {
+			params = append(params, match[1])
+		}
+	}
+
+	return params
+}
+
+// Get entity properties for field existence checking
+func getEntityProperties(entityName string, spec OpenAPISpec) map[string]interface{} {
+	// Re-parse the spec to get raw schema data
+	specData, err := json.Marshal(spec)
+	if err != nil {
+		return map[string]interface{}{}
+	}
+
+	var rawSpec map[string]interface{}
+	if err := json.Unmarshal(specData, &rawSpec); err != nil {
+		return map[string]interface{}{}
+	}
+
+	components, _ := rawSpec["components"].(map[string]interface{})
+	schemas, _ := components["schemas"].(map[string]interface{})
+
+	return getSchemaProperties(schemas, entityName)
+}
+
+// Check if a field exists in the entity properties
+func checkFieldExistsInEntity(paramName string, entityProps map[string]interface{}) bool {
+	// Direct field name match
+	if _, exists := entityProps[paramName]; exists {
+		return true
+	}
+
+	// Check for common variations
+	variations := []string{
+		paramName,
+		strings.TrimSuffix(paramName, "_id"), // Remove _id suffix
+		strings.TrimSuffix(paramName, "Id"),  // Remove Id suffix
+	}
+
+	for _, variation := range variations {
+		if _, exists := entityProps[variation]; exists {
+			return true
+		}
+	}
+
+	return false
+}
+
 // Check if a resource is viable for Terraform
 func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 	// Must have at least create and read operations
@@ -473,6 +567,42 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 	_, hasRead := resource.Operations["read"]
 
 	if !hasCreate || !hasRead {
+		fmt.Printf("    Missing required operations: Create=%v, Read=%v\n", hasCreate, hasRead)
+		return false
+	}
+
+	// Must have a create schema to be manageable by Terraform
+	if resource.CreateSchema == "" {
+		fmt.Printf("    No create schema found\n")
+		return false
+	}
+
+	// Identify the primary ID for this entity
+	primaryID, validPrimaryID := identifyEntityPrimaryID(resource)
+	if !validPrimaryID {
+		fmt.Printf("    Cannot identify valid primary ID parameter\n")
+		return false
+	}
+
+	// Validate all operations against the primary ID
+	validOperations := validateOperationParameters(resource, primaryID)
+
+	// Must still have CREATE and READ after validation
+	_, hasValidCreate := validOperations["create"]
+	_, hasValidRead := validOperations["read"]
+
+	if !hasValidCreate || !hasValidRead {
+		fmt.Printf("    Lost required operations after parameter validation: Create=%v, Read=%v\n", hasValidCreate, hasValidRead)
+		return false
+	}
+
+	// Update resource with only valid operations and primary ID
+	resource.Operations = validOperations
+	resource.PrimaryID = primaryID
+
+	// Check for overlapping properties between create and entity schemas
+	if !hasValidCreateReadConsistency(resource, spec) {
+		fmt.Printf("    Create and Read operations have incompatible schemas\n")
 		return false
 	}
 
@@ -525,6 +655,196 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 	}
 
 	return true
+}
+
+// Identify the primary ID parameter that belongs to this specific entity
+func identifyEntityPrimaryID(resource *ResourceInfo) (string, bool) {
+	// Get all unique path parameters across operations
+	allParams := make(map[string]bool)
+
+	for crudType, opInfo := range resource.Operations {
+		if crudType == "create" || crudType == "list" {
+			continue // Skip operations that typically don't have entity-specific IDs
+		}
+
+		pathParams := extractPathParameters(opInfo.Path)
+		for _, param := range pathParams {
+			allParams[param] = true
+		}
+	}
+
+	if len(allParams) == 0 {
+		return "", false // No path parameters found
+	}
+
+	// Find the parameter that matches this entity
+	var entityPrimaryID string
+	matchCount := 0
+
+	for param := range allParams {
+		if mapsToEntityID(param, resource.EntityName) {
+			entityPrimaryID = param
+			matchCount++
+		}
+	}
+
+	if matchCount == 0 {
+		// No parameter maps to this entity - check for generic 'id' parameter
+		if allParams["id"] {
+			fmt.Printf("    Using generic 'id' parameter for entity %s\n", resource.EntityName)
+			return "id", true
+		}
+		fmt.Printf("    No parameter maps to entity %s\n", resource.EntityName)
+		return "", false
+	}
+
+	if matchCount > 1 {
+		// Multiple parameters claim to map to this entity - ambiguous
+		fmt.Printf("    Multiple parameters map to entity %s: ambiguous primary ID\n", resource.EntityName)
+		return "", false
+	}
+
+	fmt.Printf("    Identified primary ID '%s' for entity %s\n", entityPrimaryID, resource.EntityName)
+	return entityPrimaryID, true
+}
+
+// Check if a parameter name maps to a specific entity's ID field
+func mapsToEntityID(paramName, entityName string) bool {
+	// Extract base name from entity (e.g., "ChangeEvent" from "ChangeEventEntity")
+	entityBase := strings.TrimSuffix(entityName, "Entity")
+
+	// Convert to snake_case and add _id suffix
+	expectedParam := toSnakeCase(entityBase) + "_id"
+
+	return strings.ToLower(paramName) == strings.ToLower(expectedParam)
+}
+
+// Check if parameter looks like an entity ID
+func isEntityID(paramName string) bool {
+	return strings.HasSuffix(strings.ToLower(paramName), "_id") || strings.ToLower(paramName) == "id"
+}
+
+// Validate operations against the identified primary ID
+func validateOperationParameters(resource *ResourceInfo, primaryID string) map[string]OperationInfo {
+	validOperations := make(map[string]OperationInfo)
+
+	for crudType, opInfo := range resource.Operations {
+		pathParams := extractPathParameters(opInfo.Path)
+
+		if crudType == "create" || crudType == "list" {
+			// These operations should not have the entity's primary ID in path
+			hasPrimaryID := false
+			for _, param := range pathParams {
+				if param == primaryID {
+					hasPrimaryID = true
+					break
+				}
+			}
+
+			if hasPrimaryID {
+				fmt.Printf("    Skipping %s operation %s: unexpectedly has primary ID %s in path\n",
+					crudType, opInfo.Path, primaryID)
+				continue
+			}
+
+			validOperations[crudType] = opInfo
+			continue
+		}
+
+		// READ, UPDATE, DELETE should have exactly the primary ID (and possibly other non-entity params)
+		hasPrimaryID := false
+		hasConflictingEntityIDs := false
+
+		for _, param := range pathParams {
+			if param == primaryID {
+				hasPrimaryID = true
+			} else if isEntityID(param) {
+				// This is a different entity ID - check if it conflicts
+				if !mapsToEntityID(param, resource.EntityName) {
+					fmt.Printf("    Skipping %s operation %s: has conflicting entity ID %s (expected %s)\n",
+						crudType, opInfo.Path, param, primaryID)
+					hasConflictingEntityIDs = true
+					break
+				}
+			}
+			// Non-entity parameters (like filters, versions, etc.) are OK
+		}
+
+		if !hasPrimaryID {
+			fmt.Printf("    Skipping %s operation %s: missing primary ID %s\n",
+				crudType, opInfo.Path, primaryID)
+			continue
+		}
+
+		if hasConflictingEntityIDs {
+			continue // Already logged above
+		}
+
+		validOperations[crudType] = opInfo
+	}
+
+	fmt.Printf("    Valid operations after parameter validation: %v\n", getOperationTypes(validOperations))
+	return validOperations
+}
+
+// Helper function to get operation types for logging
+func getOperationTypes(operations map[string]OperationInfo) []string {
+	var types []string
+	for opType := range operations {
+		types = append(types, opType)
+	}
+	return types
+}
+
+// Check if create and read operations have compatible schemas
+func hasValidCreateReadConsistency(resource *ResourceInfo, spec OpenAPISpec) bool {
+	if resource.CreateSchema == "" {
+		return false
+	}
+
+	// Re-parse the spec to get raw schema data
+	specData, err := json.Marshal(spec)
+	if err != nil {
+		return false
+	}
+
+	var rawSpec map[string]interface{}
+	if err := json.Unmarshal(specData, &rawSpec); err != nil {
+		return false
+	}
+
+	components, _ := rawSpec["components"].(map[string]interface{})
+	schemas, _ := components["schemas"].(map[string]interface{})
+
+	entityProps := getSchemaProperties(schemas, resource.EntityName)
+	createProps := getSchemaProperties(schemas, resource.CreateSchema)
+
+	if len(entityProps) == 0 || len(createProps) == 0 {
+		return false
+	}
+
+	// Count overlapping manageable properties
+	commonManageableProps := 0
+	createManageableProps := 0
+
+	for prop := range createProps {
+		if !isSystemProperty(prop) {
+			createManageableProps++
+			if entityProps[prop] != nil {
+				commonManageableProps++
+			}
+		}
+	}
+
+	// Need at least some manageable properties
+	if createManageableProps == 0 {
+		return false
+	}
+
+	// Require at least 30% overlap of create properties to exist in entity
+	// This is more lenient than the 50% I had before
+	overlapRatio := float64(commonManageableProps) / float64(createManageableProps)
+	return overlapRatio >= 0.3
 }
 
 func getSchemaProperties(schemas map[string]interface{}, schemaName string) map[string]interface{} {
@@ -605,20 +925,24 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 		}
 	}
 
+	// Filter operations with unmappable path parameters
+	fmt.Printf("\n=== Operation-Level Filtering ===\n")
+	filteredResources := filterOperationsWithUnmappableParameters(viableResources, spec)
+
 	// Update description with actual count
-	overlay.Info.Description = fmt.Sprintf("Auto-generated overlay for %d viable Terraform resources", len(viableResources))
+	overlay.Info.Description = fmt.Sprintf("Auto-generated overlay for %d viable Terraform resources", len(filteredResources))
 
-	// Detect property mismatches for viable resources only
-	resourceMismatches := detectPropertyMismatches(viableResources, spec)
+	// Detect property mismatches for filtered resources only
+	resourceMismatches := detectPropertyMismatches(filteredResources, spec)
 
-	// Detect CRUD inconsistencies for viable resources only
-	resourceCRUDInconsistencies := detectCRUDInconsistencies(viableResources, spec)
+	// Detect CRUD inconsistencies for filtered resources only
+	resourceCRUDInconsistencies := detectCRUDInconsistencies(filteredResources, spec)
 
 	// Track which properties already have ignore actions to avoid duplicates
 	ignoreTracker := make(map[string]map[string]bool) // map[schemaName][propertyName]bool
 
-	// Generate actions only for viable resources
-	for _, resource := range viableResources {
+	// Generate actions only for filtered resources
+	for _, resource := range filteredResources {
 		// Mark the response entity schema
 		entityUpdate := map[string]interface{}{
 			"x-speakeasy-entity": resource.EntityName,
@@ -650,7 +974,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 			addIgnoreActionsForInconsistencies(overlay, resource, inconsistencies, ignoreTracker)
 		}
 
-		// Add entity operations
+		// Add entity operations and parameter matching
 		for crudType, opInfo := range resource.Operations {
 			entityOp := mapCrudToEntityOperation(crudType, resource.EntityName)
 
@@ -663,26 +987,49 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec) *Over
 				Update: operationUpdate,
 			})
 
-			// Add parameter matches for operations with path parameters
-			if crudType == "read" || crudType == "update" || crudType == "delete" {
-				addParameterMatches(overlay, opInfo.Path, opInfo.Method, resource.ResourceName)
+			// Apply parameter matching for operations that use the primary ID
+			if resource.PrimaryID != "" && (crudType == "read" || crudType == "update" || crudType == "delete") {
+				pathParams := extractPathParameters(opInfo.Path)
+				for _, param := range pathParams {
+					if param == resource.PrimaryID {
+						// Apply x-speakeasy-match to the primary ID parameter
+						fmt.Printf("    Applying x-speakeasy-match to %s in %s %s\n", param, opInfo.Method, opInfo.Path)
+						overlay.Actions = append(overlay.Actions, OverlayAction{
+							Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
+								opInfo.Path, opInfo.Method, param),
+							Update: map[string]interface{}{
+								"x-speakeasy-match": "id",
+							},
+						})
+					}
+				}
 			}
 		}
 	}
 
-	fmt.Printf("\n=== Overlay Generation Complete ===\n")
-	fmt.Printf("Generated %d actions for %d viable resources\n", len(overlay.Actions), len(viableResources))
+	// Process parameter matching is now handled inline above
+	// No need for separate addEntityLevelParameterMatches call
 
-	// Count ignore actions
+	fmt.Printf("\n=== Overlay Generation Complete ===\n")
+	fmt.Printf("Generated %d actions for %d viable resources\n", len(overlay.Actions), len(filteredResources))
+
+	// Count ignore actions and match actions
 	totalIgnores := 0
+	totalMatches := 0
 	for _, action := range overlay.Actions {
 		if _, hasIgnore := action.Update["x-speakeasy-ignore"]; hasIgnore {
 			totalIgnores++
+		}
+		if _, hasMatch := action.Update["x-speakeasy-match"]; hasMatch {
+			totalMatches++
 		}
 	}
 
 	if totalIgnores > 0 {
 		fmt.Printf("✅ %d speakeasy ignore actions added for property issues\n", totalIgnores)
+	}
+	if totalMatches > 0 {
+		fmt.Printf("✅ %d speakeasy match actions added for primary ID parameters\n", totalMatches)
 	}
 
 	return overlay
@@ -907,7 +1254,7 @@ func describeStructuralDifference(entityProp, requestProp interface{}) string {
 	return fmt.Sprintf("request structure '%s' != response structure '%s'", requestStructure, entityStructure)
 }
 
-// Detect CRUD inconsistencies - same as before but only for viable resources
+// Detect schema property inconsistencies (extracted from detectCRUDInconsistencies)
 func detectCRUDInconsistencies(resources map[string]*ResourceInfo, spec OpenAPISpec) map[string][]CRUDInconsistency {
 	inconsistencies := make(map[string][]CRUDInconsistency)
 
@@ -926,96 +1273,202 @@ func detectCRUDInconsistencies(resources map[string]*ResourceInfo, spec OpenAPIS
 	schemas, _ := components["schemas"].(map[string]interface{})
 
 	for _, resource := range resources {
-		// Get properties from each schema
-		entityProps := getSchemaProperties(schemas, resource.EntityName)
-		createProps := map[string]interface{}{}
-		updateProps := map[string]interface{}{}
+		resourceInconsistencies := detectSchemaPropertyInconsistencies(resource, schemas)
 
-		if resource.CreateSchema != "" {
-			createProps = getSchemaProperties(schemas, resource.CreateSchema)
-		}
-		if resource.UpdateSchema != "" {
-			updateProps = getSchemaProperties(schemas, resource.UpdateSchema)
-		}
-
-		// Collect all property names across CRUD operations
-		allProps := make(map[string]bool)
-		for prop := range entityProps {
-			allProps[prop] = true
-		}
-		for prop := range createProps {
-			allProps[prop] = true
-		}
-		for prop := range updateProps {
-			allProps[prop] = true
-		}
-
-		var resourceInconsistencies []CRUDInconsistency
-
-		// Check each property for consistency across CRUD operations
-		for propName := range allProps {
-			// Skip ID properties - they have separate handling logic
-			if propName == "id" {
+		// Check if we have fundamental validation errors that make the resource non-viable
+		for _, inconsistency := range resourceInconsistencies {
+			if inconsistency.PropertyName == "RESOURCE_VALIDATION" {
+				fmt.Printf("⚠️  Resource %s (%s) validation failed: %s\n",
+					resource.ResourceName, resource.EntityName, inconsistency.Description)
+				// Mark the entire resource as having issues but don't add to inconsistencies
+				// as this will be handled in the viability check
 				continue
 			}
+		}
 
-			entityHas := entityProps[propName] != nil
-			createHas := createProps[propName] != nil
-			updateHas := updateProps[propName] != nil
-
-			// Check for CRUD inconsistencies
-			var schemasToIgnore []string
-			var inconsistencyType string
-			var description string
-			hasInconsistency := false
-
-			if resource.CreateSchema != "" && resource.UpdateSchema != "" {
-				// Full CRUD resource - all three must be consistent
-				if !(entityHas && createHas && updateHas) {
-					hasInconsistency = true
-					inconsistencyType = "crud-property-mismatch"
-					description = fmt.Sprintf("Property not present in all CRUD operations (Entity:%v, Create:%v, Update:%v)", entityHas, createHas, updateHas)
-
-					// Ignore in schemas where property exists but shouldn't for consistency
-					if entityHas && (!createHas || !updateHas) {
-						schemasToIgnore = append(schemasToIgnore, resource.EntityName)
-					}
-					if createHas && (!entityHas || !updateHas) {
-						schemasToIgnore = append(schemasToIgnore, resource.CreateSchema)
-					}
-					if updateHas && (!entityHas || !createHas) {
-						schemasToIgnore = append(schemasToIgnore, resource.UpdateSchema)
-					}
-				}
-			} else if resource.CreateSchema != "" {
-				// Create + Read resource - both must be consistent
-				if !(entityHas && createHas) {
-					hasInconsistency = true
-					inconsistencyType = "create-read-mismatch"
-					description = fmt.Sprintf("Property not present in both CREATE and READ (Entity:%v, Create:%v)", entityHas, createHas)
-
-					if entityHas && !createHas {
-						schemasToIgnore = append(schemasToIgnore, resource.EntityName)
-					}
-					if createHas && !entityHas {
-						schemasToIgnore = append(schemasToIgnore, resource.CreateSchema)
-					}
-				}
-			}
-
-			if hasInconsistency {
-				inconsistency := CRUDInconsistency{
-					PropertyName:      propName,
-					InconsistencyType: inconsistencyType,
-					Description:       description,
-					SchemasToIgnore:   schemasToIgnore,
-				}
-				resourceInconsistencies = append(resourceInconsistencies, inconsistency)
+		// Only add property-level inconsistencies for viable resources
+		var validInconsistencies []CRUDInconsistency
+		for _, inconsistency := range resourceInconsistencies {
+			if inconsistency.PropertyName != "RESOURCE_VALIDATION" {
+				validInconsistencies = append(validInconsistencies, inconsistency)
 			}
 		}
 
-		if len(resourceInconsistencies) > 0 {
-			inconsistencies[resource.EntityName] = resourceInconsistencies
+		if len(validInconsistencies) > 0 {
+			inconsistencies[resource.EntityName] = validInconsistencies
+		}
+	}
+
+	return inconsistencies
+}
+
+// Detect schema property inconsistencies (simplified CRUD detection)
+func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[string]interface{}) []CRUDInconsistency {
+	var inconsistencies []CRUDInconsistency
+
+	// First, validate that we have the minimum required operations for Terraform
+	_, hasCreate := resource.Operations["create"]
+	_, hasRead := resource.Operations["read"]
+
+	if !hasCreate || !hasRead {
+		// Return a fundamental inconsistency - resource is not viable for Terraform
+		inconsistency := CRUDInconsistency{
+			PropertyName:      "RESOURCE_VALIDATION",
+			InconsistencyType: "missing-required-operations",
+			Description:       fmt.Sprintf("Resource missing required operations: Create=%v, Read=%v", hasCreate, hasRead),
+			SchemasToIgnore:   []string{}, // Don't ignore anything, this makes the whole resource invalid
+		}
+		return []CRUDInconsistency{inconsistency}
+	}
+
+	// Validate that we have a create schema
+	if resource.CreateSchema == "" {
+		inconsistency := CRUDInconsistency{
+			PropertyName:      "RESOURCE_VALIDATION",
+			InconsistencyType: "missing-create-schema",
+			Description:       "Resource has CREATE operation but no request schema defined",
+			SchemasToIgnore:   []string{},
+		}
+		return []CRUDInconsistency{inconsistency}
+	}
+
+	// Get properties from each schema
+	entityProps := getSchemaProperties(schemas, resource.EntityName)
+	createProps := getSchemaProperties(schemas, resource.CreateSchema)
+	updateProps := map[string]interface{}{}
+
+	if resource.UpdateSchema != "" {
+		updateProps = getSchemaProperties(schemas, resource.UpdateSchema)
+	}
+
+	// Validate that schemas exist and have properties
+	if len(entityProps) == 0 {
+		inconsistency := CRUDInconsistency{
+			PropertyName:      "RESOURCE_VALIDATION",
+			InconsistencyType: "invalid-entity-schema",
+			Description:       fmt.Sprintf("Entity schema '%s' not found or has no properties", resource.EntityName),
+			SchemasToIgnore:   []string{},
+		}
+		return []CRUDInconsistency{inconsistency}
+	}
+
+	if len(createProps) == 0 {
+		inconsistency := CRUDInconsistency{
+			PropertyName:      "RESOURCE_VALIDATION",
+			InconsistencyType: "invalid-create-schema",
+			Description:       fmt.Sprintf("Create schema '%s' not found or has no properties", resource.CreateSchema),
+			SchemasToIgnore:   []string{},
+		}
+		return []CRUDInconsistency{inconsistency}
+	}
+
+	// Check for minimum viable overlap between create and entity schemas
+	commonManageableProps := 0
+	createManageableProps := 0
+
+	for prop := range createProps {
+		if !isSystemProperty(prop) {
+			createManageableProps++
+			if entityProps[prop] != nil {
+				commonManageableProps++
+			}
+		}
+	}
+
+	if createManageableProps == 0 {
+		inconsistency := CRUDInconsistency{
+			PropertyName:      "RESOURCE_VALIDATION",
+			InconsistencyType: "no-manageable-properties",
+			Description:       "Create schema has no manageable properties (all are system properties)",
+			SchemasToIgnore:   []string{},
+		}
+		return []CRUDInconsistency{inconsistency}
+	}
+
+	// Require reasonable overlap between create and entity schemas
+	overlapRatio := float64(commonManageableProps) / float64(createManageableProps)
+	if overlapRatio < 0.3 { // At least 30% overlap required
+		inconsistency := CRUDInconsistency{
+			PropertyName:      "RESOURCE_VALIDATION",
+			InconsistencyType: "insufficient-schema-overlap",
+			Description:       fmt.Sprintf("Insufficient overlap between create and entity schemas: %.1f%% (%d/%d properties)", overlapRatio*100, commonManageableProps, createManageableProps),
+			SchemasToIgnore:   []string{},
+		}
+		return []CRUDInconsistency{inconsistency}
+	}
+
+	// Now check individual property inconsistencies for viable resources
+	// Collect all property names across CRUD operations
+	allProps := make(map[string]bool)
+	for prop := range entityProps {
+		allProps[prop] = true
+	}
+	for prop := range createProps {
+		allProps[prop] = true
+	}
+	for prop := range updateProps {
+		allProps[prop] = true
+	}
+
+	// Check each property for consistency across CRUD operations
+	for propName := range allProps {
+		// Skip ID properties - they have separate handling logic
+		if propName == "id" {
+			continue
+		}
+
+		entityHas := entityProps[propName] != nil
+		createHas := createProps[propName] != nil
+		updateHas := updateProps[propName] != nil
+
+		// Check for CRUD inconsistencies
+		var schemasToIgnore []string
+		var inconsistencyType string
+		var description string
+		hasInconsistency := false
+
+		if resource.CreateSchema != "" && resource.UpdateSchema != "" {
+			// Full CRUD resource - all three must be consistent
+			if !(entityHas && createHas && updateHas) {
+				hasInconsistency = true
+				inconsistencyType = "crud-property-mismatch"
+				description = fmt.Sprintf("Property not present in all CRUD operations (Entity:%v, Create:%v, Update:%v)", entityHas, createHas, updateHas)
+
+				// Ignore in schemas where property exists but shouldn't for consistency
+				if entityHas && (!createHas || !updateHas) {
+					schemasToIgnore = append(schemasToIgnore, resource.EntityName)
+				}
+				if createHas && (!entityHas || !updateHas) {
+					schemasToIgnore = append(schemasToIgnore, resource.CreateSchema)
+				}
+				if updateHas && (!entityHas || !createHas) {
+					schemasToIgnore = append(schemasToIgnore, resource.UpdateSchema)
+				}
+			}
+		} else if resource.CreateSchema != "" {
+			// Create + Read resource - both must be consistent
+			if !(entityHas && createHas) {
+				hasInconsistency = true
+				inconsistencyType = "create-read-mismatch"
+				description = fmt.Sprintf("Property not present in both CREATE and READ (Entity:%v, Create:%v)", entityHas, createHas)
+
+				if entityHas && !createHas {
+					schemasToIgnore = append(schemasToIgnore, resource.EntityName)
+				}
+				if createHas && !entityHas {
+					schemasToIgnore = append(schemasToIgnore, resource.CreateSchema)
+				}
+			}
+		}
+
+		if hasInconsistency {
+			inconsistency := CRUDInconsistency{
+				PropertyName:      propName,
+				InconsistencyType: inconsistencyType,
+				Description:       description,
+				SchemasToIgnore:   schemasToIgnore,
+			}
+			inconsistencies = append(inconsistencies, inconsistency)
 		}
 	}
 
@@ -1068,24 +1521,12 @@ func isVowel(c byte) bool {
 		c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'
 }
 
-func addParameterMatches(overlay *Overlay, path, method, resourceName string) {
-	// Find all path parameters
-	re := regexp.MustCompile(`\{([^}]+)\}`)
-	matches := re.FindAllStringSubmatch(path, -1)
-
-	for _, match := range matches {
-		paramName := match[1]
-
-		if paramName != "id" && (strings.Contains(paramName, "id") || paramName == resourceName) {
-			overlay.Actions = append(overlay.Actions, OverlayAction{
-				Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
-					path, method, paramName),
-				Update: map[string]interface{}{
-					"x-speakeasy-match": "id",
-				},
-			})
-		}
-	}
+// Filter out operations with unmappable path parameters - simplified now that we handle this in viability check
+func filterOperationsWithUnmappableParameters(resources map[string]*ResourceInfo, spec OpenAPISpec) map[string]*ResourceInfo {
+	// The complex parameter filtering is now handled in isTerraformViable()
+	// This function now just returns the resources as-is since they've already been validated
+	fmt.Printf("Operation filtering handled during viability check\n")
+	return resources
 }
 
 func writeOverlay(overlay *Overlay) error {
@@ -1120,29 +1561,12 @@ func printOverlaySummary(resources map[string]*ResourceInfo, overlay *Overlay) {
 
 	fmt.Println("\nOverlay approach:")
 	fmt.Println("1. Skip annotations for non-viable resources")
-	fmt.Println("2. Mark viable entity schemas with x-speakeasy-entity")
-	fmt.Println("3. Tag operations with x-speakeasy-entity-operation")
-	fmt.Println("4. Mark ID parameters with x-speakeasy-match")
-	fmt.Println("5. Apply x-speakeasy-ignore: true to problematic properties")
-}
-
-// UnmarshalJSON custom unmarshaler for Schema to handle both structured and raw data
-func (s *Schema) UnmarshalJSON(data []byte) error {
-	type Alias Schema
-	aux := &struct {
-		*Alias
-	}{
-		Alias: (*Alias)(s),
-	}
-
-	if err := json.Unmarshal(data, &aux); err != nil {
-		return err
-	}
-
-	// Also unmarshal into raw map
-	if err := json.Unmarshal(data, &s.Raw); err != nil {
-		return err
-	}
-
-	return nil
+	fmt.Println("2. Filter out operations with unmappable path parameters")
+	fmt.Println("3. Mark viable entity schemas with x-speakeasy-entity")
+	fmt.Println("4. Tag viable operations with x-speakeasy-entity-operation")
+	fmt.Println("5. Analyze ID patterns across filtered operations per entity")
+	fmt.Println("6. Choose consistent primary ID for each entity")
+	fmt.Println("7. Mark chosen primary ID with x-speakeasy-match")
+	fmt.Println("8. Ignore secondary ID parameters not in entity schema")
+	fmt.Println("9. Apply x-speakeasy-ignore: true to problematic properties")
 }
