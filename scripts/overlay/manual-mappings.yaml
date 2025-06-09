@@ -16,6 +16,26 @@ operations:
     method: "put"
     action: "ignore"
 
+  # Resource type path params are causing issues with entity resolution
+  # TODO: Figure out how to include
+  #   Terraform propably doesn't need this
+  #    but the pattern isn't that odd so this could easily reappear 
+  - path: /v1/saved_searches/{resource_type}/{saved_search_id}""
+    method: "delete"
+    action: "ignore" 
+  - path: /v1/saved_searches/{resource_type}/{saved_search_id}"
+    method: "get"
+    action: "ignore"
+  - path: "/v1/saved_searches/{resource_type}/{saved_search_id}"
+    method: "patch"
+    action: "ignore"
+  - path: "/v1/saved_searches/{resource_type}"
+    method: "post"
+    action: "ignore"
+  - path: "/v1/saved_searches/{resource_type}"
+    method: "get"
+    action: "ignore"
+
   # ENTITY: Force specific operations to map to a particular entity
   # example:
   # - path: "/v1/custom/{custom_id}/special"

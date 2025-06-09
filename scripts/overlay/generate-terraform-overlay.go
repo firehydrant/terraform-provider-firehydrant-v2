@@ -712,7 +712,7 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 	}
 
 	// Validate all operations against the primary ID
-	validOperations := validateOperationParameters(resource, primaryID)
+	validOperations := validateOperationParameters(resource, primaryID, spec)
 
 	// Must still have CREATE and READ after validation
 	_, hasValidCreate := validOperations["create"]
@@ -852,8 +852,11 @@ func isEntityID(paramName string) bool {
 }
 
 // Validate operations against the identified primary ID
-func validateOperationParameters(resource *ResourceInfo, primaryID string) map[string]OperationInfo {
+func validateOperationParameters(resource *ResourceInfo, primaryID string, spec OpenAPISpec) map[string]OperationInfo {
 	validOperations := make(map[string]OperationInfo)
+
+	// Get entity properties once for this resource
+	entityProps := getEntityProperties(resource.EntityName, spec)
 
 	for crudType, opInfo := range resource.Operations {
 		pathParams := extractPathParameters(opInfo.Path)
@@ -878,7 +881,7 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string) map[s
 			continue
 		}
 
-		// READ, UPDATE, DELETE should have exactly the primary ID (and possibly other non-entity params)
+		// READ, UPDATE, DELETE should have exactly the primary ID
 		hasPrimaryID := false
 		hasConflictingEntityIDs := false
 
@@ -886,15 +889,30 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string) map[s
 			if param == primaryID {
 				hasPrimaryID = true
 			} else if isEntityID(param) {
-				// This is a different entity ID - check if it conflicts
-				if !mapsToEntityID(param, resource.EntityName) {
-					fmt.Printf("    Skipping %s operation %s: has conflicting entity ID %s (expected %s)\n",
-						crudType, opInfo.Path, param, primaryID)
-					hasConflictingEntityIDs = true
-					break
+				// This is another ID-like parameter
+				// Check if it maps to a field in the entity (not the primary id field)
+				if checkFieldExistsInEntity(param, entityProps) {
+					// This parameter maps to a real entity field - it's valid
+					fmt.Printf("    Parameter %s maps to entity field - keeping operation %s %s\n",
+						param, crudType, opInfo.Path)
+				} else {
+					// This ID parameter doesn't map to any entity field
+					if mapsToEntityID(param, resource.EntityName) {
+						// This would also try to map to the primary ID - CONFLICT!
+						fmt.Printf("    Skipping %s operation %s: parameter %s would conflict with primary ID %s (both map to entity.id)\n",
+							crudType, opInfo.Path, param, primaryID)
+						hasConflictingEntityIDs = true
+						break
+					} else {
+						// This is an unmappable ID parameter
+						fmt.Printf("    Skipping %s operation %s: unmappable ID parameter %s (not in entity schema)\n",
+							crudType, opInfo.Path, param)
+						hasConflictingEntityIDs = true
+						break
+					}
 				}
 			}
-			// Non-entity parameters (like filters, versions, etc.) are OK
+			// Non-ID parameters are always OK
 		}
 
 		if !hasPrimaryID {
@@ -913,6 +931,8 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string) map[s
 	fmt.Printf("    Valid operations after parameter validation: %v\n", getOperationTypes(validOperations))
 	return validOperations
 }
+
+// Remove the helper function since we don't need it anymore
 
 // Helper function to get operation types for logging
 func getOperationTypes(operations map[string]OperationInfo) []string {
@@ -1141,11 +1161,15 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 									},
 								})
 							} else {
-								fmt.Printf("    Skipping manual parameter mapping: %s already matches target field %s\n", param, manualMatch)
+								fmt.Printf("    Skipping manual parameter mapping: %s already matches target field %s (would create circular reference)\n", param, manualMatch)
 							}
 						} else {
-							// Only apply automatic x-speakeasy-match if parameter name doesn't already match "id"
-							if param != "id" {
+							// Skip x-speakeasy-match when parameter name would map to itself
+							// This prevents circular references like {id} -> id
+							if param == "id" {
+								fmt.Printf("    Skipping x-speakeasy-match: parameter %s maps to same field (avoiding circular reference)\n", param)
+							} else {
+								// Apply x-speakeasy-match for parameters that need mapping (e.g., change_event_id -> id)
 								fmt.Printf("    Applying x-speakeasy-match to %s in %s %s -> id\n", param, opInfo.Method, opInfo.Path)
 								overlay.Actions = append(overlay.Actions, OverlayAction{
 									Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
@@ -1154,8 +1178,6 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 										"x-speakeasy-match": "id",
 									},
 								})
-							} else {
-								fmt.Printf("    Skipping x-speakeasy-match: parameter %s already matches target field 'id'\n", param)
 							}
 						}
 					}
