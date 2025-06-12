@@ -55,10 +55,10 @@ jobs:
       - name: Process OpenAPI spec
         run: |
           # Normalize the schema
-          go run scripts/normalize/normalize-schema.go openapi-raw.json openapi.json
+          go run ./scripts/normalize openapi-raw.json openapi.json
           
           # Generate Terraform overlay
-          go run scripts/overlay/generate-terraform-overlay.go openapi.json scripts/overlay/manual-mappings.yaml
+          go run ./scripts/overlay openapi.json ./scripts/overlay/manual-mappings.yaml
           
           # Move overlay to Speakeasy directory
           mkdir -p .speakeasy
