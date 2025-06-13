@@ -102,11 +102,12 @@ func printNormalizationReport(report NormalizationReport) {
 	fmt.Printf("Enum normalization fixes: %d\n", enumFixes)
 	fmt.Printf("Other fixes: %d\n", otherFixes)
 
-	if len(report.ConflictDetails) > 0 {
-		fmt.Println("\nDetailed fixes:")
-		for _, detail := range report.ConflictDetails {
-			fmt.Printf("  - %s.%s [%s]: %s\n",
-				detail.Schema, detail.Property, detail.ConflictType, detail.Resolution)
-		}
-	}
+	// Helpful for debugging
+	// if len(report.ConflictDetails) > 0 {
+	// 	fmt.Println("\nDetailed fixes:")
+	// 	for _, detail := range report.ConflictDetails {
+	// 		fmt.Printf("  - %s.%s [%s]: %s\n",
+	// 			detail.Schema, detail.Property, detail.ConflictType, detail.Resolution)
+	// 	}
+	// }
 }

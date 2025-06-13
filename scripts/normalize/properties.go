@@ -2,42 +2,6 @@ package main
 
 import "fmt"
 
-// Recursively find all additionalProperties in a schema
-func findAllAdditionalProperties(schemaName string, obj interface{}, path string) []string {
-	var found []string
-
-	switch v := obj.(type) {
-	case map[string]interface{}:
-		if _, hasAdditional := v["additionalProperties"]; hasAdditional {
-			fullPath := schemaName
-			if path != "" {
-				fullPath += "." + path
-			}
-			found = append(found, fullPath)
-		}
-
-		for key, value := range v {
-			newPath := path
-			if newPath != "" {
-				newPath += "." + key
-			} else {
-				newPath = key
-			}
-			nested := findAllAdditionalProperties(schemaName, value, newPath)
-			found = append(found, nested...)
-		}
-	case []interface{}:
-		for i, item := range v {
-			newPath := fmt.Sprintf("%s[%d]", path, i)
-			nested := findAllAdditionalProperties(schemaName, item, newPath)
-			found = append(found, nested...)
-		}
-	}
-
-	return found
-}
-
-// Recursively normalize all additionalProperties in a schema
 func normalizeAdditionalProperties(schemaName string, obj interface{}, path string) []ConflictDetail {
 	var conflicts []ConflictDetail
 
@@ -69,7 +33,6 @@ func normalizeAdditionalProperties(schemaName string, obj interface{}, path stri
 			}
 		}
 
-		// Recursively normalize all nested objects
 		for key, value := range v {
 			newPath := path
 			if newPath != "" {

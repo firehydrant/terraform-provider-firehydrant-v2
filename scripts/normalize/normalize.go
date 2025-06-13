@@ -30,44 +30,38 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 	entityMap := buildEntityRelationships(schemas)
 
 	for entityName, related := range entityMap {
-		fmt.Printf("Analyzing entity: %s\n", entityName)
 
 		entitySchema, ok := schemas[entityName].(map[string]interface{})
 		if !ok {
 			continue
 		}
 
-		// Check against create schema
 		if related.CreateSchema != "" {
 			if createSchema, ok := schemas[related.CreateSchema].(map[string]interface{}); ok {
-				conflicts := normalizeSchemas(entityName, entitySchema, related.CreateSchema, createSchema)
+				conflicts := normalizeSchemas(entityName, entitySchema, createSchema)
 				report.ConflictDetails = append(report.ConflictDetails, conflicts...)
 			}
 		}
 
-		// Check against update schema
 		if related.UpdateSchema != "" {
 			if updateSchema, ok := schemas[related.UpdateSchema].(map[string]interface{}); ok {
-				conflicts := normalizeSchemas(entityName, entitySchema, related.UpdateSchema, updateSchema)
+				conflicts := normalizeSchemas(entityName, entitySchema, updateSchema)
 				report.ConflictDetails = append(report.ConflictDetails, conflicts...)
 			}
 		}
 	}
 
-	// Apply global normalizations to schemas
 	globalFixes := applyGlobalNormalizations(schemas)
 	report.ConflictDetails = append(report.ConflictDetails, globalFixes...)
 
 	enumFixes := normalizeEnums(schemas)
 	report.ConflictDetails = append(report.ConflictDetails, enumFixes...)
 
-	// Normalize path parameters to match entity IDs
 	if pathsOk {
 		parameterFixes := normalizePathParameters(paths)
 		report.ConflictDetails = append(report.ConflictDetails, parameterFixes...)
 	}
 
-	// Calculate totals
 	report.TotalFixes = len(report.ConflictDetails)
 	for _, detail := range report.ConflictDetails {
 		if detail.ConflictType == "map-class" {
@@ -85,29 +79,12 @@ func applyGlobalNormalizations(schemas map[string]interface{}) []ConflictDetail 
 
 	fmt.Printf("Applying global normalizations to %d schemas\n", len(schemas))
 
-	fmt.Printf("\n=== Scanning for all additionalProperties instances ===\n")
 	for schemaName, schema := range schemas {
 		schemaMap, ok := schema.(map[string]interface{})
 		if !ok {
 			continue
 		}
 
-		additionalPropsFound := findAllAdditionalProperties(schemaName, schemaMap, "")
-		if len(additionalPropsFound) > 0 {
-			fmt.Printf("Schema %s has additionalProperties at:\n", schemaName)
-			for _, path := range additionalPropsFound {
-				fmt.Printf("  - %s\n", path)
-			}
-		}
-	}
-
-	for schemaName, schema := range schemas {
-		schemaMap, ok := schema.(map[string]interface{})
-		if !ok {
-			continue
-		}
-
-		fmt.Printf("  Normalizing schema: %s\n", schemaName)
 		schemaConflicts := normalizeAdditionalProperties(schemaName, schemaMap, "")
 		conflicts = append(conflicts, schemaConflicts...)
 	}
@@ -149,8 +126,7 @@ func buildEntityRelationships(schemas map[string]interface{}) map[string]EntityR
 	return relationships
 }
 
-func normalizeSchemas(entityName string, entitySchema map[string]interface{},
-	requestName string, requestSchema map[string]interface{}) []ConflictDetail {
+func normalizeSchemas(entityName string, entitySchema map[string]interface{}, requestSchema map[string]interface{}) []ConflictDetail {
 
 	conflicts := make([]ConflictDetail, 0)
 
@@ -161,17 +137,12 @@ func normalizeSchemas(entityName string, entitySchema map[string]interface{},
 		return conflicts
 	}
 
-	fmt.Printf("  Comparing %s vs %s\n", entityName, requestName)
-	fmt.Printf("    Entity properties: %d, Request properties: %d\n", len(entityProps), len(requestProps))
-
 	// Check each property that exists in both schemas
 	// Terraform requires exact matches for properties across requests and responses
 	for propName, requestProp := range requestProps {
 		if entityProp, exists := entityProps[propName]; exists {
-			fmt.Printf("    Checking property: %s\n", propName)
 			conflict := checkAndFixProperty(entityName, propName, entityProp, requestProp, entityProps, requestProps)
 			if conflict != nil {
-				fmt.Printf("    ✅ Fixed: %s - %s\n", propName, conflict.Resolution)
 				conflicts = append(conflicts, *conflict)
 			}
 		}
@@ -190,20 +161,15 @@ func checkAndFixProperty(entityName, propName string, entityProp, requestProp in
 		return nil
 	}
 
-	// Check for map vs class conflict
+	// Check for map vs class conflict - event if these are the same shape, they need to be the same type or generation will fail
 	entityType, _ := entityPropMap["type"].(string)
 	requestType, _ := requestPropMap["type"].(string)
-
-	fmt.Printf("      Property types - Entity: %s, Request: %s\n", entityType, requestType)
 
 	if entityType == "object" && requestType == "object" {
 		_, entityHasProps := entityPropMap["properties"]
 		_, entityHasAdditional := entityPropMap["additionalProperties"]
 		_, requestHasProps := requestPropMap["properties"]
 		_, requestHasAdditional := requestPropMap["additionalProperties"]
-
-		fmt.Printf("      Entity - hasProps: %v, hasAdditional: %v\n", entityHasProps, entityHasAdditional)
-		fmt.Printf("      Request - hasProps: %v, hasAdditional: %v\n", requestHasProps, requestHasAdditional)
 
 		if entityHasProps && requestHasProps {
 			entityPropsObj, _ := entityPropMap["properties"].(map[string]interface{})
