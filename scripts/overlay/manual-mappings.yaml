@@ -2,6 +2,7 @@
 # - "ignore": Skip this operation entirely (won't get any x-speakeasy annotations)
 # - "entity": Force operation to map to specific entity (value = entity name)
 # - "match": Override parameter mapping (value = "param_name:field_name")
+# - "ignore_property": Ignore a specific property on an entity, specify schema and property
 
 operations:
   # IGNORE: Skip operations that shouldn't be treated as entity operations
@@ -35,6 +36,10 @@ operations:
   - path: "/v1/saved_searches/{resource_type}"
     method: "get"
     action: "ignore"
+
+  # The template Property on this entity causes collision with the incidents type template
+  # TODO: Figure out why this is happening
+  - path: 
 
   # Manual Entity Mappings
   # Signals Event Sources
@@ -94,3 +99,17 @@ operations:
     method: "delete"
     action: "entity"
     value: "Signals_API_GroupingEntity"
+
+
+# Entity Level Property Ignoring - only work for top level properties
+  - action: "ignore_property"
+    schema: "PublicAPI_V1_FormConfigurations_SelectedValueEntity"
+    property: "template"
+    
+  - action: "ignore_property"  
+    schema: "MediaImageEntity"
+    property: "versions_urls"
+    
+  - action: "ignore_property"
+    schema: "IncidentTypeEntity_TemplateValuesEntity" 
+    property: "runbooks"

@@ -14,6 +14,10 @@ type ManualMapping struct {
 	Method string `yaml:"method"`
 	Action string `yaml:"action"` // "ignore", "entity", "match"
 	Value  string `yaml:"value,omitempty"`
+
+	// For entity mappings
+	Schema   string `yaml:"schema,omitempty"`
+	Property string `yaml:"property,omitempty"`
 }
 
 type ManualMappings struct {
@@ -103,4 +107,17 @@ func getManualEntityMapping(path, method string, manualMappings *ManualMappings)
 		}
 	}
 	return "", false
+}
+
+func getManualPropertyIgnores(manualMappings *ManualMappings) map[string][]string {
+	ignores := make(map[string][]string) // map[schemaName][]propertyNames
+
+	for _, mapping := range manualMappings.Operations {
+		if mapping.Action == "ignore_property" && mapping.Schema != "" && mapping.Property != "" {
+			fmt.Printf("    Manual property ignore: %s.%s\n", mapping.Schema, mapping.Property)
+			ignores[mapping.Schema] = append(ignores[mapping.Schema], mapping.Property)
+		}
+	}
+
+	return ignores
 }

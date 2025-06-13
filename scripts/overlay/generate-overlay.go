@@ -148,6 +148,30 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		}
 	}
 
+	// Add this after the existing ignore actions in generateOverlay
+	// Apply manual property ignores
+	manualPropertyIgnores := getManualPropertyIgnores(manualMappings)
+	for schemaName, properties := range manualPropertyIgnores {
+		for _, propertyName := range properties {
+			// Initialize ignore tracker if needed
+			if ignoreTracker[schemaName] == nil {
+				ignoreTracker[schemaName] = make(map[string]bool)
+			}
+
+			// Only add if not already ignored
+			if !ignoreTracker[schemaName][propertyName] {
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", schemaName, propertyName),
+					Update: map[string]interface{}{
+						"x-speakeasy-ignore": true,
+					},
+				})
+				ignoreTracker[schemaName][propertyName] = true
+				fmt.Printf("✅ Added manual property ignore: %s.%s\n", schemaName, propertyName)
+			}
+		}
+	}
+
 	fmt.Printf("\n=== Overlay Generation Complete ===\n")
 	fmt.Printf("Generated %d actions for %d viable resources\n", len(overlay.Actions), len(viableResources))
 
