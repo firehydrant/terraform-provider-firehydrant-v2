@@ -214,10 +214,10 @@ func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[str
 
 	// First, validate that we have the minimum required operations for Terraform
 	_, hasCreate := resource.Operations["create"]
-	_, hasPut := resource.Operations["put"]
+	// _, hasPut := resource.Operations["put"]
 	_, hasRead := resource.Operations["read"]
 
-	createOrPut := hasCreate || hasPut
+	createOrPut := hasCreate //|| hasPut
 	if !createOrPut || !hasRead {
 		// Return a fundamental inconsistency - resource is not viable for Terraform
 		inconsistency := CRUDInconsistency{

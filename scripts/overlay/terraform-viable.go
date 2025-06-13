@@ -8,25 +8,25 @@ import (
 
 // Check if a resource is viable for Terraform
 func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
+	fmt.Printf("Validating resource %v (%v)\n", resource.ResourceName, resource.EntityName)
 	// Must have at least create and read operations
 	_, hasCreate := resource.Operations["create"]
 	_, hasRead := resource.Operations["read"]
 
-	if !hasCreate || !hasRead {
-		fmt.Printf("    Missing required operations: Create=%v, Read=%v\n", hasCreate, hasRead)
+	if (!hasCreate) || !hasRead {
+		fmt.Printf("    Missing required operations in %v: Create=%v Read=%v\n", resource.ResourceName, hasCreate, hasRead)
 		return false
 	}
 
 	// Must have a create schema to be manageable by Terraform
 	if resource.CreateSchema == "" {
-		fmt.Printf("    No create schema found\n")
+		fmt.Printf("    No create schema found for %v\n", resource.ResourceName)
 		return false
 	}
 
-	// Identify the primary ID for this entity
-	primaryID, validPrimaryID := identifyEntityPrimaryID(resource)
+	primaryID, validPrimaryID := identifyEntityPrimaryID(resource, spec)
 	if !validPrimaryID {
-		fmt.Printf("    Cannot identify valid primary ID parameter\n")
+		fmt.Printf("    Cannot identify valid primary ID parameter for %v\n", resource.EntityName)
 		return false
 	}
 
@@ -48,7 +48,7 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 
 	// Check for overlapping properties between create and entity schemas
 	if !hasValidCreateReadConsistency(resource, spec) {
-		fmt.Printf("    Create and Read operations have incompatible schemas\n")
+		fmt.Printf("    %v Create and Read operations have incompatible schemas\n", resource.EntityName)
 		return false
 	}
 
@@ -71,7 +71,6 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 		createProps := getSchemaProperties(schemas, resource.CreateSchema)
 		updateProps := getSchemaProperties(schemas, resource.UpdateSchema)
 
-		// Count manageable properties (non-system fields)
 		createManageableProps := 0
 		updateManageableProps := 0
 		commonManageableProps := 0
@@ -85,14 +84,12 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 		for prop := range updateProps {
 			if !isSystemProperty(prop) {
 				updateManageableProps++
-				// Check if this property also exists in create
 				if createProps[prop] != nil && !isSystemProperty(prop) {
 					commonManageableProps++
 				}
 			}
 		}
 
-		// Reject resources with fundamentally incompatible CRUD patterns
 		if createManageableProps <= 1 && updateManageableProps >= 3 && commonManageableProps == 0 {
 			fmt.Printf("    Incompatible CRUD pattern: Create=%d manageable, Update=%d manageable, Common=%d\n",
 				createManageableProps, updateManageableProps, commonManageableProps)
@@ -103,11 +100,9 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 	return true
 }
 
-// Validate operations against the identified primary ID
 func validateOperationParameters(resource *ResourceInfo, primaryID string, spec OpenAPISpec) map[string]OperationInfo {
 	validOperations := make(map[string]OperationInfo)
 
-	// Get entity properties once for this resource
 	entityProps := getEntityProperties(resource.EntityName, spec)
 
 	for crudType, opInfo := range resource.Operations {
@@ -133,10 +128,16 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 			continue
 		}
 
-		// READ, UPDATE, DELETE should have exactly the primary ID
 		hasPrimaryID := false
 		hasConflictingEntityIDs := false
 
+		// We need to validate that we do not have conflicting ID path parameters
+		// At time of this comment, we only map a single ID parameter to the corresponding entity id, using x-speakeasy-match
+
+		// If this constraint prevents us from adding resources that customers need/want
+		//   we'll need to figure out how to map additional IDs to right field and entities
+		//   for the time, being, multiple ID params in path are not supported and corresponding operations are ignored,
+		//   unless they are already exact match to the field name on the entity
 		for _, param := range pathParams {
 			if param == primaryID {
 				hasPrimaryID = true
@@ -145,22 +146,11 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 				// Check if it maps to a field in the entity (not the primary id field)
 				if checkFieldExistsInEntity(param, entityProps) {
 					// This parameter maps to a real entity field - it's valid
-					fmt.Printf("    Parameter %s maps to entity field - keeping operation %s %s\n",
-						param, crudType, opInfo.Path)
+					continue
 				} else {
 					// This ID parameter doesn't map to any entity field
-					if mapsToEntityID(param, resource.EntityName) {
-						fmt.Printf("    Skipping %s operation %s: parameter %s would conflict with primary ID %s (both map to entity.id)\n",
-							crudType, opInfo.Path, param, primaryID)
-						hasConflictingEntityIDs = true
-						break
-					} else {
-						// This is an unmappable ID parameter
-						fmt.Printf("    Skipping %s operation %s: unmappable ID parameter %s (not in entity schema)\n",
-							crudType, opInfo.Path, param)
-						hasConflictingEntityIDs = true
-						break
-					}
+					hasConflictingEntityIDs = true
+					break
 				}
 			}
 			// Non-ID parameters are always OK
@@ -173,19 +163,18 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 		}
 
 		if hasConflictingEntityIDs {
+			fmt.Printf("    Skipping %s operation %s: has conflicting entity ID parameters\n",
+				crudType, opInfo.Path)
 			continue
 		}
 
 		validOperations[crudType] = opInfo
 	}
 
-	fmt.Printf("    Valid operations after parameter validation: %v\n", getOperationTypes(validOperations))
 	return validOperations
 }
 
-// Get entity properties for field existence checking
 func getEntityProperties(entityName string, spec OpenAPISpec) map[string]interface{} {
-	// Re-parse the spec to get raw schema data
 	specData, err := json.Marshal(spec)
 	if err != nil {
 		return map[string]interface{}{}
@@ -203,12 +192,13 @@ func getEntityProperties(entityName string, spec OpenAPISpec) map[string]interfa
 }
 
 // Check if create and read operations have compatible schemas
+// We need to ensure that the create and read operations are exactly the same, after accounting for ignored properties and normalization
 func hasValidCreateReadConsistency(resource *ResourceInfo, spec OpenAPISpec) bool {
 	if resource.CreateSchema == "" {
 		return false
 	}
+	fmt.Printf("    Checking create/read consistency for %v\n", resource.ResourceName)
 
-	// Re-parse the spec to get raw schema data
 	specData, err := json.Marshal(spec)
 	if err != nil {
 		return false
@@ -229,7 +219,6 @@ func hasValidCreateReadConsistency(resource *ResourceInfo, spec OpenAPISpec) boo
 		return false
 	}
 
-	// Count overlapping manageable properties
 	commonManageableProps := 0
 	createManageableProps := 0
 
@@ -247,10 +236,8 @@ func hasValidCreateReadConsistency(resource *ResourceInfo, spec OpenAPISpec) boo
 		return false
 	}
 
-	// Require at least 30% overlap of create properties to exist in entity
-	// This is more lenient than the 50% I had before
-	overlapRatio := float64(commonManageableProps) / float64(createManageableProps)
-	return overlapRatio >= 0.3
+	// If there is any overlap, try to use the schemas
+	return true
 }
 
 func getSchemaProperties(schemas map[string]interface{}, schemaName string) map[string]interface{} {
@@ -290,26 +277,18 @@ func isSystemProperty(propName string) bool {
 		}
 	}
 
-	// Also consider ID fields as system properties
-	if strings.HasSuffix(lowerProp, "_id") {
-		return true
-	}
-
-	return false
+	return strings.HasSuffix(lowerProp, "_id")
 }
 
-// Check if a field exists in the entity properties
 func checkFieldExistsInEntity(paramName string, entityProps map[string]interface{}) bool {
-	// Direct field name match
 	if _, exists := entityProps[paramName]; exists {
 		return true
 	}
 
-	// Check for common variations
 	variations := []string{
 		paramName,
-		strings.TrimSuffix(paramName, "_id"), // Remove _id suffix
-		strings.TrimSuffix(paramName, "Id"),  // Remove Id suffix
+		strings.TrimSuffix(paramName, "_id"),
+		strings.TrimSuffix(paramName, "Id"),
 	}
 
 	for _, variation := range variations {
@@ -321,14 +300,12 @@ func checkFieldExistsInEntity(paramName string, entityProps map[string]interface
 	return false
 }
 
-// Identify the primary ID parameter that belongs to this specific entity
-func identifyEntityPrimaryID(resource *ResourceInfo) (string, bool) {
-	// Get all unique path parameters across operations
+func identifyEntityPrimaryID(resource *ResourceInfo, spec OpenAPISpec) (string, bool) {
 	allParams := make(map[string]bool)
 
 	for crudType, opInfo := range resource.Operations {
 		if crudType == "create" || crudType == "list" {
-			continue // Skip operations that typically don't have entity-specific IDs
+			continue
 		}
 
 		pathParams := extractPathParameters(opInfo.Path)
@@ -338,10 +315,9 @@ func identifyEntityPrimaryID(resource *ResourceInfo) (string, bool) {
 	}
 
 	if len(allParams) == 0 {
-		return "", false // No path parameters found
+		return "", false
 	}
 
-	// Find the parameter that matches this entity
 	var entityPrimaryID string
 	matchCount := 0
 
@@ -352,46 +328,37 @@ func identifyEntityPrimaryID(resource *ResourceInfo) (string, bool) {
 		}
 	}
 
-	if matchCount == 0 {
-		// No parameter maps to this entity - check for generic 'id' parameter
-		if allParams["id"] {
-			fmt.Printf("    Using generic 'id' parameter for entity %s\n", resource.EntityName)
-			return "id", true
+	if matchCount == 1 {
+		return entityPrimaryID, true
+	}
+
+	entityProps := getEntityProperties(resource.EntityName, spec)
+	_, hasID := entityProps["id"]
+	_, hasSlug := entityProps["slug"]
+
+	if hasSlug && !hasID {
+		for param := range allParams {
+			if strings.Contains(strings.ToLower(param), "slug") {
+				return param, true
+			}
 		}
-		fmt.Printf("    No parameter maps to entity %s\n", resource.EntityName)
-		return "", false
 	}
 
-	if matchCount > 1 {
-		// Multiple parameters claim to map to this entity - ambiguous
-		fmt.Printf("    Multiple parameters map to entity %s: ambiguous primary ID\n", resource.EntityName)
-		return "", false
+	if allParams["id"] {
+		return "id", true
 	}
 
-	fmt.Printf("    Identified primary ID '%s' for entity %s\n", entityPrimaryID, resource.EntityName)
-	return entityPrimaryID, true
+	return "", false
 }
 
-// Check if a parameter name maps to a specific entity's ID field
 func mapsToEntityID(paramName, entityName string) bool {
-	// Extract base name from entity (e.g., "ChangeEvent" from "ChangeEventEntity")
 	entityBase := strings.TrimSuffix(entityName, "Entity")
 
-	// Convert to snake_case and add _id suffix
 	expectedParam := toSnakeCase(entityBase) + "_id"
 
-	return strings.ToLower(paramName) == strings.ToLower(expectedParam)
+	return strings.EqualFold(paramName, expectedParam)
 }
 
-// Check if parameter looks like an entity ID
 func isEntityID(paramName string) bool {
 	return strings.HasSuffix(strings.ToLower(paramName), "_id") || strings.ToLower(paramName) == "id"
-}
-
-func getOperationTypes(operations map[string]OperationInfo) []string {
-	var types []string
-	for opType := range operations {
-		types = append(types, opType)
-	}
-	return types
 }

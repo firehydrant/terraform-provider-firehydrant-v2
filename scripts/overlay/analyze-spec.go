@@ -35,23 +35,7 @@ func analyzeSpec(spec OpenAPISpec, manualMappings *ManualMappings) map[string]*R
 
 	// Second pass: match operations to entities
 	for path, pathItem := range spec.Paths {
-		analyzePathOperations(path, pathItem, entitySchemas, resources, spec, manualMappings)
-	}
-
-	// Third pass: validate resources but keep all for analysis
-	fmt.Printf("\n=== Resource Validation ===\n")
-	for name, resource := range resources {
-		opTypes := make([]string, 0)
-		for crudType := range resource.Operations {
-			opTypes = append(opTypes, crudType)
-		}
-		fmt.Printf("Resource: %s with operations: %v\n", name, opTypes)
-
-		if isTerraformViable(resource, spec) {
-			fmt.Printf("  ✅ Viable for Terraform\n")
-		} else {
-			fmt.Printf("  ❌ Not viable for Terraform - will skip annotations\n")
-		}
+		analyzePathOperations(path, pathItem, entitySchemas, resources, manualMappings)
 	}
 
 	return resources
@@ -70,7 +54,6 @@ func identifyEntitySchemas(schemas map[string]Schema) map[string]bool {
 }
 
 func isEntitySchema(name string, schema Schema) bool {
-	// Skip request/response wrappers
 	lowerName := strings.ToLower(name)
 	if strings.HasPrefix(lowerName, "create_") ||
 		strings.HasPrefix(lowerName, "update_") ||
@@ -81,28 +64,26 @@ func isEntitySchema(name string, schema Schema) bool {
 		return false
 	}
 
-	// Skip nullable wrapper schemas
+	// Many of our schemas are nullable wrappers, to enable optional child schemas as properties in our sdks
+	// skip these
 	if strings.HasPrefix(name, "Nullable") {
 		return false
 	}
 
-	// Must be an object with properties
 	if schema.Type != "object" || len(schema.Properties) == 0 {
 		return false
 	}
 
-	// Entities should have an id property and end with "Entity"
 	_, hasID := schema.Properties["id"]
 	_, hasSlug := schema.Properties["slug"]
 	hasSuffix := strings.HasSuffix(name, "Entity")
 
 	hasIdentifier := hasID || hasSlug
-	// Be strict: require both conditions
-	return hasIdentifier && hasSuffix
+	return hasSuffix && hasIdentifier
 }
 
 func analyzePathOperations(path string, pathItem PathItem, entitySchemas map[string]bool,
-	resources map[string]*ResourceInfo, spec OpenAPISpec, manualMappings *ManualMappings) {
+	resources map[string]*ResourceInfo, manualMappings *ManualMappings) {
 
 	operations := []struct {
 		method string
@@ -120,20 +101,17 @@ func analyzePathOperations(path string, pathItem PathItem, entitySchemas map[str
 			continue
 		}
 
-		// Check if this operation should be manually ignored
 		if shouldIgnoreOperation(path, item.method, manualMappings) {
 			continue
 		}
 
-		resourceInfo := extractResourceInfo(path, item.method, item.op, entitySchemas, spec, manualMappings)
+		resourceInfo := extractResourceInfo(path, item.method, item.op, entitySchemas, manualMappings)
 		if resourceInfo != nil {
 			if existing, exists := resources[resourceInfo.ResourceName]; exists {
-				// Merge operations
 				for opType, opInfo := range resourceInfo.Operations {
 					existing.Operations[opType] = opInfo
 				}
 
-				// Preserve create/update schema info - don't overwrite with empty values
 				if resourceInfo.CreateSchema != "" {
 					existing.CreateSchema = resourceInfo.CreateSchema
 				}
@@ -148,19 +126,16 @@ func analyzePathOperations(path string, pathItem PathItem, entitySchemas map[str
 }
 
 func extractResourceInfo(path, method string, op *Operation,
-	entitySchemas map[string]bool, spec OpenAPISpec, manualMappings *ManualMappings) *ResourceInfo {
+	entitySchemas map[string]bool, manualMappings *ManualMappings) *ResourceInfo {
 
-	// Determine CRUD type
 	crudType := determineCrudType(path, method, op.OperationID)
 	if crudType == "" {
 		return nil
 	}
 
-	// Check for manual entity mapping first
 	if manualEntityName, hasManual := getManualEntityMapping(path, method, manualMappings); hasManual {
-		// Use manual entity mapping
 		entityName := manualEntityName
-		resourceName := deriveResourceName(entityName, op.OperationID, path)
+		resourceName := deriveResourceName(entityName)
 
 		info := &ResourceInfo{
 			EntityName:   entityName,
@@ -175,7 +150,6 @@ func extractResourceInfo(path, method string, op *Operation,
 			Method:      method,
 		}
 
-		// Extract request schema for create/update operations
 		if crudType == "create" || crudType == "update" {
 			if op.RequestBody != nil {
 				if content, ok := op.RequestBody["content"].(map[string]interface{}); ok {
@@ -201,13 +175,12 @@ func extractResourceInfo(path, method string, op *Operation,
 		return info
 	}
 
-	// Find associated entity schema using automatic detection
-	entityName := findEntityFromOperation(op, entitySchemas, spec)
+	entityName := findEntityFromOperation(op, entitySchemas)
 	if entityName == "" {
 		return nil
 	}
 
-	resourceName := deriveResourceName(entityName, op.OperationID, path)
+	resourceName := deriveResourceName(entityName)
 
 	info := &ResourceInfo{
 		EntityName:   entityName,
@@ -222,7 +195,6 @@ func extractResourceInfo(path, method string, op *Operation,
 		Method:      method,
 	}
 
-	// Extract request schema for create/update operations
 	if crudType == "create" || crudType == "update" {
 		if op.RequestBody != nil {
 			if content, ok := op.RequestBody["content"].(map[string]interface{}); ok {
@@ -251,7 +223,6 @@ func extractResourceInfo(path, method string, op *Operation,
 func determineCrudType(path, method, operationID string) string {
 	lowerOp := strings.ToLower(operationID)
 
-	// Check operation ID first
 	if strings.Contains(lowerOp, "create") {
 		return "create"
 	}
@@ -268,7 +239,6 @@ func determineCrudType(path, method, operationID string) string {
 		return "read"
 	}
 
-	// Fallback to method-based detection
 	switch method {
 	case "post":
 		if !strings.Contains(path, "{") {
@@ -280,7 +250,13 @@ func determineCrudType(path, method, operationID string) string {
 		} else {
 			return "list"
 		}
-	case "patch", "put":
+	case "put":
+		if !strings.Contains(path, "{") {
+			return "create"
+		}
+
+		return "update"
+	case "patch":
 		return "update"
 	case "delete":
 		return "delete"
@@ -289,8 +265,7 @@ func determineCrudType(path, method, operationID string) string {
 	return ""
 }
 
-func findEntityFromOperation(op *Operation, entitySchemas map[string]bool, spec OpenAPISpec) string {
-	// Check response schemas first
+func findEntityFromOperation(op *Operation, entitySchemas map[string]bool) string {
 	if op.Responses != nil {
 		for _, response := range op.Responses {
 			if respMap, ok := response.(map[string]interface{}); ok {
@@ -308,7 +283,6 @@ func findEntityFromOperation(op *Operation, entitySchemas map[string]bool, spec 
 		}
 	}
 
-	// Check tags
 	if len(op.Tags) > 0 {
 		for _, tag := range op.Tags {
 			possibleEntity := tag + "Entity"
@@ -322,7 +296,6 @@ func findEntityFromOperation(op *Operation, entitySchemas map[string]bool, spec 
 }
 
 func findEntityInSchema(schema map[string]interface{}, entitySchemas map[string]bool) string {
-	// Direct reference
 	if ref, ok := schema["$ref"].(string); ok {
 		schemaName := extractSchemaName(ref)
 		if entitySchemas[schemaName] {
@@ -330,7 +303,6 @@ func findEntityInSchema(schema map[string]interface{}, entitySchemas map[string]
 		}
 	}
 
-	// Check in data array for paginated responses
 	if props, ok := schema["properties"].(map[string]interface{}); ok {
 		if data, ok := props["data"].(map[string]interface{}); ok {
 			if dataType, ok := data["type"].(string); ok && dataType == "array" {
@@ -357,7 +329,7 @@ func extractSchemaName(ref string) string {
 	return ""
 }
 
-func deriveResourceName(entityName, operationID, path string) string {
+func deriveResourceName(entityName string) string {
 	resource := strings.TrimSuffix(entityName, "Entity")
 
 	resource = toSnakeCase(resource)

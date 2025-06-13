@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type OverlayAction struct {
 	Target string                 `yaml:"target"`
@@ -27,13 +30,16 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	overlay.Info.Description = "Auto-generated overlay for Terraform resources"
 
 	// Clean up resources by removing manually ignored operations
-	mappedResources := applyManualMappings(resources, manualMappings)
 
-	// Separate viable and non-viable resources
+	// In general, we don't need to alter the spec at this point
+	//   We can simply not apply x-speakeasy extentions to these entities
+	//   Without the extensions, they will not be registered in the Terraform provider
+	cleanedResources := applyManualMappings(resources, manualMappings)
+
 	viableResources := make(map[string]*ResourceInfo)
 	skippedResources := make([]string, 0)
 
-	for name, resource := range mappedResources {
+	for name, resource := range cleanedResources {
 		if isTerraformViable(resource, spec) {
 			viableResources[name] = resource
 		} else {
@@ -42,35 +48,27 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	}
 
 	fmt.Printf("\n=== Overlay Generation Analysis ===\n")
-	fmt.Printf("Resources after Manual Mapping: %d\n", len(mappedResources))
+	fmt.Printf("Resources after Manual Mappings: %d\n", len(cleanedResources))
 	fmt.Printf("Viable for Terraform: %d\n", len(viableResources))
 	fmt.Printf("Skipped (non-viable): %d\n", len(skippedResources))
 
-	if len(skippedResources) > 0 {
-		fmt.Printf("\nSkipped resources:\n")
-		for _, skipped := range skippedResources {
-			fmt.Printf("  - %s\n", skipped)
-		}
-	}
+	// Helpful for debugging
+	// if len(skippedResources) > 0 {
+	// 	fmt.Printf("\nSkipped resources:\n")
+	// 	for _, skipped := range skippedResources {
+	// 		fmt.Printf("  - %s\n", skipped)
+	// 	}
+	// }
 
-	// Filter operations with unmappable path parameters
-	fmt.Printf("\n=== Operation-Level Filtering ===\n")
-
-	// Update description with actual count
 	overlay.Info.Description = fmt.Sprintf("Auto-generated overlay for %d viable Terraform resources", len(viableResources))
 
-	// Detect property mismatches for filtered resources only
 	resourceMismatches := detectPropertyMismatches(viableResources, spec)
 
-	// Detect CRUD inconsistencies for filtered resources only
 	resourceCRUDInconsistencies := detectCRUDInconsistencies(viableResources, spec)
 
-	// Track which properties already have ignore actions to avoid duplicates
-	ignoreTracker := make(map[string]map[string]bool) // map[schemaName][propertyName]bool
+	ignoreTracker := make(map[string]map[string]bool)
 
-	// Generate actions only for filtered resources
 	for _, resource := range viableResources {
-		// Mark the response entity schema
 		entityUpdate := map[string]interface{}{
 			"x-speakeasy-entity": resource.EntityName,
 		}
@@ -80,7 +78,6 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 			Update: entityUpdate,
 		})
 
-		// Initialize ignore tracker for this resource's schemas
 		if ignoreTracker[resource.EntityName] == nil {
 			ignoreTracker[resource.EntityName] = make(map[string]bool)
 		}
@@ -91,21 +88,16 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 			ignoreTracker[resource.UpdateSchema] = make(map[string]bool)
 		}
 
-		// Add speakeasy ignore for property mismatches
 		if mismatches, exists := resourceMismatches[resource.EntityName]; exists {
 			addIgnoreActionsForMismatches(overlay, resource, mismatches, ignoreTracker)
 		}
 
-		// Add speakeasy ignore for CRUD inconsistencies
 		if inconsistencies, exists := resourceCRUDInconsistencies[resource.EntityName]; exists {
 			addIgnoreActionsForInconsistencies(overlay, resource, inconsistencies, ignoreTracker)
 		}
 
-		// Add entity operations and parameter matching
 		for crudType, opInfo := range resource.Operations {
-			// Double-check that this specific operation isn't in the ignore list
 			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) {
-				fmt.Printf("    Skipping ignored operation during overlay generation: %s %s\n", opInfo.Method, opInfo.Path)
 				continue
 			}
 
@@ -120,16 +112,12 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 				Update: operationUpdate,
 			})
 
-			// Apply parameter matching for operations that use the primary ID
 			if resource.PrimaryID != "" && (crudType == "read" || crudType == "update" || crudType == "delete") {
 				pathParams := extractPathParameters(opInfo.Path)
 				for _, param := range pathParams {
 					if param == resource.PrimaryID {
-						// Check for manual parameter mapping first
 						if manualMatch, hasManual := getManualParameterMatch(opInfo.Path, opInfo.Method, param, manualMappings); hasManual {
-							// Only apply manual match if it's different from the parameter name
 							if manualMatch != param {
-								fmt.Printf("    Manual parameter mapping: %s in %s %s -> %s\n", param, opInfo.Method, opInfo.Path, manualMatch)
 								overlay.Actions = append(overlay.Actions, OverlayAction{
 									Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
 										opInfo.Path, opInfo.Method, param),
@@ -137,22 +125,19 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 										"x-speakeasy-match": manualMatch,
 									},
 								})
-							} else {
-								fmt.Printf("    Skipping manual parameter mapping: %s already matches target field %s (would create circular reference)\n", param, manualMatch)
 							}
 						} else {
-							// Skip x-speakeasy-match when parameter name would map to itself
-							// This prevents circular references like {id} -> id
-							if param == "id" {
-								fmt.Printf("    Skipping x-speakeasy-match: parameter %s maps to same field (avoiding circular reference)\n", param)
-							} else {
-								// Apply x-speakeasy-match for parameters that need mapping (e.g., change_event_id -> id)
-								fmt.Printf("    Applying x-speakeasy-match to %s in %s %s -> id\n", param, opInfo.Method, opInfo.Path)
+							// Avoid creating circular reference by not mapping id -> id or slug -> slug
+							if param != "id" && param != "slug" {
+								primaryIdentifier := "id"
+								if strings.Contains(resource.PrimaryID, "slug") {
+									primaryIdentifier = "slug"
+								}
 								overlay.Actions = append(overlay.Actions, OverlayAction{
 									Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
 										opInfo.Path, opInfo.Method, param),
 									Update: map[string]interface{}{
-										"x-speakeasy-match": "id",
+										"x-speakeasy-match": primaryIdentifier,
 									},
 								})
 							}
@@ -166,7 +151,6 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	fmt.Printf("\n=== Overlay Generation Complete ===\n")
 	fmt.Printf("Generated %d actions for %d viable resources\n", len(overlay.Actions), len(viableResources))
 
-	// Count ignore actions and match actions
 	totalIgnores := 0
 	totalMatches := 0
 	for _, action := range overlay.Actions {

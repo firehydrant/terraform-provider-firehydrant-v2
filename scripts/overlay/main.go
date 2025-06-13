@@ -166,5 +166,4 @@ func printOverlaySummary(resources map[string]*ResourceInfo, overlay *Overlay) {
 	fmt.Println("9. Tag viable operations with x-speakeasy-entity-operation")
 	fmt.Println("10. Mark chosen primary ID with x-speakeasy-match")
 	fmt.Println("11. Apply x-speakeasy-ignore: true to problematic properties")
-	fmt.Println("12. Apply x-speakeasy-enums: true to enum schemas for proper code generation")
 }
