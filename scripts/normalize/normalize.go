@@ -60,6 +60,9 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 	if pathsOk {
 		parameterFixes := normalizePathParameters(paths)
 		report.ConflictDetails = append(report.ConflictDetails, parameterFixes...)
+
+		pathEnumFixes := normalizePathEnums(paths)
+		report.ConflictDetails = append(report.ConflictDetails, pathEnumFixes...)
 	}
 
 	report.TotalFixes = len(report.ConflictDetails)

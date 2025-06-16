@@ -142,20 +142,41 @@ func transformEnumProperty(enumInfo EnumNormalizationInfo) *ConflictDetail {
 }
 
 func generateEnumMemberName(value, fieldName, entityName string) string {
-	cleanEntityName := convertToEnumMemberName(strings.TrimSuffix(entityName, "Entity"))
+	if strings.TrimSpace(value) == "" {
+		value = "Empty"
+	}
+
+	var prefix string
+
+	switch {
+	case entityName == "RequestParam":
+		prefix = "Request"
+	case entityName == "RequestBody":
+		if strings.HasPrefix(fieldName, "Form") {
+			prefix = "" // Form prefix is already in fieldName
+		} else {
+			prefix = "Request"
+		}
+	case entityName == "Response":
+		prefix = "Response"
+	case strings.HasSuffix(entityName, "Entity"):
+		prefix = convertToEnumMemberName(strings.TrimSuffix(entityName, "Entity"))
+	default:
+		prefix = convertToEnumMemberName(entityName)
+	}
+
 	cleanFieldName := convertToEnumMemberName(fieldName)
 	cleanValue := convertToEnumMemberName(value)
 
-	memberName := cleanEntityName + cleanFieldName + cleanValue
+	memberName := prefix + cleanFieldName + cleanValue
 
 	// Ensure it starts with a letter
 	if len(memberName) > 0 && unicode.IsDigit(rune(memberName[0])) {
 		memberName = "Value" + memberName
 	}
 
-	// Handle empty result after cleaning
 	if memberName == "" {
-		memberName = cleanEntityName + cleanFieldName + "Unknown"
+		memberName = prefix + cleanFieldName + "Unknown"
 	}
 
 	return memberName
@@ -216,15 +237,139 @@ func convertToEnumMemberName(value string) string {
 
 	memberName := result.String()
 
-	// Ensure it starts with a letter
 	if len(memberName) > 0 && unicode.IsDigit(rune(memberName[0])) {
 		memberName = "Value" + memberName
 	}
 
-	// Handle empty result after cleaning
 	if memberName == "" {
 		memberName = "Empty"
 	}
 
 	return memberName
+}
+
+func normalizePathEnums(paths map[string]interface{}) []ConflictDetail {
+	conflicts := make([]ConflictDetail, 0)
+
+	fmt.Printf("\n=== Normalizing Path/Operation Enum Properties ===\n")
+
+	allPathEnums := findAllPathEnumProperties(paths)
+
+	if len(allPathEnums) == 0 {
+		fmt.Printf("No path enum properties found to normalize\n")
+		return conflicts
+	}
+
+	fmt.Printf("Found %d path enum properties to normalize\n", len(allPathEnums))
+
+	for _, enumInfo := range allPathEnums {
+		conflict := transformEnumProperty(enumInfo)
+		if conflict != nil {
+			conflicts = append(conflicts, *conflict)
+		}
+	}
+
+	fmt.Printf("Successfully normalized %d path enum properties\n", len(conflicts))
+	return conflicts
+}
+
+func findAllPathEnumProperties(paths map[string]interface{}) []EnumNormalizationInfo {
+	var allEnums []EnumNormalizationInfo
+
+	for pathName, pathItem := range paths {
+		pathMap, ok := pathItem.(map[string]interface{})
+		if !ok {
+			continue
+		}
+
+		methods := []string{"get", "post", "put", "patch", "delete"}
+		for _, method := range methods {
+			if operation, exists := pathMap[method]; exists {
+				opMap, ok := operation.(map[string]interface{})
+				if !ok {
+					continue
+				}
+
+				if parameters, hasParams := opMap["parameters"]; hasParams {
+					paramsList, ok := parameters.([]interface{})
+					if ok {
+						for _, param := range paramsList {
+							paramMap, ok := param.(map[string]interface{})
+							if ok {
+								paramName, _ := paramMap["name"].(string)
+								schemaName := fmt.Sprintf("RequestParam_%s_%s_%s", method, pathName, paramName)
+
+								if schema, hasSchema := paramMap["schema"].(map[string]interface{}); hasSchema {
+									enumEnums := findEnumsInSchemaRecursive(schemaName, schema, "", schema)
+									for j := range enumEnums {
+										enumEnums[j].PropertyName = convertToEnumMemberName(paramName)
+										enumEnums[j].SchemaName = "RequestParam"
+									}
+									allEnums = append(allEnums, enumEnums...)
+								}
+							}
+						}
+					}
+				}
+
+				if requestBody, hasReqBody := opMap["requestBody"]; hasReqBody {
+					reqBodyMap, ok := requestBody.(map[string]interface{})
+					if ok {
+						if content, hasContent := reqBodyMap["content"].(map[string]interface{}); hasContent {
+							for contentType, contentSchema := range content {
+								if contentMap, ok := contentSchema.(map[string]interface{}); ok {
+									if schema, hasSchema := contentMap["schema"].(map[string]interface{}); hasSchema {
+										schemaName := fmt.Sprintf("RequestBody_%s_%s", method, sanitizePathForSchemaName(pathName))
+										reqEnums := findEnumsInSchemaRecursive(schemaName, schema, "", schema)
+
+										for j := range reqEnums {
+											if contentType == "multipart/form-data" {
+												reqEnums[j].PropertyName = "Form" + convertToEnumMemberName(reqEnums[j].PropertyName)
+											} else {
+												reqEnums[j].PropertyName = "Request" + convertToEnumMemberName(reqEnums[j].PropertyName)
+											}
+											reqEnums[j].SchemaName = "RequestBody"
+										}
+										allEnums = append(allEnums, reqEnums...)
+
+										fmt.Printf("📋 Found request body enum in %s %s (%s)\n", method, pathName, contentType)
+									}
+								}
+							}
+						}
+					}
+				}
+
+				// Checks for responses with inline enums enums, uncommon but included as a safeguard
+				if responses, hasResponses := opMap["responses"]; hasResponses {
+					respMap, ok := responses.(map[string]interface{})
+					if ok {
+						for statusCode, response := range respMap {
+							if respBody, ok := response.(map[string]interface{}); ok {
+								if content, hasContent := respBody["content"].(map[string]interface{}); hasContent {
+									if jsonContent, hasJson := content["application/json"].(map[string]interface{}); hasJson {
+										if schema, hasSchema := jsonContent["schema"].(map[string]interface{}); hasSchema {
+											schemaName := fmt.Sprintf("Response_%s_%s_%s", method, pathName, statusCode)
+											respEnums := findEnumsInSchemaRecursive(schemaName, schema, "", schema)
+											allEnums = append(allEnums, respEnums...)
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return allEnums
+}
+
+func sanitizePathForSchemaName(path string) string {
+	cleaned := strings.ReplaceAll(path, "/", "_")
+	cleaned = strings.ReplaceAll(cleaned, "{", "")
+	cleaned = strings.ReplaceAll(cleaned, "}", "")
+	cleaned = strings.Trim(cleaned, "_")
+	return cleaned
 }
