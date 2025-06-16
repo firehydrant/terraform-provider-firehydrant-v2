@@ -80,8 +80,7 @@ func applyManualMappings(resources map[string]*ResourceInfo, manualMappings *Man
 
 func getManualParameterMatch(path, method, paramName string, manualMappings *ManualMappings) (string, bool) {
 	for _, mapping := range manualMappings.Operations {
-		if mapping.Path == path && strings.ToLower(mapping.Method) == strings.ToLower(method) && mapping.Action == "match" {
-			// For match mappings, we expect the value to be in format "param_name:field_name"
+		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == "match" {
 			parts := strings.SplitN(mapping.Value, ":", 2)
 			if len(parts) == 2 && parts[0] == paramName {
 				return parts[1], true
