@@ -12,15 +12,121 @@ Developer-friendly & type-safe Terraform SDK specifically catered to leverage *f
 <!-- Start Summary [summary] -->
 ## Summary
 
+FireHydrant API: The FireHydrant API is based around REST. It uses Bearer token authentication and returns JSON responses. You can use the FireHydrant API to configure integrations, define incidents, and set up webhooks--anything you can do on the FireHydrant UI.
 
+* [Dig into our API endpoints](https://developers.firehydrant.io/docs/api)
+* [View your bot users](https://app.firehydrant.io/organizations/bots)
+
+## Base API endpoint
+
+[https://api.firehydrant.io/v1](https://api.firehydrant.io/v1)
+
+## Current version
+
+v1
+
+## Authentication
+
+All requests to the FireHydrant API require an `Authorization` header with the value set to `Bearer {token}`. FireHydrant supports bot tokens to act on behalf of a computer instead of a user's account. This prevents integrations from breaking when people leave your organization or their token is revoked. See the Bot tokens section (below) for more information on this.
+
+An example of a header to authenticate against FireHydrant would look like:
+
+```
+Authorization: Bearer fhb-thisismytoken
+```
+
+## Bot tokens
+
+To access the FireHydrant API, you must authenticate with a bot token. (You must have owner permissions on your organization to see bot tokens.) Bot users allow you to interact with the FireHydrant API by using token-based authentication. To create bot tokens, log in to your organization and refer to the **Bot users** [page](https://app.firehydrant.io/organizations/bots).
+
+Bot tokens enable you to create a bot that has no ties to any user. Normally, all actions associated with an API token are associated with the user who created it. Bot tokens attribute all actions to the bot user itself. This way, all data associated with the token actions can be performed against the FireHydrant API without a user.
+
+Every request to the API is authenticated unless specified otherwise.
+
+### Rate Limiting
+
+Currently, requests made with bot tokens are rate limited on a per-account level. If your account has multiple bot token then the rate limit is shared across all of them. As of February 7th, 2023, the rate limit is at least 50 requests per account every 10 seconds, or 300 requests per minute.
+
+Rate limited responses will be served with a `429` status code and a JSON body of:
+
+```json
+{"error": "rate limit exceeded"}
+```
+and headers of:
+```
+"RateLimit-Limit" -> the maximum number of requests in the rate limit pool
+"Retry-After" -> the number of seconds to wait before trying again
+```
+
+## How lists are returned
+
+API lists are returned as arrays. A paginated entity in FireHydrant will return two top-level keys in the response object: a data key and a pagination key.
+
+### Paginated requests
+
+The `data` key is returned as an array. Each item in the array includes all of the entity data specified in the API endpoint. (The per-page default for the array is 20 items.)
+
+Pagination is the second key (`pagination`) returned in the overall response body. It includes medtadata around the current page, total count of items, and options to go to the next and previous page. All of the specifications returned in the pagination object are available as URL parameters. So if you want to specify, for example, going to the second page of a response, you can send a request to the same endpoint but pass the URL parameter **page=2**.
+
+For example, you might request **https://api.firehydrant.io/v1/environments/** to retrieve environments data. The JSON returned contains the above-mentioned data section and pagination section. The data section includes various details about an incident, such as the environment name, description, and when it was created.
+
+```
+{
+  "data": [
+    {
+      "id": "f8125cf4-b3a7-4f88-b5ab-57a60b9ed89b",
+      "name": "Production - GCP",
+      "description": "",
+      "created_at": "2021-02-17T20:02:10.679Z"
+    },
+    {
+      "id": "a69f1f58-af77-4708-802d-7e73c0bf261c",
+      "name": "Staging",
+      "description": "",
+      "created_at": "2021-04-16T13:41:59.418Z"
+    }
+  ],
+  "pagination": {
+    "count": 2,
+    "page": 1,
+    "items": 2,
+    "pages": 1,
+    "last": 1,
+    "prev": null,
+    "next": null
+  }
+}
+```
+
+To request the second page, you'd request the same endpoint with the additional query parameter of `page` in the URL:
+
+```
+GET https://api.firehydrant.io/v1/environments?page=2
+```
+
+If you need to modify the number of records coming back from FireHydrant, you can use the `per_page` parameter (max is 200):
+
+```
+GET https://api.firehydrant.io/v1/environments?per_page=50
+```
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
+<!-- $toc-max-depth=2 -->
+* [Firehydrant Terraform Provider V2](#firehydrant-terraform-provider-v2)
+  * [Base API endpoint](#base-api-endpoint)
+  * [Current version](#current-version)
+  * [Authentication](#authentication)
+  * [Bot tokens](#bot-tokens)
+  * [How lists are returned](#how-lists-are-returned)
+  * [Installation](#installation)
+  * [Available Resources and Data Sources](#available-resources-and-data-sources)
+  * [Testing the provider locally](#testing-the-provider-locally)
+* [Development](#development)
+  * [Contributions](#contributions)
+* [terraform-provider-firehydrant-v2](#terraform-provider-firehydrant-v2)
 
-* [Installation](#installation)
-* [Available Resources and Data Sources](#available-resources-and-data-sources)
-* [Testing the provider locally](#testing-the-provider-locally)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start Installation [installation] -->
@@ -33,7 +139,7 @@ terraform {
   required_providers {
     firehydrant = {
       source  = "firehydrant/firehydrant"
-      version = "0.1.5"
+      version = "0.2.7"
     }
   }
 }
@@ -49,50 +155,54 @@ provider "firehydrant" {
 
 ### Resources
 
-* [firehydrant_checklist_template](docs/resources/checklist_template.md)
-* [firehydrant_environment](docs/resources/environment.md)
-* [firehydrant_functionality](docs/resources/functionality.md)
-* [firehydrant_incident_role](docs/resources/incident_role.md)
-* [firehydrant_incident_type](docs/resources/incident_type.md)
-* [firehydrant_priority](docs/resources/priority.md)
-* [firehydrant_runbook](docs/resources/runbook.md)
-* [firehydrant_service](docs/resources/service.md)
-* [firehydrant_service_dependency](docs/resources/service_dependency.md)
-* [firehydrant_severity](docs/resources/severity.md)
-* [firehydrant_status_update_template](docs/resources/status_update_template.md)
-* [firehydrant_task_list](docs/resources/task_list.md)
-* [firehydrant_team](docs/resources/team.md)
-* [firehydrant_webhook](docs/resources/webhook.md)
+* [firehydrant_change_event_entity](docs/resources/change_event_entity.md)
+* [firehydrant_functionality_entity](docs/resources/functionality_entity.md)
+* [firehydrant_incident_entity](docs/resources/incident_entity.md)
+* [firehydrant_incident_role_entity](docs/resources/incident_role_entity.md)
+* [firehydrant_incident_type_entity](docs/resources/incident_type_entity.md)
+* [firehydrant_priority_entity](docs/resources/priority_entity.md)
+* [firehydrant_runbook_entity](docs/resources/runbook_entity.md)
+* [firehydrant_saved_search_entity](docs/resources/saved_search_entity.md)
+* [firehydrant_scheduled_maintenance_entity](docs/resources/scheduled_maintenance_entity.md)
+* [firehydrant_service_dependency_entity](docs/resources/service_dependency_entity.md)
+* [firehydrant_service_entity](docs/resources/service_entity.md)
+* [firehydrant_severity_entity](docs/resources/severity_entity.md)
+* [firehydrant_signals_api_call_route_entity](docs/resources/signals_api_call_route_entity.md)
+* [firehydrant_signals_api_email_target_entity](docs/resources/signals_api_email_target_entity.md)
+* [firehydrant_signals_api_grouping_entity](docs/resources/signals_api_grouping_entity.md)
+* [firehydrant_signals_api_rule_entity](docs/resources/signals_api_rule_entity.md)
+* [firehydrant_signals_api_transposer_entity](docs/resources/signals_api_transposer_entity.md)
+* [firehydrant_signals_api_webhook_target_entity](docs/resources/signals_api_webhook_target_entity.md)
+* [firehydrant_team_entity](docs/resources/team_entity.md)
+* [firehydrant_ticketing_priority_entity](docs/resources/ticketing_priority_entity.md)
 ### Data Sources
 
-* [firehydrant_checklist_template](docs/data-sources/checklist_template.md)
-* [firehydrant_checklist_templates](docs/data-sources/checklist_templates.md)
-* [firehydrant_environment](docs/data-sources/environment.md)
-* [firehydrant_environments](docs/data-sources/environments.md)
-* [firehydrant_functionalities](docs/data-sources/functionalities.md)
-* [firehydrant_functionality](docs/data-sources/functionality.md)
-* [firehydrant_incident_role](docs/data-sources/incident_role.md)
-* [firehydrant_incident_type](docs/data-sources/incident_type.md)
-* [firehydrant_incident_types](docs/data-sources/incident_types.md)
-* [firehydrant_priorities](docs/data-sources/priorities.md)
-* [firehydrant_priority](docs/data-sources/priority.md)
-* [firehydrant_runbook](docs/data-sources/runbook.md)
-* [firehydrant_runbooks](docs/data-sources/runbooks.md)
-* [firehydrant_service](docs/data-sources/service.md)
-* [firehydrant_service_dependency](docs/data-sources/service_dependency.md)
-* [firehydrant_services](docs/data-sources/services.md)
-* [firehydrant_severities](docs/data-sources/severities.md)
-* [firehydrant_severity](docs/data-sources/severity.md)
-* [firehydrant_status_update_template](docs/data-sources/status_update_template.md)
-* [firehydrant_status_update_templates](docs/data-sources/status_update_templates.md)
-* [firehydrant_task_list](docs/data-sources/task_list.md)
-* [firehydrant_task_lists](docs/data-sources/task_lists.md)
-* [firehydrant_team](docs/data-sources/team.md)
-* [firehydrant_teams](docs/data-sources/teams.md)
-* [firehydrant_users](docs/data-sources/users.md)
-* [firehydrant_webhook](docs/data-sources/webhook.md)
-* [firehydrant_webhooks](docs/data-sources/webhooks.md)
-* [firehydrant_webhook_target](docs/data-sources/webhook_target.md)
+* [firehydrant_change_event_entity](docs/data-sources/change_event_entity.md)
+* [firehydrant_change_events_entities](docs/data-sources/change_events_entities.md)
+* [firehydrant_functionality_entity](docs/data-sources/functionality_entity.md)
+* [firehydrant_incident_entity](docs/data-sources/incident_entity.md)
+* [firehydrant_incident_role_entity](docs/data-sources/incident_role_entity.md)
+* [firehydrant_incident_type_entity](docs/data-sources/incident_type_entity.md)
+* [firehydrant_priorities_entities](docs/data-sources/priorities_entities.md)
+* [firehydrant_priority_entity](docs/data-sources/priority_entity.md)
+* [firehydrant_runbook_entity](docs/data-sources/runbook_entity.md)
+* [firehydrant_runbooks_entities](docs/data-sources/runbooks_entities.md)
+* [firehydrant_saved_search_entity](docs/data-sources/saved_search_entity.md)
+* [firehydrant_saved_searches_entities](docs/data-sources/saved_searches_entities.md)
+* [firehydrant_scheduled_maintenance_entity](docs/data-sources/scheduled_maintenance_entity.md)
+* [firehydrant_scheduled_maintenances_entities](docs/data-sources/scheduled_maintenances_entities.md)
+* [firehydrant_service_dependency_entity](docs/data-sources/service_dependency_entity.md)
+* [firehydrant_service_entity](docs/data-sources/service_entity.md)
+* [firehydrant_severity_entity](docs/data-sources/severity_entity.md)
+* [firehydrant_signals_api_call_route_entity](docs/data-sources/signals_api_call_route_entity.md)
+* [firehydrant_signals_api_email_target_entity](docs/data-sources/signals_api_email_target_entity.md)
+* [firehydrant_signals_api_grouping_entity](docs/data-sources/signals_api_grouping_entity.md)
+* [firehydrant_signals_api_rule_entity](docs/data-sources/signals_api_rule_entity.md)
+* [firehydrant_signals_api_transposer_entity](docs/data-sources/signals_api_transposer_entity.md)
+* [firehydrant_signals_api_webhook_target_entity](docs/data-sources/signals_api_webhook_target_entity.md)
+* [firehydrant_team_entity](docs/data-sources/team_entity.md)
+* [firehydrant_ticketing_priorities_entities](docs/data-sources/ticketing_priorities_entities.md)
+* [firehydrant_ticketing_priority_entity](docs/data-sources/ticketing_priority_entity.md)
 <!-- End Available Resources and Data Sources [operations] -->
 
 <!-- Start Testing the provider locally [usage] -->
