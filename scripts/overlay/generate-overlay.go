@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 )
@@ -68,6 +69,29 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 
 	ignoreTracker := make(map[string]map[string]bool)
 
+	requiredFieldsMap := make(map[string]map[string]bool)
+	specData, _ := json.Marshal(spec)
+	var rawSpec map[string]interface{}
+	json.Unmarshal(specData, &rawSpec)
+	components, _ := rawSpec["components"].(map[string]interface{})
+	schemas, _ := components["schemas"].(map[string]interface{})
+
+	for _, resource := range viableResources {
+		requiredFields := make(map[string]bool)
+		if resource.CreateSchema != "" {
+			if createSchema, ok := schemas[resource.CreateSchema].(map[string]interface{}); ok {
+				if required, ok := createSchema["required"].([]interface{}); ok {
+					for _, field := range required {
+						if fieldName, ok := field.(string); ok {
+							requiredFields[fieldName] = true
+						}
+					}
+				}
+			}
+		}
+		requiredFieldsMap[resource.EntityName] = requiredFields
+	}
+
 	for _, resource := range viableResources {
 		entityUpdate := map[string]interface{}{
 			"x-speakeasy-entity": resource.EntityName,
@@ -88,12 +112,40 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 			ignoreTracker[resource.UpdateSchema] = make(map[string]bool)
 		}
 
+		requiredFields := requiredFieldsMap[resource.EntityName]
+
 		if mismatches, exists := resourceMismatches[resource.EntityName]; exists {
-			addIgnoreActionsForMismatches(overlay, resource, mismatches, ignoreTracker)
+			for _, mismatch := range mismatches {
+				if requiredFields[mismatch.PropertyName] {
+					if resource.CreateSchema != "" {
+						overlay.Actions = append(overlay.Actions, OverlayAction{
+							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.CreateSchema, mismatch.PropertyName),
+							Update: map[string]interface{}{
+								"x-speakeasy-param-optional": true,
+							},
+						})
+					}
+				} else {
+					addIgnoreActionsForMismatches(overlay, resource, mismatches, ignoreTracker)
+				}
+			}
 		}
 
 		if inconsistencies, exists := resourceCRUDInconsistencies[resource.EntityName]; exists {
-			addIgnoreActionsForInconsistencies(overlay, resource, inconsistencies, ignoreTracker)
+			for _, inconsistency := range inconsistencies {
+				if requiredFields[inconsistency.PropertyName] {
+					if resource.CreateSchema != "" {
+						overlay.Actions = append(overlay.Actions, OverlayAction{
+							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.CreateSchema, inconsistency.PropertyName),
+							Update: map[string]interface{}{
+								"x-speakeasy-param-optional": true,
+							},
+						})
+					}
+				} else {
+					addIgnoreActionsForInconsistencies(overlay, inconsistencies, ignoreTracker)
+				}
+			}
 		}
 
 		for crudType, opInfo := range resource.Operations {
@@ -148,8 +200,6 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		}
 	}
 
-	// Add this after the existing ignore actions in generateOverlay
-	// Apply manual property ignores
 	manualPropertyIgnores := getManualPropertyIgnores(manualMappings)
 	for schemaName, properties := range manualPropertyIgnores {
 		for _, propertyName := range properties {

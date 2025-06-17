@@ -37,7 +37,6 @@ func normalizePathParameters(paths map[string]interface{}) []ConflictDetail {
 							continue
 						}
 
-						// normailze int and string parameters
 						paramIn, _ := paramMap["in"].(string)
 						paramName, _ := paramMap["name"].(string)
 

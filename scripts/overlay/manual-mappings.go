@@ -8,7 +8,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Manual mapping configuration
+// Manual mapping configuration, corresponds with the manual-mappings.yaml file
 type ManualMapping struct {
 	Path   string `yaml:"path"`
 	Method string `yaml:"method"`
@@ -109,7 +109,7 @@ func getManualEntityMapping(path, method string, manualMappings *ManualMappings)
 }
 
 func getManualPropertyIgnores(manualMappings *ManualMappings) map[string][]string {
-	ignores := make(map[string][]string) // map[schemaName][]propertyNames
+	ignores := make(map[string][]string)
 
 	for _, mapping := range manualMappings.Operations {
 		if mapping.Action == "ignore_property" && mapping.Schema != "" && mapping.Property != "" {

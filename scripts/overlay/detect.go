@@ -34,13 +34,33 @@ func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISp
 	components, _ := rawSpec["components"].(map[string]interface{})
 	schemas, _ := components["schemas"].(map[string]interface{})
 
+	requiredFieldsMap := make(map[string]map[string]bool)
+	for _, resource := range resources {
+		requiredFields := make(map[string]bool)
+
+		if resource.CreateSchema != "" {
+			if createSchema, ok := schemas[resource.CreateSchema].(map[string]interface{}); ok {
+				if required, ok := createSchema["required"].([]interface{}); ok {
+					for _, field := range required {
+						if fieldName, ok := field.(string); ok {
+							requiredFields[fieldName] = true
+						}
+					}
+				}
+			}
+		}
+
+		requiredFieldsMap[resource.EntityName] = requiredFields
+	}
+
 	for _, resource := range resources {
 		var resourceMismatches []PropertyMismatch
+		requiredFields := requiredFieldsMap[resource.EntityName]
 
 		if resource.CreateSchema != "" {
 			if entitySchema, exists := schemas[resource.EntityName].(map[string]interface{}); exists {
 				if requestSchema, exists := schemas[resource.CreateSchema].(map[string]interface{}); exists {
-					createMismatches := findPropertyMismatches(entitySchema, requestSchema, "create")
+					createMismatches := findPropertyMismatches(entitySchema, requestSchema, "create", requiredFields)
 					resourceMismatches = append(resourceMismatches, createMismatches...)
 				}
 			}
@@ -50,7 +70,7 @@ func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISp
 		if resource.UpdateSchema != "" {
 			if entitySchema, exists := schemas[resource.EntityName].(map[string]interface{}); exists {
 				if requestSchema, exists := schemas[resource.UpdateSchema].(map[string]interface{}); exists {
-					updateMismatches := findPropertyMismatches(entitySchema, requestSchema, "update")
+					updateMismatches := findPropertyMismatches(entitySchema, requestSchema, "update", requiredFields)
 					resourceMismatches = append(resourceMismatches, updateMismatches...)
 				}
 			}
@@ -64,7 +84,7 @@ func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISp
 	return mismatches
 }
 
-func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, operation string) []PropertyMismatch {
+func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, operation string, requiredFields map[string]bool) []PropertyMismatch {
 	var mismatches []PropertyMismatch
 
 	entityProps, _ := entitySchema["properties"].(map[string]interface{})
@@ -76,6 +96,11 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 
 	for propName, entityProp := range entityProps {
 		if requestProp, exists := requestProps[propName]; exists {
+			// Skip required fields, they should already be handled in normalization
+			// Ensures we do not accidentlaly ignore any required fields, prevents generating unusable resources
+			if requiredFields[propName] {
+				continue
+			}
 			if hasStructuralMismatch(entityProp, requestProp) {
 				mismatch := PropertyMismatch{
 					PropertyName: propName,
@@ -153,18 +178,16 @@ func getPropertyStructure(prop interface{}) string {
 	}
 }
 
-// Describe the structural difference for reporting
+// Describe the structural difference for reporting/debugging
 func describeStructuralDifference(entityProp, requestProp interface{}) string {
 	entityStructure := getPropertyStructure(entityProp)
 	requestStructure := getPropertyStructure(requestProp)
 	return fmt.Sprintf("request structure '%s' != response structure '%s'", requestStructure, entityStructure)
 }
 
-// Detect schema property inconsistencies (extracted from detectCRUDInconsistencies)
 func detectCRUDInconsistencies(resources map[string]*ResourceInfo, spec OpenAPISpec) map[string][]CRUDInconsistency {
 	inconsistencies := make(map[string][]CRUDInconsistency)
 
-	// Re-parse the spec to get raw schema data
 	specData, err := json.Marshal(spec)
 	if err != nil {
 		return inconsistencies
@@ -178,8 +201,27 @@ func detectCRUDInconsistencies(resources map[string]*ResourceInfo, spec OpenAPIS
 	components, _ := rawSpec["components"].(map[string]interface{})
 	schemas, _ := components["schemas"].(map[string]interface{})
 
+	requiredFieldsMap := make(map[string]map[string]bool)
 	for _, resource := range resources {
-		resourceInconsistencies := detectSchemaPropertyInconsistencies(resource, schemas)
+		requiredFields := make(map[string]bool)
+
+		if resource.CreateSchema != "" {
+			if createSchema, ok := schemas[resource.CreateSchema].(map[string]interface{}); ok {
+				if required, ok := createSchema["required"].([]interface{}); ok {
+					for _, field := range required {
+						if fieldName, ok := field.(string); ok {
+							requiredFields[fieldName] = true
+						}
+					}
+				}
+			}
+		}
+		requiredFieldsMap[resource.EntityName] = requiredFields
+	}
+
+	for _, resource := range resources {
+		requiredFields := requiredFieldsMap[resource.EntityName]
+		resourceInconsistencies := detectSchemaPropertyInconsistencies(resource, schemas, requiredFields)
 
 		// Check if we have fundamental validation errors that make the resource non-viable
 		for _, inconsistency := range resourceInconsistencies {
@@ -209,16 +251,14 @@ func detectCRUDInconsistencies(resources map[string]*ResourceInfo, spec OpenAPIS
 }
 
 // Detect schema property inconsistencies (simplified CRUD detection)
-func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[string]interface{}) []CRUDInconsistency {
+func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[string]interface{}, requiredFields map[string]bool) []CRUDInconsistency {
 	var inconsistencies []CRUDInconsistency
 
 	// First, validate that we have the minimum required operations for Terraform
-	_, hasCreate := resource.Operations["create"]
-	// _, hasPut := resource.Operations["put"]
+	_, hasCreate := resource.Operations["create"] // in absence of a POST operation, PUT operations are registered as create
 	_, hasRead := resource.Operations["read"]
 
-	createOrPut := hasCreate //|| hasPut
-	if !createOrPut || !hasRead {
+	if !hasCreate || !hasRead {
 		// Return a fundamental inconsistency - resource is not viable for Terraform
 		inconsistency := CRUDInconsistency{
 			PropertyName:      "RESOURCE_VALIDATION",
@@ -229,7 +269,6 @@ func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[str
 		return []CRUDInconsistency{inconsistency}
 	}
 
-	// Validate that we have a create schema
 	if resource.CreateSchema == "" {
 		inconsistency := CRUDInconsistency{
 			PropertyName:      "RESOURCE_VALIDATION",
@@ -240,7 +279,6 @@ func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[str
 		return []CRUDInconsistency{inconsistency}
 	}
 
-	// Get properties from each schema
 	entityProps := getSchemaProperties(schemas, resource.EntityName)
 	createProps := getSchemaProperties(schemas, resource.CreateSchema)
 	updateProps := map[string]interface{}{}
@@ -283,23 +321,13 @@ func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[str
 		}
 	}
 
+	// Need at least some managable properties
+	// if there is aleast one common manageable property, we won't rule it out at this stage
 	if createManageableProps == 0 {
 		inconsistency := CRUDInconsistency{
 			PropertyName:      "RESOURCE_VALIDATION",
 			InconsistencyType: "no-manageable-properties",
 			Description:       "Create schema has no manageable properties (all are system properties)",
-			SchemasToIgnore:   []string{},
-		}
-		return []CRUDInconsistency{inconsistency}
-	}
-
-	// Require reasonable overlap between create and entity schemas
-	overlapRatio := float64(commonManageableProps) / float64(createManageableProps)
-	if overlapRatio < 0.3 { // At least 30% overlap required
-		inconsistency := CRUDInconsistency{
-			PropertyName:      "RESOURCE_VALIDATION",
-			InconsistencyType: "insufficient-schema-overlap",
-			Description:       fmt.Sprintf("Insufficient overlap between create and entity schemas: %.1f%% (%d/%d properties)", overlapRatio*100, commonManageableProps, createManageableProps),
 			SchemasToIgnore:   []string{},
 		}
 		return []CRUDInconsistency{inconsistency}
@@ -322,6 +350,11 @@ func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[str
 	for propName := range allProps {
 		// Skip ID properties - they have separate handling logic
 		if propName == "id" {
+			continue
+		}
+
+		if requiredFields[propName] {
+			// Skip required fields - they should already be handled in normalization
 			continue
 		}
 

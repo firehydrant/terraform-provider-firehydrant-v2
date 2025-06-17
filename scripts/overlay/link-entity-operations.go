@@ -21,12 +21,9 @@ func mapCrudToEntityOperation(crudType, entityName string) string {
 	}
 }
 
-// Simplified pluralization logic
 func pluralizeEntityName(entityName string) string {
-	// Remove "Entity" suffix
 	baseName := strings.TrimSuffix(entityName, "Entity")
 
-	// Simple pluralization
 	if strings.HasSuffix(baseName, "y") && len(baseName) > 1 && !isVowel(baseName[len(baseName)-2]) {
 		baseName = baseName[:len(baseName)-1] + "ies"
 	} else if strings.HasSuffix(baseName, "s") ||

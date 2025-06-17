@@ -44,7 +44,6 @@ func normalizeAdditionalProperties(schemaName string, obj interface{}, path stri
 			conflicts = append(conflicts, nested...)
 		}
 	case []interface{}:
-		// Normalize array items
 		for i, item := range v {
 			newPath := fmt.Sprintf("%s[%d]", path, i)
 			nested := normalizeAdditionalProperties(schemaName, item, newPath)

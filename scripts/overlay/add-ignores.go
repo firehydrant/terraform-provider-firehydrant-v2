@@ -3,7 +3,6 @@ package main
 import "fmt"
 
 func addIgnoreActionsForMismatches(overlay *Overlay, resource *ResourceInfo, mismatches []PropertyMismatch, ignoreTracker map[string]map[string]bool) {
-	// Add speakeasy ignore for create schema properties
 	if resource.CreateSchema != "" {
 		for _, mismatch := range mismatches {
 			// Ignore in request schema
@@ -30,7 +29,6 @@ func addIgnoreActionsForMismatches(overlay *Overlay, resource *ResourceInfo, mis
 		}
 	}
 
-	// Add speakeasy ignore for update schema properties
 	if resource.UpdateSchema != "" {
 		for _, mismatch := range mismatches {
 			// Ignore in request schema
@@ -58,7 +56,7 @@ func addIgnoreActionsForMismatches(overlay *Overlay, resource *ResourceInfo, mis
 	}
 }
 
-func addIgnoreActionsForInconsistencies(overlay *Overlay, resource *ResourceInfo, inconsistencies []CRUDInconsistency, ignoreTracker map[string]map[string]bool) {
+func addIgnoreActionsForInconsistencies(overlay *Overlay, inconsistencies []CRUDInconsistency, ignoreTracker map[string]map[string]bool) {
 	for _, inconsistency := range inconsistencies {
 		// Add ignore actions for each schema listed in SchemasToIgnore
 		for _, schemaName := range inconsistency.SchemasToIgnore {

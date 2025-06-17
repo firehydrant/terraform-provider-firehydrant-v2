@@ -331,8 +331,6 @@ func findAllPathEnumProperties(paths map[string]interface{}) []EnumNormalization
 											reqEnums[j].SchemaName = "RequestBody"
 										}
 										allEnums = append(allEnums, reqEnums...)
-
-										fmt.Printf("📋 Found request body enum in %s %s (%s)\n", method, pathName, contentType)
 									}
 								}
 							}
