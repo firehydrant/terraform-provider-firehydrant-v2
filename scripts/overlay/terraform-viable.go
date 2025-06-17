@@ -30,8 +30,21 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 		return false
 	}
 
+	operationsCopy := make(map[string]OperationInfo)
+	for k, v := range resource.Operations {
+		operationsCopy[k] = v
+	}
+
 	// Validate all operations against the primary ID
-	validOperations := validateOperationParameters(resource, primaryID, spec)
+	validOperations := validateOperationParameters(&ResourceInfo{
+		EntityName:   resource.EntityName,
+		SchemaName:   resource.SchemaName,
+		ResourceName: resource.ResourceName,
+		Operations:   operationsCopy,
+		CreateSchema: resource.CreateSchema,
+		UpdateSchema: resource.UpdateSchema,
+		PrimaryID:    primaryID,
+	}, primaryID, spec)
 
 	// Must still have CREATE and READ after validation
 	_, hasValidCreate := validOperations["create"]
@@ -42,9 +55,11 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 		return false
 	}
 
-	// Update resource with only valid operations and primary ID
-	resource.Operations = validOperations
-	resource.PrimaryID = primaryID
+	// Only update the resource if this is the first validation
+	if resource.PrimaryID == "" {
+		resource.Operations = validOperations
+		resource.PrimaryID = primaryID
+	}
 
 	// Check for overlapping properties between create and entity schemas
 	if !hasValidCreateReadConsistency(resource, spec) {
@@ -336,7 +351,13 @@ func identifyEntityPrimaryID(resource *ResourceInfo, spec OpenAPISpec) (string, 
 	_, hasID := entityProps["id"]
 	_, hasSlug := entityProps["slug"]
 
-	if hasSlug && !hasID {
+	if hasSlug {
+		for param := range allParams {
+			if strings.HasSuffix(param, "_slug") {
+				return param, true
+			}
+		}
+
 		for param := range allParams {
 			if strings.Contains(strings.ToLower(param), "slug") {
 				return param, true
@@ -344,8 +365,26 @@ func identifyEntityPrimaryID(resource *ResourceInfo, spec OpenAPISpec) (string, 
 		}
 	}
 
+	if hasID {
+		entityBase := strings.ToLower(strings.TrimSuffix(resource.EntityName, "Entity"))
+		for param := range allParams {
+			if strings.HasSuffix(param, "_id") {
+				paramBase := strings.TrimSuffix(param, "_id")
+				if strings.Contains(paramBase, entityBase) || strings.Contains(entityBase, paramBase) {
+					return param, true
+				}
+			}
+		}
+	}
+
 	if allParams["id"] {
 		return "id", true
+	}
+
+	if len(allParams) == 1 && (hasID || hasSlug) {
+		for param := range allParams {
+			return param, true
+		}
 	}
 
 	return "", false

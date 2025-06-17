@@ -179,20 +179,44 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 								})
 							}
 						} else {
-							// Avoid creating circular reference by not mapping id -> id or slug -> slug
-							if param != "id" && param != "slug" {
-								primaryIdentifier := "id"
-								if strings.Contains(resource.PrimaryID, "slug") {
-									primaryIdentifier = "slug"
-								}
-								overlay.Actions = append(overlay.Actions, OverlayAction{
-									Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
-										opInfo.Path, opInfo.Method, param),
-									Update: map[string]interface{}{
-										"x-speakeasy-match": primaryIdentifier,
-									},
-								})
+							var targetField string
+
+							// Don't create circular mappings
+							if param == "id" || param == "slug" {
+								continue
 							}
+
+							// Get entity properties to check what fields exist
+							entityProps := getEntityProperties(resource.EntityName, spec)
+							_, hasID := entityProps["id"]
+							_, hasSlug := entityProps["slug"]
+
+							// Determine the target field based on parameter name and entity fields
+							if strings.HasSuffix(param, "_slug") && hasSlug {
+								targetField = "slug"
+							} else if strings.Contains(param, "slug") && hasSlug && !hasID {
+								targetField = "slug"
+							} else if strings.HasSuffix(param, "_id") && hasID {
+								targetField = "id"
+							} else if hasID {
+								targetField = "id"
+							} else if hasSlug {
+								targetField = "slug"
+							} else {
+								fmt.Printf("    Warning: Cannot map parameter %s - entity has neither id nor slug field\n", param)
+								continue
+							}
+
+							overlay.Actions = append(overlay.Actions, OverlayAction{
+								Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
+									opInfo.Path, opInfo.Method, param),
+								Update: map[string]interface{}{
+									"x-speakeasy-match": targetField,
+								},
+							})
+
+							fmt.Printf("    Mapped parameter %s -> %s for %s %s\n",
+								param, targetField, opInfo.Method, opInfo.Path)
 						}
 					}
 				}

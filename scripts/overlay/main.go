@@ -96,7 +96,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	printOverlaySummary(resources, overlay)
+	printOverlaySummary(overlay)
 }
 
 func printUsage() {
@@ -141,18 +141,9 @@ func writeOverlay(overlay *Overlay) error {
 	return nil
 }
 
-func printOverlaySummary(resources map[string]*ResourceInfo, overlay *Overlay) {
-	viableCount := 0
-	for _, resource := range resources {
-		if isTerraformViable(resource, OpenAPISpec{}) {
-			viableCount++
-		}
-	}
-
+func printOverlaySummary(overlay *Overlay) {
 	fmt.Println("\n=== Summary ===")
 	fmt.Printf("✅ Successfully generated overlay with %d actions\n", len(overlay.Actions))
-	fmt.Printf("📊 Resources: %d total, %d viable for Terraform, %d skipped\n",
-		len(resources), viableCount, len(resources)-viableCount)
 
 	fmt.Println("\nOverlay approach:")
 	fmt.Println("1. Load manual mappings for edge cases")
