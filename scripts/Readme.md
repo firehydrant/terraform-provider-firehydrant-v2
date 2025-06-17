@@ -152,12 +152,6 @@ Run scripts locally. Use `speakeasy run` to attempt to generate the provider.
 If issues persist, compare normalization script output and generated overlay.
 To view the combined normalized spec + overlay run `speakeasy overlay apply -s {specPath} -o {overlayPath} > {outputPath}` This output will always be in yaml, so name accordingly
 
-Lint the spec with `speakeasy openapi`, select lint and follow prompts
-
-To focus on a sub-section of the spec:
-Collect the operationIds that encompass your desired scope, e.g. create_incident,get_incident,delete_incident
-Run `speakeasy openapi` and select transform, continue past prompts until you see `transform remove-unused` or `schema to transform` prompt. Enter the operationIds, follow prompts. A smaller version of the spec will be created for testing/debugging.
-
 ## Integration
 
 This pipeline is typically run as part of a GitHub Action:
