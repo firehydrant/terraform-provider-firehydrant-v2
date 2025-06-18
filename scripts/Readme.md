@@ -161,7 +161,7 @@ The overlay generation will:
 4. Mark `settings.last_login` as `x-speakeasy-param-readonly`
 5. Keep `settings.theme` and `settings.notifications` manageable
 
-## Debugging
+## Script Debugging
 
 Run scripts locally. Use `speakeasy run` to attempt to generate the provider.
 
@@ -196,3 +196,31 @@ This pipeline is typically run as part of a GitHub Action:
 ```
 
 The generated overlay is then used by Speakeasy to create the Terraform provider.
+
+## Provider Local Testing
+
+After `speakeasy run` has successfully completed. 
+Add dev.tfrc to directory root (this sometimes needs to be named .terraformrc)
+```
+provider_installation {
+  dev_overrides {
+    "registry.terraform.io/firehydrant/firehydrant" = "/Users/jonahstewart/Developer/terraform-provider-firehydrant-v2"
+  }
+  
+  # For all other providers, install them directly from their origin provider
+  # registries as normal. If you omit this, Terraform will _only_ use
+  # the dev_overrides block, and so no other providers will be available.
+  direct {}
+}
+```
+This will tell terraform to use your local build instead of downloading the latest published version
+
+Add a test.tf terraform config to the root directory for your chosen resource testing, Can be modeled after the corresponding entity file in docs>resources, which will be generated with `speakeasy run`.
+
+add terraform.tfvars to directory root with:
+``` 
+api_key = {staging apikey}
+```
+
+Run `go build -o terraform-provider-firehydrant` so you have a local binary to use
+after that you can terraform init, plan, apply, destroy etc to test against staging
