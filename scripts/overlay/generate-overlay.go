@@ -53,29 +53,21 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	fmt.Printf("Viable for Terraform: %d\n", len(viableResources))
 	fmt.Printf("Skipped (non-viable): %d\n", len(skippedResources))
 
-	// Helpful for debugging
-	// if len(skippedResources) > 0 {
-	// 	fmt.Printf("\nSkipped resources:\n")
-	// 	for _, skipped := range skippedResources {
-	// 		fmt.Printf("  - %s\n", skipped)
-	// 	}
-	// }
-
 	overlay.Info.Description = fmt.Sprintf("Auto-generated overlay for %d viable Terraform resources", len(viableResources))
 
-	resourceMismatches := detectPropertyMismatches(viableResources, spec)
-
-	resourceCRUDInconsistencies := detectCRUDInconsistencies(viableResources, spec)
-
-	ignoreTracker := make(map[string]map[string]bool)
-
-	requiredFieldsMap := make(map[string]map[string]bool)
 	specData, _ := json.Marshal(spec)
 	var rawSpec map[string]interface{}
 	json.Unmarshal(specData, &rawSpec)
 	components, _ := rawSpec["components"].(map[string]interface{})
 	schemas, _ := components["schemas"].(map[string]interface{})
 
+	resourceMismatches := detectPropertyMismatches(viableResources, spec)
+	resourceCRUDInconsistencies := detectCRUDInconsistencies(viableResources, spec)
+
+	ignoreTracker := make(map[string]map[string]bool)
+	readonlyTracker := make(map[string]map[string]bool)
+
+	requiredFieldsMap := make(map[string]map[string]bool)
 	for _, resource := range viableResources {
 		requiredFields := make(map[string]bool)
 		if resource.CreateSchema != "" {
@@ -105,6 +97,9 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		if ignoreTracker[resource.EntityName] == nil {
 			ignoreTracker[resource.EntityName] = make(map[string]bool)
 		}
+		if readonlyTracker[resource.EntityName] == nil {
+			readonlyTracker[resource.EntityName] = make(map[string]bool)
+		}
 		if resource.CreateSchema != "" && ignoreTracker[resource.CreateSchema] == nil {
 			ignoreTracker[resource.CreateSchema] = make(map[string]bool)
 		}
@@ -114,36 +109,72 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 
 		requiredFields := requiredFieldsMap[resource.EntityName]
 
+		entitySchema, _ := schemas[resource.EntityName].(map[string]interface{})
+		var createSchema map[string]interface{}
+		var updateSchema map[string]interface{}
+
+		if resource.CreateSchema != "" {
+			createSchema, _ = schemas[resource.CreateSchema].(map[string]interface{})
+		}
+		if resource.UpdateSchema != "" {
+			updateSchema, _ = schemas[resource.UpdateSchema].(map[string]interface{})
+		}
+
+		readonlyActions := detectReadonlyFields(resource.EntityName, entitySchema, createSchema, updateSchema, schemas)
+		for _, action := range readonlyActions {
+			// Extract property name from target for tracking
+			parts := strings.Split(action.Target, ".")
+			if len(parts) >= 4 && parts[len(parts)-2] == "properties" {
+				propName := parts[len(parts)-1]
+				if !readonlyTracker[resource.EntityName][propName] {
+					overlay.Actions = append(overlay.Actions, action)
+					readonlyTracker[resource.EntityName][propName] = true
+				}
+			}
+		}
+
+		// Handle mismatches - but skip if property was normalized
 		if mismatches, exists := resourceMismatches[resource.EntityName]; exists {
 			for _, mismatch := range mismatches {
+				// Check if this property should be skipped (was normalized)
+				if shouldSkipIgnore(resource.EntityName, mismatch.PropertyName, viableResources, spec) {
+					continue
+				}
+
 				if requiredFields[mismatch.PropertyName] {
 					if resource.CreateSchema != "" {
 						overlay.Actions = append(overlay.Actions, OverlayAction{
-							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.CreateSchema, mismatch.PropertyName),
+							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s",
+								resource.CreateSchema, mismatch.PropertyName),
 							Update: map[string]interface{}{
 								"x-speakeasy-param-optional": true,
 							},
 						})
 					}
 				} else {
-					addIgnoreActionsForMismatches(overlay, resource, mismatches, ignoreTracker)
+					addIgnoreActionsForMismatches(overlay, resource, []PropertyMismatch{mismatch}, ignoreTracker)
 				}
 			}
 		}
 
 		if inconsistencies, exists := resourceCRUDInconsistencies[resource.EntityName]; exists {
 			for _, inconsistency := range inconsistencies {
+				if shouldSkipIgnore(resource.EntityName, inconsistency.PropertyName, viableResources, spec) {
+					continue
+				}
+
 				if requiredFields[inconsistency.PropertyName] {
 					if resource.CreateSchema != "" {
 						overlay.Actions = append(overlay.Actions, OverlayAction{
-							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.CreateSchema, inconsistency.PropertyName),
+							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s",
+								resource.CreateSchema, inconsistency.PropertyName),
 							Update: map[string]interface{}{
 								"x-speakeasy-param-optional": true,
 							},
 						})
 					}
 				} else {
-					addIgnoreActionsForInconsistencies(overlay, inconsistencies, ignoreTracker)
+					addIgnoreActionsForInconsistencies(overlay, []CRUDInconsistency{inconsistency}, ignoreTracker)
 				}
 			}
 		}
@@ -214,9 +245,6 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 									"x-speakeasy-match": targetField,
 								},
 							})
-
-							fmt.Printf("    Mapped parameter %s -> %s for %s %s\n",
-								param, targetField, opInfo.Method, opInfo.Path)
 						}
 					}
 				}
@@ -251,6 +279,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 
 	totalIgnores := 0
 	totalMatches := 0
+	totalReadonly := 0
 	for _, action := range overlay.Actions {
 		if _, hasIgnore := action.Update["x-speakeasy-ignore"]; hasIgnore {
 			totalIgnores++
@@ -258,13 +287,19 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		if _, hasMatch := action.Update["x-speakeasy-match"]; hasMatch {
 			totalMatches++
 		}
+		if _, hasReadonly := action.Update["x-speakeasy-param-readonly"]; hasReadonly {
+			totalReadonly++
+		}
 	}
 
 	if totalIgnores > 0 {
-		fmt.Printf("✅ %d speakeasy ignore actions added for property issues\n", totalIgnores)
+		fmt.Printf("✅ %d speakeasy ignore actions added for unresolved property issues\n", totalIgnores)
 	}
 	if totalMatches > 0 {
 		fmt.Printf("✅ %d speakeasy match actions added for primary ID parameters\n", totalMatches)
+	}
+	if totalReadonly > 0 {
+		fmt.Printf("✅ %d speakeasy readonly actions added for computed fields\n", totalReadonly)
 	}
 
 	return overlay

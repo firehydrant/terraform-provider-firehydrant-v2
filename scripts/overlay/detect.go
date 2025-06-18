@@ -3,6 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+
+	"github.com/firehydrant/terraform-provider-firehydrant/scripts/common"
 )
 
 type PropertyMismatch struct {
@@ -33,6 +36,12 @@ func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISp
 
 	components, _ := rawSpec["components"].(map[string]interface{})
 	schemas, _ := components["schemas"].(map[string]interface{})
+
+	for _, schema := range schemas {
+		if schemaMap, ok := schema.(map[string]interface{}); ok {
+			schemaMap["__spec"] = rawSpec
+		}
+	}
 
 	requiredFieldsMap := make(map[string]map[string]bool)
 	for _, resource := range resources {
@@ -66,7 +75,6 @@ func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISp
 			}
 		}
 
-		// Check update operation mismatches
 		if resource.UpdateSchema != "" {
 			if entitySchema, exists := schemas[resource.EntityName].(map[string]interface{}); exists {
 				if requestSchema, exists := schemas[resource.UpdateSchema].(map[string]interface{}); exists {
@@ -78,6 +86,12 @@ func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISp
 
 		if len(resourceMismatches) > 0 {
 			mismatches[resource.EntityName] = resourceMismatches
+		}
+	}
+
+	for _, schema := range schemas {
+		if schemaMap, ok := schema.(map[string]interface{}); ok {
+			delete(schemaMap, "__spec")
 		}
 	}
 
@@ -94,6 +108,10 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 		return mismatches
 	}
 
+	spec, _ := entitySchema["__spec"].(map[string]interface{})
+	components, _ := spec["components"].(map[string]interface{})
+	schemas, _ := components["schemas"].(map[string]interface{})
+
 	for propName, entityProp := range entityProps {
 		if requestProp, exists := requestProps[propName]; exists {
 			// Skip required fields, they should already be handled in normalization
@@ -101,13 +119,18 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 			if requiredFields[propName] {
 				continue
 			}
-			if hasStructuralMismatch(entityProp, requestProp) {
-				mismatch := PropertyMismatch{
-					PropertyName: propName,
-					MismatchType: "structural-mismatch",
-					Description:  describeStructuralDifference(entityProp, requestProp),
+
+			// Use deep comparison that follows refs
+			if schemas != nil && !common.ComparePropertyStructures(entityProp, requestProp, schemas) {
+				// Check if this is a fundamental mismatch that normalization couldn't fix
+				if hasStructuralMismatch(entityProp, requestProp) {
+					mismatch := PropertyMismatch{
+						PropertyName: propName,
+						MismatchType: "structural-mismatch",
+						Description:  describeStructuralDifference(entityProp, requestProp),
+					}
+					mismatches = append(mismatches, mismatch)
 				}
-				mismatches = append(mismatches, mismatch)
 			}
 		}
 	}
@@ -115,11 +138,40 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 	return mismatches
 }
 
-// Check if two property structures are different
+// The normalization phase should have already fixed most structural issues, this will locate any mismatches that could not be normalized
 func hasStructuralMismatch(entityProp, requestProp interface{}) bool {
 	entityStructure := getPropertyStructure(entityProp)
 	requestStructure := getPropertyStructure(requestProp)
-	return entityStructure != requestStructure
+
+	// If structures are fundamentally incompatible (e.g., string vs object)
+	// and couldn't be normalized, then we have a mismatch
+	if entityStructure != requestStructure {
+		entityType := extractBaseType(entityStructure)
+		requestType := extractBaseType(requestStructure)
+
+		// These cases should have been normalized, so if they still differ, it's a real mismatch
+		if entityType == requestType {
+			// If the underlying types are the same, assume normalization fixed this
+			return false
+		}
+
+		return true
+	}
+
+	return false
+}
+
+func extractBaseType(structure string) string {
+	if strings.HasPrefix(structure, "array[") {
+		return "array"
+	}
+	if strings.HasPrefix(structure, "object") {
+		return "object"
+	}
+	if strings.HasPrefix(structure, "$ref:") {
+		return "ref"
+	}
+	return structure
 }
 
 // Get a normalized string representation of a property's structure
@@ -414,4 +466,225 @@ func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[str
 	}
 
 	return inconsistencies
+}
+
+// isComputedField checks if a field name appears to be computed/readonly
+func isComputedField(fieldName string) bool {
+	// Most of these are specific to runbook steps
+	computedPatterns := []string{
+		"created_at", "updated_at", "created_by", "updated_by",
+		"is_editable", "votes", "categories", "runbook_template_id",
+		"action_elements", "step_elements", "automatic", "repeats",
+		"repeats_duration", "delay_duration", "reruns",
+	}
+
+	lowerField := strings.ToLower(fieldName)
+	for _, pattern := range computedPatterns {
+		if lowerField == pattern || strings.HasSuffix(lowerField, "_"+pattern) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// detectReadonlyFields finds fields that exist only in response and marks them readonly
+func detectReadonlyFields(entityName string, entitySchema, createSchema, updateSchema map[string]interface{},
+	schemas map[string]interface{}) []OverlayAction {
+
+	var actions []OverlayAction
+
+	entityProps, _ := entitySchema["properties"].(map[string]interface{})
+	createProps := make(map[string]interface{})
+	updateProps := make(map[string]interface{})
+
+	if createSchema != nil {
+		createProps, _ = createSchema["properties"].(map[string]interface{})
+	}
+	if updateSchema != nil {
+		updateProps, _ = updateSchema["properties"].(map[string]interface{})
+	}
+
+	for propName, entityProp := range entityProps {
+		_, inCreate := createProps[propName]
+		_, inUpdate := updateProps[propName]
+
+		// If not in any request schema, it's readonly
+		if !inCreate && !inUpdate {
+			// Skip if it's a system field that we expect to be readonly
+			if propName == "id" || propName == "slug" {
+				continue
+			}
+
+			actions = append(actions, OverlayAction{
+				Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", entityName, propName),
+				Update: map[string]interface{}{
+					"x-speakeasy-param-readonly": true,
+				},
+			})
+
+			// For nested objects, mark their properties as readonly too
+			if entityPropMap, ok := entityProp.(map[string]interface{}); ok {
+				if nestedProps, ok := entityPropMap["properties"].(map[string]interface{}); ok {
+					for nestedPropName := range nestedProps {
+						actions = append(actions, OverlayAction{
+							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s.properties.%s",
+								entityName, propName, nestedPropName),
+							Update: map[string]interface{}{
+								"x-speakeasy-param-readonly": true,
+							},
+						})
+					}
+				}
+			}
+		} else {
+			// Property exists in request - check nested properties for partial readonly
+			actions = append(actions, detectNestedReadonlyFields(entityName, propName,
+				entityProp, createProps[propName], updateProps[propName], schemas)...)
+		}
+	}
+
+	return actions
+}
+
+// detectNestedReadonlyFields checks for readonly nested properties within manageable fields
+func detectNestedReadonlyFields(entityName, propName string, entityProp, createProp, updateProp interface{},
+	schemas map[string]interface{}) []OverlayAction {
+
+	var actions []OverlayAction
+
+	// Resolve any refs
+	entityResolved, _ := common.GetResolvedPropertyType(entityProp, schemas)
+	createResolved, _ := common.GetResolvedPropertyType(createProp, schemas)
+	updateResolved, _ := common.GetResolvedPropertyType(updateProp, schemas)
+
+	// For objects, check nested properties
+	if entityResolved != nil && entityResolved["type"] == "object" {
+		entityNestedProps, _ := entityResolved["properties"].(map[string]interface{})
+		createNestedProps := make(map[string]interface{})
+		updateNestedProps := make(map[string]interface{})
+
+		if createResolved != nil {
+			createNestedProps, _ = createResolved["properties"].(map[string]interface{})
+		}
+		if updateResolved != nil {
+			updateNestedProps, _ = updateResolved["properties"].(map[string]interface{})
+		}
+
+		// Check each nested property
+		for nestedPropName := range entityNestedProps {
+			_, inCreate := createNestedProps[nestedPropName]
+			_, inUpdate := updateNestedProps[nestedPropName]
+
+			if !inCreate && !inUpdate {
+				actions = append(actions, OverlayAction{
+					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s.properties.%s",
+						entityName, propName, nestedPropName),
+					Update: map[string]interface{}{
+						"x-speakeasy-param-readonly": true,
+					},
+				})
+			}
+		}
+	}
+
+	// For arrays of objects, check item properties
+	if entityResolved != nil && entityResolved["type"] == "array" {
+		if items, ok := entityResolved["items"].(map[string]interface{}); ok {
+			if itemProps, ok := items["properties"].(map[string]interface{}); ok {
+				// Get request item properties
+				createItemProps := make(map[string]interface{})
+				updateItemProps := make(map[string]interface{})
+
+				if createResolved != nil {
+					if createItems, ok := createResolved["items"].(map[string]interface{}); ok {
+						createItemProps, _ = createItems["properties"].(map[string]interface{})
+					}
+				}
+				if updateResolved != nil {
+					if updateItems, ok := updateResolved["items"].(map[string]interface{}); ok {
+						updateItemProps, _ = updateItems["properties"].(map[string]interface{})
+					}
+				}
+
+				// Check each item property
+				for itemPropName := range itemProps {
+					_, inCreate := createItemProps[itemPropName]
+					_, inUpdate := updateItemProps[itemPropName]
+
+					if !inCreate && !inUpdate || isComputedField(itemPropName) {
+						actions = append(actions, OverlayAction{
+							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s.items.properties.%s",
+								entityName, propName, itemPropName),
+							Update: map[string]interface{}{
+								"x-speakeasy-param-readonly": true,
+							},
+						})
+					}
+				}
+			}
+		}
+	}
+
+	return actions
+}
+
+// shouldSkipIgnore checks if we should skip adding x-speakeasy-ignore for a property
+// because it has been normalized and is now manageable
+func shouldSkipIgnore(entityName, propName string, resources map[string]*ResourceInfo,
+	spec OpenAPISpec) bool {
+
+	// Get the resource info
+	var resource *ResourceInfo
+	for _, res := range resources {
+		if res.EntityName == entityName {
+			resource = res
+			break
+		}
+	}
+
+	if resource == nil {
+		return false
+	}
+
+	// Convert spec to raw format for analysis
+	specData, _ := json.Marshal(spec)
+	var rawSpec map[string]interface{}
+	json.Unmarshal(specData, &rawSpec)
+	components, _ := rawSpec["components"].(map[string]interface{})
+	schemas, _ := components["schemas"].(map[string]interface{})
+
+	// Get schemas
+	entitySchema, _ := schemas[entityName].(map[string]interface{})
+	createSchema, _ := schemas[resource.CreateSchema].(map[string]interface{})
+	updateSchema, _ := schemas[resource.UpdateSchema].(map[string]interface{})
+
+	// Check if property exists in entity
+	entityProps, _ := entitySchema["properties"].(map[string]interface{})
+	entityProp, existsInEntity := entityProps[propName]
+	if !existsInEntity {
+		return false
+	}
+
+	// Check if property exists in request schemas
+	existsInCreate := false
+	existsInUpdate := false
+
+	if createSchema != nil {
+		createProps, _ := createSchema["properties"].(map[string]interface{})
+		_, existsInCreate = createProps[propName]
+	}
+
+	if updateSchema != nil {
+		updateProps, _ := updateSchema["properties"].(map[string]interface{})
+		_, existsInUpdate = updateProps[propName]
+	}
+
+	if existsInCreate || existsInUpdate {
+		if entityProp != nil {
+			return true // Assume normalized properties shouldn't be ignored
+		}
+	}
+
+	return false
 }

@@ -8,7 +8,6 @@ import (
 
 // Check if a resource is viable for Terraform
 func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
-	fmt.Printf("Validating resource %v (%v)\n", resource.ResourceName, resource.EntityName)
 	// Must have at least create and read operations
 	_, hasCreate := resource.Operations["create"]
 	_, hasRead := resource.Operations["read"]
@@ -212,7 +211,6 @@ func hasValidCreateReadConsistency(resource *ResourceInfo, spec OpenAPISpec) boo
 	if resource.CreateSchema == "" {
 		return false
 	}
-	fmt.Printf("    Checking create/read consistency for %v\n", resource.ResourceName)
 
 	specData, err := json.Marshal(spec)
 	if err != nil {

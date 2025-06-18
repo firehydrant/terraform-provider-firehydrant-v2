@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+
+	"github.com/firehydrant/terraform-provider-firehydrant/scripts/common"
 )
 
 func normalizeSpec(spec map[string]interface{}) NormalizationReport {
@@ -20,6 +22,13 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 	if !ok {
 		fmt.Println("Warning: No schemas found in components")
 		return report
+	}
+
+	// Add spec reference to each schema for context during normalization
+	for _, schema := range schemas {
+		if schemaMap, ok := schema.(map[string]interface{}); ok {
+			schemaMap["__spec"] = spec
+		}
 	}
 
 	paths, pathsOk := spec["paths"].(map[string]interface{})
@@ -66,6 +75,13 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 				conflicts := normalizeSchemas(entityName, entitySchema, updateSchema, requiredFields)
 				report.ConflictDetails = append(report.ConflictDetails, conflicts...)
 			}
+		}
+	}
+
+	// Clean up spec reference
+	for _, schema := range schemas {
+		if schemaMap, ok := schema.(map[string]interface{}); ok {
+			delete(schemaMap, "__spec")
 		}
 	}
 
@@ -255,7 +271,7 @@ func normalizeSchemas(entityName string, entitySchema map[string]interface{},
 		return conflicts
 	}
 
-	// Add ALL required fields that are missing
+	// First pass: Add ALL required fields that are missing (existing logic)
 	for propName := range requiredFields {
 		requestProp, existsInRequest := requestProps[propName]
 		if !existsInRequest {
@@ -284,16 +300,53 @@ func normalizeSchemas(entityName string, entitySchema map[string]interface{},
 		}
 	}
 
-	// Check and fix ALL properties (including required ones that now exist)
+	// Second pass: Check and fix ALL properties with deep structure analysis
+	// Get schemas for ref resolution
+	spec, _ := entitySchema["__spec"].(map[string]interface{})
+	components, _ := spec["components"].(map[string]interface{})
+	schemas, _ := components["schemas"].(map[string]interface{})
+
 	for propName, requestProp := range requestProps {
 		entityProp, exists := entityProps[propName]
+
 		if exists {
-			isRequired := requiredFields[propName]
-			conflict := checkAndFixProperty(entityName, propName, entityProp, requestProp,
-				entityProps, requestProps, isRequired)
-			if conflict != nil {
-				conflicts = append(conflicts, *conflict)
+			// Property exists in both - check if structures match
+			if !common.ComparePropertyStructures(entityProp, requestProp, schemas) {
+				// Structures don't match - normalize the entity property
+				normalized := normalizePropertyStructure(entityProp, requestProp, schemas, propName)
+				entityProps[propName] = normalized
+
+				conflicts = append(conflicts, ConflictDetail{
+					Schema:       entityName,
+					Property:     propName,
+					ConflictType: "structure-normalized",
+					Resolution:   fmt.Sprintf("Normalized structure of '%s' to match request schema", propName),
+				})
+			} else {
+				// Structures match but check for the existing special cases
+				isRequired := requiredFields[propName]
+				conflict := checkAndFixProperty(entityName, propName, entityProp, requestProp,
+					entityProps, requestProps, isRequired)
+				if conflict != nil {
+					conflicts = append(conflicts, *conflict)
+				}
 			}
+		} else {
+			// Property missing in entity - add it
+			copiedProp := deepCopyProperties(requestProp)
+
+			if propMap, ok := copiedProp.(map[string]interface{}); ok {
+				propMap["nullable"] = true
+			}
+
+			entityProps[propName] = copiedProp
+
+			conflicts = append(conflicts, ConflictDetail{
+				Schema:       entityName,
+				Property:     propName,
+				ConflictType: "missing-field",
+				Resolution:   fmt.Sprintf("Added missing field '%s' from request to entity", propName),
+			})
 		}
 	}
 
@@ -448,4 +501,69 @@ func deepCopyProperties(props interface{}) interface{} {
 	default:
 		return v
 	}
+}
+
+// normalizePropertyStructure aligns entity property structure with request property structure
+func normalizePropertyStructure(entityProp, requestProp interface{}, schemas map[string]interface{}, propName string) interface{} {
+	requestResolved, requestType := common.GetResolvedPropertyType(requestProp, schemas)
+	entityResolved, _ := common.GetResolvedPropertyType(entityProp, schemas)
+
+	if requestResolved == nil {
+		return entityProp
+	}
+
+	normalized := make(map[string]interface{})
+
+	if propType, ok := requestResolved["type"].(string); ok {
+		normalized["type"] = propType
+	}
+	if description, ok := requestResolved["description"].(string); ok {
+		normalized["description"] = description
+	}
+
+	// Always make nullable in entity as it might not be returned by API
+	normalized["nullable"] = true
+
+	if propType, _ := requestResolved["type"].(string); propType == "object" {
+		if requestProps, ok := requestResolved["properties"].(map[string]interface{}); ok {
+			normalizedProps := make(map[string]interface{})
+
+			for subPropName, requestSubProp := range requestProps {
+				normalizedProps[subPropName] = deepCopyProperties(requestSubProp)
+			}
+
+			if entityResolved != nil {
+				if entityProps, ok := entityResolved["properties"].(map[string]interface{}); ok {
+					for subPropName, entitySubProp := range entityProps {
+						if _, existsInRequest := requestProps[subPropName]; !existsInRequest {
+							// This is a computed field, keep it as-is
+							normalizedProps[subPropName] = entitySubProp
+						}
+					}
+				}
+			}
+
+			normalized["properties"] = normalizedProps
+		}
+
+		if required, ok := requestResolved["required"].([]interface{}); ok {
+			normalized["required"] = required
+		}
+	} else if propType, _ := requestResolved["type"].(string); propType == "array" {
+		if requestItems, ok := requestResolved["items"].(map[string]interface{}); ok {
+			if entityResolved != nil && entityResolved["items"] != nil {
+				normalized["items"] = normalizePropertyStructure(entityResolved["items"], requestItems, schemas, propName+"[]")
+			} else {
+				normalized["items"] = deepCopyProperties(requestItems)
+			}
+		}
+	}
+
+	if entityMap, ok := entityProp.(map[string]interface{}); ok {
+		if ref, hadRef := entityMap["$ref"].(string); hadRef && requestType == "inline" {
+			fmt.Printf("      Normalized %s: inlined $ref %s to match request structure\n", propName, ref)
+		}
+	}
+
+	return normalized
 }
