@@ -3,6 +3,8 @@
 # - "entity": Force operation to map to specific entity (value = entity name)
 # - "match": Override parameter mapping (value = "param_name:field_name")
 # - "ignore_property": Ignore a specific property on an entity, specify schema and property
+# - "additional_properties": Add additionalProperties: true to a specific property on an entity, specify schema and property
+#    this is a workaround for empty hashes in our Grape API
 
 operations:
   # IGNORE: Skip operations that shouldn't be treated as entity operations
@@ -100,6 +102,160 @@ operations:
     action: "entity"
     value: "Signals_API_GroupingEntity"
 
+# Signals Escalation Policies
+  # - path "/v1/signals/escalation_policies"
+  #   method: "get"
+  #   action: "entity"
+  #   value: "Signals_API_EscalationPolicyEntity"
+
+# Additional Property Mappings
+  - action: "additional_properties"
+    schema: "Attachments_TypedAttachmentEntity"
+    property: "attributes"
+    
+  - action: "additional_properties"
+    schema: "ChangeEntity"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "ChangeEventEntity"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "update_change_event"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "create_change_event"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "ChecklistTemplateEntity"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "ErrorEntity"
+    property: "meta"
+    
+  - action: "additional_properties"
+    schema: "FunctionalityEntity"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "create_functionality"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "FunctionalityEntity"
+    property: "services.labels"
+    
+  - action: "additional_properties"
+    schema: "IncidentTypeEntity_TemplateEntity"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "Rules_RuleEntity"
+    property: "logic"
+    
+  - action: "additional_properties"
+    schema: "RunbookEntity"
+    property: "steps.action_elements.items"
+    
+  - action: "additional_properties"
+    schema: "RunbookEntity"
+    property: "config.properties"
+    
+  - action: "additional_properties"
+    schema: "RunbookEntity"
+    property: "step_elements"
+
+  - action: "additional_properties"
+    schema: "RunbookStepEntity"
+    property: "action_elements.items"
+
+  - action: "additional_properties"
+    schema: "RunbookStepEntity"
+    property: "config.properties"
+
+  - action: "additional_properties"
+    schema: "RunbookStepEntity"
+    property: "step_elements.items"
+
+  - action: "additional_properties"
+    schema: "Runbooks_ActionsEntity"
+    property: "default_logic"
+
+  - action: "additional_properties"
+    schema: "Runbooks_Action_Entity"
+    property: "default_rule_data"
+
+  - action: "additional_properties"
+    schema: "RunbooksAction_entity"
+    property: "prerequisites"
+
+  - action: "additional_properties"
+    schema: "SavedSearchEntity"
+    property: "filter_values"
+
+  - action: "additional_properties"
+    schema: "ServiceEntity"
+    property: "functionalities.items.labels"
+
+  - action: "additional_properties"
+    schema: "ServiceEntity" 
+    property: "functionalities.labels"
+
+  - action: "additional_properties"
+    schema: "ServiceEntity"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "Ticketing_projectConfigEntity"
+    property: "details"
+
+  - action: "additional_properties"
+    schema: "Ticketing_ProjectFieldMapBodyEntity"
+    property: "user_data"
+
+  - action: "additional_properties"
+    schema: "Ticketing_ProjectFieldMapCasesEntity"
+    property: "logic"
+
+  - action: "additional_properties"
+    schema: "create_functionality"
+    property: "external_resources.labels"
+
+  - action: "additional_properties"
+    schema: "create_incident_type"
+    property: "template.labels"
+
+  - action: "additional_properties"
+    schema: "create_scim_user"  
+    property: "roles"
+
+  - action: "additional_properties"
+    schema: "create_service"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "update_functionality"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "update_incident_type"
+    property: "template.labels"
+
+  - action: "additional_properties"
+    schema: "update_saved_search"
+    property: "filter_values"
+
+  - action: "additional_properties"
+    schema: "update_scim_user"
+    property: "roles"
+
+  - action: "additional_properties"
+    schema: "update_service"
+    property: "labels"
 
 # Entity Level Property Ignoring - only work for top level properties
   - action: "ignore_property"

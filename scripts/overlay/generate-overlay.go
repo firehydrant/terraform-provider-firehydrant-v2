@@ -66,6 +66,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 
 	ignoreTracker := make(map[string]map[string]bool)
 	readonlyTracker := make(map[string]map[string]bool)
+	additionalPropsTracker := make(map[string]map[string]bool) // New tracker
 
 	requiredFieldsMap := make(map[string]map[string]bool)
 	for _, resource := range viableResources {
@@ -82,6 +83,77 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 			}
 		}
 		requiredFieldsMap[resource.EntityName] = requiredFields
+	}
+
+	additionalPropsMappings := getAdditionalPropertiesMappings(manualMappings)
+
+	fmt.Printf("\n=== Applying Additional Properties Mappings ===\n")
+	for schemaName, properties := range additionalPropsMappings {
+		if additionalPropsTracker[schemaName] == nil {
+			additionalPropsTracker[schemaName] = make(map[string]bool)
+		}
+
+		for _, propertyPath := range properties {
+			// Skip if already processed
+			if additionalPropsTracker[schemaName][propertyPath] {
+				continue
+			}
+
+			targetPath := buildAdditionalPropertiesPath(schemaName, propertyPath)
+
+			// Add additionalProperties: true
+			overlay.Actions = append(overlay.Actions, OverlayAction{
+				Target: targetPath,
+				Update: map[string]interface{}{
+					"additionalProperties": true,
+				},
+			})
+
+			// Check if this is an entity schema (not a request schema)
+			isEntitySchema := false
+			for _, resource := range viableResources {
+				if resource.EntityName == schemaName {
+					isEntitySchema = true
+					break
+				}
+			}
+
+			// ALWAYS mark as readonly when applying to any entity schema
+			// This is to prevent idempedance errors during generation, as the request schema frequently has a different type for the given field
+			if isEntitySchema {
+				// Initialize readonly tracker for this schema if needed
+				if readonlyTracker[schemaName] == nil {
+					readonlyTracker[schemaName] = make(map[string]bool)
+				}
+
+				// For the actual property that has additionalProperties
+				// We need to mark it as readonly at the exact same path
+				readonlyTarget := targetPath
+
+				// Also track the top-level property for ignore prevention
+				propParts := strings.Split(propertyPath, ".")
+				topLevelProp := propParts[0]
+
+				// Mark the actual property (at same path as additionalProperties) as readonly
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: readonlyTarget,
+					Update: map[string]interface{}{
+						"x-speakeasy-param-readonly": true,
+					},
+				})
+
+				// Track both the full path and top-level property
+				readonlyTracker[schemaName][propertyPath] = true
+				readonlyTracker[schemaName][topLevelProp] = true
+
+				fmt.Printf("  Added additionalProperties: true to %s.%s (with readonly at same path)\n",
+					schemaName, propertyPath)
+			} else {
+				fmt.Printf("  Added additionalProperties: true to %s.%s\n", schemaName, propertyPath)
+			}
+
+			additionalPropsTracker[schemaName][propertyPath] = true
+		}
 	}
 
 	for _, resource := range viableResources {
@@ -252,6 +324,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		}
 	}
 
+	// Apply manual property ignores
 	manualPropertyIgnores := getManualPropertyIgnores(manualMappings)
 	for schemaName, properties := range manualPropertyIgnores {
 		for _, propertyName := range properties {
@@ -277,9 +350,12 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	fmt.Printf("\n=== Overlay Generation Complete ===\n")
 	fmt.Printf("Generated %d actions for %d viable resources\n", len(overlay.Actions), len(viableResources))
 
+	// Count different types of actions
 	totalIgnores := 0
 	totalMatches := 0
 	totalReadonly := 0
+	totalAdditionalProps := 0
+
 	for _, action := range overlay.Actions {
 		if _, hasIgnore := action.Update["x-speakeasy-ignore"]; hasIgnore {
 			totalIgnores++
@@ -290,8 +366,14 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		if _, hasReadonly := action.Update["x-speakeasy-param-readonly"]; hasReadonly {
 			totalReadonly++
 		}
+		if val, hasAdditional := action.Update["additionalProperties"]; hasAdditional && val == true {
+			totalAdditionalProps++
+		}
 	}
 
+	if totalAdditionalProps > 0 {
+		fmt.Printf("✅ %d additionalProperties actions added for flexible schema fields\n", totalAdditionalProps)
+	}
 	if totalIgnores > 0 {
 		fmt.Printf("✅ %d speakeasy ignore actions added for unresolved property issues\n", totalIgnores)
 	}
@@ -299,7 +381,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		fmt.Printf("✅ %d speakeasy match actions added for primary ID parameters\n", totalMatches)
 	}
 	if totalReadonly > 0 {
-		fmt.Printf("✅ %d speakeasy readonly actions added for computed fields\n", totalReadonly)
+		fmt.Printf("✅ %d speakeasy readonly actions added (includes computed fields and additional properties)\n", totalReadonly)
 	}
 
 	return overlay

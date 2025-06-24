@@ -120,3 +120,33 @@ func getManualPropertyIgnores(manualMappings *ManualMappings) map[string][]strin
 
 	return ignores
 }
+
+// Add this function in the same file as your other manual mapping functions
+func getAdditionalPropertiesMappings(manualMappings *ManualMappings) map[string][]string {
+	additionalProps := make(map[string][]string)
+
+	for _, mapping := range manualMappings.Operations {
+		if mapping.Action == "additional_properties" && mapping.Schema != "" && mapping.Property != "" {
+			additionalProps[mapping.Schema] = append(additionalProps[mapping.Schema], mapping.Property)
+		}
+	}
+
+	return additionalProps
+}
+
+// Add this helper function for building paths
+func buildAdditionalPropertiesPath(schemaName string, propertyPath string) string {
+	parts := strings.Split(propertyPath, ".")
+	path := fmt.Sprintf("$.components.schemas.%s", schemaName)
+
+	for _, part := range parts {
+		if part == "items" {
+			// For array items, we need to set additionalProperties on the items object
+			path += ".items"
+		} else {
+			path += fmt.Sprintf(".properties.%s", part)
+		}
+	}
+
+	return path
+}

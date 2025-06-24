@@ -153,12 +153,14 @@ func printOverlaySummary(overlay *Overlay) {
 	fmt.Println("5. Analyze ID patterns and choose consistent primary ID per entity")
 	fmt.Println("6. Filter operations with unmappable path parameters")
 	fmt.Println("7. Skip annotations for non-viable resources")
-	fmt.Println("8. Mark viable entity schemas with x-speakeasy-entity")
-	fmt.Println("9. Tag viable operations with x-speakeasy-entity-operation")
-	fmt.Println("10. Mark chosen primary ID with x-speakeasy-match")
-	fmt.Println("11. Detect properties normalized during normalization phase")
-	fmt.Println("12. Mark response-only fields with x-speakeasy-param-readonly")
-	fmt.Println("13. Detect nested readonly properties within manageable fields")
-	fmt.Println("14. Apply x-speakeasy-ignore only to unresolved structural mismatches")
-	fmt.Println("15. Apply manual property ignores from mappings")
+	fmt.Println("8. Apply additionalProperties to flexible schema fields from manual mappings") // NEW
+	fmt.Println("9. Mark flexible entity fields as readonly to prevent idempotency issues")     // NEW
+	fmt.Println("10. Mark viable entity schemas with x-speakeasy-entity")
+	fmt.Println("11. Tag viable operations with x-speakeasy-entity-operation")
+	fmt.Println("12. Mark chosen primary ID with x-speakeasy-match")
+	fmt.Println("13. Detect properties normalized during normalization phase")
+	fmt.Println("14. Mark response-only fields with x-speakeasy-param-readonly")
+	fmt.Println("15. Detect nested readonly properties within manageable fields")
+	fmt.Println("16. Apply x-speakeasy-ignore only to unresolved structural mismatches")
+	fmt.Println("17. Apply manual property ignores from mappings")
 }
