@@ -39,10 +39,6 @@ operations:
     method: "get"
     action: "ignore"
 
-  # The template Property on this entity causes collision with the incidents type template
-  # TODO: Figure out why this is happening
-  - path: 
-
   # Manual Entity Mappings
   # Signals Event Sources
   - path: "/v1/signals/event_sources/{transposer_slug}"
@@ -103,12 +99,86 @@ operations:
     value: "Signals_API_GroupingEntity"
 
 # Signals Escalation Policies
-  # - path "/v1/signals/escalation_policies"
-  #   method: "get"
-  #   action: "entity"
-  #   value: "Signals_API_EscalationPolicyEntity"
+  - path: "/v1/teams/{team_id}/signals/escalation_policies"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  - path: "/v1/teams/{team_id}/signals/escalation_policies"
+    method: "post"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  - path: "/v1/teams/{team_id}/signals/escalation_policies/{escalation_policy_id}"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  - path: "/v1/teams/{team_id}/signals/escalation_policies/{escalation_policy_id}"
+    method: "patch"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  - path: "/v1/teams/{team_id}/signals/escalation_policies/{escalation_policy_id}"
+    method: "delete"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+# Task Lists
+  - path: "/v1/task_lists"
+    method: "get"
+    action: "entity"
+    value: "TaskListEntity"
+
+  - path: "/v1/task_lists"
+    method: "post"
+    action: "entity"
+    value: "TaskListEntity"
+
+  - path: "/v1/task_lists/{task_list_id}"
+    method: "get"
+    action: "entity"
+    value: "TaskListEntity"
+    
+  - path: "/v1/task_lists/{task_list_id}"
+    method: "patch"
+    action: "entity"
+    value: "TaskListEntity"
+
+  - path: "/v1/task_lists/{task_list_id}"
+    method: "delete"
+    action: "entity"
+    value: "TaskListEntity"
+
+# Status Update Template 
+  - path: "/v1/status_update_templates"
+    method: "get"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+  
+  - path: "/v1/status_update_templates"
+    method: "post"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+
+  - path: "/v1/status_update_templates/{status_update_template_id}"
+    method: "get"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+
+  - path: "/v1/status_update_templates/{status_update_template_id}"
+    method: "patch"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+
+  - path: "/v1/status_update_templates/{status_update_template_id}"
+    method: "delete"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+
 
 # Additional Property Mappings
+# Handle empty hashes in our Grape API by adding additionalProperties: true to specific properties
   - action: "additional_properties"
     schema: "Attachments_TypedAttachmentEntity"
     property: "attributes"
