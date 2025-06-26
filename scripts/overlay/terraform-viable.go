@@ -7,7 +7,7 @@ import (
 )
 
 // Check if a resource is viable for Terraform
-func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
+func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec, manualMappings *ManualMappings) bool {
 	// Must have at least create and read operations
 	_, hasCreate := resource.Operations["create"]
 	_, hasRead := resource.Operations["read"]
@@ -43,7 +43,7 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 		CreateSchema: resource.CreateSchema,
 		UpdateSchema: resource.UpdateSchema,
 		PrimaryID:    primaryID,
-	}, primaryID, spec)
+	}, primaryID, spec, manualMappings)
 
 	// Must still have CREATE and READ after validation
 	_, hasValidCreate := validOperations["create"]
@@ -114,7 +114,7 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec) bool {
 	return true
 }
 
-func validateOperationParameters(resource *ResourceInfo, primaryID string, spec OpenAPISpec) map[string]OperationInfo {
+func validateOperationParameters(resource *ResourceInfo, primaryID string, spec OpenAPISpec, manualMappings *ManualMappings) map[string]OperationInfo {
 	validOperations := make(map[string]OperationInfo)
 
 	entityProps := getEntityProperties(resource.EntityName, spec)
@@ -126,9 +126,18 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 			// These operations should not have the entity's primary ID in path
 			hasPrimaryID := false
 			for _, param := range pathParams {
+				// Check if this parameter maps to the primary ID (either directly or via manual mapping)
 				if param == primaryID {
 					hasPrimaryID = true
 					break
+				}
+				// Check if there's a manual mapping for this parameter to the primary ID
+				if manualMatch, hasManual := getManualParameterMatch(opInfo.Path, opInfo.Method, param, manualMappings); hasManual {
+					// Support nested properties in manual mappings
+					if manualMatch == primaryID || strings.HasSuffix(manualMatch, "."+primaryID) {
+						hasPrimaryID = true
+						break
+					}
 				}
 			}
 
@@ -145,20 +154,32 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 		hasPrimaryID := false
 		hasConflictingEntityIDs := false
 
-		// We need to validate that we do not have conflicting ID path parameters
-		// At time of this comment, we only map a single ID parameter to the corresponding entity id, using x-speakeasy-match
-
-		// If this constraint prevents us from adding resources that customers need/want
-		//   we'll need to figure out how to map additional IDs to right field and entities
-		//   for the time, being, multiple ID params in path are not supported and corresponding operations are ignored,
-		//   unless they are already exact match to the field name on the entity
 		for _, param := range pathParams {
 			if param == primaryID {
 				hasPrimaryID = true
+				continue
+			}
+
+			if manualMatch, hasManual := getManualParameterMatch(opInfo.Path, opInfo.Method, param, manualMappings); hasManual {
+				// If the manual mapping points to the primary ID (could be nested), this satisfies our primary ID requirement
+				if manualMatch == primaryID || strings.HasSuffix(manualMatch, "."+primaryID) {
+					hasPrimaryID = true
+					continue
+				}
+
+				// If the manual mapping points to a valid entity field (including nested), it's acceptable
+				if checkFieldExistsInEntityWithRefResolution(manualMatch, entityProps, spec) {
+					fmt.Printf("    Manual mapping %s -> %s points to valid entity field (including nested)\n", param, manualMatch)
+					continue
+				} else {
+					fmt.Printf("    Manual mapping %s -> %s points to non-existent entity field\n", param, manualMatch)
+					hasConflictingEntityIDs = true
+					break
+				}
 			} else if isEntityID(param) {
-				// This is another ID-like parameter
+				// This is another ID-like parameter without manual mapping
 				// Check if it maps to a field in the entity (not the primary id field)
-				if checkFieldExistsInEntity(param, entityProps) {
+				if checkFieldExistsInEntityWithRefResolution(param, entityProps, spec) {
 					// This parameter maps to a real entity field - it's valid
 					continue
 				} else {
@@ -171,7 +192,7 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 		}
 
 		if !hasPrimaryID {
-			fmt.Printf("    Skipping %s operation %s: missing primary ID %s\n",
+			fmt.Printf("    Skipping %s operation %s: missing primary ID %s (either direct or via manual mapping)\n",
 				crudType, opInfo.Path, primaryID)
 			continue
 		}
@@ -293,20 +314,50 @@ func isSystemProperty(propName string) bool {
 	return strings.HasSuffix(lowerProp, "_id")
 }
 
-func checkFieldExistsInEntity(paramName string, entityProps map[string]interface{}) bool {
-	if _, exists := entityProps[paramName]; exists {
-		return true
-	}
+func checkFieldExistsInEntityWithRefResolution(fieldPath string, entityProps map[string]interface{}, spec OpenAPISpec) bool {
+	parts := strings.Split(fieldPath, ".")
 
-	variations := []string{
-		paramName,
-		strings.TrimSuffix(paramName, "_id"),
-		strings.TrimSuffix(paramName, "Id"),
-	}
+	currentLevel := entityProps
 
-	for _, variation := range variations {
-		if _, exists := entityProps[variation]; exists {
-			return true
+	for i, part := range parts {
+		if prop, exists := currentLevel[part]; exists {
+			if i == len(parts)-1 {
+				return true
+			}
+
+			if propMap, ok := prop.(map[string]interface{}); ok {
+				if nestedProps, hasProps := propMap["properties"].(map[string]interface{}); hasProps {
+					currentLevel = nestedProps
+					continue
+				}
+
+				if ref, hasRef := propMap["$ref"].(string); hasRef {
+					if strings.HasPrefix(ref, "#/components/schemas/") {
+						schemaName := strings.TrimPrefix(ref, "#/components/schemas/")
+
+						if referencedSchema, exists := spec.Components.Schemas[schemaName]; exists {
+							specData, _ := json.Marshal(referencedSchema)
+							var schemaMap map[string]interface{}
+							json.Unmarshal(specData, &schemaMap)
+
+							if refProps, hasRefProps := schemaMap["properties"].(map[string]interface{}); hasRefProps {
+								currentLevel = refProps
+								continue
+							}
+						}
+					}
+
+					fmt.Printf("    Warning: Cannot resolve $ref for nested property validation: %s (ref: %s)\n", fieldPath, ref)
+					return false // We don't want to assume the ref is valid if we can't resolve it
+				}
+			}
+
+			// If we can't navigate deeper but haven't reached the end, the path is invalid
+			fmt.Printf("    Cannot navigate to nested property: %s at part: %s\n", fieldPath, part)
+			return false
+		} else {
+			fmt.Printf("    Field does not exist: %s at part: %s\n", fieldPath, part)
+			return false
 		}
 	}
 

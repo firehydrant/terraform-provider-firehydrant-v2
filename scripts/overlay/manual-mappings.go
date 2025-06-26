@@ -41,43 +41,6 @@ func loadManualMappings(mappingsPath string) *ManualMappings {
 	return &mappings
 }
 
-func applyManualMappings(resources map[string]*ResourceInfo, manualMappings *ManualMappings) map[string]*ResourceInfo {
-	cleanedResources := make(map[string]*ResourceInfo)
-
-	fmt.Printf("\n=== Cleaning Resources with Manual Mappings ===\n")
-
-	for name, resource := range resources {
-		cleanedResource := &ResourceInfo{
-			EntityName:   resource.EntityName,
-			SchemaName:   resource.SchemaName,
-			ResourceName: resource.ResourceName,
-			Operations:   make(map[string]OperationInfo),
-			CreateSchema: resource.CreateSchema,
-			UpdateSchema: resource.UpdateSchema,
-			PrimaryID:    resource.PrimaryID,
-		}
-
-		operationsRemoved := 0
-
-		for crudType, opInfo := range resource.Operations {
-			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) {
-				operationsRemoved++
-			} else {
-				cleanedResource.Operations[crudType] = opInfo
-			}
-		}
-
-		if len(cleanedResource.Operations) > 0 {
-			cleanedResources[name] = cleanedResource
-			if operationsRemoved > 0 {
-			}
-		}
-	}
-
-	fmt.Printf("Manual mapping cleanup: %d → %d resources\n", len(resources), len(cleanedResources))
-	return cleanedResources
-}
-
 func getManualParameterMatch(path, method, paramName string, manualMappings *ManualMappings) (string, bool) {
 	for _, mapping := range manualMappings.Operations {
 		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == "match" {

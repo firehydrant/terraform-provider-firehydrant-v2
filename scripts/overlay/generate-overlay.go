@@ -30,18 +30,11 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	overlay.Info.Version = "1.0.0"
 	overlay.Info.Description = "Auto-generated overlay for Terraform resources"
 
-	// Clean up resources by removing manually ignored operations
-
-	// In general, we don't need to alter the spec at this point
-	//   We can simply not apply x-speakeasy extentions to these entities
-	//   Without the extensions, they will not be registered in the Terraform provider
-	cleanedResources := applyManualMappings(resources, manualMappings)
-
 	viableResources := make(map[string]*ResourceInfo)
 	skippedResources := make([]string, 0)
 
-	for name, resource := range cleanedResources {
-		if isTerraformViable(resource, spec) {
+	for name, resource := range resources {
+		if isTerraformViable(resource, spec, manualMappings) {
 			viableResources[name] = resource
 		} else {
 			skippedResources = append(skippedResources, name)
@@ -49,7 +42,6 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	}
 
 	fmt.Printf("\n=== Overlay Generation Analysis ===\n")
-	fmt.Printf("Resources after Manual Mappings: %d\n", len(cleanedResources))
 	fmt.Printf("Viable for Terraform: %d\n", len(viableResources))
 	fmt.Printf("Skipped (non-viable): %d\n", len(skippedResources))
 
@@ -145,11 +137,6 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 				// Track both the full path and top-level property
 				readonlyTracker[schemaName][propertyPath] = true
 				readonlyTracker[schemaName][topLevelProp] = true
-
-				fmt.Printf("  Added additionalProperties: true to %s.%s (with readonly at same path)\n",
-					schemaName, propertyPath)
-			} else {
-				fmt.Printf("  Added additionalProperties: true to %s.%s\n", schemaName, propertyPath)
 			}
 
 			additionalPropsTracker[schemaName][propertyPath] = true

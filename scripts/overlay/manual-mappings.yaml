@@ -124,6 +124,17 @@ operations:
     action: "entity"
     value: "Signals_API_EscalationPolicyEntity"
 
+  # Parameter matching for escalation_policy_id -> id field
+  - path: "/v1/teams/{team_id}/escalation_policies/{id}"
+    method: "get"
+    action: "match"
+    value: "team_id:handoff_step.target_id"
+
+  - path: "/v1/teams/{team_id}/escalation_policies/{id}"
+    method: "patch"
+    action: "match"
+    value: "team_id:handoff_step.target_id"
+    
 # Task Lists
   - path: "/v1/task_lists"
     method: "get"
@@ -189,6 +200,10 @@ operations:
     
   - action: "additional_properties"
     schema: "ChangeEventEntity"
+    property: "labels"
+  
+  - action: "additional_properties"
+    schema: "ChangeEventSlimEntity"
     property: "labels"
 
   - action: "additional_properties"
