@@ -76,7 +76,6 @@ func getManualPropertyIgnores(manualMappings *ManualMappings) map[string][]strin
 
 	for _, mapping := range manualMappings.Operations {
 		if mapping.Action == "ignore_property" && mapping.Schema != "" && mapping.Property != "" {
-			fmt.Printf("    Manual property ignore: %s.%s\n", mapping.Schema, mapping.Property)
 			ignores[mapping.Schema] = append(ignores[mapping.Schema], mapping.Property)
 		}
 	}

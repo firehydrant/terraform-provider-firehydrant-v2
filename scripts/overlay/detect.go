@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -576,64 +575,4 @@ func detectNestedReadonlyFields(entityName, propName string, entityProp, createP
 	}
 
 	return actions
-}
-
-// shouldSkipIgnore checks if we should skip adding x-speakeasy-ignore for a property
-// because it has been normalized and is now manageable
-func shouldSkipIgnore(entityName, propName string, resources map[string]*ResourceInfo,
-	spec OpenAPISpec) bool {
-
-	// Get the resource info
-	var resource *ResourceInfo
-	for _, res := range resources {
-		if res.EntityName == entityName {
-			resource = res
-			break
-		}
-	}
-
-	if resource == nil {
-		return false
-	}
-
-	// Convert spec to raw format for analysis
-	specData, _ := json.Marshal(spec)
-	var rawSpec map[string]interface{}
-	json.Unmarshal(specData, &rawSpec)
-	components, _ := rawSpec["components"].(map[string]interface{})
-	schemas, _ := components["schemas"].(map[string]interface{})
-
-	// Get schemas
-	entitySchema, _ := schemas[entityName].(map[string]interface{})
-	createSchema, _ := schemas[resource.CreateSchema].(map[string]interface{})
-	updateSchema, _ := schemas[resource.UpdateSchema].(map[string]interface{})
-
-	// Check if property exists in entity
-	entityProps, _ := entitySchema["properties"].(map[string]interface{})
-	entityProp, existsInEntity := entityProps[propName]
-	if !existsInEntity {
-		return false
-	}
-
-	// Check if property exists in request schemas
-	existsInCreate := false
-	existsInUpdate := false
-
-	if createSchema != nil {
-		createProps, _ := createSchema["properties"].(map[string]interface{})
-		_, existsInCreate = createProps[propName]
-	}
-
-	if updateSchema != nil {
-		updateProps, _ := updateSchema["properties"].(map[string]interface{})
-		_, existsInUpdate = updateProps[propName]
-	}
-
-	if existsInCreate || existsInUpdate {
-		if entityProp != nil {
-			return true // Assume normalized properties shouldn't be ignored
-		}
-	}
-
-	return false
 }
