@@ -7,7 +7,7 @@ import (
 )
 
 // Check if a resource is viable for Terraform
-func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec, manualMappings *ManualMappings) bool {
+func isTerraformViable(resource *ResourceInfo, manualMappings *ManualMappings, schemas map[string]interface{}) bool {
 	// Must have at least create and read operations
 	_, hasCreate := resource.Operations["create"]
 	_, hasRead := resource.Operations["read"]
@@ -23,7 +23,7 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec, manualMappings 
 		return false
 	}
 
-	primaryID, validPrimaryID := identifyEntityPrimaryID(resource, spec)
+	primaryID, validPrimaryID := identifyEntityPrimaryID(resource, schemas)
 	if !validPrimaryID {
 		fmt.Printf("    Cannot identify valid primary ID parameter for %v\n", resource.EntityName)
 		return false
@@ -43,7 +43,7 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec, manualMappings 
 		CreateSchema: resource.CreateSchema,
 		UpdateSchema: resource.UpdateSchema,
 		PrimaryID:    primaryID,
-	}, primaryID, spec, manualMappings)
+	}, primaryID, schemas, manualMappings)
 
 	// Must still have CREATE and READ after validation
 	_, hasValidCreate := validOperations["create"]
@@ -61,27 +61,13 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec, manualMappings 
 	}
 
 	// Check for overlapping properties between create and entity schemas
-	if !hasValidCreateReadConsistency(resource, spec) {
+	if !hasValidCreateReadConsistency(resource, schemas) {
 		fmt.Printf("    %v Create and Read operations have incompatible schemas\n", resource.EntityName)
 		return false
 	}
 
 	// Check for problematic CRUD patterns that can't be handled by property ignoring
 	if resource.CreateSchema != "" && resource.UpdateSchema != "" {
-		// Re-parse the spec to get raw schema data for analysis
-		specData, err := json.Marshal(spec)
-		if err != nil {
-			return true // If we can't analyze, assume it's viable
-		}
-
-		var rawSpec map[string]interface{}
-		if err := json.Unmarshal(specData, &rawSpec); err != nil {
-			return true // If we can't analyze, assume it's viable
-		}
-
-		components, _ := rawSpec["components"].(map[string]interface{})
-		schemas, _ := components["schemas"].(map[string]interface{})
-
 		createProps := getSchemaProperties(schemas, resource.CreateSchema)
 		updateProps := getSchemaProperties(schemas, resource.UpdateSchema)
 
@@ -114,10 +100,10 @@ func isTerraformViable(resource *ResourceInfo, spec OpenAPISpec, manualMappings 
 	return true
 }
 
-func validateOperationParameters(resource *ResourceInfo, primaryID string, spec OpenAPISpec, manualMappings *ManualMappings) map[string]OperationInfo {
+func validateOperationParameters(resource *ResourceInfo, primaryID string, schemas map[string]interface{}, manualMappings *ManualMappings) map[string]OperationInfo {
 	validOperations := make(map[string]OperationInfo)
 
-	entityProps := getEntityProperties(resource.EntityName, spec)
+	entityProps := getSchemaProperties(schemas, resource.EntityName)
 
 	for crudType, opInfo := range resource.Operations {
 		pathParams := extractPathParameters(opInfo.Path)
@@ -168,7 +154,7 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 				}
 
 				// If the manual mapping points to a valid entity field (including nested), it's acceptable
-				if checkFieldExistsInEntityWithRefResolution(manualMatch, entityProps, spec) {
+				if checkFieldExistsInEntityWithRefResolution(manualMatch, entityProps, schemas) {
 					fmt.Printf("    Manual mapping %s -> %s points to valid entity field (including nested)\n", param, manualMatch)
 					continue
 				} else {
@@ -179,7 +165,7 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 			} else if isEntityID(param) {
 				// This is another ID-like parameter without manual mapping
 				// Check if it maps to a field in the entity (not the primary id field)
-				if checkFieldExistsInEntityWithRefResolution(param, entityProps, spec) {
+				if checkFieldExistsInEntityWithRefResolution(param, entityProps, schemas) {
 					// This parameter maps to a real entity field - it's valid
 					continue
 				} else {
@@ -209,42 +195,12 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, spec 
 	return validOperations
 }
 
-func getEntityProperties(entityName string, spec OpenAPISpec) map[string]interface{} {
-	specData, err := json.Marshal(spec)
-	if err != nil {
-		return map[string]interface{}{}
-	}
-
-	var rawSpec map[string]interface{}
-	if err := json.Unmarshal(specData, &rawSpec); err != nil {
-		return map[string]interface{}{}
-	}
-
-	components, _ := rawSpec["components"].(map[string]interface{})
-	schemas, _ := components["schemas"].(map[string]interface{})
-
-	return getSchemaProperties(schemas, entityName)
-}
-
 // Check if create and read operations have compatible schemas
 // We need to ensure that the create and read operations are exactly the same, after accounting for ignored properties and normalization
-func hasValidCreateReadConsistency(resource *ResourceInfo, spec OpenAPISpec) bool {
+func hasValidCreateReadConsistency(resource *ResourceInfo, schemas map[string]interface{}) bool {
 	if resource.CreateSchema == "" {
 		return false
 	}
-
-	specData, err := json.Marshal(spec)
-	if err != nil {
-		return false
-	}
-
-	var rawSpec map[string]interface{}
-	if err := json.Unmarshal(specData, &rawSpec); err != nil {
-		return false
-	}
-
-	components, _ := rawSpec["components"].(map[string]interface{})
-	schemas, _ := components["schemas"].(map[string]interface{})
 
 	entityProps := getSchemaProperties(schemas, resource.EntityName)
 	createProps := getSchemaProperties(schemas, resource.CreateSchema)
@@ -314,7 +270,7 @@ func isSystemProperty(propName string) bool {
 	return strings.HasSuffix(lowerProp, "_id")
 }
 
-func checkFieldExistsInEntityWithRefResolution(fieldPath string, entityProps map[string]interface{}, spec OpenAPISpec) bool {
+func checkFieldExistsInEntityWithRefResolution(fieldPath string, entityProps map[string]interface{}, schemas map[string]interface{}) bool {
 	parts := strings.Split(fieldPath, ".")
 
 	currentLevel := entityProps
@@ -335,7 +291,7 @@ func checkFieldExistsInEntityWithRefResolution(fieldPath string, entityProps map
 					if strings.HasPrefix(ref, "#/components/schemas/") {
 						schemaName := strings.TrimPrefix(ref, "#/components/schemas/")
 
-						if referencedSchema, exists := spec.Components.Schemas[schemaName]; exists {
+						if referencedSchema, exists := schemas[schemaName]; exists {
 							specData, _ := json.Marshal(referencedSchema)
 							var schemaMap map[string]interface{}
 							json.Unmarshal(specData, &schemaMap)
@@ -364,7 +320,7 @@ func checkFieldExistsInEntityWithRefResolution(fieldPath string, entityProps map
 	return false
 }
 
-func identifyEntityPrimaryID(resource *ResourceInfo, spec OpenAPISpec) (string, bool) {
+func identifyEntityPrimaryID(resource *ResourceInfo, schemas map[string]interface{}) (string, bool) {
 	allParams := make(map[string]bool)
 
 	for crudType, opInfo := range resource.Operations {
@@ -396,7 +352,7 @@ func identifyEntityPrimaryID(resource *ResourceInfo, spec OpenAPISpec) (string, 
 		return entityPrimaryID, true
 	}
 
-	entityProps := getEntityProperties(resource.EntityName, spec)
+	entityProps := getSchemaProperties(schemas, resource.EntityName)
 	_, hasID := entityProps["id"]
 	_, hasSlug := entityProps["slug"]
 

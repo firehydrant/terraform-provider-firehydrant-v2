@@ -371,3 +371,23 @@ func extractPathParameters(path string) []string {
 
 	return params
 }
+
+func extractRequiredFields(resources map[string]*ResourceInfo, schemas map[string]interface{}) map[string]map[string]bool {
+	requiredFieldsMap := make(map[string]map[string]bool)
+	for _, resource := range resources {
+		requiredFields := make(map[string]bool)
+		if resource.CreateSchema != "" {
+			if createSchema, ok := schemas[resource.CreateSchema].(map[string]interface{}); ok {
+				if required, ok := createSchema["required"].([]interface{}); ok {
+					for _, field := range required {
+						if fieldName, ok := field.(string); ok {
+							requiredFields[fieldName] = true
+						}
+					}
+				}
+			}
+		}
+		requiredFieldsMap[resource.EntityName] = requiredFields
+	}
+	return requiredFieldsMap
+}

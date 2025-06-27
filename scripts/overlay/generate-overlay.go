@@ -30,11 +30,17 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	overlay.Info.Version = "1.0.0"
 	overlay.Info.Description = "Auto-generated overlay for Terraform resources"
 
+	specData, _ := json.Marshal(spec)
+	var rawSpec map[string]interface{}
+	json.Unmarshal(specData, &rawSpec)
+	components, _ := rawSpec["components"].(map[string]interface{})
+	schemas, _ := components["schemas"].(map[string]interface{})
+
 	viableResources := make(map[string]*ResourceInfo)
 	skippedResources := make([]string, 0)
 
 	for name, resource := range resources {
-		if isTerraformViable(resource, spec, manualMappings) {
+		if isTerraformViable(resource, manualMappings, schemas) {
 			viableResources[name] = resource
 		} else {
 			skippedResources = append(skippedResources, name)
@@ -47,35 +53,14 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 
 	overlay.Info.Description = fmt.Sprintf("Auto-generated overlay for %d viable Terraform resources", len(viableResources))
 
-	specData, _ := json.Marshal(spec)
-	var rawSpec map[string]interface{}
-	json.Unmarshal(specData, &rawSpec)
-	components, _ := rawSpec["components"].(map[string]interface{})
-	schemas, _ := components["schemas"].(map[string]interface{})
+	requiredFieldsMap := extractRequiredFields(viableResources, schemas)
 
-	resourceMismatches := detectPropertyMismatches(viableResources, spec)
-	resourceCRUDInconsistencies := detectCRUDInconsistencies(viableResources, spec)
+	resourceMismatches := detectPropertyMismatches(viableResources, schemas, requiredFieldsMap)
+	resourceCRUDInconsistencies := detectCRUDInconsistencies(viableResources, schemas)
 
 	ignoreTracker := make(map[string]map[string]bool)
 	readonlyTracker := make(map[string]map[string]bool)
-	additionalPropsTracker := make(map[string]map[string]bool) // New tracker
-
-	requiredFieldsMap := make(map[string]map[string]bool)
-	for _, resource := range viableResources {
-		requiredFields := make(map[string]bool)
-		if resource.CreateSchema != "" {
-			if createSchema, ok := schemas[resource.CreateSchema].(map[string]interface{}); ok {
-				if required, ok := createSchema["required"].([]interface{}); ok {
-					for _, field := range required {
-						if fieldName, ok := field.(string); ok {
-							requiredFields[fieldName] = true
-						}
-					}
-				}
-			}
-		}
-		requiredFieldsMap[resource.EntityName] = requiredFields
-	}
+	additionalPropsTracker := make(map[string]map[string]bool)
 
 	additionalPropsMappings := getAdditionalPropertiesMappings(manualMappings)
 
@@ -277,7 +262,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 							}
 
 							// Get entity properties to check what fields exist
-							entityProps := getEntityProperties(resource.EntityName, spec)
+							entityProps := getSchemaProperties(schemas, resource.EntityName)
 							_, hasID := entityProps["id"]
 							_, hasSlug := entityProps["slug"]
 

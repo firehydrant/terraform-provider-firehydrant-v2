@@ -21,46 +21,8 @@ type CRUDInconsistency struct {
 	SchemasToIgnore   []string
 }
 
-func detectPropertyMismatches(resources map[string]*ResourceInfo, spec OpenAPISpec) map[string][]PropertyMismatch {
+func detectPropertyMismatches(resources map[string]*ResourceInfo, schemas map[string]interface{}, requiredFieldsMap map[string]map[string]bool) map[string][]PropertyMismatch {
 	mismatches := make(map[string][]PropertyMismatch)
-
-	specData, err := json.Marshal(spec)
-	if err != nil {
-		return mismatches
-	}
-
-	var rawSpec map[string]interface{}
-	if err := json.Unmarshal(specData, &rawSpec); err != nil {
-		return mismatches
-	}
-
-	components, _ := rawSpec["components"].(map[string]interface{})
-	schemas, _ := components["schemas"].(map[string]interface{})
-
-	for _, schema := range schemas {
-		if schemaMap, ok := schema.(map[string]interface{}); ok {
-			schemaMap["__spec"] = rawSpec
-		}
-	}
-
-	requiredFieldsMap := make(map[string]map[string]bool)
-	for _, resource := range resources {
-		requiredFields := make(map[string]bool)
-
-		if resource.CreateSchema != "" {
-			if createSchema, ok := schemas[resource.CreateSchema].(map[string]interface{}); ok {
-				if required, ok := createSchema["required"].([]interface{}); ok {
-					for _, field := range required {
-						if fieldName, ok := field.(string); ok {
-							requiredFields[fieldName] = true
-						}
-					}
-				}
-			}
-		}
-
-		requiredFieldsMap[resource.EntityName] = requiredFields
-	}
 
 	for _, resource := range resources {
 		var resourceMismatches []PropertyMismatch
@@ -237,21 +199,8 @@ func describeStructuralDifference(entityProp, requestProp interface{}) string {
 	return fmt.Sprintf("request structure '%s' != response structure '%s'", requestStructure, entityStructure)
 }
 
-func detectCRUDInconsistencies(resources map[string]*ResourceInfo, spec OpenAPISpec) map[string][]CRUDInconsistency {
+func detectCRUDInconsistencies(resources map[string]*ResourceInfo, schemas map[string]interface{}) map[string][]CRUDInconsistency {
 	inconsistencies := make(map[string][]CRUDInconsistency)
-
-	specData, err := json.Marshal(spec)
-	if err != nil {
-		return inconsistencies
-	}
-
-	var rawSpec map[string]interface{}
-	if err := json.Unmarshal(specData, &rawSpec); err != nil {
-		return inconsistencies
-	}
-
-	components, _ := rawSpec["components"].(map[string]interface{})
-	schemas, _ := components["schemas"].(map[string]interface{})
 
 	requiredFieldsMap := make(map[string]map[string]bool)
 	for _, resource := range resources {
