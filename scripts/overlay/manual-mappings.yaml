@@ -12,11 +12,16 @@ operations:
   - path: "/v1/incidents/{incident_id}/impact"
     method: "patch"
     action: "ignore"
-  - path: "v1/incidents/{incident_id}/resolve"
+  - path: "/v1/incidents/{incident_id}/resolve"
     method: "put"
     action: "ignore"
   - path: "/v1/incidents/{incident_id}/impact"
     method: "put"
+    action: "ignore"
+
+   # This is incorrectly mapped to list event sources - ChangeEventsEntities#read
+  - path: "/v1/integrations/aws/cloudtrail_batches/{id}/events"
+    method: "get"
     action: "ignore"
 
   # Resource type path params are causing issues with entity resolution
@@ -134,7 +139,7 @@ operations:
     method: "patch"
     action: "match"
     value: "team_id:handoff_step.target_id"
-    
+
 # Task Lists
   - path: "/v1/task_lists"
     method: "get"
@@ -354,3 +359,14 @@ operations:
   - action: "ignore_property"
     schema: "IncidentTypeEntity_TemplateValuesEntity" 
     property: "runbooks"
+
+# These properties contain arrays of objects that are empty hashes in our Grape API
+# Even after marking readonly, these still cause compliation issues
+# Long term, we need to define these shapes in our Grape API
+  - action: "ignore_property"
+    schema: "RunbookStepEntity"
+    property: "action_elements"
+
+  - action: "ignore_property"
+    schema: "RunbookStepEntity"
+    property: "step_elements"

@@ -59,13 +59,14 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	resourceCRUDInconsistencies := detectCRUDInconsistencies(viableResources, schemas)
 
 	ignoreTracker := make(map[string]map[string]bool)
-	readonlyTracker := make(map[string]map[string]bool)
+	entityReadonlyTracker := make(map[string]map[string]bool) // Only for entity schema readonly properties
+	nameOverrideTracker := make(map[string]map[string]bool)   // For request schema name overrides
 	additionalPropsTracker := make(map[string]map[string]bool)
 
 	additionalPropsMappings := getAdditionalPropertiesMappings(manualMappings)
 
-	// For empty objects in our entities, we we apply additionalProperties: true and mark as readonly
-	// This allow terraform to track the response without needing to know the exact properties
+	// For empty objects in our entities, we apply additionalProperties: true and mark as readonly
+	// This allows terraform to track the response without needing to know the exact properties
 	for schemaName, properties := range additionalPropsMappings {
 		if additionalPropsTracker[schemaName] == nil {
 			additionalPropsTracker[schemaName] = make(map[string]bool)
@@ -87,21 +88,10 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 				},
 			})
 
-			// Check if this is an entity schema (not a request schema)
-			isEntitySchema := false
-			for _, resource := range viableResources {
-				if resource.EntityName == schemaName {
-					isEntitySchema = true
-					break
-				}
-			}
-
-			// ALWAYS mark as readonly when applying to any entity schema
-			// This is to prevent idempedance errors during generation, as the request schema frequently has a different type for the given field
-			if isEntitySchema {
-				// Initialize readonly tracker for this schema if needed
-				if readonlyTracker[schemaName] == nil {
-					readonlyTracker[schemaName] = make(map[string]bool)
+			// We always mark as readonly when applying additionalProperties to any entity schema as terraform can't manage any property without a defined type/shape
+			if strings.HasSuffix(schemaName, "Entity") {
+				if entityReadonlyTracker[schemaName] == nil {
+					entityReadonlyTracker[schemaName] = make(map[string]bool)
 				}
 
 				// For the actual property that has additionalProperties
@@ -112,17 +102,20 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 				propParts := strings.Split(propertyPath, ".")
 				topLevelProp := propParts[0]
 
-				// Mark the actual property (at same path as additionalProperties) as readonly
-				overlay.Actions = append(overlay.Actions, OverlayAction{
-					Target: readonlyTarget,
-					Update: map[string]interface{}{
-						"x-speakeasy-param-readonly": true,
-					},
-				})
+				// Only add readonly if not already applied (prevent duplicates)
+				if !entityReadonlyTracker[schemaName][propertyPath] {
+					// Mark the actual property (at same path as additionalProperties) as readonly
+					overlay.Actions = append(overlay.Actions, OverlayAction{
+						Target: readonlyTarget,
+						Update: map[string]interface{}{
+							"x-speakeasy-param-readonly": true,
+						},
+					})
 
-				// Track both the full path and top-level property
-				readonlyTracker[schemaName][propertyPath] = true
-				readonlyTracker[schemaName][topLevelProp] = true
+					// Track both the full path and top-level property
+					entityReadonlyTracker[schemaName][propertyPath] = true
+					entityReadonlyTracker[schemaName][topLevelProp] = true
+				}
 			}
 
 			additionalPropsTracker[schemaName][propertyPath] = true
@@ -143,14 +136,24 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		if ignoreTracker[resource.EntityName] == nil {
 			ignoreTracker[resource.EntityName] = make(map[string]bool)
 		}
-		if readonlyTracker[resource.EntityName] == nil {
-			readonlyTracker[resource.EntityName] = make(map[string]bool)
+		if entityReadonlyTracker[resource.EntityName] == nil {
+			entityReadonlyTracker[resource.EntityName] = make(map[string]bool)
 		}
-		if resource.CreateSchema != "" && ignoreTracker[resource.CreateSchema] == nil {
-			ignoreTracker[resource.CreateSchema] = make(map[string]bool)
+		if resource.CreateSchema != "" {
+			if ignoreTracker[resource.CreateSchema] == nil {
+				ignoreTracker[resource.CreateSchema] = make(map[string]bool)
+			}
+			if nameOverrideTracker[resource.CreateSchema] == nil {
+				nameOverrideTracker[resource.CreateSchema] = make(map[string]bool)
+			}
 		}
-		if resource.UpdateSchema != "" && ignoreTracker[resource.UpdateSchema] == nil {
-			ignoreTracker[resource.UpdateSchema] = make(map[string]bool)
+		if resource.UpdateSchema != "" {
+			if ignoreTracker[resource.UpdateSchema] == nil {
+				ignoreTracker[resource.UpdateSchema] = make(map[string]bool)
+			}
+			if nameOverrideTracker[resource.UpdateSchema] == nil {
+				nameOverrideTracker[resource.UpdateSchema] = make(map[string]bool)
+			}
 		}
 
 		requiredFields := requiredFieldsMap[resource.EntityName]
@@ -172,14 +175,14 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 			parts := strings.Split(action.Target, ".")
 			if len(parts) >= 4 && parts[len(parts)-2] == "properties" {
 				propName := parts[len(parts)-1]
-				if !readonlyTracker[resource.EntityName][propName] {
+				if !entityReadonlyTracker[resource.EntityName][propName] {
 					overlay.Actions = append(overlay.Actions, action)
-					readonlyTracker[resource.EntityName][propName] = true
+					entityReadonlyTracker[resource.EntityName][propName] = true
 				}
 			}
 		}
 
-		// Handle mismatches - but skip if property was normalized
+		// Handle mismatches - these should apply name overrides to REQUEST schemas
 		if mismatches, exists := resourceMismatches[resource.EntityName]; exists {
 			for _, mismatch := range mismatches {
 
@@ -194,7 +197,8 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 						})
 					}
 				} else {
-					if resource.CreateSchema != "" {
+					// Apply name override to CREATE schema if not already applied
+					if resource.CreateSchema != "" && !nameOverrideTracker[resource.CreateSchema][mismatch.PropertyName] {
 						overlay.Actions = append(overlay.Actions, OverlayAction{
 							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s",
 								resource.CreateSchema, mismatch.PropertyName),
@@ -202,9 +206,12 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 								"x-speakeasy-name-override": mismatch.PropertyName + "_input",
 							},
 						})
+						nameOverrideTracker[resource.CreateSchema][mismatch.PropertyName] = true
 					}
 
-					if resource.UpdateSchema != "" && resource.UpdateSchema != resource.CreateSchema {
+					// Apply name override to UPDATE schema if different from create and not already applied
+					if resource.UpdateSchema != "" && resource.UpdateSchema != resource.CreateSchema &&
+						!nameOverrideTracker[resource.UpdateSchema][mismatch.PropertyName] {
 						overlay.Actions = append(overlay.Actions, OverlayAction{
 							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s",
 								resource.UpdateSchema, mismatch.PropertyName),
@@ -212,6 +219,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 								"x-speakeasy-name-override": mismatch.PropertyName + "_input",
 							},
 						})
+						nameOverrideTracker[resource.UpdateSchema][mismatch.PropertyName] = true
 					}
 				}
 			}
@@ -231,7 +239,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 						})
 					}
 				} else {
-					handleCRUDInconsistency(overlay, resource, inconsistency, readonlyTracker)
+					handleCRUDInconsistency(overlay, resource, inconsistency, entityReadonlyTracker)
 				}
 			}
 		}
@@ -380,21 +388,20 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	return overlay
 }
 
-func handleCRUDInconsistency(overlay *Overlay, resource *ResourceInfo, inconsistency CRUDInconsistency, readonlyTracker map[string]map[string]bool) {
-	// Parse the inconsistency to understand where the property exists
+func handleCRUDInconsistency(overlay *Overlay, resource *ResourceInfo, inconsistency CRUDInconsistency, entityReadonlyTracker map[string]map[string]bool) {
 	entityHas := strings.Contains(inconsistency.Description, "Entity:true")
 	createHas := strings.Contains(inconsistency.Description, "Create:true")
 	updateHas := strings.Contains(inconsistency.Description, "Update:true")
 
-	// If a property exists only in Entity (not in any request), we mark it as read-only/computed
+	// If a property exists only in Entity (not in any request), we mark it as read-only
 	if entityHas && !createHas && !updateHas {
-		// This is a read-only/computed field
+		// This is a read-only
 
-		if readonlyTracker[resource.EntityName] == nil {
-			readonlyTracker[resource.EntityName] = make(map[string]bool)
+		if entityReadonlyTracker[resource.EntityName] == nil {
+			entityReadonlyTracker[resource.EntityName] = make(map[string]bool)
 		}
 
-		if !readonlyTracker[resource.EntityName][inconsistency.PropertyName] {
+		if !entityReadonlyTracker[resource.EntityName][inconsistency.PropertyName] {
 			overlay.Actions = append(overlay.Actions, OverlayAction{
 				Target: fmt.Sprintf("$.components.schemas.%s.properties.%s",
 					resource.EntityName, inconsistency.PropertyName),
@@ -402,7 +409,7 @@ func handleCRUDInconsistency(overlay *Overlay, resource *ResourceInfo, inconsist
 					"x-speakeasy-param-readonly": true,
 				},
 			})
-			readonlyTracker[resource.EntityName][inconsistency.PropertyName] = true
+			entityReadonlyTracker[resource.EntityName][inconsistency.PropertyName] = true
 			fmt.Printf("    Marked Entity field as readonly: %s.%s (only in response)\n",
 				resource.EntityName, inconsistency.PropertyName)
 		}

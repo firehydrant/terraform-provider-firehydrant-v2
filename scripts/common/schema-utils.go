@@ -1,10 +1,10 @@
 package common
 
 import (
+	"fmt"
 	"strings"
 )
 
-// ResolveRef follows a $ref to get the actual schema
 func ResolveRef(ref string, schemas map[string]interface{}) (map[string]interface{}, string) {
 	if ref == "" {
 		return nil, ""
@@ -44,21 +44,135 @@ func GetResolvedPropertyType(prop interface{}, schemas map[string]interface{}) (
 		if resolved != nil {
 			return resolved, "ref"
 		}
+		return nil, "unknown"
 	}
 
 	return propMap, "inline"
 }
 
-// ComparePropertyStructures does a deep comparison of two property structures
-func ComparePropertyStructures(entityProp, requestProp interface{}, schemas map[string]interface{}) bool {
-	entityResolved, _ := GetResolvedPropertyType(entityProp, schemas)
-	requestResolved, _ := GetResolvedPropertyType(requestProp, schemas)
+func GetPropertyStructure(prop interface{}) string {
+	propMap, ok := prop.(map[string]interface{})
+	if !ok {
+		return "unknown"
+	}
 
-	if entityResolved == nil || requestResolved == nil {
+	if ref, hasRef := propMap["$ref"].(string); hasRef {
+		return fmt.Sprintf("$ref:%s", ref)
+	}
+
+	propType, _ := propMap["type"].(string)
+
+	switch propType {
+	case "array":
+		items, hasItems := propMap["items"]
+		if hasItems {
+			itemStructure := GetPropertyStructure(items)
+			return fmt.Sprintf("array[%s]", itemStructure)
+		}
+		return "array[unknown]"
+
+	case "object":
+		properties, hasProps := propMap["properties"]
+		_, hasAdditional := propMap["additionalProperties"]
+
+		if hasProps {
+			propsMap, _ := properties.(map[string]interface{})
+			if len(propsMap) == 0 {
+				return "object{empty}"
+			}
+			return "object{defined}"
+		}
+
+		if hasAdditional {
+			return "object{additional}"
+		}
+
+		return "object{}"
+
+	case "string", "integer", "number", "boolean":
+		return propType
+
+	default:
+		if propType == "" {
+			if _, hasProps := propMap["properties"]; hasProps {
+				return "implicit-object"
+			}
+			if _, hasItems := propMap["items"]; hasItems {
+				return "implicit-array"
+			}
+		}
+		return fmt.Sprintf("type:%s", propType)
+	}
+}
+
+func GetArrayItemStructure(arrayProp map[string]interface{}) string {
+	if arrayProp == nil {
+		return "unknown"
+	}
+
+	items, hasItems := arrayProp["items"]
+	if !hasItems {
+		return "unknown"
+	}
+
+	return GetPropertyStructure(items)
+}
+
+func ComparePropertyStructures(entityProp, requestProp interface{}, schemas map[string]interface{}) bool {
+	entityResolved, entityErr := GetResolvedPropertyType(entityProp, schemas)
+	requestResolved, requestErr := GetResolvedPropertyType(requestProp, schemas)
+
+	if entityErr == "unknown" || requestErr == "unknown" || entityResolved == nil || requestResolved == nil {
 		return false
 	}
 
-	// Compare types
+	return compareResolvedProperties(entityResolved, requestResolved, schemas)
+}
+
+func HasTopLevelStructuralMismatch(entityProp, requestProp interface{}, schemas map[string]interface{}) bool {
+	if entityProp == nil || requestProp == nil {
+		return false
+	}
+
+	entityResolved, err1 := GetResolvedPropertyType(entityProp, schemas)
+	requestResolved, err2 := GetResolvedPropertyType(requestProp, schemas)
+
+	if err1 == "unknown" || err2 == "unknown" {
+		// If we can't resolve, assume there might be a mismatch
+		return true
+	}
+
+	entityStructure := GetPropertyStructure(entityResolved)
+	requestStructure := GetPropertyStructure(requestResolved)
+
+	if entityStructure != requestStructure {
+		return true
+	}
+
+	// For arrays, check if the item types are fundamentally different
+	if entityStructure == "array" || strings.HasPrefix(entityStructure, "array[") {
+		entityItems := GetArrayItemStructure(entityResolved)
+		requestItems := GetArrayItemStructure(requestResolved)
+
+		// Different item structures indicate a mismatch
+		// e.g., array[object] vs array[string]
+		if entityItems != requestItems {
+			return true
+		}
+	}
+
+	// For objects, check if one is a ref and the other isn't
+	if strings.HasPrefix(entityStructure, "$ref:") && !strings.HasPrefix(requestStructure, "$ref:") {
+		return true
+	}
+	if !strings.HasPrefix(entityStructure, "$ref:") && strings.HasPrefix(requestStructure, "$ref:") {
+		return true
+	}
+
+	return false
+}
+
+func compareResolvedProperties(entityResolved, requestResolved map[string]interface{}, schemas map[string]interface{}) bool {
 	entityType, _ := entityResolved["type"].(string)
 	requestType, _ := requestResolved["type"].(string)
 

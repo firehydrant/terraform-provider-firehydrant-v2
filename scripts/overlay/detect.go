@@ -76,22 +76,19 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 	for propName, entityProp := range entityProps {
 		if requestProp, exists := requestProps[propName]; exists {
 			// Skip required fields, they should already be handled in normalization
-			// Ensures we do not accidentlaly ignore any required fields, prevents generating unusable resources
+			// Ensures we do not accidentally ignore any required fields, prevents generating unusable resources
 			if requiredFields[propName] {
 				continue
 			}
 
-			// Use deep comparison that follows refs
-			if schemas != nil && !common.ComparePropertyStructures(entityProp, requestProp, schemas) {
-				// Check if this is a fundamental mismatch that normalization couldn't fix
-				if hasStructuralMismatch(entityProp, requestProp) {
-					mismatch := PropertyMismatch{
-						PropertyName: propName,
-						MismatchType: "structural-mismatch",
-						Description:  describeStructuralDifference(entityProp, requestProp),
-					}
-					mismatches = append(mismatches, mismatch)
+			// Use the SAME structural comparison logic that works in detectReadonlyFields
+			if common.HasTopLevelStructuralMismatch(entityProp, requestProp, schemas) {
+				mismatch := PropertyMismatch{
+					PropertyName: propName,
+					MismatchType: "structural-mismatch",
+					Description:  describeStructuralDifference(entityProp, requestProp),
 				}
+				mismatches = append(mismatches, mismatch)
 			}
 		}
 	}
@@ -99,102 +96,10 @@ func findPropertyMismatches(entitySchema, requestSchema map[string]interface{}, 
 	return mismatches
 }
 
-// The normalization phase should have already fixed most structural issues, this will locate any mismatches that could not be normalized
-func hasStructuralMismatch(entityProp, requestProp interface{}) bool {
-	entityStructure := getPropertyStructure(entityProp)
-	requestStructure := getPropertyStructure(requestProp)
-
-	// If structures are fundamentally incompatible (e.g., string vs object)
-	// and couldn't be normalized, then we have a mismatch
-	if entityStructure != requestStructure {
-		entityType := extractBaseType(entityStructure)
-		requestType := extractBaseType(requestStructure)
-
-		// These cases should have been normalized, so if they still differ, it's a real mismatch
-		if entityType == requestType {
-			// If the underlying types are the same, assume normalization fixed this
-			return false
-		}
-
-		return true
-	}
-
-	return false
-}
-
-func extractBaseType(structure string) string {
-	if strings.HasPrefix(structure, "array[") {
-		return "array"
-	}
-	if strings.HasPrefix(structure, "object") {
-		return "object"
-	}
-	if strings.HasPrefix(structure, "$ref:") {
-		return "ref"
-	}
-	return structure
-}
-
-// Get a normalized string representation of a property's structure
-func getPropertyStructure(prop interface{}) string {
-	propMap, ok := prop.(map[string]interface{})
-	if !ok {
-		return "unknown"
-	}
-
-	if ref, hasRef := propMap["$ref"].(string); hasRef {
-		return fmt.Sprintf("$ref:%s", ref)
-	}
-
-	propType, _ := propMap["type"].(string)
-
-	switch propType {
-	case "array":
-		items, hasItems := propMap["items"]
-		if hasItems {
-			itemStructure := getPropertyStructure(items)
-			return fmt.Sprintf("array[%s]", itemStructure)
-		}
-		return "array[unknown]"
-
-	case "object":
-		properties, hasProps := propMap["properties"]
-		_, hasAdditional := propMap["additionalProperties"]
-
-		if hasProps {
-			propsMap, _ := properties.(map[string]interface{})
-			if len(propsMap) == 0 {
-				return "object{empty}"
-			}
-			return "object{defined}"
-		}
-
-		if hasAdditional {
-			return "object{additional}"
-		}
-
-		return "object{}"
-
-	case "string", "integer", "number", "boolean":
-		return propType
-
-	default:
-		if propType == "" {
-			if _, hasProps := propMap["properties"]; hasProps {
-				return "implicit-object"
-			}
-			if _, hasItems := propMap["items"]; hasItems {
-				return "implicit-array"
-			}
-		}
-		return fmt.Sprintf("type:%s", propType)
-	}
-}
-
 // Describe the structural difference for reporting/debugging
 func describeStructuralDifference(entityProp, requestProp interface{}) string {
-	entityStructure := getPropertyStructure(entityProp)
-	requestStructure := getPropertyStructure(requestProp)
+	entityStructure := common.GetPropertyStructure(entityProp)
+	requestStructure := common.GetPropertyStructure(requestProp)
 	return fmt.Sprintf("request structure '%s' != response structure '%s'", requestStructure, entityStructure)
 }
 
@@ -436,7 +341,9 @@ func isComputedField(fieldName string) bool {
 	return false
 }
 
-// detectReadonlyFields finds fields that exist only in response and marks them readonly
+// detectReadonlyFields finds type differences between entity and request schemas
+// and marks properties as readonly if they don't exist in request schemas or have structural mismatches
+// this includes nested properties and will mark them as readonly if they are not present in the request schemas
 func detectReadonlyFields(entityName string, entitySchema, createSchema, updateSchema map[string]interface{},
 	schemas map[string]interface{}) []OverlayAction {
 
@@ -457,7 +364,7 @@ func detectReadonlyFields(entityName string, entitySchema, createSchema, updateS
 		_, inCreate := createProps[propName]
 		_, inUpdate := updateProps[propName]
 
-		// If not in any request schema, it's readonly
+		// Case 1: Property doesn't exist in any request schema - mark as readonly
 		if !inCreate && !inUpdate {
 			// Skip if it's a system field that we expect to be readonly
 			if propName == "id" || propName == "slug" {
@@ -470,25 +377,38 @@ func detectReadonlyFields(entityName string, entitySchema, createSchema, updateS
 					"x-speakeasy-param-readonly": true,
 				},
 			})
+		} else {
+			// Case 2: Property exists in request schema(s) - check for structural mismatches
+			var createProp, updateProp interface{}
+			hasStructuralMismatch := false
 
-			// For nested objects, mark their properties as readonly too
-			if entityPropMap, ok := entityProp.(map[string]interface{}); ok {
-				if nestedProps, ok := entityPropMap["properties"].(map[string]interface{}); ok {
-					for nestedPropName := range nestedProps {
-						actions = append(actions, OverlayAction{
-							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s.properties.%s",
-								entityName, propName, nestedPropName),
-							Update: map[string]interface{}{
-								"x-speakeasy-param-readonly": true,
-							},
-						})
-					}
+			if inCreate {
+				createProp = createProps[propName]
+				if common.HasTopLevelStructuralMismatch(entityProp, createProp, schemas) {
+					hasStructuralMismatch = true
 				}
 			}
-		} else {
-			// Property exists in request - check nested properties for partial readonly
-			actions = append(actions, detectNestedReadonlyFields(entityName, propName,
-				entityProp, createProps[propName], updateProps[propName], schemas)...)
+
+			if inUpdate {
+				updateProp = updateProps[propName]
+				if common.HasTopLevelStructuralMismatch(entityProp, updateProp, schemas) {
+					hasStructuralMismatch = true
+				}
+			}
+
+			// If there's a structural mismatch at the top level, mark the entity property as readonly
+			if hasStructuralMismatch {
+				actions = append(actions, OverlayAction{
+					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", entityName, propName),
+					Update: map[string]interface{}{
+						"x-speakeasy-param-readonly": true,
+					},
+				})
+			} else {
+				// No top-level mismatch - check nested properties for partial readonly
+				actions = append(actions, detectNestedReadonlyFields(entityName, propName,
+					entityProp, createProp, updateProp, schemas)...)
+			}
 		}
 	}
 
