@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/firehydrant/terraform-provider-firehydrant/scripts/common"
 )
@@ -321,26 +320,6 @@ func detectSchemaPropertyInconsistencies(resource *ResourceInfo, schemas map[str
 	return inconsistencies
 }
 
-// isComputedField checks if a field name appears to be computed/readonly
-func isComputedField(fieldName string) bool {
-	// Most of these are specific to runbook steps
-	computedPatterns := []string{
-		"created_at", "updated_at", "created_by", "updated_by",
-		"is_editable", "votes", "categories", "runbook_template_id",
-		"action_elements", "step_elements", "automatic", "repeats",
-		"repeats_duration", "delay_duration", "reruns",
-	}
-
-	lowerField := strings.ToLower(fieldName)
-	for _, pattern := range computedPatterns {
-		if lowerField == pattern || strings.HasSuffix(lowerField, "_"+pattern) {
-			return true
-		}
-	}
-
-	return false
-}
-
 // detectReadonlyFields finds type differences between entity and request schemas
 // and marks properties as readonly if they don't exist in request schemas or have structural mismatches
 // this includes nested properties and will mark them as readonly if they are not present in the request schemas
@@ -480,7 +459,7 @@ func detectNestedReadonlyFields(entityName, propName string, entityProp, createP
 					_, inCreate := createItemProps[itemPropName]
 					_, inUpdate := updateItemProps[itemPropName]
 
-					if !inCreate && !inUpdate || isComputedField(itemPropName) {
+					if !inCreate && !inUpdate || common.IsComputedField(itemPropName) {
 						actions = append(actions, OverlayAction{
 							Target: fmt.Sprintf("$.components.schemas.%s.properties.%s.items.properties.%s",
 								entityName, propName, itemPropName),

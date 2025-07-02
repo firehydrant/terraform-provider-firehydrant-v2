@@ -26,6 +26,9 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 		fmt.Println("Warning: No paths found in spec")
 	}
 
+	terraformFixes := normalizeTerraformKeywords(schemas)
+	report.ConflictDetails = append(report.ConflictDetails, terraformFixes...)
+
 	// Only apply non-structural normalizations
 	globalFixes := applyGlobalNormalizations(schemas)
 	report.ConflictDetails = append(report.ConflictDetails, globalFixes...)
@@ -43,9 +46,12 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 
 	report.TotalFixes = len(report.ConflictDetails)
 	for _, detail := range report.ConflictDetails {
-		if detail.ConflictType == "map-class" {
+		switch detail.ConflictType {
+		case "map-class":
 			report.MapClassFixes++
-		} else {
+		case "terraform-keyword":
+			report.TerraformKeywordFixes++
+		default:
 			report.PropertyFixes++
 		}
 	}

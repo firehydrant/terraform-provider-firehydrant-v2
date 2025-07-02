@@ -56,6 +56,7 @@ func getManualParameterMatch(path, method, paramName string, manualMappings *Man
 func shouldIgnoreOperation(path, method string, manualMappings *ManualMappings) bool {
 	for _, mapping := range manualMappings.Operations {
 		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == "ignore" {
+			fmt.Println("  Ignoring operation:", method, path)
 			return true
 		}
 	}

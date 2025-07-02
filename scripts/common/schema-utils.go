@@ -207,3 +207,23 @@ func compareResolvedProperties(entityResolved, requestResolved map[string]interf
 
 	return true
 }
+
+// isComputedField checks if a field name appears to be computed/readonly
+func IsComputedField(fieldName string) bool {
+	// Most of these are specific to runbook steps
+	computedPatterns := []string{
+		"created_at", "updated_at", "created_by", "updated_by",
+		"is_editable", "votes", "categories", "runbook_template_id",
+		"action_elements", "step_elements", "automatic", "repeats",
+		"repeats_duration", "delay_duration", "reruns",
+	}
+
+	lowerField := strings.ToLower(fieldName)
+	for _, pattern := range computedPatterns {
+		if lowerField == pattern || strings.HasSuffix(lowerField, "_"+pattern) {
+			return true
+		}
+	}
+
+	return false
+}

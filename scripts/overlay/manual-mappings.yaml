@@ -20,10 +20,18 @@ operations:
     action: "ignore"
 
    # This is incorrectly mapped to list event sources - ChangeEventsEntities#read
+   # The cloudtrail batches entity also contains a connection property which causes compilation errors
+   # Even when ignored at the property level, the issue persists
   - path: "/v1/integrations/aws/cloudtrail_batches/{id}/events"
     method: "get"
     action: "ignore"
-
+  - path: "/v1/integrations/aws/cloudtrail_batches/{id}/events"
+    method: "patch"
+    action: "ignore"
+  - path: "/v1/integrations/aws/cloudtrail_batches"
+    method: "get"
+    action: "ignore"
+  - 
   # Resource type path params are causing issues with entity resolution
   # TODO: Figure out how to include
   #   Terraform propably doesn't need this
@@ -192,6 +200,31 @@ operations:
     action: "entity"
     value: "StatusUpdateTemplateEntity"
 
+# Signals Notification Policy
+# TODO: in PDE-5414 https://firehydrant.atlassian.net/browse/PDE-5421
+#  Uncomment and fix generation for these items
+#  Initial attempts to implement result in compliation errors related to missing type definitions
+#  Currently, we don't have response shapes defined and likely need to update the Grape API
+#  Ex. Error: Could not find or infer x-speakeasy-entity: Signals_API_NotificationPolicyItemsEntities type definition within x-speakeasy-entity-operation: Signals_API_NotificationPolicyItemsEntities#read 
+  # - path: "/v1/signals/notification_policy_items"
+  #   method: "get"
+  #   action: "entity"
+  #   value: "Signals_API_NotificationPolicyItemEntity"
+
+  # - path: "/v1/signals/notification_policy_items"
+  #   method: "post"
+  #   action: "entity"
+  #   value: "Signals_API_NotificationPolicyItemEntity" 
+
+  # - path:  "/v1/signals/notification_policy_items/{id}"
+  #   method: "delete"
+  #   action: "entity"
+  #   value: "Signals_API_NotificationPolicyItemEntity"
+
+  # - path: "/v1/signals/notification_policy_items/{id}"
+  #   method: "patch"
+  #   action: "entity"
+  #   value: "Signals_API_NotificationPolicyItemEntity"
 
 # Additional Property Mappings
 # Handle empty hashes in our Grape API by adding additionalProperties: true to specific properties
@@ -347,6 +380,8 @@ operations:
     schema: "update_service"
     property: "labels"
 
+
+
 # Entity Level Property Ignoring - only work for top level properties
   - action: "ignore_property"
     schema: "PublicAPI_V1_FormConfigurations_SelectedValueEntity"
@@ -360,7 +395,7 @@ operations:
     schema: "IncidentTypeEntity_TemplateValuesEntity" 
     property: "runbooks"
 
-# These properties contain arrays of objects that are empty hashes in our Grape API
+# These properties contain arrays of objects which are empty hashes in our Grape API
 # Even after marking readonly, these still cause compliation issues
 # Long term, we need to define these shapes in our Grape API
   - action: "ignore_property"
@@ -370,3 +405,17 @@ operations:
   - action: "ignore_property"
     schema: "RunbookStepEntity"
     property: "step_elements"
+
+  - action: "ignore_property"
+    schema: "ChangeEventEntity"
+    property: "created_at"
+
+# Reserved words in terraform with object properties
+#   Ignoring properties with $refs or object types directly was initially ineffective, so this is a hacky workaround to avoid compilation errors
+#   in our normalization step we convert any reserved keywords of object type to empty objects
+#   in our overlay generation step, we use this manual mapping to allow additional properties to be received
+#   terraform won't be able to use these fields, but it allows terraform to make successful API calls and receive responses containing these fields without breaking
+  - action: "additional_properties"
+    schema: "Integrations_Aws_CloudtrailBatchEntity"
+    property: "connection"
+

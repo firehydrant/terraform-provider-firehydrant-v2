@@ -406,3 +406,25 @@ func mapsToEntityID(paramName, entityName string) bool {
 func isEntityID(paramName string) bool {
 	return strings.HasSuffix(strings.ToLower(paramName), "_id") || strings.ToLower(paramName) == "id"
 }
+
+func isViableDatasource(resource *ResourceInfo) bool {
+	// A resource can be a data source if it has:
+	// 1. A read operation (individual record lookup)
+	// 2. OR a list operation (multiple records lookup)
+	// 3. AND has a valid entity schema
+	// 4. AND is not manually ignored
+
+	_, hasRead := resource.Operations["read"]
+	_, hasList := resource.Operations["list"]
+
+	if !hasRead && !hasList {
+		return false
+	}
+
+	// Must have an entity name
+	if resource.EntityName == "" {
+		return false
+	}
+
+	return true
+}

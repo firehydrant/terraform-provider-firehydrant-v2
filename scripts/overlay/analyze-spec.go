@@ -232,9 +232,11 @@ func determineCrudType(path, method, operationID string) string {
 	if strings.Contains(lowerOp, "delete") {
 		return "delete"
 	}
-	if strings.Contains(lowerOp, "list") {
+
+	if strings.HasPrefix(lowerOp, "list") {
 		return "list"
 	}
+
 	if strings.Contains(lowerOp, "get") && strings.Contains(path, "{") {
 		return "read"
 	}

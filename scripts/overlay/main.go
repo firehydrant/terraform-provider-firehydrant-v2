@@ -153,8 +153,8 @@ func printOverlaySummary(overlay *Overlay) {
 	fmt.Println("5. Analyze ID patterns and choose consistent primary ID per entity")
 	fmt.Println("6. Filter operations with unmappable path parameters")
 	fmt.Println("7. Skip annotations for non-viable resources")
-	fmt.Println("8. Apply additionalProperties to flexible schema fields from manual mappings") // NEW
-	fmt.Println("9. Mark flexible entity fields as readonly to prevent idempotency issues")     // NEW
+	fmt.Println("8. Apply additionalProperties to flexible schema fields from manual mappings")
+	fmt.Println("9. Mark flexible entity fields as readonly to prevent idempotency issues")
 	fmt.Println("10. Mark viable entity schemas with x-speakeasy-entity")
 	fmt.Println("11. Tag viable operations with x-speakeasy-entity-operation")
 	fmt.Println("12. Mark chosen primary ID with x-speakeasy-match")
@@ -163,4 +163,13 @@ func printOverlaySummary(overlay *Overlay) {
 	fmt.Println("15. Detect nested readonly properties within manageable fields")
 	fmt.Println("16. Apply x-speakeasy-ignore only to unresolved structural mismatches")
 	fmt.Println("17. Apply manual property ignores from mappings")
+	fmt.Println("18. Assess non-viable resources for potential data sources")
+	fmt.Println("19. Apply entity ignores to exclude problematic entities entirely")
+	fmt.Println("20. Mark data source entities with x-speakeasy-entity")
+	fmt.Println("21. Tag data source operations (read/list only) with x-speakeasy-entity-operation")
+	fmt.Println("22. Apply parameter matching for data source read operations")
+	fmt.Println("23. Mark all data source properties as readonly (read-only by nature)")
+	fmt.Println("24. Apply additionalProperties to data source flexible schema fields")
+	fmt.Println("25. Auto-ignore Terraform reserved words across all entities")
+	fmt.Println("26. Apply remaining manual property ignores to both resources and data sources")
 }

@@ -37,19 +37,19 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	schemas, _ := components["schemas"].(map[string]interface{})
 
 	viableResources := make(map[string]*ResourceInfo)
-	skippedResources := make([]string, 0)
+	nonViableResources := make([]string, 0)
 
 	for name, resource := range resources {
 		if isTerraformViable(resource, manualMappings, schemas) {
 			viableResources[name] = resource
 		} else {
-			skippedResources = append(skippedResources, name)
+			nonViableResources = append(nonViableResources, name)
 		}
 	}
 
 	fmt.Printf("\n=== Overlay Generation Analysis ===\n")
 	fmt.Printf("Viable for Terraform: %d\n", len(viableResources))
-	fmt.Printf("Skipped (non-viable): %d\n", len(skippedResources))
+	fmt.Printf("Skipped (non-viable): %d\n", len(nonViableResources))
 
 	overlay.Info.Description = fmt.Sprintf("Auto-generated overlay for %d viable Terraform resources", len(viableResources))
 
@@ -318,8 +318,97 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		}
 	}
 
-	// Apply manual property ignores
+	// Process non-viable resources as potential data sources
+	fmt.Printf("\n=== Data Source Generation for Non-Viable Resources ===\n")
+
+	viableDatasources := make(map[string]*ResourceInfo)
+	for name, resource := range resources {
+		if !isTerraformViable(resource, manualMappings, schemas) {
+			// Check if this resource can be a data source (has read operation)
+			if isViableDatasource(resource) {
+				viableDatasources[name] = resource
+			}
+		}
+	}
+
+	fmt.Printf("Potential data sources: %d\n", len(viableDatasources))
+
 	manualPropertyIgnores := getManualPropertyIgnores(manualMappings)
+
+	for _, resource := range viableDatasources {
+		fmt.Printf("Processing data source: %s (%s)\n", resource.ResourceName, resource.EntityName)
+
+		if ignoreTracker[resource.EntityName] == nil {
+			ignoreTracker[resource.EntityName] = make(map[string]bool)
+		}
+
+		entityUpdate := map[string]interface{}{
+			"x-speakeasy-entity": resource.EntityName,
+		}
+
+		overlay.Actions = append(overlay.Actions, OverlayAction{
+			Target: fmt.Sprintf("$.components.schemas.%s", resource.SchemaName),
+			Update: entityUpdate,
+		})
+
+		if properties, exists := manualPropertyIgnores[resource.EntityName]; exists {
+			for _, propertyName := range properties {
+				if !ignoreTracker[resource.EntityName][propertyName] {
+					overlay.Actions = append(overlay.Actions, OverlayAction{
+						Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.EntityName, propertyName),
+						Update: map[string]interface{}{
+							"x-speakeasy-ignore": true,
+						},
+					})
+					ignoreTracker[resource.EntityName][propertyName] = true
+					fmt.Printf("✅ Added manual property ignore for data source: %s.%s\n", resource.EntityName, propertyName)
+				}
+			}
+		}
+
+		applyAdditionalPropertiesForDataSource(overlay, resource, additionalPropsMappings, additionalPropsTracker, entityReadonlyTracker)
+
+		applyReadonlyForDataSource(overlay, resource, schemas, entityReadonlyTracker)
+
+		for crudType, opInfo := range resource.Operations {
+			if crudType != "read" && crudType != "list" {
+				continue
+			}
+
+			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) {
+				continue
+			}
+
+			entityOp := mapCrudToEntityOperation(crudType, resource.EntityName)
+
+			operationUpdate := map[string]interface{}{
+				"x-speakeasy-entity-operation": entityOp,
+			}
+
+			overlay.Actions = append(overlay.Actions, OverlayAction{
+				Target: fmt.Sprintf("$.paths[\"%s\"].%s", opInfo.Path, opInfo.Method),
+				Update: operationUpdate,
+			})
+
+			if resource.PrimaryID != "" && crudType == "read" {
+				applyParameterMatchingForDataSource(overlay, resource, opInfo, schemas, manualMappings)
+			}
+		}
+	}
+
+	fmt.Printf("Applied data source extensions to %d non-viable resources\n", len(viableDatasources))
+
+	fmt.Printf("\n=== Terraform Reserved Words Auto-Ignore ===\n")
+
+	reservedWordCount := applyTerraformReservedWordIgnores(overlay, viableResources, viableDatasources, schemas, ignoreTracker)
+
+	if reservedWordCount > 0 {
+		fmt.Printf("✅ Auto-ignored %d Terraform reserved word properties\n", reservedWordCount)
+	} else {
+		fmt.Printf("✅ No Terraform reserved words found in entity properties\n")
+	}
+
+	manualIgnoreCount := 0
 	for schemaName, properties := range manualPropertyIgnores {
 		for _, propertyName := range properties {
 			// Initialize ignore tracker if needed
@@ -327,7 +416,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 				ignoreTracker[schemaName] = make(map[string]bool)
 			}
 
-			// Only add if not already ignored
+			// Only add if not already ignored (by reserved word logid or previous ignore)
 			if !ignoreTracker[schemaName][propertyName] {
 				overlay.Actions = append(overlay.Actions, OverlayAction{
 					Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", schemaName, propertyName),
@@ -336,13 +425,15 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 					},
 				})
 				ignoreTracker[schemaName][propertyName] = true
+				manualIgnoreCount++
 				fmt.Printf("✅ Added manual property ignore: %s.%s\n", schemaName, propertyName)
 			}
 		}
 	}
+	fmt.Println("Total manual property ignores applied:", manualIgnoreCount)
 
 	fmt.Printf("\n=== Overlay Generation Complete ===\n")
-	fmt.Printf("Generated %d actions for %d viable resources\n", len(overlay.Actions), len(viableResources))
+	fmt.Printf("Generated %d actions for %d viable resources and %d data sources\n", len(overlay.Actions), len(viableResources), len(viableDatasources)+len(viableResources))
 
 	// Count different types of actions
 	totalIgnores := 0
@@ -376,7 +467,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 		fmt.Printf("✅ %d speakeasy name override actions added for type mismatches\n", totalNameOverrides)
 	}
 	if totalIgnores > 0 {
-		fmt.Printf("✅ %d speakeasy ignore actions added for unresolved property issues\n", totalIgnores)
+		fmt.Printf("✅ %d speakeasy ignore actions added\n", totalIgnores)
 	}
 	if totalMatches > 0 {
 		fmt.Printf("✅ %d speakeasy match actions added for primary ID parameters\n", totalMatches)
@@ -386,6 +477,157 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	}
 
 	return overlay
+}
+
+func applyAdditionalPropertiesForDataSource(overlay *Overlay, resource *ResourceInfo,
+	additionalPropsMappings map[string][]string, additionalPropsTracker map[string]map[string]bool,
+	entityReadonlyTracker map[string]map[string]bool) {
+
+	if properties, exists := additionalPropsMappings[resource.EntityName]; exists {
+		if additionalPropsTracker[resource.EntityName] == nil {
+			additionalPropsTracker[resource.EntityName] = make(map[string]bool)
+		}
+
+		for _, propertyPath := range properties {
+			// Skip if already processed
+			if additionalPropsTracker[resource.EntityName][propertyPath] {
+				continue
+			}
+
+			targetPath := buildAdditionalPropertiesPath(resource.EntityName, propertyPath)
+
+			overlay.Actions = append(overlay.Actions, OverlayAction{
+				Target: targetPath,
+				Update: map[string]interface{}{
+					"additionalProperties": true,
+				},
+			})
+
+			// Mark as readonly (data sources are always readonly)
+			if entityReadonlyTracker[resource.EntityName] == nil {
+				entityReadonlyTracker[resource.EntityName] = make(map[string]bool)
+			}
+
+			if !entityReadonlyTracker[resource.EntityName][propertyPath] {
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: targetPath,
+					Update: map[string]interface{}{
+						"x-speakeasy-param-readonly": true,
+					},
+				})
+
+				propParts := strings.Split(propertyPath, ".")
+				topLevelProp := propParts[0]
+				entityReadonlyTracker[resource.EntityName][propertyPath] = true
+				entityReadonlyTracker[resource.EntityName][topLevelProp] = true
+			}
+
+			additionalPropsTracker[resource.EntityName][propertyPath] = true
+		}
+	}
+}
+
+// Apply readonly properties for data source (all properties should be readonly)
+func applyReadonlyForDataSource(overlay *Overlay, resource *ResourceInfo, schemas map[string]interface{},
+	entityReadonlyTracker map[string]map[string]bool) {
+
+	entitySchema, _ := schemas[resource.EntityName].(map[string]interface{})
+	if entitySchema == nil {
+		return
+	}
+
+	// For data sources, we can be more aggressive about marking properties as readonly
+	// since they're never used for input
+	entityProps, _ := entitySchema["properties"].(map[string]interface{})
+	if entityProps == nil {
+		return
+	}
+
+	if entityReadonlyTracker[resource.EntityName] == nil {
+		entityReadonlyTracker[resource.EntityName] = make(map[string]bool)
+	}
+
+	for propName := range entityProps {
+		// Skip if already marked readonly
+		if entityReadonlyTracker[resource.EntityName][propName] {
+			continue
+		}
+
+		// Skip basic identifier fields
+		if propName == "id" || propName == "slug" {
+			continue
+		}
+
+		// Mark as readonly
+		overlay.Actions = append(overlay.Actions, OverlayAction{
+			Target: fmt.Sprintf("$.components.schemas.%s.properties.%s", resource.EntityName, propName),
+			Update: map[string]interface{}{
+				"x-speakeasy-param-readonly": true,
+			},
+		})
+
+		entityReadonlyTracker[resource.EntityName][propName] = true
+	}
+}
+
+// Apply parameter matching for data source read operations
+func applyParameterMatchingForDataSource(overlay *Overlay, resource *ResourceInfo, opInfo OperationInfo,
+	schemas map[string]interface{}, manualMappings *ManualMappings) {
+
+	pathParams := extractPathParameters(opInfo.Path)
+	for _, param := range pathParams {
+		if param == resource.PrimaryID {
+			// Check for manual mappings first
+			if manualMatch, hasManual := getManualParameterMatch(opInfo.Path, opInfo.Method, param, manualMappings); hasManual {
+				if manualMatch != param {
+					overlay.Actions = append(overlay.Actions, OverlayAction{
+						Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
+							opInfo.Path, opInfo.Method, param),
+						Update: map[string]interface{}{
+							"x-speakeasy-match": manualMatch,
+						},
+					})
+				}
+			} else {
+				// Apply automatic matching logic
+				var targetField string
+
+				// Don't create circular mappings
+				if param == "id" || param == "slug" {
+					continue
+				}
+
+				// Get entity properties to check what fields exist
+				entityProps := getSchemaProperties(schemas, resource.EntityName)
+				_, hasID := entityProps["id"]
+				_, hasSlug := entityProps["slug"]
+
+				// Determine the target field based on parameter name and entity fields
+				if strings.HasSuffix(param, "_slug") && hasSlug {
+					targetField = "slug"
+				} else if strings.Contains(param, "slug") && hasSlug && !hasID {
+					targetField = "slug"
+				} else if strings.HasSuffix(param, "_id") && hasID {
+					targetField = "id"
+				} else if hasID {
+					targetField = "id"
+				} else if hasSlug {
+					targetField = "slug"
+				} else {
+					fmt.Printf("    Warning: Cannot map parameter %s for data source - entity has neither id nor slug field\n", param)
+					continue
+				}
+
+				overlay.Actions = append(overlay.Actions, OverlayAction{
+					Target: fmt.Sprintf("$.paths[\"%s\"].%s.parameters[?(@.name==\"%s\")]",
+						opInfo.Path, opInfo.Method, param),
+					Update: map[string]interface{}{
+						"x-speakeasy-match": targetField,
+					},
+				})
+			}
+		}
+	}
 }
 
 func handleCRUDInconsistency(overlay *Overlay, resource *ResourceInfo, inconsistency CRUDInconsistency, entityReadonlyTracker map[string]map[string]bool) {

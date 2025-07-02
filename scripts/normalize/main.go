@@ -62,10 +62,11 @@ func printUsage() {
 }
 
 type NormalizationReport struct {
-	TotalFixes      int
-	MapClassFixes   int
-	PropertyFixes   int
-	ConflictDetails []ConflictDetail
+	TotalFixes            int
+	MapClassFixes         int
+	PropertyFixes         int
+	TerraformKeywordFixes int
+	ConflictDetails       []ConflictDetail
 }
 
 type ConflictDetail struct {
@@ -82,6 +83,7 @@ func printNormalizationReport(report NormalizationReport) {
 	mapClassFixes := 0
 	parameterFixes := 0
 	enumFixes := 0
+	terraformKeywordFixes := 0
 	otherFixes := 0
 
 	for _, detail := range report.ConflictDetails {
@@ -92,6 +94,8 @@ func printNormalizationReport(report NormalizationReport) {
 			parameterFixes++
 		case "enum-normalization":
 			enumFixes++
+		case "terraform-keyword":
+			terraformKeywordFixes++
 		default:
 			otherFixes++
 		}
@@ -100,6 +104,7 @@ func printNormalizationReport(report NormalizationReport) {
 	fmt.Printf("Map/Class fixes: %d\n", mapClassFixes)
 	fmt.Printf("Parameter type fixes: %d\n", parameterFixes)
 	fmt.Printf("Enum normalization fixes: %d\n", enumFixes)
+	fmt.Printf("Terraform keyword fixes: %d\n", terraformKeywordFixes)
 	fmt.Printf("Other fixes: %d\n", otherFixes)
 
 	// Helpful for debugging
