@@ -5,8 +5,8 @@ This directory contains scripts for processing OpenAPI specifications to generat
 ## Overview
 
 Our pipeline consists of two main phases:
-1. **Normalization**: Deep structure alignment between request/response schemas with reference resolution
-2. **Overlay Generation**: Creates Speakeasy annotations for Terraform provider generation with granular readonly marking
+1. **Normalization**: Lightweight schema cleanup and reserved keyword handling
+2. **Overlay Generation**: Creates Speakeasy annotations for Terraform provider generation with field mapping and readonly marking
 
 ## Workflow
 
@@ -20,7 +20,7 @@ Note: we point to the openapi3 spec in our Developers repo to ensure an up-to-da
 ## Scripts
 
 ### `normalize`
-Normalizes an OpenAPI specification to ensure compatibility with Terraform provider generation through deep structure analysis.
+Performs lightweight normalization of an OpenAPI specification to ensure compatibility with Terraform provider generation.
 
 **Usage:**
 ```bash
@@ -28,15 +28,14 @@ go run ./scripts/normalize <input.json> [output.json]
 ```
 
 **What it does:**
-- Identifies entity schemas and their corresponding create/update schemas
-- Adds missing required fields from request schemas to entity schemas
-- Aligns property structures between request and response schemas
+- Replaces Terraform reserved keyword properties with empty objects (only for object/ref types)
 - Converts `additionalProperties` to `properties` for better Terraform compatibility
 - Normalizes path parameters (e.g., converts integer IDs to strings)
 - Converts enums to speakeasy-compatible x-speakeasy-enums structures
+- Maintains original schema structures without forcing alignment
 
 ### `overlay`
-Generates a Speakeasy overlay file with the necessary annotations for Terraform provider generation.
+Generates a Speakeasy overlay file with the necessary annotations for Terraform provider generation using field mapping instead of structural changes.
 
 **Usage:**
 ```bash
@@ -47,24 +46,27 @@ go run ./scripts/overlay <input.json> [manual-mappings.yaml]
 - Identifies viable Terraform resources (must have at least CREATE and READ operations)
 - Adds `x-speakeasy-entity` annotations to entity schemas
 - Maps CRUD operations using `x-speakeasy-entity-operation`
-- Detects properties normalized during the normalize phase
-- Marks response-only fields with `x-speakeasy-param-readonly` instead of ignoring
+- Uses `x-speakeasy-name-override` to map request field names to response field names
+- Marks response-only fields with `x-speakeasy-param-readonly: true`
 - Handles nested readonly properties within manageable fields
 - Only uses `x-speakeasy-ignore` for truly incompatible properties
 - Applies manual mappings for edge cases
 
 See speakeasy extensions: https://www.speakeasy.com/docs/speakeasy-reference/extensions
+
 ## Key Concepts
 
 1. **During Normalization**:
-   - Deep structure alignment ensures compatibility
-   - Required fields missing from entity schemas are automatically added
-   - Added fields are marked as `nullable: true` since they might not be returned by the API
+   - Minimal structural changes to preserve original API design
+   - Reserved keyword handling for Terraform compatibility
+   - Schema cleanup without forced alignment
 
 2. **During Overlay Generation**:
+   - Field mapping using `x-speakeasy-name-override` instead of structural changes
+   - Response fields marked as `x-speakeasy-param-readonly: true` when they don't exist in requests
    - Required fields are never marked with `x-speakeasy-ignore`
    - If issues persist, we use `x-speakeasy-param-optional` instead
-   - Computed fields use `x-speakeasy-param-readonly`
+   - Computed fields use `x-speakeasy-param-readonly: true`
 
 ### Entity Identification
 
@@ -79,7 +81,15 @@ A resource is considered viable for Terraform if it has:
 - At least CREATE and READ operations
 - A valid create schema
 - Identifiable primary ID parameter
-- Sufficient overlap between create and entity schemas after normalization
+- Sufficient field overlap between create and entity schemas (mapped via overlays)
+
+## Field Mapping Strategy
+
+Instead of modifying schemas during normalization, we use Speakeasy annotations to handle field differences:
+
+- **Request fields** that don't match response fields get `x-speakeasy-name-override` to map to the response field name
+- **Response fields** that don't exist in requests get `x-speakeasy-param-readonly: true`
+- **Computed fields** (like timestamps, IDs) get `x-speakeasy-param-readonly: true`
 
 ## Manual Mappings
 
@@ -105,19 +115,28 @@ properties:
   - schema: SomeEntity
     property: problematic_field
     action: ignore_property
+
+field_mappings:
+  - request_schema: create_user
+    response_schema: UserEntity
+    mappings:
+      - request_field: user_name
+        response_field: name
+      - request_field: user_email
+        response_field: email
 ```
 
 ## Example
 
-Given this input structure with nested objects and references:
+Given this input structure:
 ```json
 {
   "components": {
     "schemas": {
       "create_user": {
         "properties": {
-          "name": { "type": "string" },
-          "email": { "type": "string" },
+          "user_name": { "type": "string" },
+          "user_email": { "type": "string" },
           "settings": {
             "type": "object",
             "properties": {
@@ -126,22 +145,22 @@ Given this input structure with nested objects and references:
             }
           }
         },
-        "required": ["name", "email"]
+        "required": ["user_name", "user_email"]
       },
       "UserEntity": {
         "properties": {
           "id": { "type": "string" },
           "name": { "type": "string" },
           "email": { "type": "string" },
-          "settings": { "$ref": "#/components/schemas/UserSettings" },
+          "settings": {
+            "type": "object", 
+            "properties": {
+              "theme": { "type": "string" },
+              "notifications": { "type": "boolean" },
+              "last_login": { "type": "string" }
+            }
+          },
           "created_at": { "type": "string" }
-        }
-      },
-      "UserSettings": {
-        "properties": {
-          "theme": { "type": "string" },
-          "notifications": { "type": "boolean" },
-          "last_login": { "type": "string" }  // computed field
         }
       }
     }
@@ -150,29 +169,34 @@ Given this input structure with nested objects and references:
 ```
 
 The normalization process will:
-1. Detect that `settings` structures are semantically equivalent
-2. Align the response structure to match the request structure
-3. Preserve computed fields like `last_login`
+1. Leave schemas structurally unchanged
+2. Handle any reserved keyword properties
+3. Perform minimal cleanup operations
 
 The overlay generation will:
 1. Mark `UserEntity` with `x-speakeasy-entity`
 2. Map CRUD operations
-3. Mark `created_at` as `x-speakeasy-param-readonly`
-4. Mark `settings.last_login` as `x-speakeasy-param-readonly`
-5. Keep `settings.theme` and `settings.notifications` manageable
+3. Add `x-speakeasy-name-override: "name"` to `create_user.user_name`
+4. Add `x-speakeasy-name-override: "email"` to `create_user.user_email`
+5. Mark `UserEntity.id` as `x-speakeasy-param-readonly: true`
+6. Mark `UserEntity.created_at` as `x-speakeasy-param-readonly: true`
+7. Mark `UserEntity.settings.last_login` as `x-speakeasy-param-readonly: true`
+8. Keep `settings.theme` and `settings.notifications` manageable in both schemas
 
 ## Script Debugging
 
 Run scripts locally. Use `speakeasy run` to attempt to generate the provider.
 
 ### Debugging Normalization
-- Look for fields that were added from request schemas
-- Verify that complex structures were properly aligned
+- Check for reserved keyword replacements
+- Verify minimal structural changes were applied
+- Look for enum and parameter normalizations
 
 ### Debugging Overlay
-- Check for `x-speakeasy-param-readonly` vs `x-speakeasy-ignore` usage
-- Verify that normalized properties weren't incorrectly ignored
+- Check for `x-speakeasy-name-override` mappings on request fields
+- Verify `x-speakeasy-param-readonly: true` usage on response-only fields
 - Look for nested readonly properties within manageable fields
+- Ensure required fields weren't incorrectly ignored
 
 To view the combined normalized spec + overlay run `speakeasy overlay apply -s {specPath} -o {overlayPath} > {outputPath}` This output will always be in yaml, so name accordingly
 
