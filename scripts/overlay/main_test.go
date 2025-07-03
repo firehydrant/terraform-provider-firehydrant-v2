@@ -90,7 +90,7 @@ func TestMainFunctionality(t *testing.T) {
 			t.Error("expected non-nil overlay")
 		}
 
-		if len(overlay.Actions) == 0 {
+		if overlay != nil && len(overlay.Actions) == 0 {
 			t.Error("expected at least one overlay action")
 		}
 	})
@@ -416,7 +416,7 @@ func TestMainWorkflow(t *testing.T) {
 		}
 
 		// Step 3: Verify overlay structure (like main() would validate)
-		if overlay.Overlay != "1.0.0" {
+		if overlay != nil && overlay.Overlay != "1.0.0" {
 			t.Errorf("expected overlay version '1.0.0', got '%s'", overlay.Overlay)
 		}
 
