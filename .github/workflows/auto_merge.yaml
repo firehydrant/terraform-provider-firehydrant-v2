@@ -1,0 +1,28 @@
+name: Auto Approve and Merge
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  auto-approve-merge:
+    runs-on: ubuntu-latest
+    # Only run for PRs created by github-actions bot
+    # Intended to auto-approve and merge PRs created by speakeasy sdk generation
+    if: github.actor == 'github-actions[bot]'
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Auto Approve PR
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.AUTO_MERGE_TOKEN }}
+          
+      - name: Enable Auto-merge
+        run: |
+          gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.AUTO_MERGE_TOKEN }}

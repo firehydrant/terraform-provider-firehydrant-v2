@@ -1,0 +1,421 @@
+# Action types:
+# - "ignore": Skip this operation entirely (won't get any x-speakeasy annotations)
+# - "entity": Force operation to map to specific entity (value = entity name)
+# - "match": Override parameter mapping (value = "param_name:field_name")
+# - "ignore_property": Ignore a specific property on an entity, specify schema and property
+# - "additional_properties": Add additionalProperties: true to a specific property on an entity, specify schema and property
+#    this is a workaround for empty hashes in our Grape API
+
+operations:
+  # IGNORE: Skip operations that shouldn't be treated as entity operations
+  # Contains a parameter we cannot reconcile across entity operations
+  - path: "/v1/incidents/{incident_id}/impact"
+    method: "patch"
+    action: "ignore"
+  - path: "/v1/incidents/{incident_id}/resolve"
+    method: "put"
+    action: "ignore"
+  - path: "/v1/incidents/{incident_id}/impact"
+    method: "put"
+    action: "ignore"
+
+   # This is incorrectly mapped to list event sources - ChangeEventsEntities#read
+   # The cloudtrail batches entity also contains a connection property which causes compilation errors
+   # Even when ignored at the property level, the issue persists
+  - path: "/v1/integrations/aws/cloudtrail_batches/{id}/events"
+    method: "get"
+    action: "ignore"
+  - path: "/v1/integrations/aws/cloudtrail_batches/{id}/events"
+    method: "patch"
+    action: "ignore"
+  - path: "/v1/integrations/aws/cloudtrail_batches"
+    method: "get"
+    action: "ignore"
+  - 
+  # Resource type path params are causing issues with entity resolution
+  # TODO: Figure out how to include
+  #   Terraform propably doesn't need this
+  #    but the pattern isn't that odd so this could easily reappear 
+  - path: /v1/saved_searches/{resource_type}/{saved_search_id}""
+    method: "delete"
+    action: "ignore"
+  - path: /v1/saved_searches/{resource_type}/{saved_search_id}"
+    method: "get"
+    action: "ignore"
+  - path: "/v1/saved_searches/{resource_type}/{saved_search_id}"
+    method: "patch"
+    action: "ignore"
+  - path: "/v1/saved_searches/{resource_type}"
+    method: "post"
+    action: "ignore"
+  - path: "/v1/saved_searches/{resource_type}"
+    method: "get"
+    action: "ignore"
+
+  # Manual Entity Mappings
+  # Signals Event Sources
+  - path: "/v1/signals/event_sources/{transposer_slug}"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_TransposerEntity"
+    
+  - path: "/v1/signals/event_sources"
+    method: "put"
+    action: "entity"
+    value: "Signals_API_TransposerEntity"
+    
+  - path: "/v1/signals/event_sources/{transposer_slug}"
+    method: "delete"
+    action: "entity"
+    value: "Signals_API_TransposerEntity"
+    
+  - path: "/v1/signals/event_sources"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_TransposerEntity"
+
+  # Parameter matching for transposer_slug -> slug field
+  - path: "/v1/signals/event_sources/{transposer_slug}"
+    method: "get"
+    action: "match"
+    value: "transposer_slug:slug"
+    
+  - path: "/v1/signals/event_sources/{transposer_slug}"
+    method: "delete"
+    action: "match"
+    value: "transposer_slug:slug"
+
+# Signals Alert Grouping
+  - path: "/v1/signals/grouping"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_GroupingEntity"
+    
+  - path: "/v1/signals/grouping"
+    method: "post"
+    action: "entity"
+    value: "Signals_API_GroupingEntity"
+    
+  - path: "/v1/signals/grouping/{id}"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_GroupingEntity"
+    
+  - path: "/v1/signals/grouping/{id}"
+    method: "patch"
+    action: "entity"
+    value: "Signals_API_GroupingEntity"
+    
+  - path: "/v1/signals/grouping/{id}"
+    method: "delete"
+    action: "entity"
+    value: "Signals_API_GroupingEntity"
+
+# Signals Escalation Policies
+  - path: "/v1/teams/{team_id}/signals/escalation_policies"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  - path: "/v1/teams/{team_id}/signals/escalation_policies"
+    method: "post"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  - path: "/v1/teams/{team_id}/signals/escalation_policies/{escalation_policy_id}"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  - path: "/v1/teams/{team_id}/signals/escalation_policies/{escalation_policy_id}"
+    method: "patch"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  - path: "/v1/teams/{team_id}/signals/escalation_policies/{escalation_policy_id}"
+    method: "delete"
+    action: "entity"
+    value: "Signals_API_EscalationPolicyEntity"
+
+  # Parameter matching for escalation_policy_id -> id field
+  - path: "/v1/teams/{team_id}/escalation_policies/{id}"
+    method: "get"
+    action: "match"
+    value: "team_id:handoff_step.target_id"
+
+  - path: "/v1/teams/{team_id}/escalation_policies/{id}"
+    method: "patch"
+    action: "match"
+    value: "team_id:handoff_step.target_id"
+
+# Task Lists
+  - path: "/v1/task_lists"
+    method: "get"
+    action: "entity"
+    value: "TaskListEntity"
+
+  - path: "/v1/task_lists"
+    method: "post"
+    action: "entity"
+    value: "TaskListEntity"
+
+  - path: "/v1/task_lists/{task_list_id}"
+    method: "get"
+    action: "entity"
+    value: "TaskListEntity"
+    
+  - path: "/v1/task_lists/{task_list_id}"
+    method: "patch"
+    action: "entity"
+    value: "TaskListEntity"
+
+  - path: "/v1/task_lists/{task_list_id}"
+    method: "delete"
+    action: "entity"
+    value: "TaskListEntity"
+
+# Status Update Template 
+  - path: "/v1/status_update_templates"
+    method: "get"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+  
+  - path: "/v1/status_update_templates"
+    method: "post"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+
+  - path: "/v1/status_update_templates/{status_update_template_id}"
+    method: "get"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+
+  - path: "/v1/status_update_templates/{status_update_template_id}"
+    method: "patch"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+
+  - path: "/v1/status_update_templates/{status_update_template_id}"
+    method: "delete"
+    action: "entity"
+    value: "StatusUpdateTemplateEntity"
+
+# Signals Notification Policy
+# TODO: in PDE-5414 https://firehydrant.atlassian.net/browse/PDE-5421
+#  Uncomment and fix generation for these items
+#  Initial attempts to implement result in compliation errors related to missing type definitions
+#  Currently, we don't have response shapes defined and likely need to update the Grape API
+#  Ex. Error: Could not find or infer x-speakeasy-entity: Signals_API_NotificationPolicyItemsEntities type definition within x-speakeasy-entity-operation: Signals_API_NotificationPolicyItemsEntities#read 
+  # - path: "/v1/signals/notification_policy_items"
+  #   method: "get"
+  #   action: "entity"
+  #   value: "Signals_API_NotificationPolicyItemEntity"
+
+  # - path: "/v1/signals/notification_policy_items"
+  #   method: "post"
+  #   action: "entity"
+  #   value: "Signals_API_NotificationPolicyItemEntity" 
+
+  # - path:  "/v1/signals/notification_policy_items/{id}"
+  #   method: "delete"
+  #   action: "entity"
+  #   value: "Signals_API_NotificationPolicyItemEntity"
+
+  # - path: "/v1/signals/notification_policy_items/{id}"
+  #   method: "patch"
+  #   action: "entity"
+  #   value: "Signals_API_NotificationPolicyItemEntity"
+
+# Additional Property Mappings
+# Handle empty hashes in our Grape API by adding additionalProperties: true to specific properties
+  - action: "additional_properties"
+    schema: "Attachments_TypedAttachmentEntity"
+    property: "attributes"
+    
+  - action: "additional_properties"
+    schema: "ChangeEntity"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "ChangeEventEntity"
+    property: "labels"
+  
+  - action: "additional_properties"
+    schema: "ChangeEventSlimEntity"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "update_change_event"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "create_change_event"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "ChecklistTemplateEntity"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "ErrorEntity"
+    property: "meta"
+    
+  - action: "additional_properties"
+    schema: "FunctionalityEntity"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "create_functionality"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "FunctionalityEntity"
+    property: "services.labels"
+    
+  - action: "additional_properties"
+    schema: "IncidentTypeEntity_TemplateEntity"
+    property: "labels"
+    
+  - action: "additional_properties"
+    schema: "Rules_RuleEntity"
+    property: "logic"
+    
+  - action: "additional_properties"
+    schema: "RunbookEntity"
+    property: "steps.action_elements.items"
+    
+  - action: "additional_properties"
+    schema: "RunbookEntity"
+    property: "config.properties"
+    
+  - action: "additional_properties"
+    schema: "RunbookEntity"
+    property: "step_elements"
+
+  - action: "additional_properties"
+    schema: "RunbookStepEntity"
+    property: "action_elements.items"
+
+  - action: "additional_properties"
+    schema: "RunbookStepEntity"
+    property: "config.properties"
+
+  - action: "additional_properties"
+    schema: "RunbookStepEntity"
+    property: "step_elements.items"
+
+  - action: "additional_properties"
+    schema: "Runbooks_ActionsEntity"
+    property: "default_logic"
+
+  - action: "additional_properties"
+    schema: "Runbooks_Action_Entity"
+    property: "default_rule_data"
+
+  - action: "additional_properties"
+    schema: "RunbooksAction_entity"
+    property: "prerequisites"
+
+  - action: "additional_properties"
+    schema: "SavedSearchEntity"
+    property: "filter_values"
+
+  - action: "additional_properties"
+    schema: "ServiceEntity"
+    property: "functionalities.items.labels"
+
+  - action: "additional_properties"
+    schema: "ServiceEntity" 
+    property: "functionalities.labels"
+
+  - action: "additional_properties"
+    schema: "ServiceEntity"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "Ticketing_projectConfigEntity"
+    property: "details"
+
+  - action: "additional_properties"
+    schema: "Ticketing_ProjectFieldMapBodyEntity"
+    property: "user_data"
+
+  - action: "additional_properties"
+    schema: "Ticketing_ProjectFieldMapCasesEntity"
+    property: "logic"
+
+  - action: "additional_properties"
+    schema: "create_functionality"
+    property: "external_resources.labels"
+
+  - action: "additional_properties"
+    schema: "create_incident_type"
+    property: "template.labels"
+
+  - action: "additional_properties"
+    schema: "create_scim_user"  
+    property: "roles"
+
+  - action: "additional_properties"
+    schema: "create_service"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "update_functionality"
+    property: "labels"
+
+  - action: "additional_properties"
+    schema: "update_incident_type"
+    property: "template.labels"
+
+  - action: "additional_properties"
+    schema: "update_saved_search"
+    property: "filter_values"
+
+  - action: "additional_properties"
+    schema: "update_scim_user"
+    property: "roles"
+
+  - action: "additional_properties"
+    schema: "update_service"
+    property: "labels"
+
+
+
+# Entity Level Property Ignoring - only work for top level properties
+  - action: "ignore_property"
+    schema: "PublicAPI_V1_FormConfigurations_SelectedValueEntity"
+    property: "template"
+    
+  - action: "ignore_property"  
+    schema: "MediaImageEntity"
+    property: "versions_urls"
+    
+  - action: "ignore_property"
+    schema: "IncidentTypeEntity_TemplateValuesEntity" 
+    property: "runbooks"
+
+# These properties contain arrays of objects which are empty hashes in our Grape API
+# Even after marking readonly, these still cause compliation issues
+# Long term, we need to define these shapes in our Grape API
+  - action: "ignore_property"
+    schema: "RunbookStepEntity"
+    property: "action_elements"
+
+  - action: "ignore_property"
+    schema: "RunbookStepEntity"
+    property: "step_elements"
+
+  - action: "ignore_property"
+    schema: "ChangeEventEntity"
+    property: "created_at"
+
+# Reserved words in terraform with object properties
+#   Ignoring properties with $refs or object types directly was initially ineffective, so this is a hacky workaround to avoid compilation errors
+#   in our normalization step we convert any reserved keywords of object type to empty objects
+#   in our overlay generation step, we use this manual mapping to allow additional properties to be received
+#   terraform won't be able to use these fields, but it allows terraform to make successful API calls and receive responses containing these fields without breaking
+  - action: "additional_properties"
+    schema: "Integrations_Aws_CloudtrailBatchEntity"
+    property: "connection"
+

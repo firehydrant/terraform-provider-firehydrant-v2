@@ -3,9 +3,9 @@ speakeasyVersion: latest
 sources:
     firehydrant-oas:
         inputs:
-            - location: ./openapi.yaml
+            - location: ${GITHUB_WORKSPACE}/openapi.json
         overlays:
-            - location: .speakeasy/speakeasy-suggestions.yaml
+            - location: ./.speakeasy/terraform-overlay.yaml
         registry:
             location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-oas
 targets:
