@@ -5,7 +5,7 @@ sources:
         inputs:
             - location: ${GITHUB_WORKSPACE}/openapi.json
         overlays:
-            - location: ./.speakeasy/terraform-overlay.yaml
+            - location: ${GITHUB_WORKSPACE}/.speakeasy/terraform-overlay.yaml
         registry:
             location: registry.speakeasyapi.dev/firehydrant/firehydrant/firehydrant-oas
 targets:

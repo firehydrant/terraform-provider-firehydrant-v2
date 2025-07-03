@@ -61,8 +61,8 @@ jobs:
           go run ./scripts/overlay openapi.json ./scripts/overlay/manual-mappings.yaml
           
           # Move overlay to Speakeasy directory
-          mkdir -p .speakeasy
-          mv terraform-overlay.yaml .speakeasy/
+          mkdir -p ${GITHUB_WORKSPACE}/.speakeasy
+          mv terraform-overlay.yaml ${GITHUB_WORKSPACE}/.speakeasy/
 
       - name: Generate SDK
         uses: speakeasy-api/sdk-generation-action@v15
