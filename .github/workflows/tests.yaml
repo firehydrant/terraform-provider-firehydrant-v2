@@ -1,0 +1,41 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+
+    - name: Download dependencies
+      run: go mod download
+
+    - name: Run tests
+      run: go test -v -race ./scripts/...
+
+    - name: Check for test files
+      run: |
+        echo "Checking for test files..."
+        find ./scripts -name "*_test.go" -type f
+        if [ $(find ./scripts -name "*_test.go" -type f | wc -l) -eq 0 ]; then
+          echo "Warning: No test files found!"
+          exit 1
+        fi
+
+    - name: Test each package separately
+      run: |
+        echo "Testing individual packages..."
+        go test -v ./scripts/common
+        go test -v ./scripts/normalize  
+        go test -v ./scripts/overlay
