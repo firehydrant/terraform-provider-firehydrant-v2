@@ -1,1 +1,0 @@
-terraform import firehydrant_status_update_template.my_firehydrant_status_update_template ""
