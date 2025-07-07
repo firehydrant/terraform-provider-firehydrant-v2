@@ -221,6 +221,135 @@ This pipeline is typically run as part of a GitHub Action:
 
 The generated overlay is then used by Speakeasy to create the Terraform provider.
 
+## Release Process
+
+Our automated release process ensures consistent versioning and reliable publishing of the Terraform provider.
+
+### Overview
+
+The release process consists of three main GitHub Actions workflows:
+
+1. **SDK Generation** (`sdk_generation.yaml`) - Daily automated provider generation
+2. **Tag Release** (`tag_release.yaml`) - Creates release tags when provider code changes
+3. **Release Terraform Provider** (`release.yaml`) - Publishes the provider to registries
+
+### Automated Release Flow
+
+```mermaid
+flowchart TD
+    A [Daily: SDK Generation Workflow] --> [Speakeasy Bot Opens PR]
+    B --> Merge PR to main
+    C --> {PR Contains /internal Changes?}
+    C -->|Yes| [Tag Release Workflow Triggered]
+    C -->|No| [No release]
+    D --> [Extract Version from PR Title]
+    E --> [Create Git Tag]
+    F --> [Release Workflow Triggered]
+    G --> [GoReleaser Publishes Provider]
+```
+
+### Workflow Details
+
+#### 1. SDK Generation (`sdk_generation.yaml`)
+**Triggers:** Daily at midnight, manual dispatch
+**Purpose:** Generate updated provider from latest OpenAPI spec
+
+**Process:**
+- Fetches latest OpenAPI spec from developers repo
+- Runs normalization and overlay scripts
+- Generates provider via Speakeasy
+- Speakeasy bot opens PR with changes
+
+#### 2. Tag Release (`tag_release.yaml`)
+**Triggers:** Push to main with `/internal/**` changes, manual dispatch
+**Purpose:** Create release tags with proper versioning
+
+**Version Sources (in priority order):**
+1. **Manual dispatch** with `set_version` input
+2. **Speakeasy PR title** - Extracts version from pattern: `"chore: 🐝 Update SDK - Generate X.X.X"`
+3. **Workflow fails** if no version found (no auto-increment to prevent wrong versions)
+
+**Process:**
+- Detects version from PR title or manual input
+- Creates annotated Git tag (e.g., `v0.2.7`)
+- Pushes tag to repository
+
+#### 3. Release Terraform Provider (`release.yaml`)
+**Triggers:** Git tag creation (`v*` pattern), manual dispatch
+**Purpose:** Publish provider to Terraform Registry
+
+**Process:**
+- Triggered automatically when tag is created
+- Runs GoReleaser to build and publish provider
+- Creates GitHub release with assets
+- Publishes to Terraform Registry
+
+### Manual Release Process
+
+For manual releases or hotfixes:
+
+1. **Direct tag creation:**
+   ```bash
+   git tag v0.2.8
+   git push origin v0.2.8
+   ```
+
+2. **Via workflow dispatch:**
+   - Go to Actions → "Tag Release" workflow
+   - Click "Run workflow"
+   - Set `set_version` to desired version (e.g., `0.2.8`)
+   - Run workflow
+
+### Version Management
+
+- **Current version scheme:** `v0.2.X` (semantic versioning)
+- **Speakeasy determines versions** based on API changes
+- **No auto-increment** to prevent accidental releases
+- **Version extraction** from PR titles ensures accuracy
+
+### Troubleshooting
+
+#### Tag Mismatch Errors
+If you see errors like "git tag v0.2.6 was not made against commit...", fix with:
+```bash
+git tag -d v0.2.6
+git push origin :refs/tags/v0.2.6
+git tag v0.2.6
+git push origin v0.2.6
+```
+
+#### Missing Version in PR
+If the Tag Release workflow fails due to missing version:
+- Check PR title follows format: `"chore: 🐝 Update SDK - Generate X.X.X"`
+- Use manual dispatch with `set_version` as fallback
+
+#### Release Workflow Fails
+- Verify tag exists and points to correct commit
+- Check GitHub tokens and secrets are configured
+- Ensure GoReleaser configuration is valid
+
+### Testing Release Process
+
+To test the release process safely:
+
+1. **Create test branch:**
+   ```bash
+   git checkout -b test-release
+   ```
+
+2. **Modify tag workflow** to trigger on test branch
+3. **Use dry-run mode** to validate without creating actual tags
+4. **Test version extraction** with sample commit messages
+
+### Prerequisites
+
+Ensure these secrets are configured in GitHub:
+- `GITHUB_TOKEN` (automatic)
+- `terraform_gpg_private_key` (for signing)
+- `terraform_gpg_passphrase` (for signing)
+- `FH_OPS_SSH_KEY` (for accessing developers repo)
+- `SPEAKEASY_API_KEY` (for SDK generation)
+
 ## Provider Local Testing
 
 After `speakeasy run` has successfully completed. 
