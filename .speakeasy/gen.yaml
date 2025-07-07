@@ -19,6 +19,10 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
+  tests:
+    generateTests: true
+    generateNewTests: false
+    skipResponseBodyAssertions: false
 terraform:
   version: 0.2.6
   additionalDataSources: []
@@ -30,6 +34,7 @@ terraform:
   additionalResources: []
   allowUnknownFieldsInWeakUnions: false
   author: firehydrant
+  baseErrorName: FirehydrantError
   defaultErrorName: APIError
   enableTypeDeduplication: false
   environmentVariables: []
