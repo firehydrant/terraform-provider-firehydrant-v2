@@ -25,18 +25,41 @@ jobs:
       - name: Calculate next version
         id: version
         run: |
-          # Get the latest tag
-          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.2.6")
-          echo "Latest tag: $latest_tag"
+          # Try to extract version from PR title first
+          pr_title=""
+          if [ "${{ github.event_name }}" == "push" ]; then
+            # Get the PR title from the merge commit message
+            commit_message=$(git log -1 --format='%s')
+            echo "Commit message: $commit_message"
+            
+            # Extract version from PR title pattern "chore: 🐝 Update SDK - Generate X.X.X"
+            if [[ $commit_message =~ Generate\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+              extracted_version="${BASH_REMATCH[1]}"
+              new_version="v$extracted_version"
+              echo "Extracted version from PR title: $new_version"
+            else
+              echo "Could not extract version from commit message, falling back to auto-increment"
+              extracted_version=""
+            fi
+          fi
           
-          # If set_version is provided, use that
+          # If manual dispatch with set_version, use that
           if [ -n "${{ github.event.inputs.set_version }}" ]; then
             new_version="${{ github.event.inputs.set_version }}"
             # Add 'v' prefix if not present
             if [[ ! $new_version =~ ^v ]]; then
               new_version="v$new_version"
             fi
+            echo "Using manual version: $new_version"
+          # If we extracted version from PR title, use that
+          elif [ -n "$extracted_version" ]; then
+            new_version="v$extracted_version"
+            echo "Using extracted version: $new_version"
           else
+            # Fall back to auto-increment
+            latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.2.6")
+            echo "Latest tag: $latest_tag"
+            
             # Extract version numbers and increment patch
             version=${latest_tag#v}
             IFS='.' read -r major minor patch <<< "$version"
@@ -44,9 +67,10 @@ jobs:
             # Increment patch version
             new_patch=$((patch + 1))
             new_version="v$major.$minor.$new_patch"
+            echo "Auto-incremented version: $new_version"
           fi
           
-          echo "New version: $new_version"
+          echo "Final version: $new_version"
           echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Configure Git
