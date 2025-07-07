@@ -1,7 +1,7 @@
 name: Tag Release
 permissions:
   contents: write
-"on":
+on:
   push:
     branches:
       - main
@@ -21,31 +21,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
-      - name: Check if this is a Speakeasy bot commit
-        id: check_commit
-        run: |
-          # Check if the commit was made by speakeasy bot or if manually triggered
-          commit_author=$(git log -1 --format='%an')
-          commit_message=$(git log -1 --format='%s')
-          
-          echo "Commit author: $commit_author"
-          echo "Commit message: $commit_message"
-          
-          if [[ "$commit_author" == *"speakeasy"* ]] || [[ "$commit_author" == *"github-actions"* ]] || [[ "$commit_message" == *"speakeasy"* ]] || [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "should_tag=true" >> $GITHUB_OUTPUT
-            echo "This appears to be a Speakeasy-generated commit or manual trigger"
-          else
-            echo "should_tag=false" >> $GITHUB_OUTPUT
-            echo "This is a regular commit, not tagging"
-          fi
 
       - name: Calculate next version
         id: version
-        if: steps.check_commit.outputs.should_tag == 'true'
         run: |
           # Get the latest tag
-          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.2.7")
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.2.6")
           echo "Latest tag: $latest_tag"
           
           # If set_version is provided, use that
@@ -69,13 +50,11 @@ jobs:
           echo "new_version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Configure Git
-        if: steps.check_commit.outputs.should_tag == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
       - name: Create and push tag
-        if: steps.check_commit.outputs.should_tag == 'true'
         run: |
           new_version="${{ steps.version.outputs.new_version }}"
           echo "Creating tag: $new_version"
