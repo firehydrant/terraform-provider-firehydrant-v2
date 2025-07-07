@@ -1,0 +1,84 @@
+name: Tag Release
+permissions:
+  contents: write
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'internal/**'
+  workflow_dispatch:
+    inputs:
+      set_version:
+        description: optionally set a specific SDK version
+        type: string
+
+jobs:
+  check_and_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Calculate next version
+        id: version
+        run: |
+          new_version=""
+          
+          # If manual dispatch with set_version, use that (highest priority)
+          if [ -n "${{ github.event.inputs.set_version }}" ]; then
+            new_version="${{ github.event.inputs.set_version }}"
+            # Add 'v' prefix if not present
+            if [[ ! $new_version =~ ^v ]]; then
+              new_version="v$new_version"
+            fi
+            echo "Using manual version: $new_version"
+          # If push event, try to extract version from PR title
+          elif [ "${{ github.event_name }}" == "push" ]; then
+            # Get the PR title from the merge commit message
+            commit_message=$(git log -1 --format='%s')
+            echo "Commit message: $commit_message"
+            
+            # Extract version from PR title pattern "chore: 🐝 Update SDK - Generate X.X.X"
+            if [[ $commit_message =~ Generate\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+              extracted_version="${BASH_REMATCH[1]}"
+              new_version="v$extracted_version"
+              echo "Extracted version from PR title: $new_version"
+            else
+              echo "❌ Could not extract version from commit message"
+              echo "Expected format: 'chore: 🐝 Update SDK - Generate X.X.X'"
+              echo "Actual message: $commit_message"
+            fi
+          fi
+          
+          # Validate that we have a version
+          if [ -z "$new_version" ]; then
+            echo "❌ No version could be determined. Workflow will exit."
+            echo "Please either:"
+            echo "  1. Use workflow_dispatch with set_version input, or"
+            echo "  2. Ensure PR title contains 'Generate X.X.X' pattern"
+            exit 1
+          fi
+          
+          echo "✅ Final version: $new_version"
+          echo "new_version=$new_version" >> $GITHUB_OUTPUT
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+      - name: Create and push tag
+        run: |
+          new_version="${{ steps.version.outputs.new_version }}"
+          echo "Creating tag: $new_version"
+          
+          # Create annotated tag with message
+          git tag -a "$new_version" -m "Release $new_version - Updated Terraform provider"
+          
+          # Push the tag
+          git push origin "$new_version"
+          
+          echo "Successfully created and pushed tag: $new_version"
