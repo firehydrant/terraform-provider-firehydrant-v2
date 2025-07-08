@@ -73,7 +73,7 @@ func findInlineRequestSchemas(paths map[string]interface{}) []RequestSchemaInfo 
 }
 
 func generateRequestSchemaName(operationId, contentType string) string {
-	// Tests in laddetruck required operationIds to be added to routes
+	// Tests in laddertruck required operationIds to be added to routes
 	// so we will rely on these here
 	schemaName := operationId
 
