@@ -141,12 +141,12 @@ operations:
   - path: "/v1/teams/{team_id}/escalation_policies/{id}"
     method: "get"
     action: "match"
-    value: "team_id:handoff_step.target_id"
+    value: "team_id:handoff_step.target.id"
 
   - path: "/v1/teams/{team_id}/escalation_policies/{id}"
     method: "patch"
     action: "match"
-    value: "team_id:handoff_step.target_id"
+    value: "team_id:handoff_step.target.id"
 
 # Task Lists
   - path: "/v1/task_lists"
@@ -211,20 +211,25 @@ operations:
   #   action: "entity"
   #   value: "Signals_API_NotificationPolicyItemEntity"
 
-  # - path: "/v1/signals/notification_policy_items"
-  #   method: "post"
-  #   action: "entity"
-  #   value: "Signals_API_NotificationPolicyItemEntity" 
+  - path: "/v1/signals/notification_policy_items"
+    method: "post"
+    action: "entity"
+    value: "Signals_API_NotificationPolicyItemEntity" 
 
-  # - path:  "/v1/signals/notification_policy_items/{id}"
-  #   method: "delete"
-  #   action: "entity"
-  #   value: "Signals_API_NotificationPolicyItemEntity"
+  - path: "/v1/signals/notification_policy_items/{id}"
+    method: "get"
+    action: "entity"
+    value: "Signals_API_NotificationPolicyItemEntity"
 
-  # - path: "/v1/signals/notification_policy_items/{id}"
-  #   method: "patch"
-  #   action: "entity"
-  #   value: "Signals_API_NotificationPolicyItemEntity"
+  - path:  "/v1/signals/notification_policy_items/{id}"
+    method: "delete"
+    action: "entity"
+    value: "Signals_API_NotificationPolicyItemEntity"
+
+  - path: "/v1/signals/notification_policy_items/{id}"
+    method: "patch"
+    action: "entity"
+    value: "Signals_API_NotificationPolicyItemEntity"
 
 # Additional Property Mappings
 # Handle empty hashes in our Grape API by adding additionalProperties: true to specific properties

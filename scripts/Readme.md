@@ -28,6 +28,7 @@ go run ./scripts/normalize <input.json> [output.json]
 ```
 
 **What it does:**
+- Extracts inline request schemas: Moves inline `requestBody` schemas to `components/schemas` with `$ref` references
 - Replaces Terraform reserved keyword properties with empty objects (only for object/ref types)
 - Converts `additionalProperties` to `properties` for better Terraform compatibility
 - Normalizes path parameters (e.g., converts integer IDs to strings)
@@ -57,6 +58,7 @@ See speakeasy extensions: https://www.speakeasy.com/docs/speakeasy-reference/ext
 ## Key Concepts
 
 1. **During Normalization**:
+   - Inline request parameter extraction into request schemas
    - Minimal structural changes to preserve original API design
    - Reserved keyword handling for Terraform compatibility
    - Schema cleanup without forced alignment
@@ -169,9 +171,10 @@ Given this input structure:
 ```
 
 The normalization process will:
-1. Leave schemas structurally unchanged
-2. Handle any reserved keyword properties
-3. Perform minimal cleanup operations
+1. Extract any inline request schemas to `components/schemas` with proper `$ref` references
+2. Leave existing schemas structurally unchanged
+3. Handle any reserved keyword properties
+4. Perform minimal cleanup operations
 
 The overlay generation will:
 1. Mark `UserEntity` with `x-speakeasy-entity`
@@ -188,6 +191,8 @@ The overlay generation will:
 Run scripts locally. Use `speakeasy run` to attempt to generate the provider.
 
 ### Debugging Normalization
+- Verify that extracted schemas appear in `components/schemas`
+- Confirm inline request bodies now use `$ref` references
 - Check for reserved keyword replacements
 - Verify minimal structural changes were applied
 - Look for enum and parameter normalizations

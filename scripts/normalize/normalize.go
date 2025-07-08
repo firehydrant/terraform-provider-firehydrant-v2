@@ -12,18 +12,28 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 	components, ok := spec["components"].(map[string]interface{})
 	if !ok {
 		fmt.Println("Warning: No components found in spec")
-		return report
+		// Create components if it doesn't exist
+		components = map[string]interface{}{}
+		spec["components"] = components
 	}
 
 	schemas, ok := components["schemas"].(map[string]interface{})
 	if !ok {
 		fmt.Println("Warning: No schemas found in components")
-		return report
+		// Create schemas if it doesn't exist
+		schemas = map[string]interface{}{}
+		components["schemas"] = schemas
 	}
 
 	paths, pathsOk := spec["paths"].(map[string]interface{})
 	if !pathsOk {
 		fmt.Println("Warning: No paths found in spec")
+	}
+
+	// We need to normalize request schemas first to ensure that extracted schemas are available for other normalization steps
+	if pathsOk {
+		requestSchemaFixes := normalizeRequestSchemasWithPaths(paths, schemas)
+		report.ConflictDetails = append(report.ConflictDetails, requestSchemaFixes...)
 	}
 
 	terraformFixes := normalizeTerraformKeywords(schemas)
@@ -51,6 +61,8 @@ func normalizeSpec(spec map[string]interface{}) NormalizationReport {
 			report.MapClassFixes++
 		case "terraform-keyword":
 			report.TerraformKeywordFixes++
+		case "request-schema-extraction":
+			report.PropertyFixes++
 		default:
 			report.PropertyFixes++
 		}
