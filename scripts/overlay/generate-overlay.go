@@ -435,7 +435,6 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	fmt.Printf("\n=== Overlay Generation Complete ===\n")
 	fmt.Printf("Generated %d actions for %d viable resources and %d data sources\n", len(overlay.Actions), len(viableResources), len(viableDatasources)+len(viableResources))
 
-	// Count different types of actions
 	totalIgnores := 0
 	totalMatches := 0
 	totalReadonly := 0

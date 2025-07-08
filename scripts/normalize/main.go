@@ -84,6 +84,7 @@ func printNormalizationReport(report NormalizationReport) {
 	parameterFixes := 0
 	enumFixes := 0
 	terraformKeywordFixes := 0
+	requestSchemaFixes := 0
 	otherFixes := 0
 
 	for _, detail := range report.ConflictDetails {
@@ -96,6 +97,8 @@ func printNormalizationReport(report NormalizationReport) {
 			enumFixes++
 		case "terraform-keyword":
 			terraformKeywordFixes++
+		case "request-schema-extraction":
+			requestSchemaFixes++
 		default:
 			otherFixes++
 		}
@@ -105,6 +108,7 @@ func printNormalizationReport(report NormalizationReport) {
 	fmt.Printf("Parameter type fixes: %d\n", parameterFixes)
 	fmt.Printf("Enum normalization fixes: %d\n", enumFixes)
 	fmt.Printf("Terraform keyword fixes: %d\n", terraformKeywordFixes)
+	fmt.Printf("Request schema extraction fixes: %d\n", requestSchemaFixes)
 	fmt.Printf("Other fixes: %d\n", otherFixes)
 
 	// Helpful for debugging
