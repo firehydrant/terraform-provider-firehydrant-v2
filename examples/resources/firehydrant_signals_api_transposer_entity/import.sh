@@ -1,1 +1,0 @@
-terraform import firehydrant_signals_api_transposer_entity.my_firehydrant_signals_api_transposer_entity ""

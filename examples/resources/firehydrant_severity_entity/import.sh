@@ -1,1 +1,0 @@
-terraform import firehydrant_severity_entity.my_firehydrant_severity_entity ""
