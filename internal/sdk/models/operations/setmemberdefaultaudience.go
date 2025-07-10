@@ -7,21 +7,9 @@ import (
 	"net/http"
 )
 
-type SetMemberDefaultAudienceRequestBody struct {
-	// ID of the audience to set as default
-	AudienceID string `json:"audience_id"`
-}
-
-func (o *SetMemberDefaultAudienceRequestBody) GetAudienceID() string {
-	if o == nil {
-		return ""
-	}
-	return o.AudienceID
-}
-
 type SetMemberDefaultAudienceRequest struct {
-	MemberID    string                              `pathParam:"style=simple,explode=false,name=member_id"`
-	RequestBody SetMemberDefaultAudienceRequestBody `request:"mediaType=application/json"`
+	MemberID                 string                          `pathParam:"style=simple,explode=false,name=member_id"`
+	SetMemberDefaultAudience shared.SetMemberDefaultAudience `request:"mediaType=application/json"`
 }
 
 func (o *SetMemberDefaultAudienceRequest) GetMemberID() string {
@@ -31,11 +19,11 @@ func (o *SetMemberDefaultAudienceRequest) GetMemberID() string {
 	return o.MemberID
 }
 
-func (o *SetMemberDefaultAudienceRequest) GetRequestBody() SetMemberDefaultAudienceRequestBody {
+func (o *SetMemberDefaultAudienceRequest) GetSetMemberDefaultAudience() shared.SetMemberDefaultAudience {
 	if o == nil {
-		return SetMemberDefaultAudienceRequestBody{}
+		return shared.SetMemberDefaultAudience{}
 	}
-	return o.RequestBody
+	return o.SetMemberDefaultAudience
 }
 
 type SetMemberDefaultAudienceResponse struct {

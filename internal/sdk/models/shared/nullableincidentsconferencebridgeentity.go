@@ -12,9 +12,10 @@ type NullableIncidentsConferenceBridgeEntity struct {
 	HasTranslatedTranscripts *bool                                               `json:"has_translated_transcripts,omitempty"`
 	ID                       *string                                             `json:"id,omitempty"`
 	// A list of language codes that have translated transcripts for this conference bridge
-	LanguageCodes        []string `json:"language_codes,omitempty"`
-	TranscriptionStatus  *string  `json:"transcription_status,omitempty"`
-	TranscriptionSubCode *string  `json:"transcription_sub_code,omitempty"`
+	LanguageCodes          []string `json:"language_codes,omitempty"`
+	PreviousHostAssignment *string  `json:"previous_host_assignment,omitempty"`
+	TranscriptionStatus    *string  `json:"transcription_status,omitempty"`
+	TranscriptionSubCode   *string  `json:"transcription_sub_code,omitempty"`
 }
 
 func (o *NullableIncidentsConferenceBridgeEntity) GetAttachments() []NullableIncidentsConferenceBridgeEntityAttachment {
@@ -43,6 +44,13 @@ func (o *NullableIncidentsConferenceBridgeEntity) GetLanguageCodes() []string {
 		return nil
 	}
 	return o.LanguageCodes
+}
+
+func (o *NullableIncidentsConferenceBridgeEntity) GetPreviousHostAssignment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PreviousHostAssignment
 }
 
 func (o *NullableIncidentsConferenceBridgeEntity) GetTranscriptionStatus() *string {

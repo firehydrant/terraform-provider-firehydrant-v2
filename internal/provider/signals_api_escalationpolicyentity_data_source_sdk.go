@@ -57,6 +57,7 @@ func (r *SignalsAPIEscalationPolicyEntityDataSourceModel) RefreshFromSharedSigna
 				r.HandoffStep.Target.ID = types.StringPointerValue(resp.HandoffStep.Target.ID)
 				r.HandoffStep.Target.IsPageable = types.BoolPointerValue(resp.HandoffStep.Target.IsPageable)
 				r.HandoffStep.Target.Name = types.StringPointerValue(resp.HandoffStep.Target.Name)
+				r.HandoffStep.Target.TeamID = types.StringPointerValue(resp.HandoffStep.Target.TeamID)
 				r.HandoffStep.Target.Type = types.StringPointerValue(resp.HandoffStep.Target.Type)
 			}
 		}
@@ -81,6 +82,7 @@ func (r *SignalsAPIEscalationPolicyEntityDataSourceModel) RefreshFromSharedSigna
 						notificationPriorityPolicies.HandoffStep.Target.ID = types.StringPointerValue(notificationPriorityPoliciesItem.HandoffStep.Target.ID)
 						notificationPriorityPolicies.HandoffStep.Target.IsPageable = types.BoolPointerValue(notificationPriorityPoliciesItem.HandoffStep.Target.IsPageable)
 						notificationPriorityPolicies.HandoffStep.Target.Name = types.StringPointerValue(notificationPriorityPoliciesItem.HandoffStep.Target.Name)
+						notificationPriorityPolicies.HandoffStep.Target.TeamID = types.StringPointerValue(notificationPriorityPoliciesItem.HandoffStep.Target.TeamID)
 						notificationPriorityPolicies.HandoffStep.Target.Type = types.StringPointerValue(notificationPriorityPoliciesItem.HandoffStep.Target.Type)
 					}
 				}
@@ -99,6 +101,7 @@ func (r *SignalsAPIEscalationPolicyEntityDataSourceModel) RefreshFromSharedSigna
 							steps.NextTargetForRoundRobin.ID = types.StringPointerValue(stepsItem.NextTargetForRoundRobin.ID)
 							steps.NextTargetForRoundRobin.IsPageable = types.BoolPointerValue(stepsItem.NextTargetForRoundRobin.IsPageable)
 							steps.NextTargetForRoundRobin.Name = types.StringPointerValue(stepsItem.NextTargetForRoundRobin.Name)
+							steps.NextTargetForRoundRobin.TeamID = types.StringPointerValue(stepsItem.NextTargetForRoundRobin.TeamID)
 							steps.NextTargetForRoundRobin.Type = types.StringPointerValue(stepsItem.NextTargetForRoundRobin.Type)
 						}
 						steps.ParentPosition = types.Int32PointerValue(typeconvert.IntPointerToInt32Pointer(stepsItem.ParentPosition))
@@ -116,6 +119,7 @@ func (r *SignalsAPIEscalationPolicyEntityDataSourceModel) RefreshFromSharedSigna
 								targets.ID = types.StringPointerValue(targetsItem.ID)
 								targets.IsPageable = types.BoolPointerValue(targetsItem.IsPageable)
 								targets.Name = types.StringPointerValue(targetsItem.Name)
+								targets.TeamID = types.StringPointerValue(targetsItem.TeamID)
 								targets.Type = types.StringPointerValue(targetsItem.Type)
 								if targetsCount+1 > len(steps.Targets) {
 									steps.Targets = append(steps.Targets, targets)
@@ -123,6 +127,7 @@ func (r *SignalsAPIEscalationPolicyEntityDataSourceModel) RefreshFromSharedSigna
 									steps.Targets[targetsCount].ID = targets.ID
 									steps.Targets[targetsCount].IsPageable = targets.IsPageable
 									steps.Targets[targetsCount].Name = targets.Name
+									steps.Targets[targetsCount].TeamID = targets.TeamID
 									steps.Targets[targetsCount].Type = targets.Type
 								}
 							}
@@ -170,6 +175,7 @@ func (r *SignalsAPIEscalationPolicyEntityDataSourceModel) RefreshFromSharedSigna
 					steps1.NextTargetForRoundRobin.ID = types.StringPointerValue(stepsItem1.NextTargetForRoundRobin.ID)
 					steps1.NextTargetForRoundRobin.IsPageable = types.BoolPointerValue(stepsItem1.NextTargetForRoundRobin.IsPageable)
 					steps1.NextTargetForRoundRobin.Name = types.StringPointerValue(stepsItem1.NextTargetForRoundRobin.Name)
+					steps1.NextTargetForRoundRobin.TeamID = types.StringPointerValue(stepsItem1.NextTargetForRoundRobin.TeamID)
 					steps1.NextTargetForRoundRobin.Type = types.StringPointerValue(stepsItem1.NextTargetForRoundRobin.Type)
 				}
 				steps1.ParentPosition = types.Int32PointerValue(typeconvert.IntPointerToInt32Pointer(stepsItem1.ParentPosition))
@@ -187,6 +193,7 @@ func (r *SignalsAPIEscalationPolicyEntityDataSourceModel) RefreshFromSharedSigna
 						targets1.ID = types.StringPointerValue(targetsItem1.ID)
 						targets1.IsPageable = types.BoolPointerValue(targetsItem1.IsPageable)
 						targets1.Name = types.StringPointerValue(targetsItem1.Name)
+						targets1.TeamID = types.StringPointerValue(targetsItem1.TeamID)
 						targets1.Type = types.StringPointerValue(targetsItem1.Type)
 						if targetsCount1+1 > len(steps1.Targets) {
 							steps1.Targets = append(steps1.Targets, targets1)
@@ -194,6 +201,7 @@ func (r *SignalsAPIEscalationPolicyEntityDataSourceModel) RefreshFromSharedSigna
 							steps1.Targets[targetsCount1].ID = targets1.ID
 							steps1.Targets[targetsCount1].IsPageable = targets1.IsPageable
 							steps1.Targets[targetsCount1].Name = targets1.Name
+							steps1.Targets[targetsCount1].TeamID = targets1.TeamID
 							steps1.Targets[targetsCount1].Type = targets1.Type
 						}
 					}

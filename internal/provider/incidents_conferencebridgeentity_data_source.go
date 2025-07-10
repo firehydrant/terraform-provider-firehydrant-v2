@@ -35,6 +35,7 @@ type IncidentsConferenceBridgeEntityDataSourceModel struct {
 	IncidentID               types.String                                        `tfsdk:"incident_id"`
 	LanguageCode             types.String                                        `tfsdk:"language_code"`
 	LanguageCodes            []types.String                                      `tfsdk:"language_codes"`
+	PreviousHostAssignment   types.String                                        `tfsdk:"previous_host_assignment"`
 	TranscriptionStatus      types.String                                        `tfsdk:"transcription_status"`
 	TranscriptionSubCode     types.String                                        `tfsdk:"transcription_sub_code"`
 }
@@ -75,6 +76,9 @@ func (r *IncidentsConferenceBridgeEntityDataSource) Schema(ctx context.Context, 
 				Computed:    true,
 				ElementType: types.StringType,
 				Description: `A list of language codes that have translated transcripts for this conference bridge`,
+			},
+			"previous_host_assignment": schema.StringAttribute{
+				Computed: true,
 			},
 			"transcription_status": schema.StringAttribute{
 				Computed: true,

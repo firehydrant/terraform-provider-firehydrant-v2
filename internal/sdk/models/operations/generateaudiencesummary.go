@@ -3,40 +3,16 @@
 package operations
 
 import (
-	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
 )
-
-type GenerateAudienceSummaryRequestBody struct {
-	// Whether to force regeneration of the summary
-	ForceRegenerate *bool `default:"true" json:"force_regenerate"`
-}
-
-func (g GenerateAudienceSummaryRequestBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GenerateAudienceSummaryRequestBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *GenerateAudienceSummaryRequestBody) GetForceRegenerate() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ForceRegenerate
-}
 
 type GenerateAudienceSummaryRequest struct {
 	// Unique identifier of the audience
 	AudienceID string `pathParam:"style=simple,explode=false,name=audience_id"`
 	// Unique identifier of the incident to summarize
-	IncidentID  string                              `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody *GenerateAudienceSummaryRequestBody `request:"mediaType=application/json"`
+	IncidentID              string                          `pathParam:"style=simple,explode=false,name=incident_id"`
+	GenerateAudienceSummary *shared.GenerateAudienceSummary `request:"mediaType=application/json"`
 }
 
 func (o *GenerateAudienceSummaryRequest) GetAudienceID() string {
@@ -53,11 +29,11 @@ func (o *GenerateAudienceSummaryRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *GenerateAudienceSummaryRequest) GetRequestBody() *GenerateAudienceSummaryRequestBody {
+func (o *GenerateAudienceSummaryRequest) GetGenerateAudienceSummary() *shared.GenerateAudienceSummary {
 	if o == nil {
 		return nil
 	}
-	return o.RequestBody
+	return o.GenerateAudienceSummary
 }
 
 type GenerateAudienceSummaryResponse struct {

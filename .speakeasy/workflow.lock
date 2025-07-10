@@ -1,12 +1,12 @@
-speakeasyVersion: 1.575.5
+speakeasyVersion: 1.580.1
 sources:
     firehydrant-oas:
         sourceNamespace: firehydrant-oas
-        sourceRevisionDigest: sha256:8d8cc1e55a80f8e8f0ebc1a9dba987013cfe8ef27dc2c969d24a5187e28600c3
-        sourceBlobDigest: sha256:24dc8ddb88e3eb35338c2272388bbf7cbe688af0e60b36871008f9c078747916
+        sourceRevisionDigest: sha256:9849cb15d78e2cbd6a68f0dba8fc081e002621add90567989a7630e9117dafb6
+        sourceBlobDigest: sha256:164642ee8997c435b94dab11156991a67bb2465cf32055524619066ad0f7bebe
         tags:
             - latest
-            - speakeasy-sdk-regen-1751557646
+            - speakeasy-sdk-regen-1751933052
             - 0.0.1
     firehydrant-terraform-sdk-OAS:
         sourceNamespace: firehydrant-terraform-sdk-oas
@@ -19,8 +19,8 @@ targets:
     firehydrant-terraform-sdk:
         source: firehydrant-oas
         sourceNamespace: firehydrant-oas
-        sourceRevisionDigest: sha256:8d8cc1e55a80f8e8f0ebc1a9dba987013cfe8ef27dc2c969d24a5187e28600c3
-        sourceBlobDigest: sha256:24dc8ddb88e3eb35338c2272388bbf7cbe688af0e60b36871008f9c078747916
+        sourceRevisionDigest: sha256:9849cb15d78e2cbd6a68f0dba8fc081e002621add90567989a7630e9117dafb6
+        sourceBlobDigest: sha256:164642ee8997c435b94dab11156991a67bb2465cf32055524619066ad0f7bebe
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

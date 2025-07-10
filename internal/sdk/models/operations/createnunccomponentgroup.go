@@ -7,36 +7,9 @@ import (
 	"net/http"
 )
 
-type CreateNuncComponentGroupRequestBody struct {
-	ComponentGroupID *string `json:"component_group_id,omitempty"`
-	Name             string  `json:"name"`
-	Position         *int    `json:"position,omitempty"`
-}
-
-func (o *CreateNuncComponentGroupRequestBody) GetComponentGroupID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ComponentGroupID
-}
-
-func (o *CreateNuncComponentGroupRequestBody) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *CreateNuncComponentGroupRequestBody) GetPosition() *int {
-	if o == nil {
-		return nil
-	}
-	return o.Position
-}
-
 type CreateNuncComponentGroupRequest struct {
-	NuncConnectionID string                              `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
-	RequestBody      CreateNuncComponentGroupRequestBody `request:"mediaType=application/json"`
+	NuncConnectionID         string                          `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
+	CreateNuncComponentGroup shared.CreateNuncComponentGroup `request:"mediaType=application/json"`
 }
 
 func (o *CreateNuncComponentGroupRequest) GetNuncConnectionID() string {
@@ -46,11 +19,11 @@ func (o *CreateNuncComponentGroupRequest) GetNuncConnectionID() string {
 	return o.NuncConnectionID
 }
 
-func (o *CreateNuncComponentGroupRequest) GetRequestBody() CreateNuncComponentGroupRequestBody {
+func (o *CreateNuncComponentGroupRequest) GetCreateNuncComponentGroup() shared.CreateNuncComponentGroup {
 	if o == nil {
-		return CreateNuncComponentGroupRequestBody{}
+		return shared.CreateNuncComponentGroup{}
 	}
-	return o.RequestBody
+	return o.CreateNuncComponentGroup
 }
 
 type CreateNuncComponentGroupResponse struct {

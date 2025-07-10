@@ -31,6 +31,7 @@ data "firehydrant_incidents_conference_bridges_entities" "my_incidents_conferenc
 - `has_translated_transcripts` (Boolean)
 - `id` (String) The ID of this resource.
 - `language_codes` (List of String) A list of language codes that have translated transcripts for this conference bridge
+- `previous_host_assignment` (String)
 - `transcription_status` (String)
 - `transcription_sub_code` (String)
 

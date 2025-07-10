@@ -7,21 +7,9 @@ import (
 	"net/http"
 )
 
-type ResolveIncidentRequestBody struct {
-	// The slug of any milestone in the post-incident or closed phase to set on the incident (and its children, if `resolve_children` os set). Must be one of the configured milestones available on this incident.
-	Milestone *string `json:"milestone,omitempty"`
-}
-
-func (o *ResolveIncidentRequestBody) GetMilestone() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Milestone
-}
-
 type ResolveIncidentRequest struct {
-	IncidentID  string                      `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody *ResolveIncidentRequestBody `request:"mediaType=application/json"`
+	IncidentID      string                  `pathParam:"style=simple,explode=false,name=incident_id"`
+	ResolveIncident *shared.ResolveIncident `request:"mediaType=application/json"`
 }
 
 func (o *ResolveIncidentRequest) GetIncidentID() string {
@@ -31,11 +19,11 @@ func (o *ResolveIncidentRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *ResolveIncidentRequest) GetRequestBody() *ResolveIncidentRequestBody {
+func (o *ResolveIncidentRequest) GetResolveIncident() *shared.ResolveIncident {
 	if o == nil {
 		return nil
 	}
-	return o.RequestBody
+	return o.ResolveIncident
 }
 
 type ResolveIncidentResponse struct {

@@ -3,60 +3,13 @@
 package operations
 
 import (
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
 )
 
-type UpdateTranscriptAttributionRequestBody struct {
-	// The ID of the conference bridge to attribute the transcript to.
-	ConferenceBridgeID *string `json:"conference_bridge_id,omitempty"`
-	// The speaker to attribute the transcript to.
-	FromSpeaker *string `json:"from_speaker,omitempty"`
-	// The user to attribute the transcript to.
-	FromUserID *string `json:"from_user_id,omitempty"`
-	// The ID of the user to attribute the transcript to.
-	ToUserID string `json:"to_user_id"`
-	// The ID of the specific transcript entry to change attribution for.
-	TranscriptID *string `json:"transcript_id,omitempty"`
-}
-
-func (o *UpdateTranscriptAttributionRequestBody) GetConferenceBridgeID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ConferenceBridgeID
-}
-
-func (o *UpdateTranscriptAttributionRequestBody) GetFromSpeaker() *string {
-	if o == nil {
-		return nil
-	}
-	return o.FromSpeaker
-}
-
-func (o *UpdateTranscriptAttributionRequestBody) GetFromUserID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.FromUserID
-}
-
-func (o *UpdateTranscriptAttributionRequestBody) GetToUserID() string {
-	if o == nil {
-		return ""
-	}
-	return o.ToUserID
-}
-
-func (o *UpdateTranscriptAttributionRequestBody) GetTranscriptID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TranscriptID
-}
-
 type UpdateTranscriptAttributionRequest struct {
-	IncidentID  string                                 `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody UpdateTranscriptAttributionRequestBody `request:"mediaType=application/json"`
+	IncidentID                  string                             `pathParam:"style=simple,explode=false,name=incident_id"`
+	UpdateTranscriptAttribution shared.UpdateTranscriptAttribution `request:"mediaType=application/json"`
 }
 
 func (o *UpdateTranscriptAttributionRequest) GetIncidentID() string {
@@ -66,11 +19,11 @@ func (o *UpdateTranscriptAttributionRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *UpdateTranscriptAttributionRequest) GetRequestBody() UpdateTranscriptAttributionRequestBody {
+func (o *UpdateTranscriptAttributionRequest) GetUpdateTranscriptAttribution() shared.UpdateTranscriptAttribution {
 	if o == nil {
-		return UpdateTranscriptAttributionRequestBody{}
+		return shared.UpdateTranscriptAttribution{}
 	}
-	return o.RequestBody
+	return o.UpdateTranscriptAttribution
 }
 
 type UpdateTranscriptAttributionResponse struct {

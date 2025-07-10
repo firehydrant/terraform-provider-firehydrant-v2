@@ -227,6 +227,7 @@ func (r *SignalsAPIRuleEntityResourceModel) RefreshFromSharedSignalsAPIRuleEntit
 			r.Target.ID = types.StringPointerValue(resp.Target.ID)
 			r.Target.IsPageable = types.BoolPointerValue(resp.Target.IsPageable)
 			r.Target.Name = types.StringPointerValue(resp.Target.Name)
+			r.Target.TeamID = types.StringPointerValue(resp.Target.TeamID)
 			r.Target.Type = types.StringPointerValue(resp.Target.Type)
 		}
 		r.TeamID = types.StringPointerValue(resp.TeamID)

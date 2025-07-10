@@ -7,40 +7,10 @@ import (
 	"net/http"
 )
 
-type UpdateNuncImageFile struct {
-	FileName string `multipartForm:"name=fileName"`
-	Content  []byte `multipartForm:"content"`
-}
-
-func (o *UpdateNuncImageFile) GetFileName() string {
-	if o == nil {
-		return ""
-	}
-	return o.FileName
-}
-
-func (o *UpdateNuncImageFile) GetContent() []byte {
-	if o == nil {
-		return []byte{}
-	}
-	return o.Content
-}
-
-type UpdateNuncImageRequestBody struct {
-	File *UpdateNuncImageFile `multipartForm:"file,name=file"`
-}
-
-func (o *UpdateNuncImageRequestBody) GetFile() *UpdateNuncImageFile {
-	if o == nil {
-		return nil
-	}
-	return o.File
-}
-
 type UpdateNuncImageRequest struct {
-	NuncConnectionID string                      `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
-	Type             string                      `pathParam:"style=simple,explode=false,name=type"`
-	RequestBody      *UpdateNuncImageRequestBody `request:"mediaType=multipart/form-data"`
+	NuncConnectionID    string                      `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
+	Type                string                      `pathParam:"style=simple,explode=false,name=type"`
+	UpdateNuncImageForm *shared.UpdateNuncImageForm `request:"mediaType=multipart/form-data"`
 }
 
 func (o *UpdateNuncImageRequest) GetNuncConnectionID() string {
@@ -57,11 +27,11 @@ func (o *UpdateNuncImageRequest) GetType() string {
 	return o.Type
 }
 
-func (o *UpdateNuncImageRequest) GetRequestBody() *UpdateNuncImageRequestBody {
+func (o *UpdateNuncImageRequest) GetUpdateNuncImageForm() *shared.UpdateNuncImageForm {
 	if o == nil {
 		return nil
 	}
-	return o.RequestBody
+	return o.UpdateNuncImageForm
 }
 
 type UpdateNuncImageResponse struct {

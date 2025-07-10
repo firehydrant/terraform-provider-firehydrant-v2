@@ -78,6 +78,7 @@ func (r *PostMortemsPostMortemReportEntityDataSourceModel) RefreshFromSharedPost
 							conferenceBridges.LanguageCodes = append(conferenceBridges.LanguageCodes, types.StringValue(v))
 						}
 					}
+					conferenceBridges.PreviousHostAssignment = types.StringPointerValue(conferenceBridgesItem.PreviousHostAssignment)
 					conferenceBridges.TranscriptionStatus = types.StringPointerValue(conferenceBridgesItem.TranscriptionStatus)
 					conferenceBridges.TranscriptionSubCode = types.StringPointerValue(conferenceBridgesItem.TranscriptionSubCode)
 					if conferenceBridgesCount+1 > len(r.Incident.ConferenceBridges) {
@@ -87,6 +88,7 @@ func (r *PostMortemsPostMortemReportEntityDataSourceModel) RefreshFromSharedPost
 						r.Incident.ConferenceBridges[conferenceBridgesCount].HasTranslatedTranscripts = conferenceBridges.HasTranslatedTranscripts
 						r.Incident.ConferenceBridges[conferenceBridgesCount].ID = conferenceBridges.ID
 						r.Incident.ConferenceBridges[conferenceBridgesCount].LanguageCodes = conferenceBridges.LanguageCodes
+						r.Incident.ConferenceBridges[conferenceBridgesCount].PreviousHostAssignment = conferenceBridges.PreviousHostAssignment
 						r.Incident.ConferenceBridges[conferenceBridgesCount].TranscriptionStatus = conferenceBridges.TranscriptionStatus
 						r.Incident.ConferenceBridges[conferenceBridgesCount].TranscriptionSubCode = conferenceBridges.TranscriptionSubCode
 					}

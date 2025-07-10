@@ -7,108 +7,9 @@ import (
 	"net/http"
 )
 
-type UpdateRetrospectiveTemplateRequestBody struct {
-	Description             *string  `json:"description,omitempty"`
-	FieldsHelpText          []string `json:"fields[help_text],omitempty"`
-	FieldsID                []string `json:"fields[id],omitempty"`
-	FieldsIsRequired        []bool   `json:"fields[is_required],omitempty"`
-	FieldsLabel             []string `json:"fields[label]"`
-	FieldsPermissibleValues []string `json:"fields[permissible_values],omitempty"`
-	FieldsSchema            []string `json:"fields[schema],omitempty"`
-	FieldsType              []string `json:"fields[type]"`
-	IsDefault               *bool    `json:"is_default,omitempty"`
-	Name                    *string  `json:"name,omitempty"`
-	SectionsElements        []string `json:"sections[elements]"`
-	SectionsSlug            []string `json:"sections[slug]"`
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Description
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetFieldsHelpText() []string {
-	if o == nil {
-		return nil
-	}
-	return o.FieldsHelpText
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetFieldsID() []string {
-	if o == nil {
-		return nil
-	}
-	return o.FieldsID
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetFieldsIsRequired() []bool {
-	if o == nil {
-		return nil
-	}
-	return o.FieldsIsRequired
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetFieldsLabel() []string {
-	if o == nil {
-		return []string{}
-	}
-	return o.FieldsLabel
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetFieldsPermissibleValues() []string {
-	if o == nil {
-		return nil
-	}
-	return o.FieldsPermissibleValues
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetFieldsSchema() []string {
-	if o == nil {
-		return nil
-	}
-	return o.FieldsSchema
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetFieldsType() []string {
-	if o == nil {
-		return []string{}
-	}
-	return o.FieldsType
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetIsDefault() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.IsDefault
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetSectionsElements() []string {
-	if o == nil {
-		return []string{}
-	}
-	return o.SectionsElements
-}
-
-func (o *UpdateRetrospectiveTemplateRequestBody) GetSectionsSlug() []string {
-	if o == nil {
-		return []string{}
-	}
-	return o.SectionsSlug
-}
-
 type UpdateRetrospectiveTemplateRequest struct {
-	RetrospectiveTemplateID string                                 `pathParam:"style=simple,explode=false,name=retrospective_template_id"`
-	RequestBody             UpdateRetrospectiveTemplateRequestBody `request:"mediaType=application/json"`
+	RetrospectiveTemplateID     string                             `pathParam:"style=simple,explode=false,name=retrospective_template_id"`
+	UpdateRetrospectiveTemplate shared.UpdateRetrospectiveTemplate `request:"mediaType=application/json"`
 }
 
 func (o *UpdateRetrospectiveTemplateRequest) GetRetrospectiveTemplateID() string {
@@ -118,11 +19,11 @@ func (o *UpdateRetrospectiveTemplateRequest) GetRetrospectiveTemplateID() string
 	return o.RetrospectiveTemplateID
 }
 
-func (o *UpdateRetrospectiveTemplateRequest) GetRequestBody() UpdateRetrospectiveTemplateRequestBody {
+func (o *UpdateRetrospectiveTemplateRequest) GetUpdateRetrospectiveTemplate() shared.UpdateRetrospectiveTemplate {
 	if o == nil {
-		return UpdateRetrospectiveTemplateRequestBody{}
+		return shared.UpdateRetrospectiveTemplate{}
 	}
-	return o.RequestBody
+	return o.UpdateRetrospectiveTemplate
 }
 
 type UpdateRetrospectiveTemplateResponse struct {

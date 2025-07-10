@@ -150,6 +150,9 @@ func (r *ScheduledMaintenanceEntityDataSource) Schema(ctx context.Context, req d
 									ElementType: types.StringType,
 									Description: `A list of language codes that have translated transcripts for this conference bridge`,
 								},
+								"previous_host_assignment": schema.StringAttribute{
+									Computed: true,
+								},
 								"transcription_status": schema.StringAttribute{
 									Computed: true,
 								},

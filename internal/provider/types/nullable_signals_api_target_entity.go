@@ -10,5 +10,6 @@ type NullableSignalsAPITargetEntity struct {
 	ID         types.String `tfsdk:"id"`
 	IsPageable types.Bool   `tfsdk:"is_pageable"`
 	Name       types.String `tfsdk:"name"`
+	TeamID     types.String `tfsdk:"team_id"`
 	Type       types.String `tfsdk:"type"`
 }

@@ -90,6 +90,9 @@ func (r *SignalsAPICallRouteEntityDataSource) Schema(ctx context.Context, req da
 							"name": schema.StringAttribute{
 								Computed: true,
 							},
+							"team_id": schema.StringAttribute{
+								Computed: true,
+							},
 							"type": schema.StringAttribute{
 								Computed: true,
 							},
@@ -110,6 +113,9 @@ func (r *SignalsAPICallRouteEntityDataSource) Schema(ctx context.Context, req da
 						Computed: true,
 					},
 					"name": schema.StringAttribute{
+						Computed: true,
+					},
+					"team_id": schema.StringAttribute{
 						Computed: true,
 					},
 					"type": schema.StringAttribute{

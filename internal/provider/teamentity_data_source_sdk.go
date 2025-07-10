@@ -263,6 +263,7 @@ func (r *TeamEntityDataSourceModel) RefreshFromSharedTeamEntity(ctx context.Cont
 								conferenceBridges.LanguageCodes = append(conferenceBridges.LanguageCodes, types.StringValue(v))
 							}
 						}
+						conferenceBridges.PreviousHostAssignment = types.StringPointerValue(conferenceBridgesItem.PreviousHostAssignment)
 						conferenceBridges.TranscriptionStatus = types.StringPointerValue(conferenceBridgesItem.TranscriptionStatus)
 						conferenceBridges.TranscriptionSubCode = types.StringPointerValue(conferenceBridgesItem.TranscriptionSubCode)
 						if conferenceBridgesCount+1 > len(r.MsTeamsChannel.Incident.ConferenceBridges) {
@@ -272,6 +273,7 @@ func (r *TeamEntityDataSourceModel) RefreshFromSharedTeamEntity(ctx context.Cont
 							r.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount].HasTranslatedTranscripts = conferenceBridges.HasTranslatedTranscripts
 							r.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount].ID = conferenceBridges.ID
 							r.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount].LanguageCodes = conferenceBridges.LanguageCodes
+							r.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount].PreviousHostAssignment = conferenceBridges.PreviousHostAssignment
 							r.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount].TranscriptionStatus = conferenceBridges.TranscriptionStatus
 							r.MsTeamsChannel.Incident.ConferenceBridges[conferenceBridgesCount].TranscriptionSubCode = conferenceBridges.TranscriptionSubCode
 						}

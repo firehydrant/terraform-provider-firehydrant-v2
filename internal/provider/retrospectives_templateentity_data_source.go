@@ -29,13 +29,12 @@ type RetrospectivesTemplateEntityDataSource struct {
 
 // RetrospectivesTemplateEntityDataSourceModel describes the data model.
 type RetrospectivesTemplateEntityDataSourceModel struct {
-	Description             types.String                                                `tfsdk:"description"`
-	Fields                  []tfTypes.RetrospectivesFieldEntity                         `tfsdk:"fields"`
-	ID                      types.String                                                `tfsdk:"id"`
-	IsDefault               types.Bool                                                  `tfsdk:"is_default"`
-	Name                    types.String                                                `tfsdk:"name"`
-	RetrospectiveTemplateID types.String                                                `tfsdk:"retrospective_template_id"`
-	Sections                []tfTypes.RetrospectivesTemplateEntityIncidentSectionEntity `tfsdk:"sections"`
+	Description types.String                                                `tfsdk:"description"`
+	Fields      []tfTypes.RetrospectivesFieldEntity                         `tfsdk:"fields"`
+	ID          types.String                                                `tfsdk:"id"`
+	IsDefault   types.Bool                                                  `tfsdk:"is_default"`
+	Name        types.String                                                `tfsdk:"name"`
+	Sections    []tfTypes.RetrospectivesTemplateEntityIncidentSectionEntity `tfsdk:"sections"`
 }
 
 // Metadata returns the data source type name.
@@ -90,9 +89,6 @@ func (r *RetrospectivesTemplateEntityDataSource) Schema(ctx context.Context, req
 			},
 			"name": schema.StringAttribute{
 				Computed: true,
-			},
-			"retrospective_template_id": schema.StringAttribute{
-				Required: true,
 			},
 			"sections": schema.ListNestedAttribute{
 				Computed: true,

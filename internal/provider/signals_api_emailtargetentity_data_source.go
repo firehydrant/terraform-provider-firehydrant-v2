@@ -121,6 +121,9 @@ func (r *SignalsAPIEmailTargetEntityDataSource) Schema(ctx context.Context, req 
 					"name": schema.StringAttribute{
 						Computed: true,
 					},
+					"team_id": schema.StringAttribute{
+						Computed: true,
+					},
 					"type": schema.StringAttribute{
 						Computed: true,
 					},

@@ -167,7 +167,7 @@ func (s *Audiences) ListAudiences(ctx context.Context, request operations.ListAu
 
 // CreateAudience - Create audience
 // Create a new audience
-func (s *Audiences) CreateAudience(ctx context.Context, request operations.CreateAudienceRequest, opts ...operations.Option) (*operations.CreateAudienceResponse, error) {
+func (s *Audiences) CreateAudience(ctx context.Context, request shared.CreateAudience, opts ...operations.Option) (*operations.CreateAudienceResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -466,7 +466,7 @@ func (s *Audiences) SetMemberDefaultAudience(ctx context.Context, request operat
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "SetMemberDefaultAudience", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -993,7 +993,7 @@ func (s *Audiences) UpdateAudience(ctx context.Context, request operations.Updat
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "UpdateAudience", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1390,7 +1390,7 @@ func (s *Audiences) GenerateAudienceSummary(ctx context.Context, request operati
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "GenerateAudienceSummary", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}

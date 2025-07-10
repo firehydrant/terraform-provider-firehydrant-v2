@@ -163,7 +163,7 @@ func (s *AccountSettings) GetAiPreferences(ctx context.Context, opts ...operatio
 
 // UpdateAiPreferences - Update AI preferences
 // Updates the AI preferences
-func (s *AccountSettings) UpdateAiPreferences(ctx context.Context, request *operations.UpdateAiPreferencesRequest, opts ...operations.Option) (*operations.UpdateAiPreferencesResponse, error) {
+func (s *AccountSettings) UpdateAiPreferences(ctx context.Context, request *shared.UpdateAiPreferences, opts ...operations.Option) (*operations.UpdateAiPreferencesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,

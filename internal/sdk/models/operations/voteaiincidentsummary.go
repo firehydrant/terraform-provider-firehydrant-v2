@@ -7,21 +7,10 @@ import (
 	"net/http"
 )
 
-type VoteAiIncidentSummaryRequestBody struct {
-	Direction string `json:"direction"`
-}
-
-func (o *VoteAiIncidentSummaryRequestBody) GetDirection() string {
-	if o == nil {
-		return ""
-	}
-	return o.Direction
-}
-
 type VoteAiIncidentSummaryRequest struct {
-	IncidentID         string                           `pathParam:"style=simple,explode=false,name=incident_id"`
-	GeneratedSummaryID string                           `pathParam:"style=simple,explode=false,name=generated_summary_id"`
-	RequestBody        VoteAiIncidentSummaryRequestBody `request:"mediaType=application/json"`
+	IncidentID            string                       `pathParam:"style=simple,explode=false,name=incident_id"`
+	GeneratedSummaryID    string                       `pathParam:"style=simple,explode=false,name=generated_summary_id"`
+	VoteAiIncidentSummary shared.VoteAiIncidentSummary `request:"mediaType=application/json"`
 }
 
 func (o *VoteAiIncidentSummaryRequest) GetIncidentID() string {
@@ -38,11 +27,11 @@ func (o *VoteAiIncidentSummaryRequest) GetGeneratedSummaryID() string {
 	return o.GeneratedSummaryID
 }
 
-func (o *VoteAiIncidentSummaryRequest) GetRequestBody() VoteAiIncidentSummaryRequestBody {
+func (o *VoteAiIncidentSummaryRequest) GetVoteAiIncidentSummary() shared.VoteAiIncidentSummary {
 	if o == nil {
-		return VoteAiIncidentSummaryRequestBody{}
+		return shared.VoteAiIncidentSummary{}
 	}
-	return o.RequestBody
+	return o.VoteAiIncidentSummary
 }
 
 type VoteAiIncidentSummaryResponse struct {

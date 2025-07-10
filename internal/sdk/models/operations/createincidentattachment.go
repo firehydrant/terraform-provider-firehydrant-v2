@@ -3,80 +3,13 @@
 package operations
 
 import (
-	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
-	"time"
 )
 
-type CreateIncidentAttachmentFile struct {
-	FileName string `multipartForm:"name=fileName"`
-	Content  []byte `multipartForm:"content"`
-}
-
-func (o *CreateIncidentAttachmentFile) GetFileName() string {
-	if o == nil {
-		return ""
-	}
-	return o.FileName
-}
-
-func (o *CreateIncidentAttachmentFile) GetContent() []byte {
-	if o == nil {
-		return []byte{}
-	}
-	return o.Content
-}
-
-type CreateIncidentAttachmentRequestBody struct {
-	Description   *string                      `multipartForm:"name=description"`
-	File          CreateIncidentAttachmentFile `multipartForm:"file,name=file"`
-	OccurredAt    *time.Time                   `multipartForm:"name=occurred_at"`
-	VoteDirection *string                      `multipartForm:"name=vote_direction"`
-}
-
-func (c CreateIncidentAttachmentRequestBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateIncidentAttachmentRequestBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *CreateIncidentAttachmentRequestBody) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Description
-}
-
-func (o *CreateIncidentAttachmentRequestBody) GetFile() CreateIncidentAttachmentFile {
-	if o == nil {
-		return CreateIncidentAttachmentFile{}
-	}
-	return o.File
-}
-
-func (o *CreateIncidentAttachmentRequestBody) GetOccurredAt() *time.Time {
-	if o == nil {
-		return nil
-	}
-	return o.OccurredAt
-}
-
-func (o *CreateIncidentAttachmentRequestBody) GetVoteDirection() *string {
-	if o == nil {
-		return nil
-	}
-	return o.VoteDirection
-}
-
 type CreateIncidentAttachmentRequest struct {
-	IncidentID  string                              `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody CreateIncidentAttachmentRequestBody `request:"mediaType=multipart/form-data"`
+	IncidentID                   string                              `pathParam:"style=simple,explode=false,name=incident_id"`
+	CreateIncidentAttachmentForm shared.CreateIncidentAttachmentForm `request:"mediaType=multipart/form-data"`
 }
 
 func (o *CreateIncidentAttachmentRequest) GetIncidentID() string {
@@ -86,11 +19,11 @@ func (o *CreateIncidentAttachmentRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *CreateIncidentAttachmentRequest) GetRequestBody() CreateIncidentAttachmentRequestBody {
+func (o *CreateIncidentAttachmentRequest) GetCreateIncidentAttachmentForm() shared.CreateIncidentAttachmentForm {
 	if o == nil {
-		return CreateIncidentAttachmentRequestBody{}
+		return shared.CreateIncidentAttachmentForm{}
 	}
-	return o.RequestBody
+	return o.CreateIncidentAttachmentForm
 }
 
 type CreateIncidentAttachmentResponse struct {

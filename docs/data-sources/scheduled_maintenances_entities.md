@@ -88,6 +88,7 @@ data "firehydrant_scheduled_maintenances_entities" "my_scheduledmaintenancesenti
 - `occurred_at` (String)
 - `organization_id` (String)
 - `position` (Number) Position is used to determine ordering of conditions in API responses and dropdowns. The condition with the lowest position (typically 0) will be considered the Default Condition
+- `previous_host_assignment` (String)
 - `priority` (String)
 - `private_id` (String)
 - `private_status_page_url` (String)

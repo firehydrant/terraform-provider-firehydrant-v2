@@ -6,22 +6,22 @@ import (
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
 )
 
-// UpdateTeamEscalationPolicyHandoffStep - A step that defines where an alert should be sent when the policy is exhausted and the alert is still unacknowledged.
-type UpdateTeamEscalationPolicyHandoffStep struct {
+// UpdateTeamEscalationPolicyHandoffStepInput - A step that defines where an alert should be sent when the policy is exhausted and the alert is still unacknowledged.
+type UpdateTeamEscalationPolicyHandoffStepInput struct {
 	// The ID of the target to which the policy will hand off.
 	TargetID string `json:"target_id"`
 	// The type of target to which the policy will hand off.
 	TargetType string `json:"target_type"`
 }
 
-func (o *UpdateTeamEscalationPolicyHandoffStep) GetTargetID() string {
+func (o *UpdateTeamEscalationPolicyHandoffStepInput) GetTargetID() string {
 	if o == nil {
 		return ""
 	}
 	return o.TargetID
 }
 
-func (o *UpdateTeamEscalationPolicyHandoffStep) GetTargetType() string {
+func (o *UpdateTeamEscalationPolicyHandoffStepInput) GetTargetType() string {
 	if o == nil {
 		return ""
 	}
@@ -252,7 +252,7 @@ type UpdateTeamEscalationPolicy struct {
 	// A detailed description of the escalation policy.
 	Description *string `json:"description,omitempty"`
 	// A step that defines where an alert should be sent when the policy is exhausted and the alert is still unacknowledged.
-	HandoffStep *UpdateTeamEscalationPolicyHandoffStep `json:"handoff_step,omitempty"`
+	HandoffStepInput *UpdateTeamEscalationPolicyHandoffStepInput `json:"handoff_step,omitempty"`
 	// The escalation policy's name.
 	Name *string `json:"name,omitempty"`
 	// Priority-specific settings for dynamic escalation policies
@@ -290,11 +290,11 @@ func (o *UpdateTeamEscalationPolicy) GetDescription() *string {
 	return o.Description
 }
 
-func (o *UpdateTeamEscalationPolicy) GetHandoffStep() *UpdateTeamEscalationPolicyHandoffStep {
+func (o *UpdateTeamEscalationPolicy) GetHandoffStepInput() *UpdateTeamEscalationPolicyHandoffStepInput {
 	if o == nil {
 		return nil
 	}
-	return o.HandoffStep
+	return o.HandoffStepInput
 }
 
 func (o *UpdateTeamEscalationPolicy) GetName() *string {

@@ -48,6 +48,7 @@ func (r *SignalsAPICallRouteEntityDataSourceModel) RefreshFromSharedSignalsAPICa
 				r.Steps.Target.ID = types.StringPointerValue(resp.Steps.Target.ID)
 				r.Steps.Target.IsPageable = types.BoolPointerValue(resp.Steps.Target.IsPageable)
 				r.Steps.Target.Name = types.StringPointerValue(resp.Steps.Target.Name)
+				r.Steps.Target.TeamID = types.StringPointerValue(resp.Steps.Target.TeamID)
 				r.Steps.Target.Type = types.StringPointerValue(resp.Steps.Target.Type)
 			}
 			r.Steps.Timeout = types.StringPointerValue(resp.Steps.Timeout)
@@ -59,6 +60,7 @@ func (r *SignalsAPICallRouteEntityDataSourceModel) RefreshFromSharedSignalsAPICa
 			r.Target.ID = types.StringPointerValue(resp.Target.ID)
 			r.Target.IsPageable = types.BoolPointerValue(resp.Target.IsPageable)
 			r.Target.Name = types.StringPointerValue(resp.Target.Name)
+			r.Target.TeamID = types.StringPointerValue(resp.Target.TeamID)
 			r.Target.Type = types.StringPointerValue(resp.Target.Type)
 		}
 	}

@@ -65,7 +65,7 @@ func (s *Incidents) VoteAiIncidentSummary(ctx context.Context, request operation
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "VoteAiIncidentSummary", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1114,7 +1114,7 @@ func (s *Incidents) CreateIncidentAttachment(ctx context.Context, request operat
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "multipart", `request:"mediaType=multipart/form-data"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "CreateIncidentAttachmentForm", "multipart", `request:"mediaType=multipart/form-data"`)
 	if err != nil {
 		return nil, err
 	}
@@ -5032,7 +5032,7 @@ func (s *Incidents) ResolveIncident(ctx context.Context, request operations.Reso
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "ResolveIncident", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -6339,7 +6339,7 @@ func (s *Incidents) UpdateTranscriptAttribution(ctx context.Context, request ope
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "UpdateTranscriptAttribution", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}

@@ -80,6 +80,7 @@ Read-Only:
 - `id` (String)
 - `is_pageable` (Boolean)
 - `name` (String)
+- `team_id` (String)
 - `type` (String)
 
 ## Import
@@ -87,5 +88,5 @@ Read-Only:
 Import is supported using the following syntax:
 
 ```shell
-terraform import firehydrant_signals_api_rule_entity.my_firehydrant_signals_api_rule_entity "{ \"id\": \"\",  \"team_id\": \"\"}"
+terraform import firehydrant_signals_api_rule_entity.my_firehydrant_signals_api_rule_entity '{"id": "", "team_id": ""}'
 ```

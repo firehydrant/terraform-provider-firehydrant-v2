@@ -7,21 +7,9 @@ import (
 	"net/http"
 )
 
-type CreateEmailSubscriberRequestBody struct {
-	// A comma-separated list of emails to subscribe.
-	Emails string `json:"emails"`
-}
-
-func (o *CreateEmailSubscriberRequestBody) GetEmails() string {
-	if o == nil {
-		return ""
-	}
-	return o.Emails
-}
-
 type CreateEmailSubscriberRequest struct {
-	NuncConnectionID string                           `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
-	RequestBody      CreateEmailSubscriberRequestBody `request:"mediaType=application/json"`
+	NuncConnectionID      string                       `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
+	CreateEmailSubscriber shared.CreateEmailSubscriber `request:"mediaType=application/json"`
 }
 
 func (o *CreateEmailSubscriberRequest) GetNuncConnectionID() string {
@@ -31,11 +19,11 @@ func (o *CreateEmailSubscriberRequest) GetNuncConnectionID() string {
 	return o.NuncConnectionID
 }
 
-func (o *CreateEmailSubscriberRequest) GetRequestBody() CreateEmailSubscriberRequestBody {
+func (o *CreateEmailSubscriberRequest) GetCreateEmailSubscriber() shared.CreateEmailSubscriber {
 	if o == nil {
-		return CreateEmailSubscriberRequestBody{}
+		return shared.CreateEmailSubscriber{}
 	}
-	return o.RequestBody
+	return o.CreateEmailSubscriber
 }
 
 type CreateEmailSubscriberResponse struct {

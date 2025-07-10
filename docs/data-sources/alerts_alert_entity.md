@@ -126,6 +126,7 @@ Read-Only:
 - `id` (String)
 - `is_pageable` (Boolean)
 - `name` (String)
+- `team_id` (String)
 - `type` (String)
 
 
@@ -258,6 +259,7 @@ Read-Only:
 - `id` (String)
 - `is_pageable` (Boolean)
 - `name` (String)
+- `team_id` (String)
 - `type` (String)
 
 
@@ -318,6 +320,7 @@ Read-Only:
 - `id` (String)
 - `is_pageable` (Boolean)
 - `name` (String)
+- `team_id` (String)
 - `type` (String)
 
 
@@ -330,4 +333,5 @@ Read-Only:
 - `id` (String)
 - `is_pageable` (Boolean)
 - `name` (String)
+- `team_id` (String)
 - `type` (String)
