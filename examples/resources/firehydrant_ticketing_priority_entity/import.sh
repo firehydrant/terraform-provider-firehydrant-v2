@@ -1,1 +1,0 @@
-terraform import firehydrant_ticketing_priority_entity.my_firehydrant_ticketing_priority_entity ""
