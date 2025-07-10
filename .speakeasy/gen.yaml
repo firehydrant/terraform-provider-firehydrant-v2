@@ -39,7 +39,7 @@ terraform:
   enableTypeDeduplication: false
   environmentVariables: []
   operationIdNaming: preserve
-  packageName: firehydrant
+  packageName: firehydrant-v2
   providerGeneration:
     enabled: true
   resourceDetection:
