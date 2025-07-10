@@ -22,9 +22,10 @@ resource "firehydrant_signals_api_call_route_entity" "my_signals_api_callrouteen
   routing_mode     = "...my_routing_mode..."
   steps_input = [
     {
-      target_id   = "...my_target_id..."
-      target_type = "...my_target_type..."
-      timeout     = "...my_timeout..."
+      on_call_rotation_id = "...my_on_call_rotation_id..."
+      target_id           = "...my_target_id..."
+      target_type         = "...my_target_type..."
+      timeout             = "...my_timeout..."
     }
   ]
   target_input = {
@@ -68,6 +69,10 @@ Required:
 - `target_type` (String) Type of target
 - `timeout` (String) Timeout in seconds for the step
 
+Optional:
+
+- `on_call_rotation_id` (String) The ID of a specific on-call rotation that should be routed to if the `target_type` is `OnCallSchedule`. If not provided, the schedule's first rotation will be used.
+
 
 <a id="nestedatt--target_input"></a>
 ### Nested Schema for `target_input`
@@ -95,6 +100,7 @@ Read-Only:
 - `id` (String)
 - `is_pageable` (Boolean)
 - `name` (String)
+- `team_id` (String)
 - `type` (String)
 
 
@@ -107,6 +113,7 @@ Read-Only:
 - `id` (String)
 - `is_pageable` (Boolean)
 - `name` (String)
+- `team_id` (String)
 - `type` (String)
 
 ## Import

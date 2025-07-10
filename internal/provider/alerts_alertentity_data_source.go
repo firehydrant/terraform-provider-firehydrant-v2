@@ -167,6 +167,9 @@ func (r *AlertsAlertEntityDataSource) Schema(ctx context.Context, req datasource
 										"name": schema.StringAttribute{
 											Computed: true,
 										},
+										"team_id": schema.StringAttribute{
+											Computed: true,
+										},
 										"type": schema.StringAttribute{
 											Computed: true,
 										},
@@ -395,6 +398,9 @@ func (r *AlertsAlertEntityDataSource) Schema(ctx context.Context, req datasource
 										"name": schema.StringAttribute{
 											Computed: true,
 										},
+										"team_id": schema.StringAttribute{
+											Computed: true,
+										},
 										"type": schema.StringAttribute{
 											Computed: true,
 										},
@@ -518,6 +524,9 @@ func (r *AlertsAlertEntityDataSource) Schema(ctx context.Context, req datasource
 							"name": schema.StringAttribute{
 								Computed: true,
 							},
+							"team_id": schema.StringAttribute{
+								Computed: true,
+							},
 							"type": schema.StringAttribute{
 								Computed: true,
 							},
@@ -542,6 +551,9 @@ func (r *AlertsAlertEntityDataSource) Schema(ctx context.Context, req datasource
 						Computed: true,
 					},
 					"name": schema.StringAttribute{
+						Computed: true,
+					},
+					"team_id": schema.StringAttribute{
 						Computed: true,
 					},
 					"type": schema.StringAttribute{

@@ -15,7 +15,7 @@ func (r *RetrospectivesTemplateEntityDataSourceModel) ToOperationsGetRetrospecti
 	var diags diag.Diagnostics
 
 	var retrospectiveTemplateID string
-	retrospectiveTemplateID = r.RetrospectiveTemplateID.ValueString()
+	retrospectiveTemplateID = r.ID.ValueString()
 
 	out := operations.GetRetrospectiveTemplateRequest{
 		RetrospectiveTemplateID: retrospectiveTemplateID,

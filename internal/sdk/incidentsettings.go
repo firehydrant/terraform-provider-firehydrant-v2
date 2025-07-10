@@ -2682,7 +2682,7 @@ func (s *IncidentSettings) ListLifecycleMeasurementDefinitions(ctx context.Conte
 
 // CreateLifecycleMeasurementDefinition - Create a measurement definition
 // Create a new measurement definition
-func (s *IncidentSettings) CreateLifecycleMeasurementDefinition(ctx context.Context, request operations.CreateLifecycleMeasurementDefinitionRequest, opts ...operations.Option) (*operations.CreateLifecycleMeasurementDefinitionResponse, error) {
+func (s *IncidentSettings) CreateLifecycleMeasurementDefinition(ctx context.Context, request shared.CreateLifecycleMeasurementDefinition, opts ...operations.Option) (*operations.CreateLifecycleMeasurementDefinitionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3051,7 +3051,7 @@ func (s *IncidentSettings) UpdateLifecycleMeasurementDefinition(ctx context.Cont
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "UpdateLifecycleMeasurementDefinition", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -3136,7 +3136,7 @@ func (s *IncidentSettings) UpdateLifecycleMeasurementDefinition(ctx context.Cont
 
 // CreateLifecycleMilestone - Create a milestone
 // Create a new milestone
-func (s *IncidentSettings) CreateLifecycleMilestone(ctx context.Context, request operations.CreateLifecycleMilestoneRequest, opts ...operations.Option) (*operations.CreateLifecycleMilestoneResponse, error) {
+func (s *IncidentSettings) CreateLifecycleMilestone(ctx context.Context, request shared.CreateLifecycleMilestone, opts ...operations.Option) (*operations.CreateLifecycleMilestoneResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3435,7 +3435,7 @@ func (s *IncidentSettings) UpdateLifecycleMilestone(ctx context.Context, request
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "UpdateLifecycleMilestone", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}

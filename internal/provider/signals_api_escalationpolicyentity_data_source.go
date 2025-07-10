@@ -99,6 +99,9 @@ func (r *SignalsAPIEscalationPolicyEntityDataSource) Schema(ctx context.Context,
 							"name": schema.StringAttribute{
 								Computed: true,
 							},
+							"team_id": schema.StringAttribute{
+								Computed: true,
+							},
 							"type": schema.StringAttribute{
 								Computed: true,
 							},
@@ -132,6 +135,9 @@ func (r *SignalsAPIEscalationPolicyEntityDataSource) Schema(ctx context.Context,
 											Computed: true,
 										},
 										"name": schema.StringAttribute{
+											Computed: true,
+										},
+										"team_id": schema.StringAttribute{
 											Computed: true,
 										},
 										"type": schema.StringAttribute{
@@ -172,6 +178,9 @@ func (r *SignalsAPIEscalationPolicyEntityDataSource) Schema(ctx context.Context,
 											"name": schema.StringAttribute{
 												Computed: true,
 											},
+											"team_id": schema.StringAttribute{
+												Computed: true,
+											},
 											"type": schema.StringAttribute{
 												Computed: true,
 											},
@@ -199,6 +208,9 @@ func (r *SignalsAPIEscalationPolicyEntityDataSource) Schema(ctx context.Context,
 													Computed: true,
 												},
 												"name": schema.StringAttribute{
+													Computed: true,
+												},
+												"team_id": schema.StringAttribute{
 													Computed: true,
 												},
 												"type": schema.StringAttribute{
@@ -247,6 +259,9 @@ func (r *SignalsAPIEscalationPolicyEntityDataSource) Schema(ctx context.Context,
 								"name": schema.StringAttribute{
 									Computed: true,
 								},
+								"team_id": schema.StringAttribute{
+									Computed: true,
+								},
 								"type": schema.StringAttribute{
 									Computed: true,
 								},
@@ -274,6 +289,9 @@ func (r *SignalsAPIEscalationPolicyEntityDataSource) Schema(ctx context.Context,
 										Computed: true,
 									},
 									"name": schema.StringAttribute{
+										Computed: true,
+									},
+									"team_id": schema.StringAttribute{
 										Computed: true,
 									},
 									"type": schema.StringAttribute{

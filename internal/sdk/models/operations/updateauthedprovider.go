@@ -7,26 +7,14 @@ import (
 	"net/http"
 )
 
-type UpdateAuthedProviderRequestBody struct {
-	// Set as the default integration for the account
-	IntegrationDefault *bool `json:"integration_default,omitempty"`
-}
-
-func (o *UpdateAuthedProviderRequestBody) GetIntegrationDefault() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.IntegrationDefault
-}
-
 type UpdateAuthedProviderRequest struct {
 	// Integration slug
 	IntegrationSlug string `pathParam:"style=simple,explode=false,name=integration_slug"`
 	// Connection ID
 	ConnectionID string `pathParam:"style=simple,explode=false,name=connection_id"`
 	// Authed provider ID
-	AuthedProviderID string                           `pathParam:"style=simple,explode=false,name=authed_provider_id"`
-	RequestBody      *UpdateAuthedProviderRequestBody `request:"mediaType=application/json"`
+	AuthedProviderID     string                       `pathParam:"style=simple,explode=false,name=authed_provider_id"`
+	UpdateAuthedProvider *shared.UpdateAuthedProvider `request:"mediaType=application/json"`
 }
 
 func (o *UpdateAuthedProviderRequest) GetIntegrationSlug() string {
@@ -50,11 +38,11 @@ func (o *UpdateAuthedProviderRequest) GetAuthedProviderID() string {
 	return o.AuthedProviderID
 }
 
-func (o *UpdateAuthedProviderRequest) GetRequestBody() *UpdateAuthedProviderRequestBody {
+func (o *UpdateAuthedProviderRequest) GetUpdateAuthedProvider() *shared.UpdateAuthedProvider {
 	if o == nil {
 		return nil
 	}
-	return o.RequestBody
+	return o.UpdateAuthedProvider
 }
 
 type UpdateAuthedProviderResponse struct {

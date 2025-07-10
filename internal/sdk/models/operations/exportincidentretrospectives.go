@@ -7,30 +7,9 @@ import (
 	"net/http"
 )
 
-type ExportIncidentRetrospectivesRequestBody struct {
-	// The name of the integration to export the retrospective to.
-	IntegrationSlug string `json:"integration_slug"`
-	// The ID of the parent page to export the retrospective to.
-	ParentPageID *string `json:"parent_page_id,omitempty"`
-}
-
-func (o *ExportIncidentRetrospectivesRequestBody) GetIntegrationSlug() string {
-	if o == nil {
-		return ""
-	}
-	return o.IntegrationSlug
-}
-
-func (o *ExportIncidentRetrospectivesRequestBody) GetParentPageID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ParentPageID
-}
-
 type ExportIncidentRetrospectivesRequest struct {
-	IncidentID  string                                  `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody ExportIncidentRetrospectivesRequestBody `request:"mediaType=application/json"`
+	IncidentID                   string                              `pathParam:"style=simple,explode=false,name=incident_id"`
+	ExportIncidentRetrospectives shared.ExportIncidentRetrospectives `request:"mediaType=application/json"`
 }
 
 func (o *ExportIncidentRetrospectivesRequest) GetIncidentID() string {
@@ -40,11 +19,11 @@ func (o *ExportIncidentRetrospectivesRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *ExportIncidentRetrospectivesRequest) GetRequestBody() ExportIncidentRetrospectivesRequestBody {
+func (o *ExportIncidentRetrospectivesRequest) GetExportIncidentRetrospectives() shared.ExportIncidentRetrospectives {
 	if o == nil {
-		return ExportIncidentRetrospectivesRequestBody{}
+		return shared.ExportIncidentRetrospectives{}
 	}
-	return o.RequestBody
+	return o.ExportIncidentRetrospectives
 }
 
 type ExportIncidentRetrospectivesResponse struct {

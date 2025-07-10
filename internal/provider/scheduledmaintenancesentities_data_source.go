@@ -88,6 +88,7 @@ type ScheduledMaintenancesEntitiesDataSourceModel struct {
 	Page                            types.Int32                                 `queryParam:"style=form,explode=true,name=page" tfsdk:"page"`
 	PerPage                         types.Int32                                 `queryParam:"style=form,explode=true,name=per_page" tfsdk:"per_page"`
 	Position                        types.Int32                                 `tfsdk:"position"`
+	PreviousHostAssignment          types.String                                `tfsdk:"previous_host_assignment"`
 	Priority                        types.String                                `tfsdk:"priority"`
 	PrivateID                       types.String                                `tfsdk:"private_id"`
 	PrivateStatusPageURL            types.String                                `tfsdk:"private_status_page_url"`
@@ -333,6 +334,9 @@ func (r *ScheduledMaintenancesEntitiesDataSource) Schema(ctx context.Context, re
 			"position": schema.Int32Attribute{
 				Computed:    true,
 				Description: `Position is used to determine ordering of conditions in API responses and dropdowns. The condition with the lowest position (typically 0) will be considered the Default Condition`,
+			},
+			"previous_host_assignment": schema.StringAttribute{
+				Computed: true,
 			},
 			"priority": schema.StringAttribute{
 				Computed: true,

@@ -3,12 +3,21 @@
 package shared
 
 type CreateTeamCallRouteStepsInput struct {
+	// The ID of a specific on-call rotation that should be routed to if the `target_type` is `OnCallSchedule`. If not provided, the schedule's first rotation will be used.
+	OnCallRotationID *string `json:"on_call_rotation_id,omitempty"`
 	// ID of the target
 	TargetID string `json:"target_id"`
 	// Type of target
 	TargetType string `json:"target_type"`
 	// Timeout in seconds for the step
 	Timeout string `json:"timeout"`
+}
+
+func (o *CreateTeamCallRouteStepsInput) GetOnCallRotationID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OnCallRotationID
 }
 
 func (o *CreateTeamCallRouteStepsInput) GetTargetID() string {

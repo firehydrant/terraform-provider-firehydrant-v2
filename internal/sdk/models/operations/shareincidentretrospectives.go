@@ -7,39 +7,9 @@ import (
 	"net/http"
 )
 
-type ShareIncidentRetrospectivesRequestBody struct {
-	// An array of retrospective IDs to share
-	RetrospectiveIds []string `json:"retrospective_ids"`
-	// An array of team IDs with whom to share the report
-	TeamIds []string `json:"team_ids,omitempty"`
-	// An array of user IDs with whom to share the report
-	UserIds []string `json:"user_ids,omitempty"`
-}
-
-func (o *ShareIncidentRetrospectivesRequestBody) GetRetrospectiveIds() []string {
-	if o == nil {
-		return []string{}
-	}
-	return o.RetrospectiveIds
-}
-
-func (o *ShareIncidentRetrospectivesRequestBody) GetTeamIds() []string {
-	if o == nil {
-		return nil
-	}
-	return o.TeamIds
-}
-
-func (o *ShareIncidentRetrospectivesRequestBody) GetUserIds() []string {
-	if o == nil {
-		return nil
-	}
-	return o.UserIds
-}
-
 type ShareIncidentRetrospectivesRequest struct {
-	IncidentID  string                                 `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody ShareIncidentRetrospectivesRequestBody `request:"mediaType=application/json"`
+	IncidentID                  string                             `pathParam:"style=simple,explode=false,name=incident_id"`
+	ShareIncidentRetrospectives shared.ShareIncidentRetrospectives `request:"mediaType=application/json"`
 }
 
 func (o *ShareIncidentRetrospectivesRequest) GetIncidentID() string {
@@ -49,11 +19,11 @@ func (o *ShareIncidentRetrospectivesRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *ShareIncidentRetrospectivesRequest) GetRequestBody() ShareIncidentRetrospectivesRequestBody {
+func (o *ShareIncidentRetrospectivesRequest) GetShareIncidentRetrospectives() shared.ShareIncidentRetrospectives {
 	if o == nil {
-		return ShareIncidentRetrospectivesRequestBody{}
+		return shared.ShareIncidentRetrospectives{}
 	}
-	return o.RequestBody
+	return o.ShareIncidentRetrospectives
 }
 
 type ShareIncidentRetrospectivesResponse struct {

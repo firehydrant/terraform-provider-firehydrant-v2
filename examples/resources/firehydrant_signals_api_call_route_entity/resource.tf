@@ -7,9 +7,10 @@ resource "firehydrant_signals_api_call_route_entity" "my_signals_api_callrouteen
   routing_mode     = "...my_routing_mode..."
   steps_input = [
     {
-      target_id   = "...my_target_id..."
-      target_type = "...my_target_type..."
-      timeout     = "...my_timeout..."
+      on_call_rotation_id = "...my_on_call_rotation_id..."
+      target_id           = "...my_target_id..."
+      target_type         = "...my_target_type..."
+      timeout             = "...my_timeout..."
     }
   ]
   target_input = {

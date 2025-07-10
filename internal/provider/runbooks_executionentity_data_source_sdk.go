@@ -126,6 +126,7 @@ func (r *RunbooksExecutionEntityDataSourceModel) RefreshFromSharedRunbooksExecut
 						r.Steps.ConferenceBridge.LanguageCodes = append(r.Steps.ConferenceBridge.LanguageCodes, types.StringValue(v))
 					}
 				}
+				r.Steps.ConferenceBridge.PreviousHostAssignment = types.StringPointerValue(resp.Steps.ConferenceBridge.PreviousHostAssignment)
 				r.Steps.ConferenceBridge.TranscriptionStatus = types.StringPointerValue(resp.Steps.ConferenceBridge.TranscriptionStatus)
 				r.Steps.ConferenceBridge.TranscriptionSubCode = types.StringPointerValue(resp.Steps.ConferenceBridge.TranscriptionSubCode)
 			}

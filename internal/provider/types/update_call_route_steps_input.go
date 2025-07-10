@@ -7,7 +7,8 @@ import (
 )
 
 type UpdateCallRouteStepsInput struct {
-	TargetID   types.String `tfsdk:"target_id"`
-	TargetType types.String `tfsdk:"target_type"`
-	Timeout    types.String `tfsdk:"timeout"`
+	OnCallRotationID types.String `tfsdk:"on_call_rotation_id"`
+	TargetID         types.String `tfsdk:"target_id"`
+	TargetType       types.String `tfsdk:"target_type"`
+	Timeout          types.String `tfsdk:"timeout"`
 }

@@ -34,6 +34,7 @@ data "firehydrant_incidents_conference_bridge_entity" "my_incidents_conferencebr
 - `attachments` (Attributes List) A list of objects attached to this item. Can be one of: LinkEntity, CustomerSupportIssueEntity, or GenericAttachmentEntity (see [below for nested schema](#nestedatt--attachments))
 - `has_translated_transcripts` (Boolean)
 - `language_codes` (List of String) A list of language codes that have translated transcripts for this conference bridge
+- `previous_host_assignment` (String)
 - `transcription_status` (String)
 - `transcription_sub_code` (String)
 

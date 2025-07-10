@@ -7,61 +7,10 @@ import (
 	"net/http"
 )
 
-type CreateIncidentRetrospectiveFieldRequestBody struct {
-	HelpText          *string  `json:"help_text,omitempty"`
-	IsRequired        *bool    `json:"is_required,omitempty"`
-	Label             string   `json:"label"`
-	PermissibleValues []string `json:"permissible_values,omitempty"`
-	Schema            []string `json:"schema,omitempty"`
-	Type              string   `json:"type"`
-}
-
-func (o *CreateIncidentRetrospectiveFieldRequestBody) GetHelpText() *string {
-	if o == nil {
-		return nil
-	}
-	return o.HelpText
-}
-
-func (o *CreateIncidentRetrospectiveFieldRequestBody) GetIsRequired() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.IsRequired
-}
-
-func (o *CreateIncidentRetrospectiveFieldRequestBody) GetLabel() string {
-	if o == nil {
-		return ""
-	}
-	return o.Label
-}
-
-func (o *CreateIncidentRetrospectiveFieldRequestBody) GetPermissibleValues() []string {
-	if o == nil {
-		return nil
-	}
-	return o.PermissibleValues
-}
-
-func (o *CreateIncidentRetrospectiveFieldRequestBody) GetSchema() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Schema
-}
-
-func (o *CreateIncidentRetrospectiveFieldRequestBody) GetType() string {
-	if o == nil {
-		return ""
-	}
-	return o.Type
-}
-
 type CreateIncidentRetrospectiveFieldRequest struct {
-	RetrospectiveID string                                      `pathParam:"style=simple,explode=false,name=retrospective_id"`
-	IncidentID      string                                      `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody     CreateIncidentRetrospectiveFieldRequestBody `request:"mediaType=application/json"`
+	RetrospectiveID                  string                                  `pathParam:"style=simple,explode=false,name=retrospective_id"`
+	IncidentID                       string                                  `pathParam:"style=simple,explode=false,name=incident_id"`
+	CreateIncidentRetrospectiveField shared.CreateIncidentRetrospectiveField `request:"mediaType=application/json"`
 }
 
 func (o *CreateIncidentRetrospectiveFieldRequest) GetRetrospectiveID() string {
@@ -78,11 +27,11 @@ func (o *CreateIncidentRetrospectiveFieldRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *CreateIncidentRetrospectiveFieldRequest) GetRequestBody() CreateIncidentRetrospectiveFieldRequestBody {
+func (o *CreateIncidentRetrospectiveFieldRequest) GetCreateIncidentRetrospectiveField() shared.CreateIncidentRetrospectiveField {
 	if o == nil {
-		return CreateIncidentRetrospectiveFieldRequestBody{}
+		return shared.CreateIncidentRetrospectiveField{}
 	}
-	return o.RequestBody
+	return o.CreateIncidentRetrospectiveField
 }
 
 type CreateIncidentRetrospectiveFieldResponse struct {

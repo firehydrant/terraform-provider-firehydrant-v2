@@ -3,55 +3,13 @@
 package operations
 
 import (
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
 )
 
-type UpdateLifecycleMeasurementDefinitionRequestBody struct {
-	Description         *string `json:"description,omitempty"`
-	EndsAtMilestoneID   *string `json:"ends_at_milestone_id,omitempty"`
-	Name                *string `json:"name,omitempty"`
-	Slug                *string `json:"slug,omitempty"`
-	StartsAtMilestoneID *string `json:"starts_at_milestone_id,omitempty"`
-}
-
-func (o *UpdateLifecycleMeasurementDefinitionRequestBody) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Description
-}
-
-func (o *UpdateLifecycleMeasurementDefinitionRequestBody) GetEndsAtMilestoneID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.EndsAtMilestoneID
-}
-
-func (o *UpdateLifecycleMeasurementDefinitionRequestBody) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *UpdateLifecycleMeasurementDefinitionRequestBody) GetSlug() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Slug
-}
-
-func (o *UpdateLifecycleMeasurementDefinitionRequestBody) GetStartsAtMilestoneID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.StartsAtMilestoneID
-}
-
 type UpdateLifecycleMeasurementDefinitionRequest struct {
-	MeasurementDefinitionID string                                           `pathParam:"style=simple,explode=false,name=measurement_definition_id"`
-	RequestBody             *UpdateLifecycleMeasurementDefinitionRequestBody `request:"mediaType=application/json"`
+	MeasurementDefinitionID              string                                       `pathParam:"style=simple,explode=false,name=measurement_definition_id"`
+	UpdateLifecycleMeasurementDefinition *shared.UpdateLifecycleMeasurementDefinition `request:"mediaType=application/json"`
 }
 
 func (o *UpdateLifecycleMeasurementDefinitionRequest) GetMeasurementDefinitionID() string {
@@ -61,11 +19,11 @@ func (o *UpdateLifecycleMeasurementDefinitionRequest) GetMeasurementDefinitionID
 	return o.MeasurementDefinitionID
 }
 
-func (o *UpdateLifecycleMeasurementDefinitionRequest) GetRequestBody() *UpdateLifecycleMeasurementDefinitionRequestBody {
+func (o *UpdateLifecycleMeasurementDefinitionRequest) GetUpdateLifecycleMeasurementDefinition() *shared.UpdateLifecycleMeasurementDefinition {
 	if o == nil {
 		return nil
 	}
-	return o.RequestBody
+	return o.UpdateLifecycleMeasurementDefinition
 }
 
 type UpdateLifecycleMeasurementDefinitionResponse struct {

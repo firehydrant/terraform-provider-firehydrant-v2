@@ -6,49 +6,6 @@ import (
 	"net/http"
 )
 
-type CreateLifecycleMeasurementDefinitionRequest struct {
-	Description         *string `json:"description,omitempty"`
-	EndsAtMilestoneID   string  `json:"ends_at_milestone_id"`
-	Name                string  `json:"name"`
-	Slug                *string `json:"slug,omitempty"`
-	StartsAtMilestoneID string  `json:"starts_at_milestone_id"`
-}
-
-func (o *CreateLifecycleMeasurementDefinitionRequest) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Description
-}
-
-func (o *CreateLifecycleMeasurementDefinitionRequest) GetEndsAtMilestoneID() string {
-	if o == nil {
-		return ""
-	}
-	return o.EndsAtMilestoneID
-}
-
-func (o *CreateLifecycleMeasurementDefinitionRequest) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
-
-func (o *CreateLifecycleMeasurementDefinitionRequest) GetSlug() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Slug
-}
-
-func (o *CreateLifecycleMeasurementDefinitionRequest) GetStartsAtMilestoneID() string {
-	if o == nil {
-		return ""
-	}
-	return o.StartsAtMilestoneID
-}
-
 type CreateLifecycleMeasurementDefinitionResponse struct {
 	// HTTP response content type for this operation
 	ContentType string

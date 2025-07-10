@@ -46,6 +46,12 @@ func (r *SignalsAPICallRouteEntityResourceModel) ToSharedCreateTeamCallRoute(ctx
 	if r.StepsInput != nil {
 		stepsInput = make([]shared.CreateTeamCallRouteStepsInput, 0, len(r.StepsInput))
 		for _, stepsInputItem := range r.StepsInput {
+			onCallRotationID := new(string)
+			if !stepsInputItem.OnCallRotationID.IsUnknown() && !stepsInputItem.OnCallRotationID.IsNull() {
+				*onCallRotationID = stepsInputItem.OnCallRotationID.ValueString()
+			} else {
+				onCallRotationID = nil
+			}
 			var targetID string
 			targetID = stepsInputItem.TargetID.ValueString()
 
@@ -56,9 +62,10 @@ func (r *SignalsAPICallRouteEntityResourceModel) ToSharedCreateTeamCallRoute(ctx
 			timeout = stepsInputItem.Timeout.ValueString()
 
 			stepsInput = append(stepsInput, shared.CreateTeamCallRouteStepsInput{
-				TargetID:   targetID,
-				TargetType: targetType,
-				Timeout:    timeout,
+				OnCallRotationID: onCallRotationID,
+				TargetID:         targetID,
+				TargetType:       targetType,
+				Timeout:          timeout,
 			})
 		}
 	}
@@ -147,6 +154,12 @@ func (r *SignalsAPICallRouteEntityResourceModel) ToSharedUpdateCallRoute(ctx con
 	if r.StepsInput != nil {
 		stepsInput = make([]shared.UpdateCallRouteStepsInput, 0, len(r.StepsInput))
 		for _, stepsInputItem := range r.StepsInput {
+			onCallRotationID := new(string)
+			if !stepsInputItem.OnCallRotationID.IsUnknown() && !stepsInputItem.OnCallRotationID.IsNull() {
+				*onCallRotationID = stepsInputItem.OnCallRotationID.ValueString()
+			} else {
+				onCallRotationID = nil
+			}
 			var targetID string
 			targetID = stepsInputItem.TargetID.ValueString()
 
@@ -157,9 +170,10 @@ func (r *SignalsAPICallRouteEntityResourceModel) ToSharedUpdateCallRoute(ctx con
 			timeout = stepsInputItem.Timeout.ValueString()
 
 			stepsInput = append(stepsInput, shared.UpdateCallRouteStepsInput{
-				TargetID:   targetID,
-				TargetType: targetType,
-				Timeout:    timeout,
+				OnCallRotationID: onCallRotationID,
+				TargetID:         targetID,
+				TargetType:       targetType,
+				Timeout:          timeout,
 			})
 		}
 	}
@@ -259,6 +273,7 @@ func (r *SignalsAPICallRouteEntityResourceModel) RefreshFromSharedSignalsAPICall
 				r.Steps.Target.ID = types.StringPointerValue(resp.Steps.Target.ID)
 				r.Steps.Target.IsPageable = types.BoolPointerValue(resp.Steps.Target.IsPageable)
 				r.Steps.Target.Name = types.StringPointerValue(resp.Steps.Target.Name)
+				r.Steps.Target.TeamID = types.StringPointerValue(resp.Steps.Target.TeamID)
 				r.Steps.Target.Type = types.StringPointerValue(resp.Steps.Target.Type)
 			}
 			r.Steps.Timeout = types.StringPointerValue(resp.Steps.Timeout)
@@ -270,6 +285,7 @@ func (r *SignalsAPICallRouteEntityResourceModel) RefreshFromSharedSignalsAPICall
 			r.Target.ID = types.StringPointerValue(resp.Target.ID)
 			r.Target.IsPageable = types.BoolPointerValue(resp.Target.IsPageable)
 			r.Target.Name = types.StringPointerValue(resp.Target.Name)
+			r.Target.TeamID = types.StringPointerValue(resp.Target.TeamID)
 			r.Target.Type = types.StringPointerValue(resp.Target.Type)
 		}
 	}

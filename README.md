@@ -139,7 +139,7 @@ terraform {
   required_providers {
     firehydrant = {
       source  = "firehydrant/firehydrant"
-      version = "0.2.6"
+      version = "0.2.7"
     }
   }
 }
@@ -163,6 +163,7 @@ provider "firehydrant" {
 * [firehydrant_incident_role_entity](docs/resources/incident_role_entity.md)
 * [firehydrant_incident_type_entity](docs/resources/incident_type_entity.md)
 * [firehydrant_priority_entity](docs/resources/priority_entity.md)
+* [firehydrant_retrospectives_template_entity](docs/resources/retrospectives_template_entity.md)
 * [firehydrant_runbook_entity](docs/resources/runbook_entity.md)
 * [firehydrant_scheduled_maintenance_entity](docs/resources/scheduled_maintenance_entity.md)
 * [firehydrant_service_dependency_entity](docs/resources/service_dependency_entity.md)
@@ -171,7 +172,9 @@ provider "firehydrant" {
 * [firehydrant_severity_matrix_condition_entity](docs/resources/severity_matrix_condition_entity.md)
 * [firehydrant_signals_api_call_route_entity](docs/resources/signals_api_call_route_entity.md)
 * [firehydrant_signals_api_email_target_entity](docs/resources/signals_api_email_target_entity.md)
+* [firehydrant_signals_api_escalation_policy_entity](docs/resources/signals_api_escalation_policy_entity.md)
 * [firehydrant_signals_api_grouping_entity](docs/resources/signals_api_grouping_entity.md)
+* [firehydrant_signals_api_notification_policy_item_entity](docs/resources/signals_api_notification_policy_item_entity.md)
 * [firehydrant_signals_api_rule_entity](docs/resources/signals_api_rule_entity.md)
 * [firehydrant_signals_api_transposer_entity](docs/resources/signals_api_transposer_entity.md)
 * [firehydrant_signals_api_webhook_target_entity](docs/resources/signals_api_webhook_target_entity.md)
@@ -233,6 +236,7 @@ provider "firehydrant" {
 * [firehydrant_signals_api_escalation_policy_entity](docs/data-sources/signals_api_escalation_policy_entity.md)
 * [firehydrant_signals_api_grouping_entity](docs/data-sources/signals_api_grouping_entity.md)
 * [firehydrant_signals_api_groupings_entities](docs/data-sources/signals_api_groupings_entities.md)
+* [firehydrant_signals_api_notification_policy_item_entity](docs/data-sources/signals_api_notification_policy_item_entity.md)
 * [firehydrant_signals_api_on_call_schedule_entity](docs/data-sources/signals_api_on_call_schedule_entity.md)
 * [firehydrant_signals_api_on_call_shift_entity](docs/data-sources/signals_api_on_call_shift_entity.md)
 * [firehydrant_signals_api_rule_entity](docs/data-sources/signals_api_rule_entity.md)

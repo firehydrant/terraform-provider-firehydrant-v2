@@ -135,6 +135,9 @@ func (r *SignalsAPIRuleEntityResource) Schema(ctx context.Context, req resource.
 					"name": schema.StringAttribute{
 						Computed: true,
 					},
+					"team_id": schema.StringAttribute{
+						Computed: true,
+					},
 					"type": schema.StringAttribute{
 						Computed: true,
 					},
@@ -459,7 +462,7 @@ func (r *SignalsAPIRuleEntityResource) ImportState(ctx context.Context, req reso
 	}
 
 	if err := dec.Decode(&data); err != nil {
-		resp.Diagnostics.AddError("Invalid ID", `The import ID is not valid. It is expected to be a JSON object string with the format: '{ "id": "",  "team_id": ""}': `+err.Error())
+		resp.Diagnostics.AddError("Invalid ID", `The import ID is not valid. It is expected to be a JSON object string with the format: '{"id": "", "team_id": ""}': `+err.Error())
 		return
 	}
 

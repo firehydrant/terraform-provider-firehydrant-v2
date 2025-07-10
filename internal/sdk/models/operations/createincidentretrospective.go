@@ -7,21 +7,9 @@ import (
 	"net/http"
 )
 
-type CreateIncidentRetrospectiveRequestBody struct {
-	// The id of the retrospective template to apply.
-	RetrospectiveTemplateID string `json:"retrospective_template_id"`
-}
-
-func (o *CreateIncidentRetrospectiveRequestBody) GetRetrospectiveTemplateID() string {
-	if o == nil {
-		return ""
-	}
-	return o.RetrospectiveTemplateID
-}
-
 type CreateIncidentRetrospectiveRequest struct {
-	IncidentID  string                                 `pathParam:"style=simple,explode=false,name=incident_id"`
-	RequestBody CreateIncidentRetrospectiveRequestBody `request:"mediaType=application/json"`
+	IncidentID                  string                             `pathParam:"style=simple,explode=false,name=incident_id"`
+	CreateIncidentRetrospective shared.CreateIncidentRetrospective `request:"mediaType=application/json"`
 }
 
 func (o *CreateIncidentRetrospectiveRequest) GetIncidentID() string {
@@ -31,11 +19,11 @@ func (o *CreateIncidentRetrospectiveRequest) GetIncidentID() string {
 	return o.IncidentID
 }
 
-func (o *CreateIncidentRetrospectiveRequest) GetRequestBody() CreateIncidentRetrospectiveRequestBody {
+func (o *CreateIncidentRetrospectiveRequest) GetCreateIncidentRetrospective() shared.CreateIncidentRetrospective {
 	if o == nil {
-		return CreateIncidentRetrospectiveRequestBody{}
+		return shared.CreateIncidentRetrospective{}
 	}
-	return o.RequestBody
+	return o.CreateIncidentRetrospective
 }
 
 type CreateIncidentRetrospectiveResponse struct {

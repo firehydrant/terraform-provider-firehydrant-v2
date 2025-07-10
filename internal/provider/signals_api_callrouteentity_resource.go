@@ -107,6 +107,9 @@ func (r *SignalsAPICallRouteEntityResource) Schema(ctx context.Context, req reso
 							"name": schema.StringAttribute{
 								Computed: true,
 							},
+							"team_id": schema.StringAttribute{
+								Computed: true,
+							},
 							"type": schema.StringAttribute{
 								Computed: true,
 							},
@@ -121,6 +124,10 @@ func (r *SignalsAPICallRouteEntityResource) Schema(ctx context.Context, req reso
 				Optional: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
+						"on_call_rotation_id": schema.StringAttribute{
+							Optional:    true,
+							Description: `The ID of a specific on-call rotation that should be routed to if the ` + "`" + `target_type` + "`" + ` is ` + "`" + `OnCallSchedule` + "`" + `. If not provided, the schedule's first rotation will be used.`,
+						},
 						"target_id": schema.StringAttribute{
 							Required:    true,
 							Description: `ID of the target`,
@@ -147,6 +154,9 @@ func (r *SignalsAPICallRouteEntityResource) Schema(ctx context.Context, req reso
 						Computed: true,
 					},
 					"name": schema.StringAttribute{
+						Computed: true,
+					},
+					"team_id": schema.StringAttribute{
 						Computed: true,
 					},
 					"type": schema.StringAttribute{

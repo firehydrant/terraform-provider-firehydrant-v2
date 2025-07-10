@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 74a1a2a8-f6b2-4a51-9f9c-8b04f085a82b
 management:
-  docChecksum: dfee75953f1dc7433bc39d8489c9831f
+  docChecksum: 5293c99c315b1684bb053eb0b40538fd
   docVersion: 0.0.1
-  speakeasyVersion: 1.575.5
-  generationVersion: 2.648.7
-  releaseVersion: 0.2.6
-  configChecksum: 72b0c97a2dc87a8e9916938ec5575d88
+  speakeasyVersion: 1.580.1
+  generationVersion: 2.656.3
+  releaseVersion: 0.2.7
+  configChecksum: a9cfefebf797629a027c0bbffcb2a2c7
   repoURL: https://github.com/firehydrant/terraform-provider-firehydrant-v2.git
   published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.2.1
-    core: 3.41.14
+    core: 3.41.15
     devContainers: 0.0.0
     getRequestBodies: 2.81.1
     globalSecurity: 2.81.12
@@ -76,6 +76,7 @@ generatedFiles:
   - examples/data-sources/firehydrant_signals_api_escalation_policy_entity/data-source.tf
   - examples/data-sources/firehydrant_signals_api_grouping_entity/data-source.tf
   - examples/data-sources/firehydrant_signals_api_groupings_entities/data-source.tf
+  - examples/data-sources/firehydrant_signals_api_notification_policy_item_entity/data-source.tf
   - examples/data-sources/firehydrant_signals_api_on_call_schedule_entity/data-source.tf
   - examples/data-sources/firehydrant_signals_api_on_call_shift_entity/data-source.tf
   - examples/data-sources/firehydrant_signals_api_rule_entity/data-source.tf
@@ -115,6 +116,8 @@ generatedFiles:
   - examples/resources/firehydrant_incident_type_entity/resource.tf
   - examples/resources/firehydrant_priority_entity/import.sh
   - examples/resources/firehydrant_priority_entity/resource.tf
+  - examples/resources/firehydrant_retrospectives_template_entity/import.sh
+  - examples/resources/firehydrant_retrospectives_template_entity/resource.tf
   - examples/resources/firehydrant_runbook_entity/import.sh
   - examples/resources/firehydrant_runbook_entity/resource.tf
   - examples/resources/firehydrant_scheduled_maintenance_entity/import.sh
@@ -131,8 +134,12 @@ generatedFiles:
   - examples/resources/firehydrant_signals_api_call_route_entity/resource.tf
   - examples/resources/firehydrant_signals_api_email_target_entity/import.sh
   - examples/resources/firehydrant_signals_api_email_target_entity/resource.tf
+  - examples/resources/firehydrant_signals_api_escalation_policy_entity/import.sh
+  - examples/resources/firehydrant_signals_api_escalation_policy_entity/resource.tf
   - examples/resources/firehydrant_signals_api_grouping_entity/import.sh
   - examples/resources/firehydrant_signals_api_grouping_entity/resource.tf
+  - examples/resources/firehydrant_signals_api_notification_policy_item_entity/import.sh
+  - examples/resources/firehydrant_signals_api_notification_policy_item_entity/resource.tf
   - examples/resources/firehydrant_signals_api_rule_entity/import.sh
   - examples/resources/firehydrant_signals_api_rule_entity/resource.tf
   - examples/resources/firehydrant_signals_api_transposer_entity/import.sh
@@ -262,6 +269,8 @@ generatedFiles:
   - internal/provider/reflect/struct.go
   - internal/provider/retrospectives_templateentity_data_source.go
   - internal/provider/retrospectives_templateentity_data_source_sdk.go
+  - internal/provider/retrospectives_templateentity_resource.go
+  - internal/provider/retrospectives_templateentity_resource_sdk.go
   - internal/provider/runbookentity_data_source.go
   - internal/provider/runbookentity_data_source_sdk.go
   - internal/provider/runbookentity_resource.go
@@ -308,12 +317,18 @@ generatedFiles:
   - internal/provider/signals_api_emailtargetentity_resource_sdk.go
   - internal/provider/signals_api_escalationpolicyentity_data_source.go
   - internal/provider/signals_api_escalationpolicyentity_data_source_sdk.go
+  - internal/provider/signals_api_escalationpolicyentity_resource.go
+  - internal/provider/signals_api_escalationpolicyentity_resource_sdk.go
   - internal/provider/signals_api_groupingentity_data_source.go
   - internal/provider/signals_api_groupingentity_data_source_sdk.go
   - internal/provider/signals_api_groupingentity_resource.go
   - internal/provider/signals_api_groupingentity_resource_sdk.go
   - internal/provider/signals_api_groupingsentities_data_source.go
   - internal/provider/signals_api_groupingsentities_data_source_sdk.go
+  - internal/provider/signals_api_notificationpolicyitementity_data_source.go
+  - internal/provider/signals_api_notificationpolicyitementity_data_source_sdk.go
+  - internal/provider/signals_api_notificationpolicyitementity_resource.go
+  - internal/provider/signals_api_notificationpolicyitementity_resource_sdk.go
   - internal/provider/signals_api_oncallscheduleentity_data_source.go
   - internal/provider/signals_api_oncallscheduleentity_data_source_sdk.go
   - internal/provider/signals_api_oncallshiftentity_data_source.go
@@ -416,6 +431,15 @@ generatedFiles:
   - internal/provider/types/create_signals_event_source_data.go
   - internal/provider/types/create_signals_event_source_example_payload.go
   - internal/provider/types/create_team_call_route_target_input.go
+  - internal/provider/types/create_team_escalation_policy_handoff_step_input.go
+  - internal/provider/types/create_team_escalation_policy_high.go
+  - internal/provider/types/create_team_escalation_policy_high_handoff_step.go
+  - internal/provider/types/create_team_escalation_policy_low.go
+  - internal/provider/types/create_team_escalation_policy_low_handoff_step.go
+  - internal/provider/types/create_team_escalation_policy_medium.go
+  - internal/provider/types/create_team_escalation_policy_medium_handoff_step.go
+  - internal/provider/types/create_team_escalation_policy_prioritized_settings.go
+  - internal/provider/types/create_team_escalation_policy_step.go
   - internal/provider/types/create_team_memberships_input.go
   - internal/provider/types/create_team_ms_teams_channel_input.go
   - internal/provider/types/custom_fields_field_value.go
@@ -551,6 +575,7 @@ generatedFiles:
   - internal/provider/types/signals_api_on_call_rotation_entity.go
   - internal/provider/types/signals_api_on_call_shift_entity.go
   - internal/provider/types/signals_api_target_entity.go
+  - internal/provider/types/signals_api_target_entity1.go
   - internal/provider/types/signals_api_transposer_entity_example_payload.go
   - internal/provider/types/slim_runbook_entity.go
   - internal/provider/types/step_element.go
@@ -620,6 +645,7 @@ generatedFiles:
   - internal/sdk/models/operations/createemailsubscriber.go
   - internal/sdk/models/operations/createenvironment.go
   - internal/sdk/models/operations/createfunctionality.go
+  - internal/sdk/models/operations/createhandoffnotificationsetting.go
   - internal/sdk/models/operations/createinboundfieldmap.go
   - internal/sdk/models/operations/createincident.go
   - internal/sdk/models/operations/createincidentalert.go
@@ -708,6 +734,7 @@ generatedFiles:
   - internal/sdk/models/operations/deleteincidenttype.go
   - internal/sdk/models/operations/deletelifecyclemeasurementdefinition.go
   - internal/sdk/models/operations/deletelifecyclemilestone.go
+  - internal/sdk/models/operations/deletenotificationpolicy.go
   - internal/sdk/models/operations/deletenunccomponentgroup.go
   - internal/sdk/models/operations/deletenuncconnection.go
   - internal/sdk/models/operations/deletenuncimage.go
@@ -783,6 +810,7 @@ generatedFiles:
   - internal/sdk/models/operations/getlifecyclemeasurementdefinition.go
   - internal/sdk/models/operations/getmeantimereport.go
   - internal/sdk/models/operations/getmemberdefaultaudience.go
+  - internal/sdk/models/operations/getnotificationpolicy.go
   - internal/sdk/models/operations/getnuncconnection.go
   - internal/sdk/models/operations/getoncallshift.go
   - internal/sdk/models/operations/getoptionsforfield.go
@@ -888,6 +916,7 @@ generatedFiles:
   - internal/sdk/models/operations/listlifecyclephases.go
   - internal/sdk/models/operations/listmilestonefunnelmetrics.go
   - internal/sdk/models/operations/listmttxmetrics.go
+  - internal/sdk/models/operations/listnotificationpolicysettings.go
   - internal/sdk/models/operations/listnuncconnections.go
   - internal/sdk/models/operations/listorganizationoncallschedules.go
   - internal/sdk/models/operations/listpostmortemquestions.go
@@ -990,6 +1019,7 @@ generatedFiles:
   - internal/sdk/models/operations/updateincidenttype.go
   - internal/sdk/models/operations/updatelifecyclemeasurementdefinition.go
   - internal/sdk/models/operations/updatelifecyclemilestone.go
+  - internal/sdk/models/operations/updatenotificationpolicy.go
   - internal/sdk/models/operations/updatenunccomponentgroup.go
   - internal/sdk/models/operations/updatenuncconnection.go
   - internal/sdk/models/operations/updatenuncimage.go
@@ -1066,6 +1096,7 @@ generatedFiles:
   - internal/sdk/models/shared/checklisttemplateentitypaginated.go
   - internal/sdk/models/shared/conversationsapientitiesreference.go
   - internal/sdk/models/shared/convertincidenttask.go
+  - internal/sdk/models/shared/createaudience.go
   - internal/sdk/models/shared/createchange.go
   - internal/sdk/models/shared/createchangeevent.go
   - internal/sdk/models/shared/createchangeidentity.go
@@ -1073,14 +1104,19 @@ generatedFiles:
   - internal/sdk/models/shared/createcomment.go
   - internal/sdk/models/shared/createcommentreaction.go
   - internal/sdk/models/shared/createcustomfielddefinition.go
+  - internal/sdk/models/shared/createemailsubscriber.go
   - internal/sdk/models/shared/createenvironment.go
   - internal/sdk/models/shared/createfunctionality.go
+  - internal/sdk/models/shared/createhandoffnotificationsetting.go
   - internal/sdk/models/shared/createincident.go
+  - internal/sdk/models/shared/createincidentattachmentform.go
   - internal/sdk/models/shared/createincidentchangeevent.go
   - internal/sdk/models/shared/createincidentchatmessage.go
   - internal/sdk/models/shared/createincidentimpact.go
   - internal/sdk/models/shared/createincidentlink.go
   - internal/sdk/models/shared/createincidentnote.go
+  - internal/sdk/models/shared/createincidentretrospective.go
+  - internal/sdk/models/shared/createincidentretrospectivefield.go
   - internal/sdk/models/shared/createincidentrole.go
   - internal/sdk/models/shared/createincidentroleassignment.go
   - internal/sdk/models/shared/createincidentstatuspage.go
@@ -1088,11 +1124,16 @@ generatedFiles:
   - internal/sdk/models/shared/createincidenttasklist.go
   - internal/sdk/models/shared/createincidentteamassignment.go
   - internal/sdk/models/shared/createincidenttype.go
+  - internal/sdk/models/shared/createlifecyclemeasurementdefinition.go
+  - internal/sdk/models/shared/createlifecyclemilestone.go
+  - internal/sdk/models/shared/createnunccomponentgroup.go
+  - internal/sdk/models/shared/createnuncconnection.go
   - internal/sdk/models/shared/createnuncsubscription.go
   - internal/sdk/models/shared/createoncallshift.go
   - internal/sdk/models/shared/createpostmortemreason.go
   - internal/sdk/models/shared/createpostmortemreport.go
   - internal/sdk/models/shared/createpriority.go
+  - internal/sdk/models/shared/createretrospectivetemplate.go
   - internal/sdk/models/shared/createrunbook.go
   - internal/sdk/models/shared/createrunbookexecution.go
   - internal/sdk/models/shared/createsavedsearch.go
@@ -1110,6 +1151,7 @@ generatedFiles:
   - internal/sdk/models/shared/createsignalsemailtarget.go
   - internal/sdk/models/shared/createsignalseventsource.go
   - internal/sdk/models/shared/createsignalswebhooktarget.go
+  - internal/sdk/models/shared/createslackemojiaction.go
   - internal/sdk/models/shared/createstatusupdatetemplate.go
   - internal/sdk/models/shared/createtasklist.go
   - internal/sdk/models/shared/createteam.go
@@ -1130,6 +1172,7 @@ generatedFiles:
   - internal/sdk/models/shared/errorentity.go
   - internal/sdk/models/shared/eventgenericchatmessageentity.go
   - internal/sdk/models/shared/eventnoteentity.go
+  - internal/sdk/models/shared/exportincidentretrospectives.go
   - internal/sdk/models/shared/externalresourceentity.go
   - internal/sdk/models/shared/fieldmappingfieldmapentity.go
   - internal/sdk/models/shared/fieldmappingmappablefieldentity.go
@@ -1138,6 +1181,7 @@ generatedFiles:
   - internal/sdk/models/shared/functionalityentitylite.go
   - internal/sdk/models/shared/functionalityentitypaginated.go
   - internal/sdk/models/shared/functionalitywithallservicesentity.go
+  - internal/sdk/models/shared/generateaudiencesummary.go
   - internal/sdk/models/shared/importsimportentity.go
   - internal/sdk/models/shared/importsimporterrorentity.go
   - internal/sdk/models/shared/incidentattachmententity.go
@@ -1327,6 +1371,7 @@ generatedFiles:
   - internal/sdk/models/shared/reportentity.go
   - internal/sdk/models/shared/reportsbucketentity.go
   - internal/sdk/models/shared/reportsdatapointentity.go
+  - internal/sdk/models/shared/resolveincident.go
   - internal/sdk/models/shared/retrospectivesfieldentity.go
   - internal/sdk/models/shared/retrospectivesindextemplateentity.go
   - internal/sdk/models/shared/retrospectivesindextemplateentitypaginated.go
@@ -1356,12 +1401,14 @@ generatedFiles:
   - internal/sdk/models/shared/servicelinkentity.go
   - internal/sdk/models/shared/serviceparentdependencyentity.go
   - internal/sdk/models/shared/servicewithalldependenciesentity.go
+  - internal/sdk/models/shared/setmemberdefaultaudience.go
   - internal/sdk/models/shared/severityentity.go
   - internal/sdk/models/shared/severityentitypaginated.go
   - internal/sdk/models/shared/severitymatrixconditionentity.go
   - internal/sdk/models/shared/severitymatriximpactentity.go
   - internal/sdk/models/shared/severitymatrixitementity.go
   - internal/sdk/models/shared/severitymatrixseveritymatrixentity.go
+  - internal/sdk/models/shared/shareincidentretrospectives.go
   - internal/sdk/models/shared/signalsapianalyticsgroupedmetricsentity.go
   - internal/sdk/models/shared/signalsapianalyticsmttxmetricsentity.go
   - internal/sdk/models/shared/signalsapianalyticsnoisemetricsentity.go
@@ -1378,6 +1425,8 @@ generatedFiles:
   - internal/sdk/models/shared/signalsapihackermodeentity.go
   - internal/sdk/models/shared/signalsapiingestkeyentity.go
   - internal/sdk/models/shared/signalsapinotificationpolicyitemcomplianceentity.go
+  - internal/sdk/models/shared/signalsapinotificationpolicyitementity.go
+  - internal/sdk/models/shared/signalsapinotificationpolicyitementitypaginated.go
   - internal/sdk/models/shared/signalsapinotificationprioritypolicyentity.go
   - internal/sdk/models/shared/signalsapioncallrestrictionentity.go
   - internal/sdk/models/shared/signalsapioncallrotationentity.go
@@ -1417,6 +1466,9 @@ generatedFiles:
   - internal/sdk/models/shared/ticketingprojectinboundmappablefieldentity.go
   - internal/sdk/models/shared/ticketingprojectsprojectlistitementity.go
   - internal/sdk/models/shared/ticketingticketentity.go
+  - internal/sdk/models/shared/updateaipreferences.go
+  - internal/sdk/models/shared/updateaudience.go
+  - internal/sdk/models/shared/updateauthedprovider.go
   - internal/sdk/models/shared/updateawscloudtrailbatch.go
   - internal/sdk/models/shared/updateawsconnection.go
   - internal/sdk/models/shared/updatecallroute.go
@@ -1441,6 +1493,12 @@ generatedFiles:
   - internal/sdk/models/shared/updateincidentrole.go
   - internal/sdk/models/shared/updateincidenttask.go
   - internal/sdk/models/shared/updateincidenttype.go
+  - internal/sdk/models/shared/updatelifecyclemeasurementdefinition.go
+  - internal/sdk/models/shared/updatelifecyclemilestone.go
+  - internal/sdk/models/shared/updatenotificationpolicy.go
+  - internal/sdk/models/shared/updatenunccomponentgroup.go
+  - internal/sdk/models/shared/updatenuncconnection.go
+  - internal/sdk/models/shared/updatenuncimageform.go
   - internal/sdk/models/shared/updatenunclink.go
   - internal/sdk/models/shared/updateoncallshift.go
   - internal/sdk/models/shared/updatepostmortemfield.go
@@ -1448,6 +1506,7 @@ generatedFiles:
   - internal/sdk/models/shared/updatepostmortemreason.go
   - internal/sdk/models/shared/updatepostmortemreport.go
   - internal/sdk/models/shared/updatepriority.go
+  - internal/sdk/models/shared/updateretrospectivetemplate.go
   - internal/sdk/models/shared/updaterunbook.go
   - internal/sdk/models/shared/updaterunbookexecutionstep.go
   - internal/sdk/models/shared/updatesavedsearch.go
@@ -1464,6 +1523,7 @@ generatedFiles:
   - internal/sdk/models/shared/updatesignalsalertgroupingconfiguration.go
   - internal/sdk/models/shared/updatesignalsemailtarget.go
   - internal/sdk/models/shared/updatesignalswebhooktarget.go
+  - internal/sdk/models/shared/updateslackemojiaction.go
   - internal/sdk/models/shared/updatestatuspageconnection.go
   - internal/sdk/models/shared/updatestatusupdatetemplate.go
   - internal/sdk/models/shared/updatetasklist.go
@@ -1473,10 +1533,12 @@ generatedFiles:
   - internal/sdk/models/shared/updateteamsignalrule.go
   - internal/sdk/models/shared/updateticket.go
   - internal/sdk/models/shared/updateticketingpriority.go
+  - internal/sdk/models/shared/updatetranscriptattribution.go
   - internal/sdk/models/shared/updatevote.go
   - internal/sdk/models/shared/updatewebhook.go
   - internal/sdk/models/shared/userentity.go
   - internal/sdk/models/shared/userentitypaginated.go
+  - internal/sdk/models/shared/voteaiincidentsummary.go
   - internal/sdk/models/shared/votesentity.go
   - internal/sdk/models/shared/webhooksentitieswebhookentity.go
   - internal/sdk/retrospectives.go
@@ -4809,5 +4871,35 @@ examples:
       parameters:
         path:
           webhook_id: "<id>"
+  list_notification_policy_settings:
+    speakeasy-default-list-notification-policy-settings:
+      responses:
+        "200":
+          application/json: {}
+  create_handoff_notification_setting:
+    speakeasy-default-create-handoff-notification-setting:
+      requestBody:
+        application/json: {"max_delay": "<value>", "notification_group_method": "<value>", "priority": "<value>"}
+      responses:
+        "201":
+          application/json: {}
+  delete_notification_policy:
+    speakeasy-default-delete-notification-policy:
+      parameters:
+        path:
+          id: "<id>"
+  get_notification_policy:
+    speakeasy-default-get-notification-policy:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+  update_notification_policy:
+    speakeasy-default-update-notification-policy:
+      parameters:
+        path:
+          id: "<id>"
 examplesVersion: 1.0.2
 generatedTests: {}

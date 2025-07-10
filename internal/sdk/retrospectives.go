@@ -199,7 +199,7 @@ func (s *Retrospectives) CreateIncidentRetrospective(ctx context.Context, reques
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "CreateIncidentRetrospective", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -336,7 +336,7 @@ func (s *Retrospectives) ExportIncidentRetrospectives(ctx context.Context, reque
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "ExportIncidentRetrospectives", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -473,7 +473,7 @@ func (s *Retrospectives) ShareIncidentRetrospectives(ctx context.Context, reques
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "ShareIncidentRetrospectives", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -747,7 +747,7 @@ func (s *Retrospectives) CreateIncidentRetrospectiveField(ctx context.Context, r
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "CreateIncidentRetrospectiveField", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -3406,7 +3406,7 @@ func (s *Retrospectives) ListRetrospectiveTemplates(ctx context.Context, request
 
 // CreateRetrospectiveTemplate - Create a retrospective template
 // Create a new retrospective template
-func (s *Retrospectives) CreateRetrospectiveTemplate(ctx context.Context, request operations.CreateRetrospectiveTemplateRequest, opts ...operations.Option) (*operations.CreateRetrospectiveTemplateResponse, error) {
+func (s *Retrospectives) CreateRetrospectiveTemplate(ctx context.Context, request shared.CreateRetrospectiveTemplate, opts ...operations.Option) (*operations.CreateRetrospectiveTemplateResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -3835,7 +3835,7 @@ func (s *Retrospectives) UpdateRetrospectiveTemplate(ctx context.Context, reques
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "UpdateRetrospectiveTemplate", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}

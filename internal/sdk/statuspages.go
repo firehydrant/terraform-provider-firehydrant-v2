@@ -540,7 +540,7 @@ func (s *StatusPages) ListNuncConnections(ctx context.Context, opts ...operation
 
 // CreateNuncConnection - Create a status page
 // Create a new FireHydrant hosted status page for customer facing statuses.
-func (s *StatusPages) CreateNuncConnection(ctx context.Context, request operations.CreateNuncConnectionRequest, opts ...operations.Option) (*operations.CreateNuncConnectionResponse, error) {
+func (s *StatusPages) CreateNuncConnection(ctx context.Context, request shared.CreateNuncConnection, opts ...operations.Option) (*operations.CreateNuncConnectionResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionTimeout,
@@ -969,7 +969,7 @@ func (s *StatusPages) UpdateNuncConnection(ctx context.Context, request operatio
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "UpdateNuncConnection", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1106,7 +1106,7 @@ func (s *StatusPages) CreateNuncComponentGroup(ctx context.Context, request oper
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "CreateNuncComponentGroup", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1353,7 +1353,7 @@ func (s *StatusPages) UpdateNuncComponentGroup(ctx context.Context, request oper
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "UpdateNuncComponentGroup", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}
@@ -1600,7 +1600,7 @@ func (s *StatusPages) UpdateNuncImage(ctx context.Context, request operations.Up
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "RequestBody", "multipart", `request:"mediaType=multipart/form-data"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, true, "UpdateNuncImageForm", "multipart", `request:"mediaType=multipart/form-data"`)
 	if err != nil {
 		return nil, err
 	}
@@ -2358,7 +2358,7 @@ func (s *StatusPages) CreateEmailSubscriber(ctx context.Context, request operati
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "CreateEmailSubscriber", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, err
 	}

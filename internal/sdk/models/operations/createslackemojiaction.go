@@ -3,34 +3,14 @@
 package operations
 
 import (
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
 )
 
-type CreateSlackEmojiActionRequestBody struct {
-	// The name of the emoji to associate with this action
-	EmojiName string `json:"emoji_name"`
-	// The ID of the incident type to associate with this emoji action
-	IncidentTypeID *string `json:"incident_type_id,omitempty"`
-}
-
-func (o *CreateSlackEmojiActionRequestBody) GetEmojiName() string {
-	if o == nil {
-		return ""
-	}
-	return o.EmojiName
-}
-
-func (o *CreateSlackEmojiActionRequestBody) GetIncidentTypeID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.IncidentTypeID
-}
-
 type CreateSlackEmojiActionRequest struct {
 	// Slack Connection UUID
-	ConnectionID string                            `pathParam:"style=simple,explode=false,name=connection_id"`
-	RequestBody  CreateSlackEmojiActionRequestBody `request:"mediaType=application/json"`
+	ConnectionID           string                        `pathParam:"style=simple,explode=false,name=connection_id"`
+	CreateSlackEmojiAction shared.CreateSlackEmojiAction `request:"mediaType=application/json"`
 }
 
 func (o *CreateSlackEmojiActionRequest) GetConnectionID() string {
@@ -40,11 +20,11 @@ func (o *CreateSlackEmojiActionRequest) GetConnectionID() string {
 	return o.ConnectionID
 }
 
-func (o *CreateSlackEmojiActionRequest) GetRequestBody() CreateSlackEmojiActionRequestBody {
+func (o *CreateSlackEmojiActionRequest) GetCreateSlackEmojiAction() shared.CreateSlackEmojiAction {
 	if o == nil {
-		return CreateSlackEmojiActionRequestBody{}
+		return shared.CreateSlackEmojiAction{}
 	}
-	return o.RequestBody
+	return o.CreateSlackEmojiAction
 }
 
 type CreateSlackEmojiActionResponse struct {

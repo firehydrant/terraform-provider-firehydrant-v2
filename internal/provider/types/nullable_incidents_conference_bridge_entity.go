@@ -11,6 +11,7 @@ type NullableIncidentsConferenceBridgeEntity struct {
 	HasTranslatedTranscripts types.Bool                                          `tfsdk:"has_translated_transcripts"`
 	ID                       types.String                                        `tfsdk:"id"`
 	LanguageCodes            []types.String                                      `tfsdk:"language_codes"`
+	PreviousHostAssignment   types.String                                        `tfsdk:"previous_host_assignment"`
 	TranscriptionStatus      types.String                                        `tfsdk:"transcription_status"`
 	TranscriptionSubCode     types.String                                        `tfsdk:"transcription_sub_code"`
 }

@@ -3,40 +3,14 @@
 package operations
 
 import (
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
 )
 
-type UpdateNuncComponentGroupRequestBody struct {
-	ComponentGroupID *string `json:"component_group_id,omitempty"`
-	Name             *string `json:"name,omitempty"`
-	Position         *int    `json:"position,omitempty"`
-}
-
-func (o *UpdateNuncComponentGroupRequestBody) GetComponentGroupID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ComponentGroupID
-}
-
-func (o *UpdateNuncComponentGroupRequestBody) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *UpdateNuncComponentGroupRequestBody) GetPosition() *int {
-	if o == nil {
-		return nil
-	}
-	return o.Position
-}
-
 type UpdateNuncComponentGroupRequest struct {
-	NuncConnectionID string                               `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
-	GroupID          string                               `pathParam:"style=simple,explode=false,name=group_id"`
-	RequestBody      *UpdateNuncComponentGroupRequestBody `request:"mediaType=application/json"`
+	NuncConnectionID         string                           `pathParam:"style=simple,explode=false,name=nunc_connection_id"`
+	GroupID                  string                           `pathParam:"style=simple,explode=false,name=group_id"`
+	UpdateNuncComponentGroup *shared.UpdateNuncComponentGroup `request:"mediaType=application/json"`
 }
 
 func (o *UpdateNuncComponentGroupRequest) GetNuncConnectionID() string {
@@ -53,11 +27,11 @@ func (o *UpdateNuncComponentGroupRequest) GetGroupID() string {
 	return o.GroupID
 }
 
-func (o *UpdateNuncComponentGroupRequest) GetRequestBody() *UpdateNuncComponentGroupRequestBody {
+func (o *UpdateNuncComponentGroupRequest) GetUpdateNuncComponentGroup() *shared.UpdateNuncComponentGroup {
 	if o == nil {
 		return nil
 	}
-	return o.RequestBody
+	return o.UpdateNuncComponentGroup
 }
 
 type UpdateNuncComponentGroupResponse struct {

@@ -52,6 +52,7 @@ func (r *IncidentEntityDataSourceModel) RefreshFromSharedIncidentEntity(ctx cont
 						conferenceBridges.LanguageCodes = append(conferenceBridges.LanguageCodes, types.StringValue(v))
 					}
 				}
+				conferenceBridges.PreviousHostAssignment = types.StringPointerValue(conferenceBridgesItem.PreviousHostAssignment)
 				conferenceBridges.TranscriptionStatus = types.StringPointerValue(conferenceBridgesItem.TranscriptionStatus)
 				conferenceBridges.TranscriptionSubCode = types.StringPointerValue(conferenceBridgesItem.TranscriptionSubCode)
 				if conferenceBridgesCount+1 > len(r.ConferenceBridges) {
@@ -61,6 +62,7 @@ func (r *IncidentEntityDataSourceModel) RefreshFromSharedIncidentEntity(ctx cont
 					r.ConferenceBridges[conferenceBridgesCount].HasTranslatedTranscripts = conferenceBridges.HasTranslatedTranscripts
 					r.ConferenceBridges[conferenceBridgesCount].ID = conferenceBridges.ID
 					r.ConferenceBridges[conferenceBridgesCount].LanguageCodes = conferenceBridges.LanguageCodes
+					r.ConferenceBridges[conferenceBridgesCount].PreviousHostAssignment = conferenceBridges.PreviousHostAssignment
 					r.ConferenceBridges[conferenceBridgesCount].TranscriptionStatus = conferenceBridges.TranscriptionStatus
 					r.ConferenceBridges[conferenceBridgesCount].TranscriptionSubCode = conferenceBridges.TranscriptionSubCode
 				}

@@ -192,6 +192,7 @@ Read-Only:
 - `has_translated_transcripts` (Boolean)
 - `id` (String)
 - `language_codes` (List of String) A list of language codes that have translated transcripts for this conference bridge
+- `previous_host_assignment` (String)
 - `transcription_status` (String)
 - `transcription_sub_code` (String)
 

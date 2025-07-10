@@ -81,6 +81,7 @@ func (r *AlertsAlertEntityDataSourceModel) RefreshFromSharedAlertsAlertEntity(ct
 						childAlerts.SignalRule.Target.ID = types.StringPointerValue(childAlertsItem.SignalRule.Target.ID)
 						childAlerts.SignalRule.Target.IsPageable = types.BoolPointerValue(childAlertsItem.SignalRule.Target.IsPageable)
 						childAlerts.SignalRule.Target.Name = types.StringPointerValue(childAlertsItem.SignalRule.Target.Name)
+						childAlerts.SignalRule.Target.TeamID = types.StringPointerValue(childAlertsItem.SignalRule.Target.TeamID)
 						childAlerts.SignalRule.Target.Type = types.StringPointerValue(childAlertsItem.SignalRule.Target.Type)
 					}
 					childAlerts.SignalRule.TeamID = types.StringPointerValue(childAlertsItem.SignalRule.TeamID)
@@ -269,6 +270,7 @@ func (r *AlertsAlertEntityDataSourceModel) RefreshFromSharedAlertsAlertEntity(ct
 						parentAlerts.SignalRule.Target.ID = types.StringPointerValue(parentAlertsItem.SignalRule.Target.ID)
 						parentAlerts.SignalRule.Target.IsPageable = types.BoolPointerValue(parentAlertsItem.SignalRule.Target.IsPageable)
 						parentAlerts.SignalRule.Target.Name = types.StringPointerValue(parentAlertsItem.SignalRule.Target.Name)
+						parentAlerts.SignalRule.Target.TeamID = types.StringPointerValue(parentAlertsItem.SignalRule.Target.TeamID)
 						parentAlerts.SignalRule.Target.Type = types.StringPointerValue(parentAlertsItem.SignalRule.Target.Type)
 					}
 					parentAlerts.SignalRule.TeamID = types.StringPointerValue(parentAlertsItem.SignalRule.TeamID)
@@ -357,6 +359,7 @@ func (r *AlertsAlertEntityDataSourceModel) RefreshFromSharedAlertsAlertEntity(ct
 				r.SignalRule.Target.ID = types.StringPointerValue(resp.SignalRule.Target.ID)
 				r.SignalRule.Target.IsPageable = types.BoolPointerValue(resp.SignalRule.Target.IsPageable)
 				r.SignalRule.Target.Name = types.StringPointerValue(resp.SignalRule.Target.Name)
+				r.SignalRule.Target.TeamID = types.StringPointerValue(resp.SignalRule.Target.TeamID)
 				r.SignalRule.Target.Type = types.StringPointerValue(resp.SignalRule.Target.Type)
 			}
 			r.SignalRule.TeamID = types.StringPointerValue(resp.SignalRule.TeamID)
@@ -369,6 +372,7 @@ func (r *AlertsAlertEntityDataSourceModel) RefreshFromSharedAlertsAlertEntity(ct
 			r.SignalTarget.ID = types.StringPointerValue(resp.SignalTarget.ID)
 			r.SignalTarget.IsPageable = types.BoolPointerValue(resp.SignalTarget.IsPageable)
 			r.SignalTarget.Name = types.StringPointerValue(resp.SignalTarget.Name)
+			r.SignalTarget.TeamID = types.StringPointerValue(resp.SignalTarget.TeamID)
 			r.SignalTarget.Type = types.StringPointerValue(resp.SignalTarget.Type)
 		}
 		r.SourceIcon = types.StringPointerValue(resp.SourceIcon)

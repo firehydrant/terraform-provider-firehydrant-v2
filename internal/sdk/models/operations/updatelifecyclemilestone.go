@@ -7,66 +7,9 @@ import (
 	"net/http"
 )
 
-type UpdateLifecycleMilestoneRequestBody struct {
-	// The setting for auto-assigning the milestone's timestamp during incident declaration
-	AutoAssignTimestampOnCreate *string `json:"auto_assign_timestamp_on_create,omitempty"`
-	// A long-form description of the milestone's purpose
-	Description *string `json:"description,omitempty"`
-	// The name of the milestone
-	Name *string `json:"name,omitempty"`
-	// The position of the milestone within the phase. If not provided, the milestone will be added as the last milestone in the phase.
-	Position *int `json:"position,omitempty"`
-	// The ID of a later milestone that cannot be started until this milestone has a timestamp populated
-	RequiredAtMilestoneID *string `json:"required_at_milestone_id,omitempty"`
-	// A unique identifier for the milestone. If not provided, one will be generated from the name.
-	Slug *string `json:"slug,omitempty"`
-}
-
-func (o *UpdateLifecycleMilestoneRequestBody) GetAutoAssignTimestampOnCreate() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AutoAssignTimestampOnCreate
-}
-
-func (o *UpdateLifecycleMilestoneRequestBody) GetDescription() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Description
-}
-
-func (o *UpdateLifecycleMilestoneRequestBody) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
-}
-
-func (o *UpdateLifecycleMilestoneRequestBody) GetPosition() *int {
-	if o == nil {
-		return nil
-	}
-	return o.Position
-}
-
-func (o *UpdateLifecycleMilestoneRequestBody) GetRequiredAtMilestoneID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.RequiredAtMilestoneID
-}
-
-func (o *UpdateLifecycleMilestoneRequestBody) GetSlug() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Slug
-}
-
 type UpdateLifecycleMilestoneRequest struct {
-	MilestoneID string                               `pathParam:"style=simple,explode=false,name=milestone_id"`
-	RequestBody *UpdateLifecycleMilestoneRequestBody `request:"mediaType=application/json"`
+	MilestoneID              string                           `pathParam:"style=simple,explode=false,name=milestone_id"`
+	UpdateLifecycleMilestone *shared.UpdateLifecycleMilestone `request:"mediaType=application/json"`
 }
 
 func (o *UpdateLifecycleMilestoneRequest) GetMilestoneID() string {
@@ -76,11 +19,11 @@ func (o *UpdateLifecycleMilestoneRequest) GetMilestoneID() string {
 	return o.MilestoneID
 }
 
-func (o *UpdateLifecycleMilestoneRequest) GetRequestBody() *UpdateLifecycleMilestoneRequestBody {
+func (o *UpdateLifecycleMilestoneRequest) GetUpdateLifecycleMilestone() *shared.UpdateLifecycleMilestone {
 	if o == nil {
 		return nil
 	}
-	return o.RequestBody
+	return o.UpdateLifecycleMilestone
 }
 
 type UpdateLifecycleMilestoneResponse struct {

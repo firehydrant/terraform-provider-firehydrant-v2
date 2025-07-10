@@ -3,78 +3,9 @@
 package operations
 
 import (
-	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
 	"net/http"
 )
-
-type CreateAudienceRequest struct {
-	// Whether this is the default audience
-	Default *bool `default:"false" json:"default"`
-	// Description of the audience (max 4000 characters)
-	Description string `json:"description"`
-	// The prompt to display when collecting this detail
-	DetailsPrompt []string `json:"details[prompt]"`
-	// The incident detail question (max 255 characters)
-	DetailsQuestion []string `json:"details[question]"`
-	// Optional unique identifier for this detail
-	DetailsSlug []string `json:"details[slug],omitempty"`
-	// Name of the audience (max 255 characters)
-	Name string `json:"name"`
-}
-
-func (c CreateAudienceRequest) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateAudienceRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *CreateAudienceRequest) GetDefault() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.Default
-}
-
-func (o *CreateAudienceRequest) GetDescription() string {
-	if o == nil {
-		return ""
-	}
-	return o.Description
-}
-
-func (o *CreateAudienceRequest) GetDetailsPrompt() []string {
-	if o == nil {
-		return []string{}
-	}
-	return o.DetailsPrompt
-}
-
-func (o *CreateAudienceRequest) GetDetailsQuestion() []string {
-	if o == nil {
-		return []string{}
-	}
-	return o.DetailsQuestion
-}
-
-func (o *CreateAudienceRequest) GetDetailsSlug() []string {
-	if o == nil {
-		return nil
-	}
-	return o.DetailsSlug
-}
-
-func (o *CreateAudienceRequest) GetName() string {
-	if o == nil {
-		return ""
-	}
-	return o.Name
-}
 
 type CreateAudienceResponse struct {
 	// HTTP response content type for this operation
