@@ -380,5 +380,5 @@ add terraform.tfvars to directory root with:
 api_key = {staging apikey}
 ```
 
-Run `go build -o terraform-provider-firehydrant` so you have a local binary to use
+Run `go build -o terraform-provider-firehydrant-v2` so you have a local binary to use
 after that you can terraform init, plan, apply, destroy etc to test against staging

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/firehydrant/terraform-provider-firehydrant/scripts/common"
+	"github.com/firehydrant/terraform-provider-firehydrant-v2/scripts/common"
 )
 
 type PropertyMismatch struct {
