@@ -35,7 +35,7 @@ jobs:
               new_version="v$new_version"
             fi
             echo "Using manual version: $new_version"
-          # If push event, try to extract version from commit message
+          # If push event, extract version from commit message using grep
           elif [ "${{ github.event_name }}" == "push" ]; then
             # Get the full commit message (subject + body) from the merge commit
             commit_message=$(git log -1 --format='%s%n%b')
@@ -43,16 +43,15 @@ jobs:
             echo "$commit_message"
             echo "---"
             
-            # Extract version from pattern "Generate X.X.X" anywhere in the commit message
-            if [[ $commit_message =~ Generate\ ([0-9]+\.[0-9]+\.[0-9]+) ]]; then
-              extracted_version="${BASH_REMATCH[1]}"
+            # Extract version using grep (simple and reliable)
+            extracted_version=$(echo "$commit_message" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+            
+            if [ -n "$extracted_version" ]; then
               new_version="v$extracted_version"
               echo "Extracted version from commit message: $new_version"
             else
               echo "❌ Could not extract version from commit message"
-              echo "Expected format: 'Generate X.X.X' somewhere in commit message"
-              echo "Searching for pattern in:"
-              echo "$commit_message"
+              echo "Expected format: version pattern X.X.X somewhere in commit message"
             fi
           fi
           
@@ -61,7 +60,7 @@ jobs:
             echo "❌ No version could be determined. Workflow will exit."
             echo "Please either:"
             echo "  1. Use workflow_dispatch with set_version input, or"
-            echo "  2. Ensure commit message contains 'Generate X.X.X' pattern"
+            echo "  2. Ensure commit message contains version pattern X.X.X"
             exit 1
           fi
           
