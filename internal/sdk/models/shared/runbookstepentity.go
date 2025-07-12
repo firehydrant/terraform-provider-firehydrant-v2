@@ -2,11 +2,6 @@
 
 package shared
 
-import (
-	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
-	"time"
-)
-
 // RunbookStepEntityConfig - An unstructured object of key/value pairs describing the config settings for the step.
 type RunbookStepEntityConfig struct {
 }
@@ -17,25 +12,14 @@ type RunbookStepEntity struct {
 	Automatic *bool                          `json:"automatic,omitempty"`
 	// An unstructured object of key/value pairs describing the config settings for the step.
 	Config          *RunbookStepEntityConfig `json:"config,omitempty"`
-	DelayDuration   *time.Time               `json:"delay_duration,omitempty"`
+	DelayDuration   *string                  `json:"delay_duration,omitempty"`
 	Name            *string                  `json:"name,omitempty"`
 	Repeats         *bool                    `json:"repeats,omitempty"`
-	RepeatsDuration *time.Time               `json:"repeats_duration,omitempty"`
+	RepeatsDuration *string                  `json:"repeats_duration,omitempty"`
 	Reruns          *bool                    `json:"reruns,omitempty"`
 	Rule            *NullableRulesRuleEntity `json:"rule,omitempty"`
 	StepID          *string                  `json:"step_id,omitempty"`
 	Votes           *NullableVotesEntity     `json:"votes,omitempty"`
-}
-
-func (r RunbookStepEntity) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RunbookStepEntity) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, false); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (o *RunbookStepEntity) GetAction() *NullableRunbooksActionsEntity {
@@ -66,7 +50,7 @@ func (o *RunbookStepEntity) GetConfig() *RunbookStepEntityConfig {
 	return o.Config
 }
 
-func (o *RunbookStepEntity) GetDelayDuration() *time.Time {
+func (o *RunbookStepEntity) GetDelayDuration() *string {
 	if o == nil {
 		return nil
 	}
@@ -87,7 +71,7 @@ func (o *RunbookStepEntity) GetRepeats() *bool {
 	return o.Repeats
 }
 
-func (o *RunbookStepEntity) GetRepeatsDuration() *time.Time {
+func (o *RunbookStepEntity) GetRepeatsDuration() *string {
 	if o == nil {
 		return nil
 	}

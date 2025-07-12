@@ -269,9 +269,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Firehydrant {
 	sdk := &Firehydrant{
-		SDKVersion: "0.2.8",
+		SDKVersion: "0.2.9",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/terraform 0.2.8 2.656.5 0.0.1 github.com/firehydrant/terraform-provider-firehydrant/internal/sdk",
+			UserAgent:  "speakeasy-sdk/terraform 0.2.9 2.656.5 0.0.1 github.com/firehydrant/terraform-provider-firehydrant/internal/sdk",
 			ServerList: ServerList,
 		},
 		hooks: hooks.New(),

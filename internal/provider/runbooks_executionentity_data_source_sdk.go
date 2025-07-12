@@ -13,14 +13,18 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func (r *RunbooksExecutionEntityDataSourceModel) ToOperationsGetRunbookExecutionRequest(ctx context.Context) (*operations.GetRunbookExecutionRequest, diag.Diagnostics) {
+func (r *RunbooksExecutionEntityDataSourceModel) ToOperationsGetRunbookExecutionStepScriptRequest(ctx context.Context) (*operations.GetRunbookExecutionStepScriptRequest, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
 	var executionID string
-	executionID = r.ID.ValueString()
+	executionID = r.ExecutionID.ValueString()
 
-	out := operations.GetRunbookExecutionRequest{
+	var stepID string
+	stepID = r.StepID.ValueString()
+
+	out := operations.GetRunbookExecutionStepScriptRequest{
 		ExecutionID: executionID,
+		StepID:      stepID,
 	}
 
 	return &out, diags
