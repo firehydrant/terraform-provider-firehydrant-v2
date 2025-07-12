@@ -204,6 +204,112 @@ func (r *IncidentEntityResourceModel) ToSharedCreateIncident(ctx context.Context
 	return &out, diags
 }
 
+func (r *IncidentEntityResourceModel) ToSharedUpdateIncident(ctx context.Context) (*shared.UpdateIncident, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	customerImpactSummary := new(string)
+	if !r.CustomerImpactSummary.IsUnknown() && !r.CustomerImpactSummary.IsNull() {
+		*customerImpactSummary = r.CustomerImpactSummary.ValueString()
+	} else {
+		customerImpactSummary = nil
+	}
+	description := new(string)
+	if !r.Description.IsUnknown() && !r.Description.IsNull() {
+		*description = r.Description.ValueString()
+	} else {
+		description = nil
+	}
+	incidentTypeID := new(string)
+	if !r.IncidentTypeID.IsUnknown() && !r.IncidentTypeID.IsNull() {
+		*incidentTypeID = r.IncidentTypeID.ValueString()
+	} else {
+		incidentTypeID = nil
+	}
+	var labels *shared.UpdateIncidentLabels
+	if r.Labels != nil {
+		labels = &shared.UpdateIncidentLabels{}
+	}
+	name := new(string)
+	if !r.Name.IsUnknown() && !r.Name.IsNull() {
+		*name = r.Name.ValueString()
+	} else {
+		name = nil
+	}
+	priority := new(string)
+	if !r.Priority.IsUnknown() && !r.Priority.IsNull() {
+		*priority = r.Priority.ValueString()
+	} else {
+		priority = nil
+	}
+	severity := new(string)
+	if !r.Severity.IsUnknown() && !r.Severity.IsNull() {
+		*severity = r.Severity.ValueString()
+	} else {
+		severity = nil
+	}
+	severityConditionID := new(string)
+	if !r.SeverityConditionID.IsUnknown() && !r.SeverityConditionID.IsNull() {
+		*severityConditionID = r.SeverityConditionID.ValueString()
+	} else {
+		severityConditionID = nil
+	}
+	severityImpactID := new(string)
+	if !r.SeverityImpactID.IsUnknown() && !r.SeverityImpactID.IsNull() {
+		*severityImpactID = r.SeverityImpactID.ValueString()
+	} else {
+		severityImpactID = nil
+	}
+	summary := new(string)
+	if !r.Summary.IsUnknown() && !r.Summary.IsNull() {
+		*summary = r.Summary.ValueString()
+	} else {
+		summary = nil
+	}
+	var tagList []string
+	if r.TagList != nil {
+		tagList = make([]string, 0, len(r.TagList))
+		for _, tagListItem := range r.TagList {
+			tagList = append(tagList, tagListItem.ValueString())
+		}
+	}
+	out := shared.UpdateIncident{
+		CustomerImpactSummary: customerImpactSummary,
+		Description:           description,
+		IncidentTypeID:        incidentTypeID,
+		Labels:                labels,
+		Name:                  name,
+		Priority:              priority,
+		Severity:              severity,
+		SeverityConditionID:   severityConditionID,
+		SeverityImpactID:      severityImpactID,
+		Summary:               summary,
+		TagList:               tagList,
+	}
+
+	return &out, diags
+}
+
+func (r *IncidentEntityResourceModel) ToOperationsUpdateIncidentRequest(ctx context.Context) (*operations.UpdateIncidentRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var incidentID string
+	incidentID = r.ID.ValueString()
+
+	updateIncident, updateIncidentDiags := r.ToSharedUpdateIncident(ctx)
+	diags.Append(updateIncidentDiags...)
+
+	if diags.HasError() {
+		return nil, diags
+	}
+
+	out := operations.UpdateIncidentRequest{
+		IncidentID:     incidentID,
+		UpdateIncident: *updateIncident,
+	}
+
+	return &out, diags
+}
+
 func (r *IncidentEntityResourceModel) ToOperationsGetIncidentRequest(ctx context.Context) (*operations.GetIncidentRequest, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
@@ -211,19 +317,6 @@ func (r *IncidentEntityResourceModel) ToOperationsGetIncidentRequest(ctx context
 	incidentID = r.ID.ValueString()
 
 	out := operations.GetIncidentRequest{
-		IncidentID: incidentID,
-	}
-
-	return &out, diags
-}
-
-func (r *IncidentEntityResourceModel) ToOperationsCloseIncidentRequest(ctx context.Context) (*operations.CloseIncidentRequest, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	var incidentID string
-	incidentID = r.ID.ValueString()
-
-	out := operations.CloseIncidentRequest{
 		IncidentID: incidentID,
 	}
 
