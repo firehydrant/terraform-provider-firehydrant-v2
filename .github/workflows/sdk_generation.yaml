@@ -54,12 +54,16 @@ jobs:
           
       - name: Process OpenAPI spec
         run: |
-          # Normalize the schema
+          # Normalize the schema (structural fixes for overlay generation)
           go run ./scripts/normalize openapi-raw.json openapi.json
           
           # Generate Terraform overlay
           go run ./scripts/overlay openapi.json ./scripts/overlay/manual-mappings.yaml
           
+          # Updating Overlay and Spec Naming to more user-friendly naming conventions
+          # Overlay generation relies on Entity-based naming, so this needs to be run post-overlay generation
+          go run ./scripts/naming openapi.json terraform-overlay.yaml
+
           # Move overlay to Speakeasy directory
           mkdir -p ${GITHUB_WORKSPACE}/.speakeasy
           mv terraform-overlay.yaml ${GITHUB_WORKSPACE}/.speakeasy/
