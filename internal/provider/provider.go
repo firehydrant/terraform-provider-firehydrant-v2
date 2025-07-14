@@ -205,7 +205,6 @@ func (p *FirehydrantProvider) Resources(ctx context.Context) []func() resource.R
 		NewIncidentEntityResource,
 		NewIncidentRoleEntityResource,
 		NewIncidentTypeEntityResource,
-		NewNuncConnectionEntityResource,
 		NewPriorityEntityResource,
 		NewRetrospectivesTemplateEntityResource,
 		NewRunbookEntityResource,

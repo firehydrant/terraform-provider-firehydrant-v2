@@ -32,12 +32,14 @@ type RunbooksExecutionEntityDataSourceModel struct {
 	CreatedAt           types.String                                              `tfsdk:"created_at"`
 	CreatedBy           types.String                                              `tfsdk:"created_by"`
 	ExecutedFor         *tfTypes.NullableRunbooksExecutionEntityExecutedForEntity `tfsdk:"executed_for"`
+	ExecutionID         types.String                                              `tfsdk:"execution_id"`
 	HasBeenRerun        types.Bool                                                `tfsdk:"has_been_rerun"`
 	ID                  types.String                                              `tfsdk:"id"`
 	Runbook             *tfTypes.NullableSlimRunbookEntity                        `tfsdk:"runbook"`
 	Status              types.String                                              `tfsdk:"status"`
 	StatusReason        types.String                                              `tfsdk:"status_reason"`
 	StatusReasonMessage types.String                                              `tfsdk:"status_reason_message"`
+	StepID              types.String                                              `tfsdk:"step_id"`
 	Steps               *tfTypes.NullableRunbooksExecutionStepEntity              `tfsdk:"steps"`
 	UpdatedAt           types.String                                              `tfsdk:"updated_at"`
 }
@@ -72,6 +74,9 @@ func (r *RunbooksExecutionEntityDataSource) Schema(ctx context.Context, req data
 						Computed: true,
 					},
 				},
+			},
+			"execution_id": schema.StringAttribute{
+				Required: true,
 			},
 			"has_been_rerun": schema.BoolAttribute{
 				Computed: true,
@@ -188,6 +193,9 @@ func (r *RunbooksExecutionEntityDataSource) Schema(ctx context.Context, req data
 			},
 			"status_reason_message": schema.StringAttribute{
 				Computed: true,
+			},
+			"step_id": schema.StringAttribute{
+				Required: true,
 			},
 			"steps": schema.SingleNestedAttribute{
 				Computed: true,
@@ -396,13 +404,13 @@ func (r *RunbooksExecutionEntityDataSource) Read(ctx context.Context, req dataso
 		return
 	}
 
-	request, requestDiags := data.ToOperationsGetRunbookExecutionRequest(ctx)
+	request, requestDiags := data.ToOperationsGetRunbookExecutionStepScriptRequest(ctx)
 	resp.Diagnostics.Append(requestDiags...)
 
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	res, err := r.client.Runbooks.GetRunbookExecution(ctx, *request)
+	res, err := r.client.Runbooks.GetRunbookExecutionStepScript(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {

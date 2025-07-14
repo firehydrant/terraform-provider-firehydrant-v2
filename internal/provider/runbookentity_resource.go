@@ -520,9 +520,6 @@ func (r *RunbookEntityResource) Schema(ctx context.Context, req resource.SchemaR
 						},
 						"delay_duration": schema.StringAttribute{
 							Computed: true,
-							Validators: []validator.String{
-								validators.IsRFC3339(),
-							},
 						},
 						"name": schema.StringAttribute{
 							Computed: true,
@@ -532,9 +529,6 @@ func (r *RunbookEntityResource) Schema(ctx context.Context, req resource.SchemaR
 						},
 						"repeats_duration": schema.StringAttribute{
 							Computed: true,
-							Validators: []validator.String{
-								validators.IsRFC3339(),
-							},
 						},
 						"reruns": schema.BoolAttribute{
 							Computed: true,
