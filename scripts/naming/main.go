@@ -438,6 +438,25 @@ func normalizeEntityPart(part string) string {
 	return part
 }
 
+func trimAndReplace(text, pattern string) string {
+	if text == "" || pattern == "" {
+		return text
+	}
+
+	result := text
+
+	camelCasePattern := regexp.MustCompile(pattern + `([A-Z])`)
+	result = camelCasePattern.ReplaceAllString(result, "$1")
+
+	result = strings.ReplaceAll(result, pattern+"_", "_")
+	result = strings.ReplaceAll(result, "_"+pattern+"_", "_")
+	result = strings.ReplaceAll(result, "_"+pattern, "")
+
+	result = strings.TrimSuffix(result, pattern)
+
+	return result
+}
+
 // This is where most of the work of actually removing "Entity" and "Entities" happens
 func removeEmbeddedEntityReferences(name string) string {
 	if isIdentityOnlySchema(name) {
@@ -447,11 +466,7 @@ func removeEmbeddedEntityReferences(name string) string {
 	result := name
 
 	if !strings.Contains(strings.ToLower(result), "identities") {
-		result = regexp.MustCompile(`Entities([A-Z])`).ReplaceAllString(result, "$1")
-		result = strings.ReplaceAll(result, "Entities_", "_")
-		result = strings.ReplaceAll(result, "_Entities_", "_")
-		result = strings.ReplaceAll(result, "_Entities", "")
-		result = strings.TrimSuffix(result, "Entities")
+		result = trimAndReplace(result, "Entities")
 	}
 
 	if strings.Contains(strings.ToLower(result), "identity") {
@@ -465,26 +480,13 @@ func removeEmbeddedEntityReferences(name string) string {
 		result = strings.ReplaceAll(result, "IdentityEntity_", "Identity_")
 	} else {
 		// Normal entity removal when no identity is present
-		result = regexp.MustCompile(`Entity([A-Z])`).ReplaceAllString(result, "$1")
-		result = strings.ReplaceAll(result, "Entity_", "_")
-		result = strings.ReplaceAll(result, "_Entity_", "_")
-		result = strings.ReplaceAll(result, "_Entity", "")
-		result = strings.TrimSuffix(result, "Entity")
+		result = trimAndReplace(result, "Entity")
 	}
 
 	// Handle lowercase variants - avoid matching within "identity"
 	if !strings.Contains(strings.ToLower(result), "identity") {
-		result = regexp.MustCompile(`entities([A-Z])`).ReplaceAllString(result, "$1")
-		result = strings.ReplaceAll(result, "entities_", "_")
-		result = strings.ReplaceAll(result, "_entities_", "_")
-		result = strings.ReplaceAll(result, "_entities", "")
-		result = strings.TrimSuffix(result, "entities")
-
-		result = regexp.MustCompile(`entity([A-Z])`).ReplaceAllString(result, "$1")
-		result = strings.ReplaceAll(result, "entity_", "_")
-		result = strings.ReplaceAll(result, "_entity_", "_")
-		result = strings.ReplaceAll(result, "_entity", "")
-		result = strings.TrimSuffix(result, "entity")
+		result = trimAndReplace(result, "entities")
+		result = trimAndReplace(result, "entity")
 	}
 
 	// Clean up multiple underscores
