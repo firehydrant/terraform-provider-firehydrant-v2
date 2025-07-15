@@ -155,10 +155,10 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, schem
 
 				// If the manual mapping points to a valid entity field (including nested), it's acceptable
 				if checkFieldExistsInEntityWithRefResolution(manualMatch, entityProps, schemas) {
-
+					fmt.Printf("    Manual mapping %s -> %s points to valid entity field (including nested)\n", param, manualMatch)
 					continue
 				} else {
-
+					fmt.Printf("    Manual mapping %s -> %s points to non-existent entity field\n", param, manualMatch)
 					hasConflictingEntityIDs = true
 					break
 				}
@@ -274,39 +274,30 @@ func isSystemProperty(propName string) bool {
 func checkFieldExistsInEntityWithRefResolution(fieldPath string, entityProps map[string]interface{}, schemas map[string]interface{}) bool {
 	parts := strings.Split(fieldPath, ".")
 
-	fmt.Printf("    Debug: Checking field path: %s (parts: %v)\n", fieldPath, parts)
-
 	currentLevel := entityProps
 
 	for i, part := range parts {
-		fmt.Printf("    Debug: Looking for part '%s' at level %d\n", part, i)
 
 		if prop, exists := currentLevel[part]; exists {
-			fmt.Printf("    Debug: Found part '%s'\n", part)
 
 			if i == len(parts)-1 {
-				fmt.Printf("    Debug: Reached final part, field exists: %s\n", fieldPath)
 				return true
 			}
 
 			if propMap, ok := prop.(map[string]interface{}); ok {
 				// Check if it has direct properties
 				if nestedProps, hasProps := propMap["properties"].(map[string]interface{}); hasProps {
-					fmt.Printf("    Debug: Found direct properties for '%s'\n", part)
 					currentLevel = nestedProps
 					continue
 				}
 
 				// Check if it has a $ref that needs resolution
 				if ref, hasRef := propMap["$ref"].(string); hasRef {
-					fmt.Printf("    Debug: Found $ref '%s' for part '%s'\n", ref, part)
 
 					resolvedSchema := resolveSchemaRef(ref, schemas)
 					if resolvedSchema != nil {
-						fmt.Printf("    Debug: Successfully resolved $ref '%s'\n", ref)
 
 						if refProps, hasRefProps := resolvedSchema["properties"].(map[string]interface{}); hasRefProps {
-							fmt.Printf("    Debug: Found properties in resolved schema\n")
 							currentLevel = refProps
 							continue
 						} else {
