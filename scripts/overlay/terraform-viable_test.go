@@ -129,6 +129,13 @@ func TestValidateOperationParameters(t *testing.T) {
 				"name": map[string]interface{}{"type": "string"},
 			},
 		},
+		"TeamEntity": map[string]interface{}{
+			"type": "object",
+			"properties": map[string]interface{}{
+				"id":   map[string]interface{}{"type": "string"},
+				"name": map[string]interface{}{"type": "string"},
+			},
+		},
 	}
 
 	tests := []struct {
@@ -202,6 +209,28 @@ func TestValidateOperationParameters(t *testing.T) {
 			},
 			primaryID: "id",
 			expected:  1, // Only create should be valid
+		},
+		{
+			name: "operations with foreign keys (should be valid)",
+			resource: &ResourceInfo{
+				EntityName: "UserEntity",
+				Operations: map[string]OperationInfo{
+					"create": {
+						Path:   "/teams/{team_id}/users",
+						Method: "post",
+					},
+					"read": {
+						Path:   "/teams/{team_id}/users/{id}",
+						Method: "get",
+					},
+					"update": {
+						Path:   "/teams/{team_id}/users/{id}",
+						Method: "put",
+					},
+				},
+			},
+			primaryID: "id",
+			expected:  3,
 		},
 	}
 
@@ -440,6 +469,9 @@ func TestCheckFieldExistsInEntityWithRefResolution(t *testing.T) {
 		"settings": map[string]interface{}{
 			"$ref": "#/components/schemas/UserSettings",
 		},
+		"team": map[string]interface{}{
+			"$ref": "#/components/schemas/NullableSuccinctEntity",
+		},
 	}
 
 	schemas := map[string]interface{}{
@@ -447,6 +479,20 @@ func TestCheckFieldExistsInEntityWithRefResolution(t *testing.T) {
 			"type": "object",
 			"properties": map[string]interface{}{
 				"theme": map[string]interface{}{"type": "string"},
+			},
+		},
+		"NullableSuccinctEntity": map[string]interface{}{
+			"allOf": []interface{}{
+				map[string]interface{}{
+					"$ref": "#/components/schemas/SuccinctEntity",
+				},
+			},
+		},
+		"SuccinctEntity": map[string]interface{}{
+			"type": "object",
+			"properties": map[string]interface{}{
+				"id":   map[string]interface{}{"type": "string"},
+				"name": map[string]interface{}{"type": "string"},
 			},
 		},
 	}
@@ -484,6 +530,21 @@ func TestCheckFieldExistsInEntityWithRefResolution(t *testing.T) {
 		{
 			name:      "ref field doesn't exist",
 			fieldPath: "settings.nonexistent",
+			expected:  false,
+		},
+		{
+			name:      "nullable ref field exists",
+			fieldPath: "team.id",
+			expected:  true,
+		},
+		{
+			name:      "nullable ref field exists - name",
+			fieldPath: "team.name",
+			expected:  true,
+		},
+		{
+			name:      "nullable ref field doesn't exist",
+			fieldPath: "team.nonexistent",
 			expected:  false,
 		},
 		{
@@ -589,20 +650,20 @@ func TestIdentifyEntityPrimaryID(t *testing.T) {
 			expectID: false,
 		},
 		{
-			name: "multiple conflicting parameters - fixed",
+			name: "single parameter with foreign key context",
 			resource: &ResourceInfo{
 				EntityName: "UserEntity",
 				Operations: map[string]OperationInfo{
 					"read": {
-						Path: "/users/{user_id}",
+						Path: "/teams/{team_id}/users/{id}",
 					},
 					"update": {
-						Path: "/users/{user_id}", // Fixed: make them the same to not conflict
+						Path: "/teams/{team_id}/users/{id}",
 					},
 				},
 			},
-			expected: "user_id", // Fixed: now they should match
-			expectID: true,      // Fixed: now should find ID
+			expected: "id",
+			expectID: true,
 		},
 	}
 

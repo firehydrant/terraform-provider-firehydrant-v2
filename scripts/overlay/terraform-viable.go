@@ -155,24 +155,25 @@ func validateOperationParameters(resource *ResourceInfo, primaryID string, schem
 
 				// If the manual mapping points to a valid entity field (including nested), it's acceptable
 				if checkFieldExistsInEntityWithRefResolution(manualMatch, entityProps, schemas) {
-					fmt.Printf("    Manual mapping %s -> %s points to valid entity field (including nested)\n", param, manualMatch)
+
 					continue
 				} else {
-					fmt.Printf("    Manual mapping %s -> %s points to non-existent entity field\n", param, manualMatch)
+
 					hasConflictingEntityIDs = true
 					break
 				}
 			} else if isEntityID(param) {
 				// This is another ID-like parameter without manual mapping
-				// Check if it maps to a field in the entity (not the primary id field)
-				if checkFieldExistsInEntityWithRefResolution(param, entityProps, schemas) {
-					// This parameter maps to a real entity field - it's valid
-					continue
-				} else {
-					// This ID parameter doesn't map to any entity field
+				// Only consider it problematic if it conflicts with the primary ID or claims to be this entity's ID
+				if param != primaryID && mapsToEntityID(param, resource.EntityName) {
+					// This parameter claims to be this entity's ID but isn't the primary ID - that's a conflict
 					hasConflictingEntityIDs = true
 					break
 				}
+
+				// For other ID parameters (like team_id, parent_id, etc.), they're just foreign keys
+				// and don't need to exist in the entity schema - they're fine
+				// we weren't able to map them but they don't conflict with the primary ID
 			}
 			// Non-ID parameters are always OK
 		}
@@ -273,51 +274,115 @@ func isSystemProperty(propName string) bool {
 func checkFieldExistsInEntityWithRefResolution(fieldPath string, entityProps map[string]interface{}, schemas map[string]interface{}) bool {
 	parts := strings.Split(fieldPath, ".")
 
+	fmt.Printf("    Debug: Checking field path: %s (parts: %v)\n", fieldPath, parts)
+
 	currentLevel := entityProps
 
 	for i, part := range parts {
+		fmt.Printf("    Debug: Looking for part '%s' at level %d\n", part, i)
+
 		if prop, exists := currentLevel[part]; exists {
+			fmt.Printf("    Debug: Found part '%s'\n", part)
+
 			if i == len(parts)-1 {
+				fmt.Printf("    Debug: Reached final part, field exists: %s\n", fieldPath)
 				return true
 			}
 
 			if propMap, ok := prop.(map[string]interface{}); ok {
+				// Check if it has direct properties
 				if nestedProps, hasProps := propMap["properties"].(map[string]interface{}); hasProps {
+					fmt.Printf("    Debug: Found direct properties for '%s'\n", part)
 					currentLevel = nestedProps
 					continue
 				}
 
+				// Check if it has a $ref that needs resolution
 				if ref, hasRef := propMap["$ref"].(string); hasRef {
-					if strings.HasPrefix(ref, "#/components/schemas/") {
-						schemaName := strings.TrimPrefix(ref, "#/components/schemas/")
+					fmt.Printf("    Debug: Found $ref '%s' for part '%s'\n", ref, part)
 
-						if referencedSchema, exists := schemas[schemaName]; exists {
-							specData, _ := json.Marshal(referencedSchema)
-							var schemaMap map[string]interface{}
-							json.Unmarshal(specData, &schemaMap)
+					resolvedSchema := resolveSchemaRef(ref, schemas)
+					if resolvedSchema != nil {
+						fmt.Printf("    Debug: Successfully resolved $ref '%s'\n", ref)
 
-							if refProps, hasRefProps := schemaMap["properties"].(map[string]interface{}); hasRefProps {
-								currentLevel = refProps
-								continue
-							}
+						if refProps, hasRefProps := resolvedSchema["properties"].(map[string]interface{}); hasRefProps {
+							fmt.Printf("    Debug: Found properties in resolved schema\n")
+							currentLevel = refProps
+							continue
+						} else {
+							fmt.Printf("    Debug: Resolved schema has no properties\n")
 						}
+					} else {
+						fmt.Printf("    Debug: Failed to resolve $ref '%s'\n", ref)
 					}
 
 					fmt.Printf("    Warning: Cannot resolve $ref for nested property validation: %s (ref: %s)\n", fieldPath, ref)
-					return false // We don't want to assume the ref is valid if we can't resolve it
+					return false
 				}
 			}
 
 			// If we can't navigate deeper but haven't reached the end, the path is invalid
+			fmt.Printf("    Debug: Cannot navigate deeper from part '%s' - not a valid object structure\n", part)
 			fmt.Printf("    Cannot navigate to nested property: %s at part: %s\n", fieldPath, part)
 			return false
 		} else {
+			fmt.Printf("    Debug: Part '%s' not found in current level\n", part)
+			fmt.Printf("    Debug: Available keys in current level: %v\n", getKeys(currentLevel))
 			fmt.Printf("    Field does not exist: %s at part: %s\n", fieldPath, part)
 			return false
 		}
 	}
 
 	return false
+}
+
+func getKeys(m map[string]interface{}) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
+func resolveSchemaRef(ref string, schemas map[string]interface{}) map[string]interface{} {
+	if !strings.HasPrefix(ref, "#/components/schemas/") {
+		return nil
+	}
+
+	schemaName := strings.TrimPrefix(ref, "#/components/schemas/")
+
+	if referencedSchema, exists := schemas[schemaName]; exists {
+		specData, _ := json.Marshal(referencedSchema)
+		var schemaMap map[string]interface{}
+		json.Unmarshal(specData, &schemaMap)
+
+		// At time of writing we have validation rules which prevent oneOfs in our swagger generation within laddertruck.
+		// So we only have allOf patterns to work with, these are generally created by our NullableWrappers
+		// NullableWrappers are used to allow nullable properties in the API (also created in laddertruck), so we need to resolve them
+		if allOf, hasAllOf := schemaMap["allOf"].([]interface{}); hasAllOf {
+			for _, item := range allOf {
+				if itemMap, ok := item.(map[string]interface{}); ok {
+					if innerRef, hasInnerRef := itemMap["$ref"].(string); hasInnerRef {
+						resolved := resolveSchemaRef(innerRef, schemas)
+						if resolved != nil {
+							return resolved
+						}
+					}
+					if _, hasProps := itemMap["properties"].(map[string]interface{}); hasProps {
+						return itemMap
+					}
+				}
+			}
+		}
+
+		if _, hasProps := schemaMap["properties"].(map[string]interface{}); hasProps {
+			return schemaMap
+		}
+
+		return schemaMap
+	}
+
+	return nil
 }
 
 func identifyEntityPrimaryID(resource *ResourceInfo, schemas map[string]interface{}) (string, bool) {
@@ -380,14 +445,26 @@ func identifyEntityPrimaryID(resource *ResourceInfo, schemas map[string]interfac
 				}
 			}
 		}
-	}
 
-	if allParams["id"] {
-		return "id", true
+		if allParams["id"] {
+			return "id", true
+		}
 	}
 
 	if len(allParams) == 1 && (hasID || hasSlug) {
 		for param := range allParams {
+			if !strings.Contains(param, "team_id") && !strings.Contains(param, "parent_id") {
+				return param, true
+			}
+		}
+	}
+
+	// For complex cases with multiple parameters, try to identify the most likely primary ID
+	// Look for parameters that end with the entity name or are simple "id"
+	entityBase := strings.ToLower(strings.TrimSuffix(resource.EntityName, "Entity"))
+	for param := range allParams {
+		lowerParam := strings.ToLower(param)
+		if lowerParam == entityBase+"_id" || lowerParam == "id" {
 			return param, true
 		}
 	}
