@@ -52,6 +52,18 @@ operations:
     method: "get"
     action: "ignore"
 
+  # Ignoring create, update, delete operations for on call schedule shifts
+  # These operations should not be supported in the provider, but read to enable the datasource is supported
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}/shifts"
+    method: "post"
+    action: "ignore"
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}/shifts/{shift_id}"
+    method: "patch"
+    action: "ignore"
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}/shifts/{shift_id}"
+    method: "delete"
+    action: "ignore"
+
   # Manual Entity Mappings
   # Signals Event Sources
   - path: "/v1/signals/event_sources/{transposer_slug}"
@@ -148,6 +160,37 @@ operations:
     action: "match"
     value: "team_id:handoff_step.target.id"
 
+    # Signals On Call Schedules
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}"
+    method: "get"
+    action: "match"
+    value: "schedule_id:id"
+
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}"
+    method: "patch"
+    action: "match"
+    value: "schedule_id:id"
+
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}"
+    method: "delete"
+    action: "match"
+    value: "schedule_id:id"
+
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}"
+    method: "get"
+    action: "match"
+    value: "team_id:team.id"
+
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}"
+    method: "patch"
+    action: "match"
+    value: "team_id:team.id"
+
+  - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}"
+    method: "delete"
+    action: "match"
+    value: "team_id:team.id"
+    
 # Task Lists
   - path: "/v1/task_lists"
     method: "get"
