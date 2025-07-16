@@ -34,7 +34,7 @@ type UpdateChangeResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a change entry
-	ChangeEntity *shared.ChangeEntity
+	Change *shared.Change
 }
 
 func (o *UpdateChangeResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateChangeResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateChangeResponse) GetChangeEntity() *shared.ChangeEntity {
+func (o *UpdateChangeResponse) GetChange() *shared.Change {
 	if o == nil {
 		return nil
 	}
-	return o.ChangeEntity
+	return o.Change
 }

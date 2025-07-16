@@ -2,7 +2,7 @@
 
 package sdk
 
-// Generated from OpenAPI doc version 0.0.1 and generator version 2.656.5
+// Generated from OpenAPI doc version 0.0.1 and generator version 2.657.1
 
 import (
 	"context"
@@ -269,9 +269,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Firehydrant {
 	sdk := &Firehydrant{
-		SDKVersion: "0.2.9",
+		SDKVersion: "0.3.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/terraform 0.2.9 2.656.5 0.0.1 github.com/firehydrant/terraform-provider-firehydrant/internal/sdk",
+			UserAgent:  "speakeasy-sdk/terraform 0.3.0 2.657.1 0.0.1 github.com/firehydrant/terraform-provider-firehydrant/internal/sdk",
 			ServerList: ServerList,
 		},
 		hooks: hooks.New(),

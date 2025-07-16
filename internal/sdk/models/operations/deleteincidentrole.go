@@ -26,7 +26,7 @@ type DeleteIncidentRoleResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Archives an incident role which will hide it from lists and metrics
-	IncidentRoleEntity *shared.IncidentRoleEntity
+	IncidentRole *shared.IncidentRole
 }
 
 func (o *DeleteIncidentRoleResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteIncidentRoleResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteIncidentRoleResponse) GetIncidentRoleEntity() *shared.IncidentRoleEntity {
+func (o *DeleteIncidentRoleResponse) GetIncidentRole() *shared.IncidentRole {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentRoleEntity
+	return o.IncidentRole
 }

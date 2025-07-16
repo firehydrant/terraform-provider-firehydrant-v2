@@ -26,7 +26,7 @@ type UpdateFieldMapResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update field mapping
-	FieldMappingFieldMapEntity *shared.FieldMappingFieldMapEntity
+	FieldMappingFieldMap *shared.FieldMappingFieldMap
 }
 
 func (o *UpdateFieldMapResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *UpdateFieldMapResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateFieldMapResponse) GetFieldMappingFieldMapEntity() *shared.FieldMappingFieldMapEntity {
+func (o *UpdateFieldMapResponse) GetFieldMappingFieldMap() *shared.FieldMappingFieldMap {
 	if o == nil {
 		return nil
 	}
-	return o.FieldMappingFieldMapEntity
+	return o.FieldMappingFieldMap
 }

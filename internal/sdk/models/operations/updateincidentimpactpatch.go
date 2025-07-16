@@ -41,7 +41,7 @@ type UpdateIncidentImpactPatchResponse struct {
 	// all impacts). If this method is requested with the PATCH verb, the provided
 	// impacts will be added or updated, but no impacts will be removed.
 	//
-	IncidentEntity *shared.IncidentEntity
+	Incident *shared.Incident
 }
 
 func (o *UpdateIncidentImpactPatchResponse) GetContentType() string {
@@ -65,9 +65,9 @@ func (o *UpdateIncidentImpactPatchResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateIncidentImpactPatchResponse) GetIncidentEntity() *shared.IncidentEntity {
+func (o *UpdateIncidentImpactPatchResponse) GetIncident() *shared.Incident {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentEntity
+	return o.Incident
 }

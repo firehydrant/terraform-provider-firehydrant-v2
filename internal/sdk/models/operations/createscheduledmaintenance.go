@@ -15,9 +15,9 @@ type CreateScheduledMaintenanceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new scheduled maintenance event
-	ScheduledMaintenanceEntity *shared.ScheduledMaintenanceEntity
+	ScheduledMaintenance *shared.ScheduledMaintenance
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *CreateScheduledMaintenanceResponse) GetContentType() string {
@@ -41,16 +41,16 @@ func (o *CreateScheduledMaintenanceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateScheduledMaintenanceResponse) GetScheduledMaintenanceEntity() *shared.ScheduledMaintenanceEntity {
+func (o *CreateScheduledMaintenanceResponse) GetScheduledMaintenance() *shared.ScheduledMaintenance {
 	if o == nil {
 		return nil
 	}
-	return o.ScheduledMaintenanceEntity
+	return o.ScheduledMaintenance
 }
 
-func (o *CreateScheduledMaintenanceResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *CreateScheduledMaintenanceResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

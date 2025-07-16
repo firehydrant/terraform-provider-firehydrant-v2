@@ -2,7 +2,7 @@
 
 package shared
 
-type UpdateTeamOnCallScheduleMember struct {
+type UpdateTeamOnCallScheduleMembersInput struct {
 	// The ID of a user who should be added to the schedule's rotation. You can add a user to the rotation
 	// multiple times to construct more complex rotations, and you can specify a `null` user ID to create
 	// unassigned slots in the rotation.
@@ -10,14 +10,14 @@ type UpdateTeamOnCallScheduleMember struct {
 	UserID *string `json:"user_id,omitempty"`
 }
 
-func (o *UpdateTeamOnCallScheduleMember) GetUserID() *string {
+func (o *UpdateTeamOnCallScheduleMembersInput) GetUserID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.UserID
 }
 
-type UpdateTeamOnCallScheduleRestriction struct {
+type UpdateTeamOnCallScheduleRestrictionsInput struct {
 	// The day of the week on which the restriction should end, as its long-form name (e.g. "monday", "tuesday", etc).
 	EndDay string `json:"end_day"`
 	// An ISO8601 time string specifying when the restriction should end.
@@ -28,36 +28,36 @@ type UpdateTeamOnCallScheduleRestriction struct {
 	StartTime string `json:"start_time"`
 }
 
-func (o *UpdateTeamOnCallScheduleRestriction) GetEndDay() string {
+func (o *UpdateTeamOnCallScheduleRestrictionsInput) GetEndDay() string {
 	if o == nil {
 		return ""
 	}
 	return o.EndDay
 }
 
-func (o *UpdateTeamOnCallScheduleRestriction) GetEndTime() string {
+func (o *UpdateTeamOnCallScheduleRestrictionsInput) GetEndTime() string {
 	if o == nil {
 		return ""
 	}
 	return o.EndTime
 }
 
-func (o *UpdateTeamOnCallScheduleRestriction) GetStartDay() string {
+func (o *UpdateTeamOnCallScheduleRestrictionsInput) GetStartDay() string {
 	if o == nil {
 		return ""
 	}
 	return o.StartDay
 }
 
-func (o *UpdateTeamOnCallScheduleRestriction) GetStartTime() string {
+func (o *UpdateTeamOnCallScheduleRestrictionsInput) GetStartTime() string {
 	if o == nil {
 		return ""
 	}
 	return o.StartTime
 }
 
-// UpdateTeamOnCallScheduleStrategy - An object that specifies how the rotation's on-call shifts should be generated.
-type UpdateTeamOnCallScheduleStrategy struct {
+// UpdateTeamOnCallScheduleStrategyInput - An object that specifies how the rotation's on-call shifts should be generated.
+type UpdateTeamOnCallScheduleStrategyInput struct {
 	// The day of the week on which on-call shifts should hand off, as its long-form name (e.g. "monday", "tuesday", etc). This value is only used if the strategy type is "weekly".
 	HandoffDay *string `json:"handoff_day,omitempty"`
 	// An ISO8601 time string specifying when on-call shifts should hand off. This value is only used if the strategy type is "daily" or "weekly".
@@ -68,28 +68,28 @@ type UpdateTeamOnCallScheduleStrategy struct {
 	Type string `json:"type"`
 }
 
-func (o *UpdateTeamOnCallScheduleStrategy) GetHandoffDay() *string {
+func (o *UpdateTeamOnCallScheduleStrategyInput) GetHandoffDay() *string {
 	if o == nil {
 		return nil
 	}
 	return o.HandoffDay
 }
 
-func (o *UpdateTeamOnCallScheduleStrategy) GetHandoffTime() *string {
+func (o *UpdateTeamOnCallScheduleStrategyInput) GetHandoffTime() *string {
 	if o == nil {
 		return nil
 	}
 	return o.HandoffTime
 }
 
-func (o *UpdateTeamOnCallScheduleStrategy) GetShiftDuration() *string {
+func (o *UpdateTeamOnCallScheduleStrategyInput) GetShiftDuration() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ShiftDuration
 }
 
-func (o *UpdateTeamOnCallScheduleStrategy) GetType() string {
+func (o *UpdateTeamOnCallScheduleStrategyInput) GetType() string {
 	if o == nil {
 		return ""
 	}
@@ -112,11 +112,11 @@ type UpdateTeamOnCallSchedule struct {
 	// This parameter is deprecated; use `members` instead.
 	MemberIds []string `json:"member_ids,omitempty"`
 	// An ordered list of objects that specify members of the schedule's rotation.
-	Members []UpdateTeamOnCallScheduleMember `json:"members,omitempty"`
+	MembersInput []UpdateTeamOnCallScheduleMembersInput `json:"members,omitempty"`
 	// A new name for the on-call schedule.
 	Name *string `json:"name,omitempty"`
 	// A list of objects that restrict the schedule's rotation to specific on-call periods.
-	Restrictions []UpdateTeamOnCallScheduleRestriction `json:"restrictions,omitempty"`
+	RestrictionsInput []UpdateTeamOnCallScheduleRestrictionsInput `json:"restrictions,omitempty"`
 	// A new, detailed description for the schedule's rotation.
 	RotationDescription *string `json:"rotation_description,omitempty"`
 	// A new name for the schedule's rotation.
@@ -124,7 +124,7 @@ type UpdateTeamOnCallSchedule struct {
 	// The ID of a Slack user group to sync the rotation's on-call members to.
 	SlackUserGroupID *string `json:"slack_user_group_id,omitempty"`
 	// An object that specifies how the rotation's on-call shifts should be generated.
-	Strategy *UpdateTeamOnCallScheduleStrategy `json:"strategy,omitempty"`
+	StrategyInput *UpdateTeamOnCallScheduleStrategyInput `json:"strategy,omitempty"`
 	// The time zone in which the on-call schedule's rotation will operate. This value must be a valid IANA time zone name.
 	TimeZone *string `json:"time_zone,omitempty"`
 }
@@ -157,11 +157,11 @@ func (o *UpdateTeamOnCallSchedule) GetMemberIds() []string {
 	return o.MemberIds
 }
 
-func (o *UpdateTeamOnCallSchedule) GetMembers() []UpdateTeamOnCallScheduleMember {
+func (o *UpdateTeamOnCallSchedule) GetMembersInput() []UpdateTeamOnCallScheduleMembersInput {
 	if o == nil {
 		return nil
 	}
-	return o.Members
+	return o.MembersInput
 }
 
 func (o *UpdateTeamOnCallSchedule) GetName() *string {
@@ -171,11 +171,11 @@ func (o *UpdateTeamOnCallSchedule) GetName() *string {
 	return o.Name
 }
 
-func (o *UpdateTeamOnCallSchedule) GetRestrictions() []UpdateTeamOnCallScheduleRestriction {
+func (o *UpdateTeamOnCallSchedule) GetRestrictionsInput() []UpdateTeamOnCallScheduleRestrictionsInput {
 	if o == nil {
 		return nil
 	}
-	return o.Restrictions
+	return o.RestrictionsInput
 }
 
 func (o *UpdateTeamOnCallSchedule) GetRotationDescription() *string {
@@ -199,11 +199,11 @@ func (o *UpdateTeamOnCallSchedule) GetSlackUserGroupID() *string {
 	return o.SlackUserGroupID
 }
 
-func (o *UpdateTeamOnCallSchedule) GetStrategy() *UpdateTeamOnCallScheduleStrategy {
+func (o *UpdateTeamOnCallSchedule) GetStrategyInput() *UpdateTeamOnCallScheduleStrategyInput {
 	if o == nil {
 		return nil
 	}
-	return o.Strategy
+	return o.StrategyInput
 }
 
 func (o *UpdateTeamOnCallSchedule) GetTimeZone() *string {

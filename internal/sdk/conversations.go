@@ -1047,12 +1047,12 @@ func (s *Conversations) UpdateVote(ctx context.Context, request operations.Updat
 				return nil, err
 			}
 
-			var out shared.VotesEntity
+			var out shared.Votes
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.VotesEntity = &out
+			res.Votes = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1177,12 +1177,12 @@ func (s *Conversations) GetVoteStatus(ctx context.Context, request operations.Ge
 				return nil, err
 			}
 
-			var out shared.VotesEntity
+			var out shared.Votes
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.VotesEntity = &out
+			res.Votes = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

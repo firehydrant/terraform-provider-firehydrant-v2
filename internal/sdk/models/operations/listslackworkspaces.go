@@ -27,7 +27,7 @@ type ListSlackWorkspacesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists all Slack workspaces
-	IntegrationsSlackWorkspaceEntity *shared.IntegrationsSlackWorkspaceEntity
+	IntegrationsSlackWorkspace *shared.IntegrationsSlackWorkspace
 }
 
 func (o *ListSlackWorkspacesResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *ListSlackWorkspacesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSlackWorkspacesResponse) GetIntegrationsSlackWorkspaceEntity() *shared.IntegrationsSlackWorkspaceEntity {
+func (o *ListSlackWorkspacesResponse) GetIntegrationsSlackWorkspace() *shared.IntegrationsSlackWorkspace {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsSlackWorkspaceEntity
+	return o.IntegrationsSlackWorkspace
 }

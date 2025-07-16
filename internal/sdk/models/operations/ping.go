@@ -15,7 +15,7 @@ type PingResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Simple endpoint to verify your API connection is working
-	PongEntity *shared.PongEntity
+	Pong *shared.Pong
 }
 
 func (o *PingResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *PingResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *PingResponse) GetPongEntity() *shared.PongEntity {
+func (o *PingResponse) GetPong() *shared.Pong {
 	if o == nil {
 		return nil
 	}
-	return o.PongEntity
+	return o.Pong
 }

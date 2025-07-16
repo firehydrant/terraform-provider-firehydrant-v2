@@ -52,7 +52,7 @@ type GetTeamOnCallScheduleResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get a Signals on-call schedule by ID
-	SignalsAPIOnCallScheduleEntity *shared.SignalsAPIOnCallScheduleEntity
+	SignalsAPIOnCallSchedule *shared.SignalsAPIOnCallSchedule
 }
 
 func (o *GetTeamOnCallScheduleResponse) GetContentType() string {
@@ -76,9 +76,9 @@ func (o *GetTeamOnCallScheduleResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetTeamOnCallScheduleResponse) GetSignalsAPIOnCallScheduleEntity() *shared.SignalsAPIOnCallScheduleEntity {
+func (o *GetTeamOnCallScheduleResponse) GetSignalsAPIOnCallSchedule() *shared.SignalsAPIOnCallSchedule {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIOnCallScheduleEntity
+	return o.SignalsAPIOnCallSchedule
 }

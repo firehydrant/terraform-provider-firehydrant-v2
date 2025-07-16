@@ -42,9 +42,9 @@ type UpdateChangeIdentityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update an identity for the change entry
-	ChangeIdentityEntity *shared.ChangeIdentityEntity
+	ChangeIdentity *shared.ChangeIdentity
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *UpdateChangeIdentityResponse) GetContentType() string {
@@ -68,16 +68,16 @@ func (o *UpdateChangeIdentityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateChangeIdentityResponse) GetChangeIdentityEntity() *shared.ChangeIdentityEntity {
+func (o *UpdateChangeIdentityResponse) GetChangeIdentity() *shared.ChangeIdentity {
 	if o == nil {
 		return nil
 	}
-	return o.ChangeIdentityEntity
+	return o.ChangeIdentity
 }
 
-func (o *UpdateChangeIdentityResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *UpdateChangeIdentityResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

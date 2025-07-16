@@ -15,7 +15,7 @@ type UpdatePostMortemQuestionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update the questions configured to be provided and filled out on future retrospective reports.
-	PostMortemsQuestionTypeEntity *shared.PostMortemsQuestionTypeEntity
+	PostMortemsQuestionType *shared.PostMortemsQuestionType
 }
 
 func (o *UpdatePostMortemQuestionsResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *UpdatePostMortemQuestionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdatePostMortemQuestionsResponse) GetPostMortemsQuestionTypeEntity() *shared.PostMortemsQuestionTypeEntity {
+func (o *UpdatePostMortemQuestionsResponse) GetPostMortemsQuestionType() *shared.PostMortemsQuestionType {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsQuestionTypeEntity
+	return o.PostMortemsQuestionType
 }

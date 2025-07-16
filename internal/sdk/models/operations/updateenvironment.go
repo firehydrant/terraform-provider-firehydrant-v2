@@ -35,7 +35,7 @@ type UpdateEnvironmentResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a environments attributes
-	EnvironmentEntryEntity *shared.EnvironmentEntryEntity
+	EnvironmentEntry *shared.EnvironmentEntry
 }
 
 func (o *UpdateEnvironmentResponse) GetContentType() string {
@@ -59,9 +59,9 @@ func (o *UpdateEnvironmentResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateEnvironmentResponse) GetEnvironmentEntryEntity() *shared.EnvironmentEntryEntity {
+func (o *UpdateEnvironmentResponse) GetEnvironmentEntry() *shared.EnvironmentEntry {
 	if o == nil {
 		return nil
 	}
-	return o.EnvironmentEntryEntity
+	return o.EnvironmentEntry
 }

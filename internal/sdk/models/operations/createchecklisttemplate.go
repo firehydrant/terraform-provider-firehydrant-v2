@@ -15,9 +15,9 @@ type CreateChecklistTemplateResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Creates a checklist template for the organization
-	ChecklistTemplateEntity *shared.ChecklistTemplateEntity
+	ChecklistTemplate *shared.ChecklistTemplate
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *CreateChecklistTemplateResponse) GetContentType() string {
@@ -41,16 +41,16 @@ func (o *CreateChecklistTemplateResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateChecklistTemplateResponse) GetChecklistTemplateEntity() *shared.ChecklistTemplateEntity {
+func (o *CreateChecklistTemplateResponse) GetChecklistTemplate() *shared.ChecklistTemplate {
 	if o == nil {
 		return nil
 	}
-	return o.ChecklistTemplateEntity
+	return o.ChecklistTemplate
 }
 
-func (o *CreateChecklistTemplateResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *CreateChecklistTemplateResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

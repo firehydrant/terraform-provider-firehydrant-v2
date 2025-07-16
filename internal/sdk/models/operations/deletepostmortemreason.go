@@ -34,7 +34,7 @@ type DeletePostMortemReasonResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a contributing factor
-	PostMortemsReasonEntity *shared.PostMortemsReasonEntity
+	PostMortemsReason *shared.PostMortemsReason
 }
 
 func (o *DeletePostMortemReasonResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *DeletePostMortemReasonResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeletePostMortemReasonResponse) GetPostMortemsReasonEntity() *shared.PostMortemsReasonEntity {
+func (o *DeletePostMortemReasonResponse) GetPostMortemsReason() *shared.PostMortemsReason {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsReasonEntity
+	return o.PostMortemsReason
 }

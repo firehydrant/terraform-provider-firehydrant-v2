@@ -34,7 +34,7 @@ type IngestCatalogDataResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Accepts catalog data in the configured format and asyncronously processes the data to incorporate changes into service catalog.
-	ImportsImportEntity *shared.ImportsImportEntity
+	Imports *shared.Imports
 }
 
 func (o *IngestCatalogDataResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *IngestCatalogDataResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *IngestCatalogDataResponse) GetImportsImportEntity() *shared.ImportsImportEntity {
+func (o *IngestCatalogDataResponse) GetImports() *shared.Imports {
 	if o == nil {
 		return nil
 	}
-	return o.ImportsImportEntity
+	return o.Imports
 }

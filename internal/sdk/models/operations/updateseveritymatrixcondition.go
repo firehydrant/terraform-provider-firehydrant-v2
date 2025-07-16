@@ -34,7 +34,7 @@ type UpdateSeverityMatrixConditionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a severity matrix condition
-	SeverityMatrixConditionEntity *shared.SeverityMatrixConditionEntity
+	SeverityMatrixCondition *shared.SeverityMatrixCondition
 }
 
 func (o *UpdateSeverityMatrixConditionResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateSeverityMatrixConditionResponse) GetRawResponse() *http.Response 
 	return o.RawResponse
 }
 
-func (o *UpdateSeverityMatrixConditionResponse) GetSeverityMatrixConditionEntity() *shared.SeverityMatrixConditionEntity {
+func (o *UpdateSeverityMatrixConditionResponse) GetSeverityMatrixCondition() *shared.SeverityMatrixCondition {
 	if o == nil {
 		return nil
 	}
-	return o.SeverityMatrixConditionEntity
+	return o.SeverityMatrixCondition
 }

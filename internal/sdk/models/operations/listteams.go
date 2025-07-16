@@ -79,7 +79,7 @@ type ListTeamsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the teams in the organization
-	TeamEntityPaginated *shared.TeamEntityPaginated
+	TeamPaginated *shared.TeamPaginated
 }
 
 func (o *ListTeamsResponse) GetContentType() string {
@@ -103,9 +103,9 @@ func (o *ListTeamsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListTeamsResponse) GetTeamEntityPaginated() *shared.TeamEntityPaginated {
+func (o *ListTeamsResponse) GetTeamPaginated() *shared.TeamPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.TeamEntityPaginated
+	return o.TeamPaginated
 }

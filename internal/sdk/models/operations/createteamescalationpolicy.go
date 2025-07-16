@@ -34,7 +34,7 @@ type CreateTeamEscalationPolicyResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a Signals escalation policy for a team.
-	SignalsAPIEscalationPolicyEntity *shared.SignalsAPIEscalationPolicyEntity
+	SignalsAPIEscalationPolicy *shared.SignalsAPIEscalationPolicy
 }
 
 func (o *CreateTeamEscalationPolicyResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateTeamEscalationPolicyResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateTeamEscalationPolicyResponse) GetSignalsAPIEscalationPolicyEntity() *shared.SignalsAPIEscalationPolicyEntity {
+func (o *CreateTeamEscalationPolicyResponse) GetSignalsAPIEscalationPolicy() *shared.SignalsAPIEscalationPolicy {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIEscalationPolicyEntity
+	return o.SignalsAPIEscalationPolicy
 }

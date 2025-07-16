@@ -136,12 +136,12 @@ func (s *IncidentSettings) ListCustomFieldDefinitions(ctx context.Context, opts 
 				return nil, err
 			}
 
-			var out shared.OrganizationsCustomFieldDefinitionEntity
+			var out shared.OrganizationsCustomFieldDefinition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.OrganizationsCustomFieldDefinitionEntity = &out
+			res.OrganizationsCustomFieldDefinition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -273,12 +273,12 @@ func (s *IncidentSettings) CreateCustomFieldDefinition(ctx context.Context, requ
 				return nil, err
 			}
 
-			var out shared.OrganizationsCustomFieldDefinitionEntity
+			var out shared.OrganizationsCustomFieldDefinition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.OrganizationsCustomFieldDefinitionEntity = &out
+			res.OrganizationsCustomFieldDefinition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -403,12 +403,12 @@ func (s *IncidentSettings) DeleteCustomFieldDefinition(ctx context.Context, requ
 				return nil, err
 			}
 
-			var out shared.OrganizationsCustomFieldDefinitionEntity
+			var out shared.OrganizationsCustomFieldDefinition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.OrganizationsCustomFieldDefinitionEntity = &out
+			res.OrganizationsCustomFieldDefinition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -540,12 +540,12 @@ func (s *IncidentSettings) UpdateCustomFieldDefinition(ctx context.Context, requ
 				return nil, err
 			}
 
-			var out shared.OrganizationsCustomFieldDefinitionEntity
+			var out shared.OrganizationsCustomFieldDefinition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.OrganizationsCustomFieldDefinitionEntity = &out
+			res.OrganizationsCustomFieldDefinition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -674,12 +674,12 @@ func (s *IncidentSettings) ListCustomFieldSelectOptions(ctx context.Context, req
 				return nil, err
 			}
 
-			var out shared.OrganizationsCustomFieldDefinitionEntity
+			var out shared.OrganizationsCustomFieldDefinition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.OrganizationsCustomFieldDefinitionEntity = &out
+			res.OrganizationsCustomFieldDefinition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -804,12 +804,12 @@ func (s *IncidentSettings) GetFormConfiguration(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.FormConfigurationEntity
+			var out shared.FormConfiguration
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FormConfigurationEntity = &out
+			res.FormConfiguration = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -934,12 +934,12 @@ func (s *IncidentSettings) AppendFormDataOnSelectedValueGet(ctx context.Context,
 				return nil, err
 			}
 
-			var out shared.PublicAPIV1FormConfigurationsSelectedValueEntity
+			var out shared.PublicAPIV1FormConfigurationsSelectedValue
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PublicAPIV1FormConfigurationsSelectedValueEntity = &out
+			res.PublicAPIV1FormConfigurationsSelectedValue = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1068,12 +1068,12 @@ func (s *IncidentSettings) ListIncidentRoles(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.IncidentRoleEntityPaginated
+			var out shared.IncidentRolePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentRoleEntityPaginated = &out
+			res.IncidentRolePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1205,12 +1205,12 @@ func (s *IncidentSettings) CreateIncidentRole(ctx context.Context, request share
 				return nil, err
 			}
 
-			var out shared.IncidentRoleEntity
+			var out shared.IncidentRole
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentRoleEntity = &out
+			res.IncidentRole = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1335,12 +1335,12 @@ func (s *IncidentSettings) DeleteIncidentRole(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.IncidentRoleEntity
+			var out shared.IncidentRole
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentRoleEntity = &out
+			res.IncidentRole = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1465,12 +1465,12 @@ func (s *IncidentSettings) GetIncidentRole(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.IncidentRoleEntity
+			var out shared.IncidentRole
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentRoleEntity = &out
+			res.IncidentRole = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1602,12 +1602,12 @@ func (s *IncidentSettings) UpdateIncidentRole(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.IncidentRoleEntity
+			var out shared.IncidentRole
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentRoleEntity = &out
+			res.IncidentRole = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1736,12 +1736,12 @@ func (s *IncidentSettings) ListIncidentTags(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.TagEntityPaginated
+			var out shared.TagPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TagEntityPaginated = &out
+			res.TagPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1873,12 +1873,12 @@ func (s *IncidentSettings) ValidateIncidentTags(ctx context.Context, request []s
 				return nil, err
 			}
 
-			var out shared.TagEntity
+			var out shared.Tag
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TagEntity = &out
+			res.Tag = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2007,12 +2007,12 @@ func (s *IncidentSettings) ListIncidentTypes(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.IncidentTypeEntityPaginated
+			var out shared.IncidentTypePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentTypeEntityPaginated = &out
+			res.IncidentTypePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2144,12 +2144,12 @@ func (s *IncidentSettings) CreateIncidentType(ctx context.Context, request share
 				return nil, err
 			}
 
-			var out shared.IncidentTypeEntity
+			var out shared.IncidentType
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentTypeEntity = &out
+			res.IncidentType = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2274,12 +2274,12 @@ func (s *IncidentSettings) DeleteIncidentType(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.IncidentTypeEntity
+			var out shared.IncidentType
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentTypeEntity = &out
+			res.IncidentType = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2404,12 +2404,12 @@ func (s *IncidentSettings) GetIncidentType(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.IncidentTypeEntity
+			var out shared.IncidentType
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentTypeEntity = &out
+			res.IncidentType = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2541,12 +2541,12 @@ func (s *IncidentSettings) UpdateIncidentType(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.IncidentTypeEntity
+			var out shared.IncidentType
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentTypeEntity = &out
+			res.IncidentType = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3246,12 +3246,12 @@ func (s *IncidentSettings) CreateLifecycleMilestone(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.LifecyclesPhaseEntityList
+			var out shared.LifecyclesPhaseList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.LifecyclesPhaseEntityList = &out
+			res.LifecyclesPhaseList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3376,12 +3376,12 @@ func (s *IncidentSettings) DeleteLifecycleMilestone(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.LifecyclesPhaseEntity
+			var out shared.LifecyclesPhase
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.LifecyclesPhaseEntity = &out
+			res.LifecyclesPhase = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3513,12 +3513,12 @@ func (s *IncidentSettings) UpdateLifecycleMilestone(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.LifecyclesPhaseEntity
+			var out shared.LifecyclesPhase
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.LifecyclesPhaseEntity = &out
+			res.LifecyclesPhase = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3643,12 +3643,12 @@ func (s *IncidentSettings) ListLifecyclePhases(ctx context.Context, opts ...oper
 				return nil, err
 			}
 
-			var out shared.LifecyclesPhaseEntityList
+			var out shared.LifecyclesPhaseList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.LifecyclesPhaseEntityList = &out
+			res.LifecyclesPhaseList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3777,12 +3777,12 @@ func (s *IncidentSettings) ListPriorities(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.PriorityEntity
+			var out shared.Priority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PriorityEntity = &out
+			res.Priority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3914,12 +3914,12 @@ func (s *IncidentSettings) CreatePriority(ctx context.Context, request shared.Cr
 				return nil, err
 			}
 
-			var out shared.PriorityEntity
+			var out shared.Priority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PriorityEntity = &out
+			res.Priority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4044,12 +4044,12 @@ func (s *IncidentSettings) DeletePriority(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.PriorityEntity
+			var out shared.Priority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PriorityEntity = &out
+			res.Priority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4174,12 +4174,12 @@ func (s *IncidentSettings) GetPriority(ctx context.Context, request operations.G
 				return nil, err
 			}
 
-			var out shared.PriorityEntity
+			var out shared.Priority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PriorityEntity = &out
+			res.Priority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4311,12 +4311,12 @@ func (s *IncidentSettings) UpdatePriority(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.PriorityEntity
+			var out shared.Priority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PriorityEntity = &out
+			res.Priority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4445,12 +4445,12 @@ func (s *IncidentSettings) ListSeverities(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SeverityEntityPaginated
+			var out shared.SeverityPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityEntityPaginated = &out
+			res.SeverityPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4582,12 +4582,12 @@ func (s *IncidentSettings) CreateSeverity(ctx context.Context, request shared.Cr
 				return nil, err
 			}
 
-			var out shared.SeverityEntity
+			var out shared.Severity
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityEntity = &out
+			res.Severity = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4712,12 +4712,12 @@ func (s *IncidentSettings) DeleteSeverity(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SeverityEntity
+			var out shared.Severity
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityEntity = &out
+			res.Severity = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4842,12 +4842,12 @@ func (s *IncidentSettings) GetSeverity(ctx context.Context, request operations.G
 				return nil, err
 			}
 
-			var out shared.SeverityEntity
+			var out shared.Severity
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityEntity = &out
+			res.Severity = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4979,12 +4979,12 @@ func (s *IncidentSettings) UpdateSeverity(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SeverityEntity
+			var out shared.Severity
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityEntity = &out
+			res.Severity = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5109,12 +5109,12 @@ func (s *IncidentSettings) GetSeverityMatrix(ctx context.Context, opts ...operat
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixSeverityMatrixEntity
+			var out shared.SeverityMatrix
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixSeverityMatrixEntity = &out
+			res.SeverityMatrix = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5246,12 +5246,12 @@ func (s *IncidentSettings) UpdateSeverityMatrix(ctx context.Context, request sha
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixSeverityMatrixEntity
+			var out shared.SeverityMatrix
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixSeverityMatrixEntity = &out
+			res.SeverityMatrix = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5380,12 +5380,12 @@ func (s *IncidentSettings) ListSeverityMatrixConditions(ctx context.Context, req
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixConditionEntity
+			var out shared.SeverityMatrixCondition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixConditionEntity = &out
+			res.SeverityMatrixCondition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5517,12 +5517,12 @@ func (s *IncidentSettings) CreateSeverityMatrixCondition(ctx context.Context, re
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixConditionEntity
+			var out shared.SeverityMatrixCondition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixConditionEntity = &out
+			res.SeverityMatrixCondition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5647,12 +5647,12 @@ func (s *IncidentSettings) DeleteSeverityMatrixCondition(ctx context.Context, re
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixConditionEntity
+			var out shared.SeverityMatrixCondition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixConditionEntity = &out
+			res.SeverityMatrixCondition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5777,12 +5777,12 @@ func (s *IncidentSettings) GetSeverityMatrixCondition(ctx context.Context, reque
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixConditionEntity
+			var out shared.SeverityMatrixCondition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixConditionEntity = &out
+			res.SeverityMatrixCondition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5914,12 +5914,12 @@ func (s *IncidentSettings) UpdateSeverityMatrixCondition(ctx context.Context, re
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixConditionEntity
+			var out shared.SeverityMatrixCondition
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixConditionEntity = &out
+			res.SeverityMatrixCondition = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6048,12 +6048,12 @@ func (s *IncidentSettings) ListSeverityMatrixImpacts(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixImpactEntity
+			var out shared.SeverityMatrixImpact
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixImpactEntity = &out
+			res.SeverityMatrixImpact = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6185,12 +6185,12 @@ func (s *IncidentSettings) CreateSeverityMatrixImpact(ctx context.Context, reque
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixImpactEntity
+			var out shared.SeverityMatrixImpact
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixImpactEntity = &out
+			res.SeverityMatrixImpact = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6315,12 +6315,12 @@ func (s *IncidentSettings) DeleteSeverityMatrixImpact(ctx context.Context, reque
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixImpactEntity
+			var out shared.SeverityMatrixImpact
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixImpactEntity = &out
+			res.SeverityMatrixImpact = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6452,12 +6452,12 @@ func (s *IncidentSettings) UpdateSeverityMatrixImpact(ctx context.Context, reque
 				return nil, err
 			}
 
-			var out shared.SeverityMatrixImpactEntity
+			var out shared.SeverityMatrixImpact
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SeverityMatrixImpactEntity = &out
+			res.SeverityMatrixImpact = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

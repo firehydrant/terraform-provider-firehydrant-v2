@@ -34,7 +34,7 @@ type DeleteSavedSearchResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a specific saved search
-	SavedSearchEntity *shared.SavedSearchEntity
+	SavedSearch *shared.SavedSearch
 }
 
 func (o *DeleteSavedSearchResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *DeleteSavedSearchResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteSavedSearchResponse) GetSavedSearchEntity() *shared.SavedSearchEntity {
+func (o *DeleteSavedSearchResponse) GetSavedSearch() *shared.SavedSearch {
 	if o == nil {
 		return nil
 	}
-	return o.SavedSearchEntity
+	return o.SavedSearch
 }

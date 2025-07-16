@@ -34,7 +34,7 @@ type SetMemberDefaultAudienceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Set member's default audience
-	AudiencesEntitiesAudienceEntity *shared.AudiencesEntitiesAudienceEntity
+	Audiences *shared.Audiences
 }
 
 func (o *SetMemberDefaultAudienceResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *SetMemberDefaultAudienceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *SetMemberDefaultAudienceResponse) GetAudiencesEntitiesAudienceEntity() *shared.AudiencesEntitiesAudienceEntity {
+func (o *SetMemberDefaultAudienceResponse) GetAudiences() *shared.Audiences {
 	if o == nil {
 		return nil
 	}
-	return o.AudiencesEntitiesAudienceEntity
+	return o.Audiences
 }

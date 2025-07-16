@@ -34,7 +34,7 @@ type ListNotificationPolicySettingsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all Signals notification policies.
-	SignalsAPINotificationPolicyItemEntityPaginated *shared.SignalsAPINotificationPolicyItemEntityPaginated
+	SignalsAPINotificationPolicyItemPaginated *shared.SignalsAPINotificationPolicyItemPaginated
 }
 
 func (o *ListNotificationPolicySettingsResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListNotificationPolicySettingsResponse) GetRawResponse() *http.Response
 	return o.RawResponse
 }
 
-func (o *ListNotificationPolicySettingsResponse) GetSignalsAPINotificationPolicyItemEntityPaginated() *shared.SignalsAPINotificationPolicyItemEntityPaginated {
+func (o *ListNotificationPolicySettingsResponse) GetSignalsAPINotificationPolicyItemPaginated() *shared.SignalsAPINotificationPolicyItemPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPINotificationPolicyItemEntityPaginated
+	return o.SignalsAPINotificationPolicyItemPaginated
 }

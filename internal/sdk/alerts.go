@@ -140,12 +140,12 @@ func (s *Alerts) ListAlerts(ctx context.Context, request operations.ListAlertsRe
 				return nil, err
 			}
 
-			var out shared.AlertsAlertEntityPaginated
+			var out shared.AlertsPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AlertsAlertEntityPaginated = &out
+			res.AlertsPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -270,12 +270,12 @@ func (s *Alerts) GetAlert(ctx context.Context, request operations.GetAlertReques
 				return nil, err
 			}
 
-			var out shared.AlertsAlertEntity
+			var out shared.Alerts
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AlertsAlertEntity = &out
+			res.Alerts = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -400,12 +400,12 @@ func (s *Alerts) ListIncidentAlerts(ctx context.Context, request operations.List
 				return nil, err
 			}
 
-			var out shared.IncidentsAlertEntityPaginated
+			var out shared.IncidentsAlertPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsAlertEntityPaginated = &out
+			res.IncidentsAlertPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -764,12 +764,12 @@ func (s *Alerts) UpdateIncidentAlertPrimary(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.IncidentsAlertEntity
+			var out shared.IncidentsAlert
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsAlertEntity = &out
+			res.IncidentsAlert = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -898,12 +898,12 @@ func (s *Alerts) ListProcessingLogEntries(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.AlertsProcessingLogEntryEntityPaginated
+			var out shared.AlertsProcessingLogEntryPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AlertsProcessingLogEntryEntityPaginated = &out
+			res.AlertsProcessingLogEntryPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1035,12 +1035,12 @@ func (s *Alerts) UpdateSignalsAlert(ctx context.Context, request operations.Upda
 				return nil, err
 			}
 
-			var out shared.AlertsSignalAlertEntity
+			var out shared.AlertsSignalAlert
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AlertsSignalAlertEntity = &out
+			res.AlertsSignalAlert = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

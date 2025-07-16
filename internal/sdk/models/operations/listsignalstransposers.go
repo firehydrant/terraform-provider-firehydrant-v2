@@ -15,7 +15,7 @@ type ListSignalsTransposersResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all transposers for your organization
-	SignalsAPITransposerListEntity *shared.SignalsAPITransposerListEntity
+	SignalsAPITransposerList *shared.SignalsAPITransposerList
 }
 
 func (o *ListSignalsTransposersResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *ListSignalsTransposersResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSignalsTransposersResponse) GetSignalsAPITransposerListEntity() *shared.SignalsAPITransposerListEntity {
+func (o *ListSignalsTransposersResponse) GetSignalsAPITransposerList() *shared.SignalsAPITransposerList {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPITransposerListEntity
+	return o.SignalsAPITransposerList
 }

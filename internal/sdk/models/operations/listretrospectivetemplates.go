@@ -42,7 +42,7 @@ type ListRetrospectiveTemplatesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all retrospective templates
-	RetrospectivesIndexTemplateEntityPaginated *shared.RetrospectivesIndexTemplateEntityPaginated
+	RetrospectivesIndexTemplatePaginated *shared.RetrospectivesIndexTemplatePaginated
 }
 
 func (o *ListRetrospectiveTemplatesResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *ListRetrospectiveTemplatesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListRetrospectiveTemplatesResponse) GetRetrospectivesIndexTemplateEntityPaginated() *shared.RetrospectivesIndexTemplateEntityPaginated {
+func (o *ListRetrospectiveTemplatesResponse) GetRetrospectivesIndexTemplatePaginated() *shared.RetrospectivesIndexTemplatePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.RetrospectivesIndexTemplateEntityPaginated
+	return o.RetrospectivesIndexTemplatePaginated
 }

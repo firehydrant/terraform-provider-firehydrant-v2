@@ -34,7 +34,7 @@ type UpdateSignalsAlertResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a Signal alert
-	AlertsSignalAlertEntity *shared.AlertsSignalAlertEntity
+	AlertsSignalAlert *shared.AlertsSignalAlert
 }
 
 func (o *UpdateSignalsAlertResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateSignalsAlertResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateSignalsAlertResponse) GetAlertsSignalAlertEntity() *shared.AlertsSignalAlertEntity {
+func (o *UpdateSignalsAlertResponse) GetAlertsSignalAlert() *shared.AlertsSignalAlert {
 	if o == nil {
 		return nil
 	}
-	return o.AlertsSignalAlertEntity
+	return o.AlertsSignalAlert
 }

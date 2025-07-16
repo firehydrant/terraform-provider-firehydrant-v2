@@ -27,7 +27,7 @@ type ListStatuspageConnectionPagesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists available page IDs for the Statuspage integration connection.
-	IntegrationsStatuspagePageEntity *shared.IntegrationsStatuspagePageEntity
+	IntegrationsStatuspagePage *shared.IntegrationsStatuspagePage
 }
 
 func (o *ListStatuspageConnectionPagesResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *ListStatuspageConnectionPagesResponse) GetRawResponse() *http.Response 
 	return o.RawResponse
 }
 
-func (o *ListStatuspageConnectionPagesResponse) GetIntegrationsStatuspagePageEntity() *shared.IntegrationsStatuspagePageEntity {
+func (o *ListStatuspageConnectionPagesResponse) GetIntegrationsStatuspagePage() *shared.IntegrationsStatuspagePage {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsStatuspagePageEntity
+	return o.IntegrationsStatuspagePage
 }

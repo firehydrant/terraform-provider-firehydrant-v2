@@ -42,7 +42,7 @@ type AppendFormDataOnSelectedValueGetResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get data for a form field on select that should be appended to a form by using a template
-	PublicAPIV1FormConfigurationsSelectedValueEntity *shared.PublicAPIV1FormConfigurationsSelectedValueEntity
+	PublicAPIV1FormConfigurationsSelectedValue *shared.PublicAPIV1FormConfigurationsSelectedValue
 }
 
 func (o *AppendFormDataOnSelectedValueGetResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *AppendFormDataOnSelectedValueGetResponse) GetRawResponse() *http.Respon
 	return o.RawResponse
 }
 
-func (o *AppendFormDataOnSelectedValueGetResponse) GetPublicAPIV1FormConfigurationsSelectedValueEntity() *shared.PublicAPIV1FormConfigurationsSelectedValueEntity {
+func (o *AppendFormDataOnSelectedValueGetResponse) GetPublicAPIV1FormConfigurationsSelectedValue() *shared.PublicAPIV1FormConfigurationsSelectedValue {
 	if o == nil {
 		return nil
 	}
-	return o.PublicAPIV1FormConfigurationsSelectedValueEntity
+	return o.PublicAPIV1FormConfigurationsSelectedValue
 }

@@ -15,7 +15,7 @@ type CreateSignalsEventSourceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a Signals event source for the authenticated user.
-	SignalsAPITransposerEntity *shared.SignalsAPITransposerEntity
+	SignalsAPITransposer *shared.SignalsAPITransposer
 }
 
 func (o *CreateSignalsEventSourceResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateSignalsEventSourceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateSignalsEventSourceResponse) GetSignalsAPITransposerEntity() *shared.SignalsAPITransposerEntity {
+func (o *CreateSignalsEventSourceResponse) GetSignalsAPITransposer() *shared.SignalsAPITransposer {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPITransposerEntity
+	return o.SignalsAPITransposer
 }

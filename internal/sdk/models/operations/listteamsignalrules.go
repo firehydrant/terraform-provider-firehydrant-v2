@@ -51,7 +51,7 @@ type ListTeamSignalRulesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all Signals rules for a team.
-	SignalsAPIRuleEntityPaginated *shared.SignalsAPIRuleEntityPaginated
+	SignalsAPIRulePaginated *shared.SignalsAPIRulePaginated
 }
 
 func (o *ListTeamSignalRulesResponse) GetContentType() string {
@@ -75,9 +75,9 @@ func (o *ListTeamSignalRulesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListTeamSignalRulesResponse) GetSignalsAPIRuleEntityPaginated() *shared.SignalsAPIRuleEntityPaginated {
+func (o *ListTeamSignalRulesResponse) GetSignalsAPIRulePaginated() *shared.SignalsAPIRulePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIRuleEntityPaginated
+	return o.SignalsAPIRulePaginated
 }

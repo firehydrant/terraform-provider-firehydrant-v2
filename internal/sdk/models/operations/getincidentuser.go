@@ -34,7 +34,7 @@ type GetIncidentUserResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a user with current roles for an incident
-	IncidentsRoleAssignmentEntity *shared.IncidentsRoleAssignmentEntity
+	IncidentsRoleAssignment *shared.IncidentsRoleAssignment
 }
 
 func (o *GetIncidentUserResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *GetIncidentUserResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetIncidentUserResponse) GetIncidentsRoleAssignmentEntity() *shared.IncidentsRoleAssignmentEntity {
+func (o *GetIncidentUserResponse) GetIncidentsRoleAssignment() *shared.IncidentsRoleAssignment {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRoleAssignmentEntity
+	return o.IncidentsRoleAssignment
 }

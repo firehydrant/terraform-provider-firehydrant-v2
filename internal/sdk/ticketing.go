@@ -136,12 +136,12 @@ func (s *Ticketing) ListTicketingPriorities(ctx context.Context, opts ...operati
 				return nil, err
 			}
 
-			var out shared.TicketingPriorityEntity
+			var out shared.TicketingPriority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingPriorityEntity = &out
+			res.TicketingPriority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -273,12 +273,12 @@ func (s *Ticketing) CreateTicketingPriority(ctx context.Context, request shared.
 				return nil, err
 			}
 
-			var out shared.TicketingPriorityEntity
+			var out shared.TicketingPriority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingPriorityEntity = &out
+			res.TicketingPriority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -403,12 +403,12 @@ func (s *Ticketing) DeleteTicketingPriority(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.TicketingPriorityEntity
+			var out shared.TicketingPriority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingPriorityEntity = &out
+			res.TicketingPriority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -533,12 +533,12 @@ func (s *Ticketing) GetTicketingPriority(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.TicketingPriorityEntity
+			var out shared.TicketingPriority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingPriorityEntity = &out
+			res.TicketingPriority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -670,12 +670,12 @@ func (s *Ticketing) UpdateTicketingPriority(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.TicketingPriorityEntity
+			var out shared.TicketingPriority
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingPriorityEntity = &out
+			res.TicketingPriority = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -804,12 +804,12 @@ func (s *Ticketing) ListTicketingProjects(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.TicketingProjectsProjectListItemEntity
+			var out shared.TicketingProjectsProjectListItem
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectsProjectListItemEntity = &out
+			res.TicketingProjectsProjectListItem = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -934,12 +934,12 @@ func (s *Ticketing) GetTicketingProject(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.TicketingProjectsProjectListItemEntity
+			var out shared.TicketingProjectsProjectListItem
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectsProjectListItemEntity = &out
+			res.TicketingProjectsProjectListItem = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1284,12 +1284,12 @@ func (s *Ticketing) CreateTicketingFieldMap(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.TicketingProjectFieldMapEntity
+			var out shared.TicketingProjectFieldMap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectFieldMapEntity = &out
+			res.TicketingProjectFieldMap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1414,12 +1414,12 @@ func (s *Ticketing) ListAvailableTicketingFieldMaps(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.TicketingFieldMapsMappableFieldEntity
+			var out shared.TicketingFieldMapsMappableField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingFieldMapsMappableFieldEntity = &out
+			res.TicketingFieldMapsMappableField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1654,12 +1654,12 @@ func (s *Ticketing) GetTicketingFieldMap(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.TicketingProjectFieldMapEntity
+			var out shared.TicketingProjectFieldMap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectFieldMapEntity = &out
+			res.TicketingProjectFieldMap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1784,12 +1784,12 @@ func (s *Ticketing) UpdateTicketingFieldMap(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.TicketingProjectFieldMapEntity
+			var out shared.TicketingProjectFieldMap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectFieldMapEntity = &out
+			res.TicketingProjectFieldMap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1918,12 +1918,12 @@ func (s *Ticketing) ListInboundFieldMaps(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.TicketingProjectInboundFieldMapEntity
+			var out shared.TicketingProjectInboundFieldMap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectInboundFieldMapEntity = &out
+			res.TicketingProjectInboundFieldMap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2048,12 +2048,12 @@ func (s *Ticketing) CreateInboundFieldMap(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.TicketingProjectInboundFieldMapEntity
+			var out shared.TicketingProjectInboundFieldMap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectInboundFieldMapEntity = &out
+			res.TicketingProjectInboundFieldMap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2178,12 +2178,12 @@ func (s *Ticketing) ListAvailableInboundFieldMaps(ctx context.Context, request o
 				return nil, err
 			}
 
-			var out shared.TicketingProjectInboundMappableFieldEntity
+			var out shared.TicketingProjectInboundMappableField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectInboundMappableFieldEntity = &out
+			res.TicketingProjectInboundMappableField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2418,12 +2418,12 @@ func (s *Ticketing) GetInboundFieldMap(ctx context.Context, request operations.G
 				return nil, err
 			}
 
-			var out shared.TicketingProjectInboundFieldMapEntity
+			var out shared.TicketingProjectInboundFieldMap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectInboundFieldMapEntity = &out
+			res.TicketingProjectInboundFieldMap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2548,12 +2548,12 @@ func (s *Ticketing) UpdateInboundFieldMap(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.TicketingProjectInboundFieldMapEntity
+			var out shared.TicketingProjectInboundFieldMap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectInboundFieldMapEntity = &out
+			res.TicketingProjectInboundFieldMap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2678,12 +2678,12 @@ func (s *Ticketing) CreateTicketingProjectConfig(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.TicketingProjectConfigEntity
+			var out shared.TicketingProjectConfig
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectConfigEntity = &out
+			res.TicketingProjectConfig = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2808,12 +2808,12 @@ func (s *Ticketing) DeleteTicketingProjectConfig(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.TicketingProjectConfigEntity
+			var out shared.TicketingProjectConfig
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectConfigEntity = &out
+			res.TicketingProjectConfig = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2938,12 +2938,12 @@ func (s *Ticketing) GetTicketingProjectConfig(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.TicketingProjectConfigEntity
+			var out shared.TicketingProjectConfig
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectConfigEntity = &out
+			res.TicketingProjectConfig = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3068,12 +3068,12 @@ func (s *Ticketing) UpdateTicketingProjectConfig(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.TicketingProjectConfigEntity
+			var out shared.TicketingProjectConfig
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingProjectConfigEntity = &out
+			res.TicketingProjectConfig = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3202,12 +3202,12 @@ func (s *Ticketing) ListTicketTags(ctx context.Context, request operations.ListT
 				return nil, err
 			}
 
-			var out shared.TagEntityPaginated
+			var out shared.TagPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TagEntityPaginated = &out
+			res.TagPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3336,12 +3336,12 @@ func (s *Ticketing) ListTickets(ctx context.Context, request operations.ListTick
 				return nil, err
 			}
 
-			var out shared.TicketingTicketEntity
+			var out shared.TicketingTicket
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingTicketEntity = &out
+			res.TicketingTicket = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3473,12 +3473,12 @@ func (s *Ticketing) CreateTicket(ctx context.Context, request shared.CreateTicke
 				return nil, err
 			}
 
-			var out shared.TicketingTicketEntity
+			var out shared.TicketingTicket
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingTicketEntity = &out
+			res.TicketingTicket = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3713,12 +3713,12 @@ func (s *Ticketing) GetTicket(ctx context.Context, request operations.GetTicketR
 				return nil, err
 			}
 
-			var out shared.TicketingTicketEntity
+			var out shared.TicketingTicket
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingTicketEntity = &out
+			res.TicketingTicket = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3850,12 +3850,12 @@ func (s *Ticketing) UpdateTicket(ctx context.Context, request operations.UpdateT
 				return nil, err
 			}
 
-			var out shared.TicketingTicketEntity
+			var out shared.TicketingTicket
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TicketingTicketEntity = &out
+			res.TicketingTicket = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

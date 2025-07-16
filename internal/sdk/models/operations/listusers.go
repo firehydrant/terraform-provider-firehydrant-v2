@@ -52,7 +52,7 @@ type ListUsersResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a list of all users in an organization
-	UserEntityPaginated *shared.UserEntityPaginated
+	UserPaginated *shared.UserPaginated
 }
 
 func (o *ListUsersResponse) GetContentType() string {
@@ -76,9 +76,9 @@ func (o *ListUsersResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListUsersResponse) GetUserEntityPaginated() *shared.UserEntityPaginated {
+func (o *ListUsersResponse) GetUserPaginated() *shared.UserPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.UserEntityPaginated
+	return o.UserPaginated
 }

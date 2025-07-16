@@ -15,7 +15,7 @@ type GetAiPreferencesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves the current AI preferences
-	AIEntitiesPreferencesEntity *shared.AIEntitiesPreferencesEntity
+	AIPreferences *shared.AIPreferences
 }
 
 func (o *GetAiPreferencesResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetAiPreferencesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetAiPreferencesResponse) GetAIEntitiesPreferencesEntity() *shared.AIEntitiesPreferencesEntity {
+func (o *GetAiPreferencesResponse) GetAIPreferences() *shared.AIPreferences {
 	if o == nil {
 		return nil
 	}
-	return o.AIEntitiesPreferencesEntity
+	return o.AIPreferences
 }

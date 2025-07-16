@@ -139,7 +139,7 @@ type GetSignalsTimeseriesAnalyticsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Generate a timeseries-based report of metrics for Signals alerts
-	SignalsAPIAnalyticsTimeseriesPointEntity *shared.SignalsAPIAnalyticsTimeseriesPointEntity
+	SignalsAPIAnalyticsTimeseriesPoint *shared.SignalsAPIAnalyticsTimeseriesPoint
 }
 
 func (o *GetSignalsTimeseriesAnalyticsResponse) GetContentType() string {
@@ -163,9 +163,9 @@ func (o *GetSignalsTimeseriesAnalyticsResponse) GetRawResponse() *http.Response 
 	return o.RawResponse
 }
 
-func (o *GetSignalsTimeseriesAnalyticsResponse) GetSignalsAPIAnalyticsTimeseriesPointEntity() *shared.SignalsAPIAnalyticsTimeseriesPointEntity {
+func (o *GetSignalsTimeseriesAnalyticsResponse) GetSignalsAPIAnalyticsTimeseriesPoint() *shared.SignalsAPIAnalyticsTimeseriesPoint {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIAnalyticsTimeseriesPointEntity
+	return o.SignalsAPIAnalyticsTimeseriesPoint
 }

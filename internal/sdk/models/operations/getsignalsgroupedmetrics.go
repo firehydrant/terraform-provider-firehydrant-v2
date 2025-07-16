@@ -130,7 +130,7 @@ type GetSignalsGroupedMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Generate a report of grouped metrics for Signals alerts
-	SignalsAPIAnalyticsGroupedMetricsEntity *shared.SignalsAPIAnalyticsGroupedMetricsEntity
+	SignalsAPIAnalyticsGroupedMetrics *shared.SignalsAPIAnalyticsGroupedMetrics
 }
 
 func (o *GetSignalsGroupedMetricsResponse) GetContentType() string {
@@ -154,9 +154,9 @@ func (o *GetSignalsGroupedMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSignalsGroupedMetricsResponse) GetSignalsAPIAnalyticsGroupedMetricsEntity() *shared.SignalsAPIAnalyticsGroupedMetricsEntity {
+func (o *GetSignalsGroupedMetricsResponse) GetSignalsAPIAnalyticsGroupedMetrics() *shared.SignalsAPIAnalyticsGroupedMetrics {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIAnalyticsGroupedMetricsEntity
+	return o.SignalsAPIAnalyticsGroupedMetrics
 }

@@ -15,7 +15,7 @@ type CreateStatusUpdateTemplateResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a status update template for your organization
-	StatusUpdateTemplateEntity *shared.StatusUpdateTemplateEntity
+	StatusUpdateTemplate *shared.StatusUpdateTemplate
 }
 
 func (o *CreateStatusUpdateTemplateResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateStatusUpdateTemplateResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateStatusUpdateTemplateResponse) GetStatusUpdateTemplateEntity() *shared.StatusUpdateTemplateEntity {
+func (o *CreateStatusUpdateTemplateResponse) GetStatusUpdateTemplate() *shared.StatusUpdateTemplate {
 	if o == nil {
 		return nil
 	}
-	return o.StatusUpdateTemplateEntity
+	return o.StatusUpdateTemplate
 }

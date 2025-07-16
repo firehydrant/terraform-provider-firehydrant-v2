@@ -15,7 +15,7 @@ type GetSignalsHackerModeResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get the status of the hacker mode for the current user
-	SignalsAPIHackerModeEntity *shared.SignalsAPIHackerModeEntity
+	SignalsAPIHackerMode *shared.SignalsAPIHackerMode
 }
 
 func (o *GetSignalsHackerModeResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetSignalsHackerModeResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSignalsHackerModeResponse) GetSignalsAPIHackerModeEntity() *shared.SignalsAPIHackerModeEntity {
+func (o *GetSignalsHackerModeResponse) GetSignalsAPIHackerMode() *shared.SignalsAPIHackerMode {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIHackerModeEntity
+	return o.SignalsAPIHackerMode
 }

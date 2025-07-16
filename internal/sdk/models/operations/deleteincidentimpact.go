@@ -42,7 +42,7 @@ type DeleteIncidentImpactResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *DeleteIncidentImpactResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *DeleteIncidentImpactResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteIncidentImpactResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *DeleteIncidentImpactResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

@@ -140,12 +140,12 @@ func (s *Tasks) ListChecklistTemplates(ctx context.Context, request operations.L
 				return nil, err
 			}
 
-			var out shared.ChecklistTemplateEntityPaginated
+			var out shared.ChecklistTemplatePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChecklistTemplateEntityPaginated = &out
+			res.ChecklistTemplatePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -277,12 +277,12 @@ func (s *Tasks) CreateChecklistTemplate(ctx context.Context, request shared.Crea
 				return nil, err
 			}
 
-			var out shared.ChecklistTemplateEntity
+			var out shared.ChecklistTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChecklistTemplateEntity = &out
+			res.ChecklistTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -298,12 +298,12 @@ func (s *Tasks) CreateChecklistTemplate(ctx context.Context, request shared.Crea
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -428,12 +428,12 @@ func (s *Tasks) DeleteChecklistTemplate(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.ChecklistTemplateEntity
+			var out shared.ChecklistTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChecklistTemplateEntity = &out
+			res.ChecklistTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -558,12 +558,12 @@ func (s *Tasks) GetChecklistTemplate(ctx context.Context, request operations.Get
 				return nil, err
 			}
 
-			var out shared.ChecklistTemplateEntity
+			var out shared.ChecklistTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChecklistTemplateEntity = &out
+			res.ChecklistTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -695,12 +695,12 @@ func (s *Tasks) UpdateChecklistTemplate(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.ChecklistTemplateEntity
+			var out shared.ChecklistTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChecklistTemplateEntity = &out
+			res.ChecklistTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -832,12 +832,12 @@ func (s *Tasks) CreateIncidentTaskList(ctx context.Context, request operations.C
 				return nil, err
 			}
 
-			var out shared.TaskEntity
+			var out shared.Task
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskEntity = &out
+			res.Task = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -966,12 +966,12 @@ func (s *Tasks) ListIncidentTasks(ctx context.Context, request operations.ListIn
 				return nil, err
 			}
 
-			var out shared.TaskEntityPaginated
+			var out shared.TaskPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskEntityPaginated = &out
+			res.TaskPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1103,12 +1103,12 @@ func (s *Tasks) CreateIncidentTask(ctx context.Context, request operations.Creat
 				return nil, err
 			}
 
-			var out shared.TaskEntity
+			var out shared.Task
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskEntity = &out
+			res.Task = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1460,12 +1460,12 @@ func (s *Tasks) UpdateIncidentTask(ctx context.Context, request operations.Updat
 				return nil, err
 			}
 
-			var out shared.TaskEntity
+			var out shared.Task
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskEntity = &out
+			res.Task = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1597,12 +1597,12 @@ func (s *Tasks) ConvertIncidentTask(ctx context.Context, request operations.Conv
 				return nil, err
 			}
 
-			var out shared.TaskEntityPaginated
+			var out shared.TaskPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskEntityPaginated = &out
+			res.TaskPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1731,12 +1731,12 @@ func (s *Tasks) ListTaskLists(ctx context.Context, request operations.ListTaskLi
 				return nil, err
 			}
 
-			var out shared.TaskListEntity
+			var out shared.TaskList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskListEntity = &out
+			res.TaskList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1868,12 +1868,12 @@ func (s *Tasks) CreateTaskList(ctx context.Context, request shared.CreateTaskLis
 				return nil, err
 			}
 
-			var out shared.TaskListEntity
+			var out shared.TaskList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskListEntity = &out
+			res.TaskList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1998,12 +1998,12 @@ func (s *Tasks) DeleteTaskList(ctx context.Context, request operations.DeleteTas
 				return nil, err
 			}
 
-			var out shared.TaskListEntity
+			var out shared.TaskList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskListEntity = &out
+			res.TaskList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2128,12 +2128,12 @@ func (s *Tasks) GetTaskList(ctx context.Context, request operations.GetTaskListR
 				return nil, err
 			}
 
-			var out shared.TaskListEntity
+			var out shared.TaskList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskListEntity = &out
+			res.TaskList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2265,12 +2265,12 @@ func (s *Tasks) UpdateTaskList(ctx context.Context, request operations.UpdateTas
 				return nil, err
 			}
 
-			var out shared.TaskListEntity
+			var out shared.TaskList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TaskListEntity = &out
+			res.TaskList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

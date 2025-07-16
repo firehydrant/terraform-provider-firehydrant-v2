@@ -26,7 +26,7 @@ type GetScheduledMaintenanceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Fetch the details of a scheduled maintenance event.
-	ScheduledMaintenanceEntity *shared.ScheduledMaintenanceEntity
+	ScheduledMaintenance *shared.ScheduledMaintenance
 }
 
 func (o *GetScheduledMaintenanceResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetScheduledMaintenanceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetScheduledMaintenanceResponse) GetScheduledMaintenanceEntity() *shared.ScheduledMaintenanceEntity {
+func (o *GetScheduledMaintenanceResponse) GetScheduledMaintenance() *shared.ScheduledMaintenance {
 	if o == nil {
 		return nil
 	}
-	return o.ScheduledMaintenanceEntity
+	return o.ScheduledMaintenance
 }

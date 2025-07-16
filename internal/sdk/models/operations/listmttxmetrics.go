@@ -398,7 +398,7 @@ type ListMttxMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Fetch infrastructure metrics based on custom query
-	MetricsMttxDataEntity *shared.MetricsMttxDataEntity
+	MetricsMttxData *shared.MetricsMttxData
 }
 
 func (o *ListMttxMetricsResponse) GetContentType() string {
@@ -422,9 +422,9 @@ func (o *ListMttxMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListMttxMetricsResponse) GetMetricsMttxDataEntity() *shared.MetricsMttxDataEntity {
+func (o *ListMttxMetricsResponse) GetMetricsMttxData() *shared.MetricsMttxData {
 	if o == nil {
 		return nil
 	}
-	return o.MetricsMttxDataEntity
+	return o.MetricsMttxData
 }

@@ -15,7 +15,7 @@ type GetSeverityMatrixResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve the Severity matrix for your organization and its components and configured severities.
-	SeverityMatrixSeverityMatrixEntity *shared.SeverityMatrixSeverityMatrixEntity
+	SeverityMatrix *shared.SeverityMatrix
 }
 
 func (o *GetSeverityMatrixResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetSeverityMatrixResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSeverityMatrixResponse) GetSeverityMatrixSeverityMatrixEntity() *shared.SeverityMatrixSeverityMatrixEntity {
+func (o *GetSeverityMatrixResponse) GetSeverityMatrix() *shared.SeverityMatrix {
 	if o == nil {
 		return nil
 	}
-	return o.SeverityMatrixSeverityMatrixEntity
+	return o.SeverityMatrix
 }

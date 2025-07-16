@@ -136,12 +136,12 @@ func (s *Integrations) ListIntegrations(ctx context.Context, opts ...operations.
 				return nil, err
 			}
 
-			var out shared.IntegrationsIntegrationEntityPaginated
+			var out shared.IntegrationsPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsIntegrationEntityPaginated = &out
+			res.IntegrationsPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -270,12 +270,12 @@ func (s *Integrations) ListAuthedProviders(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.IntegrationsAuthedProviderEntityPaginated
+			var out shared.IntegrationsAuthedProviderPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsAuthedProviderEntityPaginated = &out
+			res.IntegrationsAuthedProviderPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -407,12 +407,12 @@ func (s *Integrations) UpdateAuthedProvider(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.PublicAPIV1IntegrationsAuthedProviderEntity
+			var out shared.PublicAPIV1IntegrationsAuthedProvider
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PublicAPIV1IntegrationsAuthedProviderEntity = &out
+			res.PublicAPIV1IntegrationsAuthedProvider = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -541,12 +541,12 @@ func (s *Integrations) ListAwsCloudtrailBatches(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.IntegrationsAwsCloudtrailBatchEntityPaginated
+			var out shared.IntegrationsAwsCloudtrailBatchPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsAwsCloudtrailBatchEntityPaginated = &out
+			res.IntegrationsAwsCloudtrailBatchPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -671,12 +671,12 @@ func (s *Integrations) GetAwsCloudtrailBatch(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.IntegrationsAwsCloudtrailBatchEntity
+			var out shared.IntegrationsAwsCloudtrailBatch
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsAwsCloudtrailBatchEntity = &out
+			res.IntegrationsAwsCloudtrailBatch = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -808,12 +808,12 @@ func (s *Integrations) UpdateAwsCloudtrailBatch(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.IntegrationsAwsCloudtrailBatchEntity
+			var out shared.IntegrationsAwsCloudtrailBatch
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsAwsCloudtrailBatchEntity = &out
+			res.IntegrationsAwsCloudtrailBatch = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -938,12 +938,12 @@ func (s *Integrations) ListAwsCloudtrailBatchEvents(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.ChangeEventEntity
+			var out shared.ChangeEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeEventEntity = &out
+			res.ChangeEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1072,12 +1072,12 @@ func (s *Integrations) ListAwsConnections(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.IntegrationsAwsConnectionEntityPaginated
+			var out shared.IntegrationsAwsConnectionPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsAwsConnectionEntityPaginated = &out
+			res.IntegrationsAwsConnectionPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1202,12 +1202,12 @@ func (s *Integrations) GetAwsConnection(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.IntegrationsAwsConnectionEntity
+			var out shared.IntegrationsAwsConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsAwsConnectionEntity = &out
+			res.IntegrationsAwsConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1339,12 +1339,12 @@ func (s *Integrations) UpdateAwsConnection(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.IntegrationsAwsConnectionEntity
+			var out shared.IntegrationsAwsConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsAwsConnectionEntity = &out
+			res.IntegrationsAwsConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1473,12 +1473,12 @@ func (s *Integrations) SearchConfluenceSpaces(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.IntegrationsConfluenceCloudSpaceKeyEntity
+			var out shared.IntegrationsConfluenceCloudSpaceKey
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsConfluenceCloudSpaceKeyEntity = &out
+			res.IntegrationsConfluenceCloudSpaceKey = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1607,12 +1607,12 @@ func (s *Integrations) ListConnections(ctx context.Context, request operations.L
 				return nil, err
 			}
 
-			var out shared.IntegrationsConnectionEntityPaginated
+			var out shared.IntegrationsConnectionPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsConnectionEntityPaginated = &out
+			res.IntegrationsConnectionPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1737,12 +1737,12 @@ func (s *Integrations) CreateConnection(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.IntegrationsConnectionEntity
+			var out shared.IntegrationsConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsConnectionEntity = &out
+			res.IntegrationsConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1867,12 +1867,12 @@ func (s *Integrations) UpdateConnection(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.IntegrationsConnectionEntity
+			var out shared.IntegrationsConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsConnectionEntity = &out
+			res.IntegrationsConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1997,12 +1997,12 @@ func (s *Integrations) RefreshConnection(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.IntegrationsConnectionEntity
+			var out shared.IntegrationsConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsConnectionEntity = &out
+			res.IntegrationsConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2127,12 +2127,12 @@ func (s *Integrations) UpdateFieldMap(ctx context.Context, request operations.Up
 				return nil, err
 			}
 
-			var out shared.FieldMappingFieldMapEntity
+			var out shared.FieldMappingFieldMap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FieldMappingFieldMapEntity = &out
+			res.FieldMappingFieldMap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2257,12 +2257,12 @@ func (s *Integrations) ListFieldMapAvailableFields(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.FieldMappingMappableFieldEntity
+			var out shared.FieldMappingMappableField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FieldMappingMappableFieldEntity = &out
+			res.FieldMappingMappableField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2955,12 +2955,12 @@ func (s *Integrations) ListSlackWorkspaces(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.IntegrationsSlackWorkspaceEntity
+			var out shared.IntegrationsSlackWorkspace
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsSlackWorkspaceEntity = &out
+			res.IntegrationsSlackWorkspace = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3085,12 +3085,12 @@ func (s *Integrations) ListSlackUsergroups(ctx context.Context, opts ...operatio
 				return nil, err
 			}
 
-			var out shared.IntegrationsSlackUsergroupEntity
+			var out shared.IntegrationsSlackUsergroup
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsSlackUsergroupEntity = &out
+			res.IntegrationsSlackUsergroup = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3215,12 +3215,12 @@ func (s *Integrations) ListConnectionStatuses(ctx context.Context, opts ...opera
 				return nil, err
 			}
 
-			var out shared.IntegrationsConnectionStatusEntity
+			var out shared.IntegrationsConnectionStatus
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsConnectionStatusEntity = &out
+			res.IntegrationsConnectionStatus = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3345,12 +3345,12 @@ func (s *Integrations) ListConnectionStatusesBySlug(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.IntegrationsConnectionStatusEntity
+			var out shared.IntegrationsConnectionStatus
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsConnectionStatusEntity = &out
+			res.IntegrationsConnectionStatus = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3475,12 +3475,12 @@ func (s *Integrations) ListConnectionStatusesBySlugAndID(ctx context.Context, re
 				return nil, err
 			}
 
-			var out shared.IntegrationsConnectionStatusEntity
+			var out shared.IntegrationsConnectionStatus
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsConnectionStatusEntity = &out
+			res.IntegrationsConnectionStatus = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3609,12 +3609,12 @@ func (s *Integrations) ListStatuspageConnections(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.IntegrationsStatuspageConnectionEntityPaginated
+			var out shared.IntegrationsStatuspageConnectionPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsStatuspageConnectionEntityPaginated = &out
+			res.IntegrationsStatuspageConnectionPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3739,12 +3739,12 @@ func (s *Integrations) DeleteStatuspageConnection(ctx context.Context, request o
 				return nil, err
 			}
 
-			var out shared.IntegrationsStatuspageConnectionEntity
+			var out shared.IntegrationsStatuspageConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsStatuspageConnectionEntity = &out
+			res.IntegrationsStatuspageConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3869,12 +3869,12 @@ func (s *Integrations) GetStatuspageConnection(ctx context.Context, request oper
 				return nil, err
 			}
 
-			var out shared.IntegrationsStatuspageConnectionEntity
+			var out shared.IntegrationsStatuspageConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsStatuspageConnectionEntity = &out
+			res.IntegrationsStatuspageConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4006,12 +4006,12 @@ func (s *Integrations) UpdateStatuspageConnection(ctx context.Context, request o
 				return nil, err
 			}
 
-			var out shared.IntegrationsStatuspageConnectionEntity
+			var out shared.IntegrationsStatuspageConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsStatuspageConnectionEntity = &out
+			res.IntegrationsStatuspageConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4136,12 +4136,12 @@ func (s *Integrations) ListStatuspageConnectionPages(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.IntegrationsStatuspagePageEntity
+			var out shared.IntegrationsStatuspagePage
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsStatuspagePageEntity = &out
+			res.IntegrationsStatuspagePage = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4384,12 +4384,12 @@ func (s *Integrations) SearchZendeskTickets(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.IntegrationsZendeskSearchTicketsPaginatedEntity
+			var out shared.IntegrationsZendeskSearchTicketsPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsZendeskSearchTicketsPaginatedEntity = &out
+			res.IntegrationsZendeskSearchTicketsPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4514,12 +4514,12 @@ func (s *Integrations) GetIntegration(ctx context.Context, request operations.Ge
 				return nil, err
 			}
 
-			var out shared.IntegrationsIntegrationEntity
+			var out shared.Integrations
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IntegrationsIntegrationEntity = &out
+			res.Integrations = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

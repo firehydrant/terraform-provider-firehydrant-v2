@@ -26,7 +26,7 @@ type CreateConnectionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new integration connection
-	IntegrationsConnectionEntity *shared.IntegrationsConnectionEntity
+	IntegrationsConnection *shared.IntegrationsConnection
 }
 
 func (o *CreateConnectionResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *CreateConnectionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateConnectionResponse) GetIntegrationsConnectionEntity() *shared.IntegrationsConnectionEntity {
+func (o *CreateConnectionResponse) GetIntegrationsConnection() *shared.IntegrationsConnection {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsConnectionEntity
+	return o.IntegrationsConnection
 }

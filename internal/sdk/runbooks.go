@@ -254,12 +254,12 @@ func (s *Runbooks) ListRunbooks(ctx context.Context, request operations.ListRunb
 				return nil, err
 			}
 
-			var out shared.RunbookEntity
+			var out shared.Runbook
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbookEntity = &out
+			res.Runbook = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -391,12 +391,12 @@ func (s *Runbooks) CreateRunbook(ctx context.Context, request shared.CreateRunbo
 				return nil, err
 			}
 
-			var out shared.RunbookEntity
+			var out shared.Runbook
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbookEntity = &out
+			res.Runbook = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -525,12 +525,12 @@ func (s *Runbooks) ListRunbookActions(ctx context.Context, request operations.Li
 				return nil, err
 			}
 
-			var out shared.RunbooksActionsEntityPaginated
+			var out shared.RunbooksActionsPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbooksActionsEntityPaginated = &out
+			res.RunbooksActionsPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -659,12 +659,12 @@ func (s *Runbooks) ListRunbookExecutions(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.RunbooksExecutionEntityPaginated
+			var out shared.RunbooksExecutionPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbooksExecutionEntityPaginated = &out
+			res.RunbooksExecutionPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -796,12 +796,12 @@ func (s *Runbooks) CreateRunbookExecution(ctx context.Context, request shared.Cr
 				return nil, err
 			}
 
-			var out shared.RunbooksExecutionEntity
+			var out shared.RunbooksExecution
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbooksExecutionEntity = &out
+			res.RunbooksExecution = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1040,12 +1040,12 @@ func (s *Runbooks) GetRunbookExecution(ctx context.Context, request operations.G
 				return nil, err
 			}
 
-			var out shared.RunbooksExecutionEntity
+			var out shared.RunbooksExecution
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbooksExecutionEntity = &out
+			res.RunbooksExecution = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1177,12 +1177,12 @@ func (s *Runbooks) UpdateRunbookExecutionStep(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.RunbooksExecutionEntity
+			var out shared.RunbooksExecution
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbooksExecutionEntity = &out
+			res.RunbooksExecution = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1307,12 +1307,12 @@ func (s *Runbooks) GetRunbookExecutionStepScript(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.RunbooksExecutionEntity
+			var out shared.RunbooksExecution
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbooksExecutionEntity = &out
+			res.RunbooksExecution = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1437,12 +1437,12 @@ func (s *Runbooks) UpdateRunbookExecutionStepScript(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.RunbooksExecutionEntity
+			var out shared.RunbooksExecution
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbooksExecutionEntity = &out
+			res.RunbooksExecution = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1681,12 +1681,12 @@ func (s *Runbooks) DeleteRunbook(ctx context.Context, request operations.DeleteR
 				return nil, err
 			}
 
-			var out shared.RunbookEntity
+			var out shared.Runbook
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbookEntity = &out
+			res.Runbook = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1811,12 +1811,12 @@ func (s *Runbooks) GetRunbook(ctx context.Context, request operations.GetRunbook
 				return nil, err
 			}
 
-			var out shared.RunbookEntity
+			var out shared.Runbook
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbookEntity = &out
+			res.Runbook = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1949,12 +1949,12 @@ func (s *Runbooks) UpdateRunbook(ctx context.Context, request operations.UpdateR
 				return nil, err
 			}
 
-			var out shared.RunbookEntity
+			var out shared.Runbook
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RunbookEntity = &out
+			res.Runbook = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

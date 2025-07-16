@@ -110,7 +110,7 @@ type ListChangeEventsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List change events for the organization. Note: Not all information is included on a change event like attachments and related changes. You must fetch a change event separately to retrieve all of the information about it
-	ChangeEventSlimEntityPaginated *shared.ChangeEventSlimEntityPaginated
+	ChangeEventSlimPaginated *shared.ChangeEventSlimPaginated
 }
 
 func (o *ListChangeEventsResponse) GetContentType() string {
@@ -134,9 +134,9 @@ func (o *ListChangeEventsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListChangeEventsResponse) GetChangeEventSlimEntityPaginated() *shared.ChangeEventSlimEntityPaginated {
+func (o *ListChangeEventsResponse) GetChangeEventSlimPaginated() *shared.ChangeEventSlimPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.ChangeEventSlimEntityPaginated
+	return o.ChangeEventSlimPaginated
 }

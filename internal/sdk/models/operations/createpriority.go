@@ -15,7 +15,7 @@ type CreatePriorityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new priority
-	PriorityEntity *shared.PriorityEntity
+	Priority *shared.Priority
 }
 
 func (o *CreatePriorityResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreatePriorityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreatePriorityResponse) GetPriorityEntity() *shared.PriorityEntity {
+func (o *CreatePriorityResponse) GetPriority() *shared.Priority {
 	if o == nil {
 		return nil
 	}
-	return o.PriorityEntity
+	return o.Priority
 }

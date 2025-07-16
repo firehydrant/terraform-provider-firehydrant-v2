@@ -69,7 +69,7 @@ type ListTeamOnCallSchedulesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all Signals on-call schedules for a team.
-	SignalsAPIOnCallScheduleEntityPaginated *shared.SignalsAPIOnCallScheduleEntityPaginated
+	SignalsAPIOnCallSchedulePaginated *shared.SignalsAPIOnCallSchedulePaginated
 }
 
 func (o *ListTeamOnCallSchedulesResponse) GetContentType() string {
@@ -93,9 +93,9 @@ func (o *ListTeamOnCallSchedulesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListTeamOnCallSchedulesResponse) GetSignalsAPIOnCallScheduleEntityPaginated() *shared.SignalsAPIOnCallScheduleEntityPaginated {
+func (o *ListTeamOnCallSchedulesResponse) GetSignalsAPIOnCallSchedulePaginated() *shared.SignalsAPIOnCallSchedulePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIOnCallScheduleEntityPaginated
+	return o.SignalsAPIOnCallSchedulePaginated
 }

@@ -15,7 +15,7 @@ type GetCurrentUserResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve the current user
-	CurrentUserEntity *shared.CurrentUserEntity
+	CurrentUser *shared.CurrentUser
 }
 
 func (o *GetCurrentUserResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetCurrentUserResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetCurrentUserResponse) GetCurrentUserEntity() *shared.CurrentUserEntity {
+func (o *GetCurrentUserResponse) GetCurrentUser() *shared.CurrentUser {
 	if o == nil {
 		return nil
 	}
-	return o.CurrentUserEntity
+	return o.CurrentUser
 }

@@ -26,7 +26,7 @@ type DeleteStatusUpdateTemplateResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a single status update template
-	StatusUpdateTemplateEntity *shared.StatusUpdateTemplateEntity
+	StatusUpdateTemplate *shared.StatusUpdateTemplate
 }
 
 func (o *DeleteStatusUpdateTemplateResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteStatusUpdateTemplateResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteStatusUpdateTemplateResponse) GetStatusUpdateTemplateEntity() *shared.StatusUpdateTemplateEntity {
+func (o *DeleteStatusUpdateTemplateResponse) GetStatusUpdateTemplate() *shared.StatusUpdateTemplate {
 	if o == nil {
 		return nil
 	}
-	return o.StatusUpdateTemplateEntity
+	return o.StatusUpdateTemplate
 }

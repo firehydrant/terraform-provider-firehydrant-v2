@@ -36,7 +36,7 @@ type UpdateRunbookResponse struct {
 	// Update a runbook and any attachment rules associated with it. This endpoint is used to configure nearly everything
 	// about a runbook, including but not limited to the steps, environments, attachment rules, and severities.
 	//
-	RunbookEntity *shared.RunbookEntity
+	Runbook *shared.Runbook
 }
 
 func (o *UpdateRunbookResponse) GetContentType() string {
@@ -60,9 +60,9 @@ func (o *UpdateRunbookResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateRunbookResponse) GetRunbookEntity() *shared.RunbookEntity {
+func (o *UpdateRunbookResponse) GetRunbook() *shared.Runbook {
 	if o == nil {
 		return nil
 	}
-	return o.RunbookEntity
+	return o.Runbook
 }

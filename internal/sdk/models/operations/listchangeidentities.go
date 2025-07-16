@@ -42,7 +42,7 @@ type ListChangeIdentitiesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve all identities for the change entry
-	ChangeIdentityEntityPaginated *shared.ChangeIdentityEntityPaginated
+	ChangeIdentityPaginated *shared.ChangeIdentityPaginated
 }
 
 func (o *ListChangeIdentitiesResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *ListChangeIdentitiesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListChangeIdentitiesResponse) GetChangeIdentityEntityPaginated() *shared.ChangeIdentityEntityPaginated {
+func (o *ListChangeIdentitiesResponse) GetChangeIdentityPaginated() *shared.ChangeIdentityPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.ChangeIdentityEntityPaginated
+	return o.ChangeIdentityPaginated
 }

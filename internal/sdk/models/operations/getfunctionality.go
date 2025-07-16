@@ -26,7 +26,7 @@ type GetFunctionalityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves a single functionality by ID
-	FunctionalityEntity *shared.FunctionalityEntity
+	Functionality *shared.Functionality
 }
 
 func (o *GetFunctionalityResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetFunctionalityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetFunctionalityResponse) GetFunctionalityEntity() *shared.FunctionalityEntity {
+func (o *GetFunctionalityResponse) GetFunctionality() *shared.Functionality {
 	if o == nil {
 		return nil
 	}
-	return o.FunctionalityEntity
+	return o.Functionality
 }

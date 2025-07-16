@@ -42,7 +42,7 @@ type UpdateIncidentAlertPrimaryResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Setting an alert as primary will overwrite milestone times in the FireHydrant incident with times included in the primary alert. Services attached to the primary alert will also be automatically added to the incident.
-	IncidentsAlertEntity *shared.IncidentsAlertEntity
+	IncidentsAlert *shared.IncidentsAlert
 }
 
 func (o *UpdateIncidentAlertPrimaryResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *UpdateIncidentAlertPrimaryResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateIncidentAlertPrimaryResponse) GetIncidentsAlertEntity() *shared.IncidentsAlertEntity {
+func (o *UpdateIncidentAlertPrimaryResponse) GetIncidentsAlert() *shared.IncidentsAlert {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsAlertEntity
+	return o.IncidentsAlert
 }

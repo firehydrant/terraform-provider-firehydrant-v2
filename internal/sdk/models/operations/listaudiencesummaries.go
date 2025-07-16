@@ -27,7 +27,7 @@ type ListAudienceSummariesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all audience summaries for an incident
-	AudiencesEntitiesAudienceSummariesEntity *shared.AudiencesEntitiesAudienceSummariesEntity
+	AudiencesAudienceSummaries *shared.AudiencesAudienceSummaries
 }
 
 func (o *ListAudienceSummariesResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *ListAudienceSummariesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListAudienceSummariesResponse) GetAudiencesEntitiesAudienceSummariesEntity() *shared.AudiencesEntitiesAudienceSummariesEntity {
+func (o *ListAudienceSummariesResponse) GetAudiencesAudienceSummaries() *shared.AudiencesAudienceSummaries {
 	if o == nil {
 		return nil
 	}
-	return o.AudiencesEntitiesAudienceSummariesEntity
+	return o.AudiencesAudienceSummaries
 }

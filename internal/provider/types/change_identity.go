@@ -7,6 +7,10 @@ import (
 )
 
 type ChangeIdentity struct {
-	Type  types.String `tfsdk:"type"`
-	Value types.String `tfsdk:"value"`
+	ChangeID  types.String `tfsdk:"change_id"`
+	CreatedAt types.String `tfsdk:"created_at"`
+	ID        types.String `tfsdk:"id"`
+	Type      types.String `tfsdk:"type"`
+	UpdatedAt types.String `tfsdk:"updated_at"`
+	Value     types.String `tfsdk:"value"`
 }

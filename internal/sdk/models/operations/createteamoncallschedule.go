@@ -34,7 +34,7 @@ type CreateTeamOnCallScheduleResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a Signals on-call schedule for a team with a single rotation. More rotations can be created later.
-	SignalsAPIOnCallScheduleEntity *shared.SignalsAPIOnCallScheduleEntity
+	SignalsAPIOnCallSchedule *shared.SignalsAPIOnCallSchedule
 }
 
 func (o *CreateTeamOnCallScheduleResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateTeamOnCallScheduleResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateTeamOnCallScheduleResponse) GetSignalsAPIOnCallScheduleEntity() *shared.SignalsAPIOnCallScheduleEntity {
+func (o *CreateTeamOnCallScheduleResponse) GetSignalsAPIOnCallSchedule() *shared.SignalsAPIOnCallSchedule {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIOnCallScheduleEntity
+	return o.SignalsAPIOnCallSchedule
 }

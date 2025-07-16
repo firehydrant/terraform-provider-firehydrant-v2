@@ -26,7 +26,7 @@ type DeleteFunctionalityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Archive a functionality
-	FunctionalityEntity *shared.FunctionalityEntity
+	Functionality *shared.Functionality
 }
 
 func (o *DeleteFunctionalityResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteFunctionalityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteFunctionalityResponse) GetFunctionalityEntity() *shared.FunctionalityEntity {
+func (o *DeleteFunctionalityResponse) GetFunctionality() *shared.Functionality {
 	if o == nil {
 		return nil
 	}
-	return o.FunctionalityEntity
+	return o.Functionality
 }

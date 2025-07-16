@@ -34,7 +34,7 @@ type CreateEmailSubscriberResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Subscribes a comma-separated string of emails to status page updates
-	NuncEmailSubscribersEntity *shared.NuncEmailSubscribersEntity
+	NuncEmailSubscribers *shared.NuncEmailSubscribers
 }
 
 func (o *CreateEmailSubscriberResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateEmailSubscriberResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateEmailSubscriberResponse) GetNuncEmailSubscribersEntity() *shared.NuncEmailSubscribersEntity {
+func (o *CreateEmailSubscriberResponse) GetNuncEmailSubscribers() *shared.NuncEmailSubscribers {
 	if o == nil {
 		return nil
 	}
-	return o.NuncEmailSubscribersEntity
+	return o.NuncEmailSubscribers
 }

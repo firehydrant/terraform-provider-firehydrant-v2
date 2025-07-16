@@ -34,7 +34,7 @@ type GetVoteStatusResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get an object's current vote counts
-	VotesEntity *shared.VotesEntity
+	Votes *shared.Votes
 }
 
 func (o *GetVoteStatusResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *GetVoteStatusResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetVoteStatusResponse) GetVotesEntity() *shared.VotesEntity {
+func (o *GetVoteStatusResponse) GetVotes() *shared.Votes {
 	if o == nil {
 		return nil
 	}
-	return o.VotesEntity
+	return o.Votes
 }

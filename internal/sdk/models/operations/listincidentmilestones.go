@@ -26,7 +26,7 @@ type ListIncidentMilestonesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List times and durations for each milestone on an incident
-	IncidentsMilestoneEntityPaginated *shared.IncidentsMilestoneEntityPaginated
+	IncidentsMilestonePaginated *shared.IncidentsMilestonePaginated
 }
 
 func (o *ListIncidentMilestonesResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListIncidentMilestonesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentMilestonesResponse) GetIncidentsMilestoneEntityPaginated() *shared.IncidentsMilestoneEntityPaginated {
+func (o *ListIncidentMilestonesResponse) GetIncidentsMilestonePaginated() *shared.IncidentsMilestonePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsMilestoneEntityPaginated
+	return o.IncidentsMilestonePaginated
 }

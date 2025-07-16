@@ -73,7 +73,7 @@ type ListIncidentEventsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all events for an incident. An event is a timeline entry. This can be filtered with params to retrieve events of a certain type.
-	IncidentEventEntityPaginated *shared.IncidentEventEntityPaginated
+	IncidentEventPaginated *shared.IncidentEventPaginated
 }
 
 func (o *ListIncidentEventsResponse) GetContentType() string {
@@ -97,9 +97,9 @@ func (o *ListIncidentEventsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentEventsResponse) GetIncidentEventEntityPaginated() *shared.IncidentEventEntityPaginated {
+func (o *ListIncidentEventsResponse) GetIncidentEventPaginated() *shared.IncidentEventPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentEventEntityPaginated
+	return o.IncidentEventPaginated
 }

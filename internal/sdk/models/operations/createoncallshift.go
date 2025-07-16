@@ -42,7 +42,7 @@ type CreateOnCallShiftResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a Signals on-call shift in a schedule.
-	SignalsAPIOnCallShiftEntity *shared.SignalsAPIOnCallShiftEntity
+	SignalsAPIOnCallShift *shared.SignalsAPIOnCallShift
 }
 
 func (o *CreateOnCallShiftResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *CreateOnCallShiftResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateOnCallShiftResponse) GetSignalsAPIOnCallShiftEntity() *shared.SignalsAPIOnCallShiftEntity {
+func (o *CreateOnCallShiftResponse) GetSignalsAPIOnCallShift() *shared.SignalsAPIOnCallShift {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIOnCallShiftEntity
+	return o.SignalsAPIOnCallShift
 }

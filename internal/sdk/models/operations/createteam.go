@@ -15,7 +15,7 @@ type CreateTeamResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new team
-	TeamEntity *shared.TeamEntity
+	Team *shared.Team
 }
 
 func (o *CreateTeamResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateTeamResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateTeamResponse) GetTeamEntity() *shared.TeamEntity {
+func (o *CreateTeamResponse) GetTeam() *shared.Team {
 	if o == nil {
 		return nil
 	}
-	return o.TeamEntity
+	return o.Team
 }

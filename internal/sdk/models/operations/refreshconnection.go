@@ -34,7 +34,7 @@ type RefreshConnectionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Refresh the integration connection with the provided data
-	IntegrationsConnectionEntity *shared.IntegrationsConnectionEntity
+	IntegrationsConnection *shared.IntegrationsConnection
 }
 
 func (o *RefreshConnectionResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *RefreshConnectionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *RefreshConnectionResponse) GetIntegrationsConnectionEntity() *shared.IntegrationsConnectionEntity {
+func (o *RefreshConnectionResponse) GetIntegrationsConnection() *shared.IntegrationsConnection {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsConnectionEntity
+	return o.IntegrationsConnection
 }

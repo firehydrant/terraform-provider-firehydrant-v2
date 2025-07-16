@@ -34,7 +34,7 @@ type CreateIncidentLinkResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Allows adding adhoc links to an incident as an attachment
-	AttachmentsLinkEntity *shared.AttachmentsLinkEntity
+	AttachmentsLink *shared.AttachmentsLink
 }
 
 func (o *CreateIncidentLinkResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateIncidentLinkResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateIncidentLinkResponse) GetAttachmentsLinkEntity() *shared.AttachmentsLinkEntity {
+func (o *CreateIncidentLinkResponse) GetAttachmentsLink() *shared.AttachmentsLink {
 	if o == nil {
 		return nil
 	}
-	return o.AttachmentsLinkEntity
+	return o.AttachmentsLink
 }

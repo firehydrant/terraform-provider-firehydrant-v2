@@ -42,7 +42,7 @@ type UpdatePostMortemFieldResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a field value on a post mortem report
-	PostMortemsSectionFieldEntity *shared.PostMortemsSectionFieldEntity
+	PostMortemsSectionField *shared.PostMortemsSectionField
 }
 
 func (o *UpdatePostMortemFieldResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *UpdatePostMortemFieldResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdatePostMortemFieldResponse) GetPostMortemsSectionFieldEntity() *shared.PostMortemsSectionFieldEntity {
+func (o *UpdatePostMortemFieldResponse) GetPostMortemsSectionField() *shared.PostMortemsSectionField {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsSectionFieldEntity
+	return o.PostMortemsSectionField
 }

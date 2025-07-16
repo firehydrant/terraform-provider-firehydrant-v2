@@ -42,7 +42,7 @@ type VoteAiIncidentSummaryResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Vote on an AI-generated incident summary for the current user
-	AIEntitiesIncidentSummaryEntity *shared.AIEntitiesIncidentSummaryEntity
+	AIIncidentSummary *shared.AIIncidentSummary
 }
 
 func (o *VoteAiIncidentSummaryResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *VoteAiIncidentSummaryResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *VoteAiIncidentSummaryResponse) GetAIEntitiesIncidentSummaryEntity() *shared.AIEntitiesIncidentSummaryEntity {
+func (o *VoteAiIncidentSummaryResponse) GetAIIncidentSummary() *shared.AIIncidentSummary {
 	if o == nil {
 		return nil
 	}
-	return o.AIEntitiesIncidentSummaryEntity
+	return o.AIIncidentSummary
 }

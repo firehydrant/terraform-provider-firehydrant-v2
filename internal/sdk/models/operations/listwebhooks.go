@@ -34,7 +34,7 @@ type ListWebhooksResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists webhooks
-	WebhooksEntitiesWebhookEntity *shared.WebhooksEntitiesWebhookEntity
+	Webhooks *shared.Webhooks
 }
 
 func (o *ListWebhooksResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListWebhooksResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListWebhooksResponse) GetWebhooksEntitiesWebhookEntity() *shared.WebhooksEntitiesWebhookEntity {
+func (o *ListWebhooksResponse) GetWebhooks() *shared.Webhooks {
 	if o == nil {
 		return nil
 	}
-	return o.WebhooksEntitiesWebhookEntity
+	return o.Webhooks
 }

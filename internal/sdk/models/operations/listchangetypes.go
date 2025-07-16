@@ -34,7 +34,7 @@ type ListChangeTypesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List change types for the organization
-	ChangeTypeEntityPaginated *shared.ChangeTypeEntityPaginated
+	ChangeTypePaginated *shared.ChangeTypePaginated
 }
 
 func (o *ListChangeTypesResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListChangeTypesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListChangeTypesResponse) GetChangeTypeEntityPaginated() *shared.ChangeTypeEntityPaginated {
+func (o *ListChangeTypesResponse) GetChangeTypePaginated() *shared.ChangeTypePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.ChangeTypeEntityPaginated
+	return o.ChangeTypePaginated
 }

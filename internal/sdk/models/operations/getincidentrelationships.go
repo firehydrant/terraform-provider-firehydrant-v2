@@ -26,7 +26,7 @@ type GetIncidentRelationshipsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List any parent/child relationships for an incident
-	IncidentsRelationshipsEntity *shared.IncidentsRelationshipsEntity
+	IncidentsRelationships *shared.IncidentsRelationships
 }
 
 func (o *GetIncidentRelationshipsResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetIncidentRelationshipsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetIncidentRelationshipsResponse) GetIncidentsRelationshipsEntity() *shared.IncidentsRelationshipsEntity {
+func (o *GetIncidentRelationshipsResponse) GetIncidentsRelationships() *shared.IncidentsRelationships {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRelationshipsEntity
+	return o.IncidentsRelationships
 }

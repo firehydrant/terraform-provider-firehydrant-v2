@@ -15,7 +15,7 @@ type CreateCustomFieldDefinitionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new custom field definition
-	OrganizationsCustomFieldDefinitionEntity *shared.OrganizationsCustomFieldDefinitionEntity
+	OrganizationsCustomFieldDefinition *shared.OrganizationsCustomFieldDefinition
 }
 
 func (o *CreateCustomFieldDefinitionResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateCustomFieldDefinitionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateCustomFieldDefinitionResponse) GetOrganizationsCustomFieldDefinitionEntity() *shared.OrganizationsCustomFieldDefinitionEntity {
+func (o *CreateCustomFieldDefinitionResponse) GetOrganizationsCustomFieldDefinition() *shared.OrganizationsCustomFieldDefinition {
 	if o == nil {
 		return nil
 	}
-	return o.OrganizationsCustomFieldDefinitionEntity
+	return o.OrganizationsCustomFieldDefinition
 }

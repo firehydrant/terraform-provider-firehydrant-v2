@@ -26,7 +26,7 @@ type ListAwsCloudtrailBatchEventsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List events for an AWS CloudTrail batch
-	ChangeEventEntity *shared.ChangeEventEntity
+	ChangeEvent *shared.ChangeEvent
 }
 
 func (o *ListAwsCloudtrailBatchEventsResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListAwsCloudtrailBatchEventsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListAwsCloudtrailBatchEventsResponse) GetChangeEventEntity() *shared.ChangeEventEntity {
+func (o *ListAwsCloudtrailBatchEventsResponse) GetChangeEvent() *shared.ChangeEvent {
 	if o == nil {
 		return nil
 	}
-	return o.ChangeEventEntity
+	return o.ChangeEvent
 }

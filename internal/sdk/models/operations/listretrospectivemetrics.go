@@ -49,7 +49,7 @@ type ListRetrospectiveMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Returns a report with retrospective analytics data
-	MetricsRetrospectiveEntity *shared.MetricsRetrospectiveEntity
+	MetricsRetrospective *shared.MetricsRetrospective
 }
 
 func (o *ListRetrospectiveMetricsResponse) GetContentType() string {
@@ -73,9 +73,9 @@ func (o *ListRetrospectiveMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListRetrospectiveMetricsResponse) GetMetricsRetrospectiveEntity() *shared.MetricsRetrospectiveEntity {
+func (o *ListRetrospectiveMetricsResponse) GetMetricsRetrospective() *shared.MetricsRetrospective {
 	if o == nil {
 		return nil
 	}
-	return o.MetricsRetrospectiveEntity
+	return o.MetricsRetrospective
 }

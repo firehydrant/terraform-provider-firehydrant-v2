@@ -15,7 +15,7 @@ type CreateLifecycleMilestoneResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new milestone
-	LifecyclesPhaseEntityList *shared.LifecyclesPhaseEntityList
+	LifecyclesPhaseList *shared.LifecyclesPhaseList
 }
 
 func (o *CreateLifecycleMilestoneResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateLifecycleMilestoneResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateLifecycleMilestoneResponse) GetLifecyclesPhaseEntityList() *shared.LifecyclesPhaseEntityList {
+func (o *CreateLifecycleMilestoneResponse) GetLifecyclesPhaseList() *shared.LifecyclesPhaseList {
 	if o == nil {
 		return nil
 	}
-	return o.LifecyclesPhaseEntityList
+	return o.LifecyclesPhaseList
 }

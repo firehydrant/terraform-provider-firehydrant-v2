@@ -26,7 +26,7 @@ type DeleteRunbookResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a runbook and make it unavailable for any future incidents.
-	RunbookEntity *shared.RunbookEntity
+	Runbook *shared.Runbook
 }
 
 func (o *DeleteRunbookResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteRunbookResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteRunbookResponse) GetRunbookEntity() *shared.RunbookEntity {
+func (o *DeleteRunbookResponse) GetRunbook() *shared.Runbook {
 	if o == nil {
 		return nil
 	}
-	return o.RunbookEntity
+	return o.Runbook
 }

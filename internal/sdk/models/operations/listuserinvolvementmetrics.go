@@ -89,7 +89,7 @@ type ListUserInvolvementMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Returns a report with time bucketed analytics data
-	MetricsMetricsEntity *shared.MetricsMetricsEntity
+	Metrics *shared.Metrics
 }
 
 func (o *ListUserInvolvementMetricsResponse) GetContentType() string {
@@ -113,9 +113,9 @@ func (o *ListUserInvolvementMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListUserInvolvementMetricsResponse) GetMetricsMetricsEntity() *shared.MetricsMetricsEntity {
+func (o *ListUserInvolvementMetricsResponse) GetMetrics() *shared.Metrics {
 	if o == nil {
 		return nil
 	}
-	return o.MetricsMetricsEntity
+	return o.Metrics
 }

@@ -42,7 +42,7 @@ type ListIncidentTasksResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a list of all tasks for a specific incident
-	TaskEntityPaginated *shared.TaskEntityPaginated
+	TaskPaginated *shared.TaskPaginated
 }
 
 func (o *ListIncidentTasksResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *ListIncidentTasksResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentTasksResponse) GetTaskEntityPaginated() *shared.TaskEntityPaginated {
+func (o *ListIncidentTasksResponse) GetTaskPaginated() *shared.TaskPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.TaskEntityPaginated
+	return o.TaskPaginated
 }

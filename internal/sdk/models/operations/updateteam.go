@@ -34,7 +34,7 @@ type UpdateTeamResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a single team from its ID
-	TeamEntity *shared.TeamEntity
+	Team *shared.Team
 }
 
 func (o *UpdateTeamResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateTeamResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateTeamResponse) GetTeamEntity() *shared.TeamEntity {
+func (o *UpdateTeamResponse) GetTeam() *shared.Team {
 	if o == nil {
 		return nil
 	}
-	return o.TeamEntity
+	return o.Team
 }

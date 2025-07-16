@@ -136,12 +136,12 @@ func (s *AccountSettings) GetAiPreferences(ctx context.Context, opts ...operatio
 				return nil, err
 			}
 
-			var out shared.AIEntitiesPreferencesEntity
+			var out shared.AIPreferences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AIEntitiesPreferencesEntity = &out
+			res.AIPreferences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -273,12 +273,12 @@ func (s *AccountSettings) UpdateAiPreferences(ctx context.Context, request *shar
 				return nil, err
 			}
 
-			var out shared.AIEntitiesPreferencesEntity
+			var out shared.AIPreferences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AIEntitiesPreferencesEntity = &out
+			res.AIPreferences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -403,12 +403,12 @@ func (s *AccountSettings) GetBootstrap(ctx context.Context, opts ...operations.O
 				return nil, err
 			}
 
-			var out shared.PublicAPIV1BootstrapEntity
+			var out shared.PublicAPIV1Bootstrap
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PublicAPIV1BootstrapEntity = &out
+			res.PublicAPIV1Bootstrap = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -537,12 +537,12 @@ func (s *AccountSettings) ListEntitlements(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.EntitlementEntityPaginated
+			var out shared.EntitlementPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EntitlementEntityPaginated = &out
+			res.EntitlementPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -667,12 +667,12 @@ func (s *AccountSettings) PingNoauth(ctx context.Context, opts ...operations.Opt
 				return nil, err
 			}
 
-			var out shared.PongEntity
+			var out shared.Pong
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PongEntity = &out
+			res.Pong = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -797,12 +797,12 @@ func (s *AccountSettings) Ping(ctx context.Context, opts ...operations.Option) (
 				return nil, err
 			}
 
-			var out shared.PongEntity
+			var out shared.Pong
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PongEntity = &out
+			res.Pong = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

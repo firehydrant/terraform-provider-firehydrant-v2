@@ -26,7 +26,7 @@ type DeleteSignalsEventSourceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a Signals event source by slug
-	SignalsAPITransposerEntity *shared.SignalsAPITransposerEntity
+	SignalsAPITransposer *shared.SignalsAPITransposer
 }
 
 func (o *DeleteSignalsEventSourceResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteSignalsEventSourceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteSignalsEventSourceResponse) GetSignalsAPITransposerEntity() *shared.SignalsAPITransposerEntity {
+func (o *DeleteSignalsEventSourceResponse) GetSignalsAPITransposer() *shared.SignalsAPITransposer {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPITransposerEntity
+	return o.SignalsAPITransposer
 }

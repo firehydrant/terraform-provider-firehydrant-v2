@@ -26,7 +26,7 @@ type ListIncidentStatusPagesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List status pages that are attached to an incident
-	IncidentsStatusPageEntityPaginated *shared.IncidentsStatusPageEntityPaginated
+	IncidentsStatusPagePaginated *shared.IncidentsStatusPagePaginated
 }
 
 func (o *ListIncidentStatusPagesResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListIncidentStatusPagesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentStatusPagesResponse) GetIncidentsStatusPageEntityPaginated() *shared.IncidentsStatusPageEntityPaginated {
+func (o *ListIncidentStatusPagesResponse) GetIncidentsStatusPagePaginated() *shared.IncidentsStatusPagePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsStatusPageEntityPaginated
+	return o.IncidentsStatusPagePaginated
 }

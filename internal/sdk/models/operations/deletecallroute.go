@@ -26,7 +26,7 @@ type DeleteCallRouteResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a call route by ID
-	SignalsAPICallRouteEntity *shared.SignalsAPICallRouteEntity
+	SignalsAPICallRoute *shared.SignalsAPICallRoute
 }
 
 func (o *DeleteCallRouteResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteCallRouteResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteCallRouteResponse) GetSignalsAPICallRouteEntity() *shared.SignalsAPICallRouteEntity {
+func (o *DeleteCallRouteResponse) GetSignalsAPICallRoute() *shared.SignalsAPICallRoute {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPICallRouteEntity
+	return o.SignalsAPICallRoute
 }

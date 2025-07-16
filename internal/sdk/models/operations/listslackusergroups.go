@@ -15,7 +15,7 @@ type ListSlackUsergroupsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists all Slack user groups
-	IntegrationsSlackUsergroupEntity *shared.IntegrationsSlackUsergroupEntity
+	IntegrationsSlackUsergroup *shared.IntegrationsSlackUsergroup
 }
 
 func (o *ListSlackUsergroupsResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *ListSlackUsergroupsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSlackUsergroupsResponse) GetIntegrationsSlackUsergroupEntity() *shared.IntegrationsSlackUsergroupEntity {
+func (o *ListSlackUsergroupsResponse) GetIntegrationsSlackUsergroup() *shared.IntegrationsSlackUsergroup {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsSlackUsergroupEntity
+	return o.IntegrationsSlackUsergroup
 }

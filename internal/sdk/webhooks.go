@@ -140,12 +140,12 @@ func (s *Webhooks) ListWebhooks(ctx context.Context, request operations.ListWebh
 				return nil, err
 			}
 
-			var out shared.WebhooksEntitiesWebhookEntity
+			var out shared.Webhooks
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.WebhooksEntitiesWebhookEntity = &out
+			res.Webhooks = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -277,12 +277,12 @@ func (s *Webhooks) CreateWebhook(ctx context.Context, request shared.CreateWebho
 				return nil, err
 			}
 
-			var out shared.WebhooksEntitiesWebhookEntity
+			var out shared.Webhooks
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.WebhooksEntitiesWebhookEntity = &out
+			res.Webhooks = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -517,12 +517,12 @@ func (s *Webhooks) GetWebhook(ctx context.Context, request operations.GetWebhook
 				return nil, err
 			}
 
-			var out shared.WebhooksEntitiesWebhookEntity
+			var out shared.Webhooks
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.WebhooksEntitiesWebhookEntity = &out
+			res.Webhooks = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -654,12 +654,12 @@ func (s *Webhooks) UpdateWebhook(ctx context.Context, request operations.UpdateW
 				return nil, err
 			}
 
-			var out shared.WebhooksEntitiesWebhookEntity
+			var out shared.Webhooks
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.WebhooksEntitiesWebhookEntity = &out
+			res.Webhooks = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

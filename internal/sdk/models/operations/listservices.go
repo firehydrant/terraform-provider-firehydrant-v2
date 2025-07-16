@@ -142,7 +142,7 @@ type ListServicesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the services that have been added to the organization.
-	ServiceEntityPaginated *shared.ServiceEntityPaginated
+	ServicePaginated *shared.ServicePaginated
 }
 
 func (o *ListServicesResponse) GetContentType() string {
@@ -166,9 +166,9 @@ func (o *ListServicesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListServicesResponse) GetServiceEntityPaginated() *shared.ServiceEntityPaginated {
+func (o *ListServicesResponse) GetServicePaginated() *shared.ServicePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceEntityPaginated
+	return o.ServicePaginated
 }

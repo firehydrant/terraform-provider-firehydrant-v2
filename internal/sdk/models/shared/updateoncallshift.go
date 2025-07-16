@@ -2,16 +2,32 @@
 
 package shared
 
+import (
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/internal/utils"
+	"time"
+)
+
 // UpdateOnCallShift - Update a Signals on-call shift by ID
 type UpdateOnCallShift struct {
 	// A description of why coverage is needed for this shift. If the shift is re-assigned, this will automatically be cleared unless provided again.
 	CoverageRequest *string `json:"coverage_request,omitempty"`
 	// The end time of the shift in ISO8601 format.
-	EndTime *string `json:"end_time,omitempty"`
+	EndTime *time.Time `json:"end_time,omitempty"`
 	// The start time of the shift in ISO8601 format.
-	StartTime *string `json:"start_time,omitempty"`
+	StartTime *time.Time `json:"start_time,omitempty"`
 	// The ID of the user who is on-call for the shift. If not provided, the shift will be unassigned.
 	UserID *string `json:"user_id,omitempty"`
+}
+
+func (u UpdateOnCallShift) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdateOnCallShift) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, false); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *UpdateOnCallShift) GetCoverageRequest() *string {
@@ -21,14 +37,14 @@ func (o *UpdateOnCallShift) GetCoverageRequest() *string {
 	return o.CoverageRequest
 }
 
-func (o *UpdateOnCallShift) GetEndTime() *string {
+func (o *UpdateOnCallShift) GetEndTime() *time.Time {
 	if o == nil {
 		return nil
 	}
 	return o.EndTime
 }
 
-func (o *UpdateOnCallShift) GetStartTime() *string {
+func (o *UpdateOnCallShift) GetStartTime() *time.Time {
 	if o == nil {
 		return nil
 	}

@@ -53,7 +53,7 @@ type UpdateAuthedProviderResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a single authed provider
-	PublicAPIV1IntegrationsAuthedProviderEntity *shared.PublicAPIV1IntegrationsAuthedProviderEntity
+	PublicAPIV1IntegrationsAuthedProvider *shared.PublicAPIV1IntegrationsAuthedProvider
 }
 
 func (o *UpdateAuthedProviderResponse) GetContentType() string {
@@ -77,9 +77,9 @@ func (o *UpdateAuthedProviderResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateAuthedProviderResponse) GetPublicAPIV1IntegrationsAuthedProviderEntity() *shared.PublicAPIV1IntegrationsAuthedProviderEntity {
+func (o *UpdateAuthedProviderResponse) GetPublicAPIV1IntegrationsAuthedProvider() *shared.PublicAPIV1IntegrationsAuthedProvider {
 	if o == nil {
 		return nil
 	}
-	return o.PublicAPIV1IntegrationsAuthedProviderEntity
+	return o.PublicAPIV1IntegrationsAuthedProvider
 }

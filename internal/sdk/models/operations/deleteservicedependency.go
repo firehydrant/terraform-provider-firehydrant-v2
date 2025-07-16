@@ -26,7 +26,7 @@ type DeleteServiceDependencyResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Deletes a single service dependency
-	ServiceDependencyEntity *shared.ServiceDependencyEntity
+	ServiceDependency *shared.ServiceDependency
 }
 
 func (o *DeleteServiceDependencyResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteServiceDependencyResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteServiceDependencyResponse) GetServiceDependencyEntity() *shared.ServiceDependencyEntity {
+func (o *DeleteServiceDependencyResponse) GetServiceDependency() *shared.ServiceDependency {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceDependencyEntity
+	return o.ServiceDependency
 }

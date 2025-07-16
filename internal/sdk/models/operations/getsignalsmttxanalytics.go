@@ -130,7 +130,7 @@ type GetSignalsMttxAnalyticsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get mean-time-to-acknowledged (MTTA) and mean-time-to-resolved (MTTR) metrics for Signals alerts
-	SignalsAPIAnalyticsMttxMetricsEntity *shared.SignalsAPIAnalyticsMttxMetricsEntity
+	SignalsAPIAnalyticsMttxMetrics *shared.SignalsAPIAnalyticsMttxMetrics
 }
 
 func (o *GetSignalsMttxAnalyticsResponse) GetContentType() string {
@@ -154,9 +154,9 @@ func (o *GetSignalsMttxAnalyticsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSignalsMttxAnalyticsResponse) GetSignalsAPIAnalyticsMttxMetricsEntity() *shared.SignalsAPIAnalyticsMttxMetricsEntity {
+func (o *GetSignalsMttxAnalyticsResponse) GetSignalsAPIAnalyticsMttxMetrics() *shared.SignalsAPIAnalyticsMttxMetrics {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIAnalyticsMttxMetricsEntity
+	return o.SignalsAPIAnalyticsMttxMetrics
 }

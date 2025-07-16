@@ -26,7 +26,7 @@ type DeleteTicketingPriorityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a single ticketing priority by ID
-	TicketingPriorityEntity *shared.TicketingPriorityEntity
+	TicketingPriority *shared.TicketingPriority
 }
 
 func (o *DeleteTicketingPriorityResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteTicketingPriorityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteTicketingPriorityResponse) GetTicketingPriorityEntity() *shared.TicketingPriorityEntity {
+func (o *DeleteTicketingPriorityResponse) GetTicketingPriority() *shared.TicketingPriority {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingPriorityEntity
+	return o.TicketingPriority
 }

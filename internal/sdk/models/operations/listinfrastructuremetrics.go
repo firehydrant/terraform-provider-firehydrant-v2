@@ -66,7 +66,7 @@ type ListInfrastructureMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Return metrics for a specific component
-	MetricsInfrastructureMetricsEntity *shared.MetricsInfrastructureMetricsEntity
+	MetricsInfrastructureMetrics *shared.MetricsInfrastructureMetrics
 }
 
 func (o *ListInfrastructureMetricsResponse) GetContentType() string {
@@ -90,9 +90,9 @@ func (o *ListInfrastructureMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListInfrastructureMetricsResponse) GetMetricsInfrastructureMetricsEntity() *shared.MetricsInfrastructureMetricsEntity {
+func (o *ListInfrastructureMetricsResponse) GetMetricsInfrastructureMetrics() *shared.MetricsInfrastructureMetrics {
 	if o == nil {
 		return nil
 	}
-	return o.MetricsInfrastructureMetricsEntity
+	return o.MetricsInfrastructureMetrics
 }

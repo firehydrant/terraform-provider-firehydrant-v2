@@ -26,7 +26,7 @@ type DeleteTeamResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Archives an team which will hide it from lists and metrics
-	TeamEntity *shared.TeamEntity
+	Team *shared.Team
 }
 
 func (o *DeleteTeamResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteTeamResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteTeamResponse) GetTeamEntity() *shared.TeamEntity {
+func (o *DeleteTeamResponse) GetTeam() *shared.Team {
 	if o == nil {
 		return nil
 	}
-	return o.TeamEntity
+	return o.Team
 }

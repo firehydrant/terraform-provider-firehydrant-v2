@@ -42,7 +42,7 @@ type UpdateTeamSignalRuleResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a Signals rule by ID
-	SignalsAPIRuleEntity *shared.SignalsAPIRuleEntity
+	SignalsAPIRule *shared.SignalsAPIRule
 }
 
 func (o *UpdateTeamSignalRuleResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *UpdateTeamSignalRuleResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateTeamSignalRuleResponse) GetSignalsAPIRuleEntity() *shared.SignalsAPIRuleEntity {
+func (o *UpdateTeamSignalRuleResponse) GetSignalsAPIRule() *shared.SignalsAPIRule {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIRuleEntity
+	return o.SignalsAPIRule
 }

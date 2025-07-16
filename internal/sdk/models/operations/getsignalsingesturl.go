@@ -54,7 +54,7 @@ type GetSignalsIngestURLResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve the url for ingesting signals for your organization
-	SignalsAPIIngestKeyEntity *shared.SignalsAPIIngestKeyEntity
+	SignalsAPIIngestKey *shared.SignalsAPIIngestKey
 }
 
 func (o *GetSignalsIngestURLResponse) GetContentType() string {
@@ -78,9 +78,9 @@ func (o *GetSignalsIngestURLResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSignalsIngestURLResponse) GetSignalsAPIIngestKeyEntity() *shared.SignalsAPIIngestKeyEntity {
+func (o *GetSignalsIngestURLResponse) GetSignalsAPIIngestKey() *shared.SignalsAPIIngestKey {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIIngestKeyEntity
+	return o.SignalsAPIIngestKey
 }

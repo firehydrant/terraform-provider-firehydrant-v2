@@ -43,7 +43,7 @@ type ListSchedulesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all known schedules in FireHydrant as pulled from external sources
-	ScheduleEntityPaginated *shared.ScheduleEntityPaginated
+	SchedulePaginated *shared.SchedulePaginated
 }
 
 func (o *ListSchedulesResponse) GetContentType() string {
@@ -67,9 +67,9 @@ func (o *ListSchedulesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSchedulesResponse) GetScheduleEntityPaginated() *shared.ScheduleEntityPaginated {
+func (o *ListSchedulesResponse) GetSchedulePaginated() *shared.SchedulePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.ScheduleEntityPaginated
+	return o.SchedulePaginated
 }

@@ -34,9 +34,9 @@ type PublishPostMortemReportResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Marks an incident retrospective as published and emails all of the participants in the report the summary
-	PostMortemsPostMortemReportEntity *shared.PostMortemsPostMortemReportEntity
+	PostMortemsPostMortemReport *shared.PostMortemsPostMortemReport
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *PublishPostMortemReportResponse) GetContentType() string {
@@ -60,16 +60,16 @@ func (o *PublishPostMortemReportResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *PublishPostMortemReportResponse) GetPostMortemsPostMortemReportEntity() *shared.PostMortemsPostMortemReportEntity {
+func (o *PublishPostMortemReportResponse) GetPostMortemsPostMortemReport() *shared.PostMortemsPostMortemReport {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsPostMortemReportEntity
+	return o.PostMortemsPostMortemReport
 }
 
-func (o *PublishPostMortemReportResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *PublishPostMortemReportResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

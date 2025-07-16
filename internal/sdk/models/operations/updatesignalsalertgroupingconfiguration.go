@@ -34,7 +34,7 @@ type UpdateSignalsAlertGroupingConfigurationResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a Signals alert grouping rule for the organization.
-	SignalsAPIGroupingEntity *shared.SignalsAPIGroupingEntity
+	SignalsAPIGrouping *shared.SignalsAPIGrouping
 }
 
 func (o *UpdateSignalsAlertGroupingConfigurationResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateSignalsAlertGroupingConfigurationResponse) GetRawResponse() *http
 	return o.RawResponse
 }
 
-func (o *UpdateSignalsAlertGroupingConfigurationResponse) GetSignalsAPIGroupingEntity() *shared.SignalsAPIGroupingEntity {
+func (o *UpdateSignalsAlertGroupingConfigurationResponse) GetSignalsAPIGrouping() *shared.SignalsAPIGrouping {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIGroupingEntity
+	return o.SignalsAPIGrouping
 }

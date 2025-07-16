@@ -140,12 +140,12 @@ func (s *Communication) ListStatusUpdateTemplates(ctx context.Context, request o
 				return nil, err
 			}
 
-			var out shared.StatusUpdateTemplateEntity
+			var out shared.StatusUpdateTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.StatusUpdateTemplateEntity = &out
+			res.StatusUpdateTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -277,12 +277,12 @@ func (s *Communication) CreateStatusUpdateTemplate(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.StatusUpdateTemplateEntity
+			var out shared.StatusUpdateTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.StatusUpdateTemplateEntity = &out
+			res.StatusUpdateTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -407,12 +407,12 @@ func (s *Communication) DeleteStatusUpdateTemplate(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.StatusUpdateTemplateEntity
+			var out shared.StatusUpdateTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.StatusUpdateTemplateEntity = &out
+			res.StatusUpdateTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -537,12 +537,12 @@ func (s *Communication) GetStatusUpdateTemplate(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.StatusUpdateTemplateEntity
+			var out shared.StatusUpdateTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.StatusUpdateTemplateEntity = &out
+			res.StatusUpdateTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -674,12 +674,12 @@ func (s *Communication) UpdateStatusUpdateTemplate(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.StatusUpdateTemplateEntity
+			var out shared.StatusUpdateTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.StatusUpdateTemplateEntity = &out
+			res.StatusUpdateTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

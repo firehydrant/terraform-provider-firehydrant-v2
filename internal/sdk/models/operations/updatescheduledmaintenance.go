@@ -34,7 +34,7 @@ type UpdateScheduledMaintenanceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Change the conditions of a scheduled maintenance event, including updating any status page announcements of changes.
-	ScheduledMaintenanceEntity *shared.ScheduledMaintenanceEntity
+	ScheduledMaintenance *shared.ScheduledMaintenance
 }
 
 func (o *UpdateScheduledMaintenanceResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateScheduledMaintenanceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateScheduledMaintenanceResponse) GetScheduledMaintenanceEntity() *shared.ScheduledMaintenanceEntity {
+func (o *UpdateScheduledMaintenanceResponse) GetScheduledMaintenance() *shared.ScheduledMaintenance {
 	if o == nil {
 		return nil
 	}
-	return o.ScheduledMaintenanceEntity
+	return o.ScheduledMaintenance
 }

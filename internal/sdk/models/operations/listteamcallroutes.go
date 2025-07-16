@@ -26,7 +26,7 @@ type ListTeamCallRoutesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List call routes for a team
-	SignalsAPICallRouteEntityPaginated *shared.SignalsAPICallRouteEntityPaginated
+	SignalsAPICallRoutePaginated *shared.SignalsAPICallRoutePaginated
 }
 
 func (o *ListTeamCallRoutesResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListTeamCallRoutesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListTeamCallRoutesResponse) GetSignalsAPICallRouteEntityPaginated() *shared.SignalsAPICallRouteEntityPaginated {
+func (o *ListTeamCallRoutesResponse) GetSignalsAPICallRoutePaginated() *shared.SignalsAPICallRoutePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPICallRouteEntityPaginated
+	return o.SignalsAPICallRoutePaginated
 }

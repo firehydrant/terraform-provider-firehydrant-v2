@@ -34,7 +34,7 @@ type CreateIncidentRetrospectiveResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new retrospective for an incident
-	IncidentsRetrospectiveEntity *shared.IncidentsRetrospectiveEntity
+	IncidentsRetrospective *shared.IncidentsRetrospective
 }
 
 func (o *CreateIncidentRetrospectiveResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateIncidentRetrospectiveResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateIncidentRetrospectiveResponse) GetIncidentsRetrospectiveEntity() *shared.IncidentsRetrospectiveEntity {
+func (o *CreateIncidentRetrospectiveResponse) GetIncidentsRetrospective() *shared.IncidentsRetrospective {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRetrospectiveEntity
+	return o.IncidentsRetrospective
 }

@@ -44,7 +44,7 @@ type GetConferenceBridgeTranslationResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve the translations for a specific conference bridge
-	IncidentsConferenceBridgeEntity *shared.IncidentsConferenceBridgeEntity
+	IncidentsConferenceBridge *shared.IncidentsConferenceBridge
 }
 
 func (o *GetConferenceBridgeTranslationResponse) GetContentType() string {
@@ -68,9 +68,9 @@ func (o *GetConferenceBridgeTranslationResponse) GetRawResponse() *http.Response
 	return o.RawResponse
 }
 
-func (o *GetConferenceBridgeTranslationResponse) GetIncidentsConferenceBridgeEntity() *shared.IncidentsConferenceBridgeEntity {
+func (o *GetConferenceBridgeTranslationResponse) GetIncidentsConferenceBridge() *shared.IncidentsConferenceBridge {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsConferenceBridgeEntity
+	return o.IncidentsConferenceBridge
 }

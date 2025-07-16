@@ -34,7 +34,7 @@ type CreateIncidentTaskResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a task
-	TaskEntity *shared.TaskEntity
+	Task *shared.Task
 }
 
 func (o *CreateIncidentTaskResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateIncidentTaskResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateIncidentTaskResponse) GetTaskEntity() *shared.TaskEntity {
+func (o *CreateIncidentTaskResponse) GetTask() *shared.Task {
 	if o == nil {
 		return nil
 	}
-	return o.TaskEntity
+	return o.Task
 }

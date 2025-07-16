@@ -43,7 +43,7 @@ type ListChecklistTemplatesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the checklist templates that have been added to the organization
-	ChecklistTemplateEntityPaginated *shared.ChecklistTemplateEntityPaginated
+	ChecklistTemplatePaginated *shared.ChecklistTemplatePaginated
 }
 
 func (o *ListChecklistTemplatesResponse) GetContentType() string {
@@ -67,9 +67,9 @@ func (o *ListChecklistTemplatesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListChecklistTemplatesResponse) GetChecklistTemplateEntityPaginated() *shared.ChecklistTemplateEntityPaginated {
+func (o *ListChecklistTemplatesResponse) GetChecklistTemplatePaginated() *shared.ChecklistTemplatePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.ChecklistTemplateEntityPaginated
+	return o.ChecklistTemplatePaginated
 }

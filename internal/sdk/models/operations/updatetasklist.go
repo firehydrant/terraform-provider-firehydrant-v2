@@ -34,7 +34,7 @@ type UpdateTaskListResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Updates a task list's attributes and task list items
-	TaskListEntity *shared.TaskListEntity
+	TaskList *shared.TaskList
 }
 
 func (o *UpdateTaskListResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateTaskListResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateTaskListResponse) GetTaskListEntity() *shared.TaskListEntity {
+func (o *UpdateTaskListResponse) GetTaskList() *shared.TaskList {
 	if o == nil {
 		return nil
 	}
-	return o.TaskListEntity
+	return o.TaskList
 }

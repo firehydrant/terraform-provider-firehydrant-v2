@@ -50,7 +50,7 @@ type ListIncidentAttachmentsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List attachments for an incident
-	AttachmentsTypedAttachmentEntityPaginated *shared.AttachmentsTypedAttachmentEntityPaginated
+	AttachmentsTypedAttachmentPaginated *shared.AttachmentsTypedAttachmentPaginated
 }
 
 func (o *ListIncidentAttachmentsResponse) GetContentType() string {
@@ -74,9 +74,9 @@ func (o *ListIncidentAttachmentsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentAttachmentsResponse) GetAttachmentsTypedAttachmentEntityPaginated() *shared.AttachmentsTypedAttachmentEntityPaginated {
+func (o *ListIncidentAttachmentsResponse) GetAttachmentsTypedAttachmentPaginated() *shared.AttachmentsTypedAttachmentPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.AttachmentsTypedAttachmentEntityPaginated
+	return o.AttachmentsTypedAttachmentPaginated
 }

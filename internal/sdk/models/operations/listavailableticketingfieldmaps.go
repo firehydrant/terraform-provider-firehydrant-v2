@@ -26,7 +26,7 @@ type ListAvailableTicketingFieldMapsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Returns metadata for the fields that are available for field mapping.
-	TicketingFieldMapsMappableFieldEntity *shared.TicketingFieldMapsMappableFieldEntity
+	TicketingFieldMapsMappableField *shared.TicketingFieldMapsMappableField
 }
 
 func (o *ListAvailableTicketingFieldMapsResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListAvailableTicketingFieldMapsResponse) GetRawResponse() *http.Respons
 	return o.RawResponse
 }
 
-func (o *ListAvailableTicketingFieldMapsResponse) GetTicketingFieldMapsMappableFieldEntity() *shared.TicketingFieldMapsMappableFieldEntity {
+func (o *ListAvailableTicketingFieldMapsResponse) GetTicketingFieldMapsMappableField() *shared.TicketingFieldMapsMappableField {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingFieldMapsMappableFieldEntity
+	return o.TicketingFieldMapsMappableField
 }

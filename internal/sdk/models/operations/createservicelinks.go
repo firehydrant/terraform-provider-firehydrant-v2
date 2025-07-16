@@ -15,7 +15,7 @@ type CreateServiceLinksResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Creates a service with the appropriate integration for each external service ID passed
-	ServiceLinkEntities []shared.ServiceLinkEntity
+	ServiceLinks []shared.ServiceLink
 }
 
 func (o *CreateServiceLinksResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateServiceLinksResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateServiceLinksResponse) GetServiceLinkEntities() []shared.ServiceLinkEntity {
+func (o *CreateServiceLinksResponse) GetServiceLinks() []shared.ServiceLink {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceLinkEntities
+	return o.ServiceLinks
 }

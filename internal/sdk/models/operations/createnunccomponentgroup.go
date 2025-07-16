@@ -34,7 +34,7 @@ type CreateNuncComponentGroupResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Add a component group to be displayed on a FireHydrant status page
-	NuncConnectionEntity *shared.NuncConnectionEntity
+	NuncConnection *shared.NuncConnection
 }
 
 func (o *CreateNuncComponentGroupResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateNuncComponentGroupResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateNuncComponentGroupResponse) GetNuncConnectionEntity() *shared.NuncConnectionEntity {
+func (o *CreateNuncComponentGroupResponse) GetNuncConnection() *shared.NuncConnection {
 	if o == nil {
 		return nil
 	}
-	return o.NuncConnectionEntity
+	return o.NuncConnection
 }

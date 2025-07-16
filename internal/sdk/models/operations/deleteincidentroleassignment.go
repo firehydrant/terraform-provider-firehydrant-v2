@@ -34,7 +34,7 @@ type DeleteIncidentRoleAssignmentResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Unassign a role from a user
-	IncidentsRoleAssignmentEntity *shared.IncidentsRoleAssignmentEntity
+	IncidentsRoleAssignment *shared.IncidentsRoleAssignment
 }
 
 func (o *DeleteIncidentRoleAssignmentResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *DeleteIncidentRoleAssignmentResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteIncidentRoleAssignmentResponse) GetIncidentsRoleAssignmentEntity() *shared.IncidentsRoleAssignmentEntity {
+func (o *DeleteIncidentRoleAssignmentResponse) GetIncidentsRoleAssignment() *shared.IncidentsRoleAssignment {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRoleAssignmentEntity
+	return o.IncidentsRoleAssignment
 }

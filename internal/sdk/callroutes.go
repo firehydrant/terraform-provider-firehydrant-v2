@@ -140,12 +140,12 @@ func (s *CallRoutes) ListCallRoutes(ctx context.Context, request operations.List
 				return nil, err
 			}
 
-			var out shared.SignalsAPICallRouteEntityPaginated
+			var out shared.SignalsAPICallRoutePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPICallRouteEntityPaginated = &out
+			res.SignalsAPICallRoutePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -270,12 +270,12 @@ func (s *CallRoutes) DeleteCallRoute(ctx context.Context, request operations.Del
 				return nil, err
 			}
 
-			var out shared.SignalsAPICallRouteEntity
+			var out shared.SignalsAPICallRoute
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPICallRouteEntity = &out
+			res.SignalsAPICallRoute = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -400,12 +400,12 @@ func (s *CallRoutes) GetCallRoute(ctx context.Context, request operations.GetCal
 				return nil, err
 			}
 
-			var out shared.SignalsAPICallRouteEntity
+			var out shared.SignalsAPICallRoute
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPICallRouteEntity = &out
+			res.SignalsAPICallRoute = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -537,12 +537,12 @@ func (s *CallRoutes) UpdateCallRoute(ctx context.Context, request operations.Upd
 				return nil, err
 			}
 
-			var out shared.SignalsAPICallRouteEntity
+			var out shared.SignalsAPICallRoute
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPICallRouteEntity = &out
+			res.SignalsAPICallRoute = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -667,12 +667,12 @@ func (s *CallRoutes) ListTeamCallRoutes(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.SignalsAPICallRouteEntityPaginated
+			var out shared.SignalsAPICallRoutePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPICallRouteEntityPaginated = &out
+			res.SignalsAPICallRoutePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -804,12 +804,12 @@ func (s *CallRoutes) CreateTeamCallRoute(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.SignalsAPICallRouteEntity
+			var out shared.SignalsAPICallRoute
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPICallRouteEntity = &out
+			res.SignalsAPICallRoute = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

@@ -34,7 +34,7 @@ type UpdateAwsConnectionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update the AWS connection with the provided data.
-	IntegrationsAwsConnectionEntity *shared.IntegrationsAwsConnectionEntity
+	IntegrationsAwsConnection *shared.IntegrationsAwsConnection
 }
 
 func (o *UpdateAwsConnectionResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateAwsConnectionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateAwsConnectionResponse) GetIntegrationsAwsConnectionEntity() *shared.IntegrationsAwsConnectionEntity {
+func (o *UpdateAwsConnectionResponse) GetIntegrationsAwsConnection() *shared.IntegrationsAwsConnection {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsAwsConnectionEntity
+	return o.IntegrationsAwsConnection
 }

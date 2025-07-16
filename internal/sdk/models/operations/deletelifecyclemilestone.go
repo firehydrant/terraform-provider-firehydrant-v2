@@ -26,7 +26,7 @@ type DeleteLifecycleMilestoneResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a milestone
-	LifecyclesPhaseEntity *shared.LifecyclesPhaseEntity
+	LifecyclesPhase *shared.LifecyclesPhase
 }
 
 func (o *DeleteLifecycleMilestoneResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteLifecycleMilestoneResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteLifecycleMilestoneResponse) GetLifecyclesPhaseEntity() *shared.LifecyclesPhaseEntity {
+func (o *DeleteLifecycleMilestoneResponse) GetLifecyclesPhase() *shared.LifecyclesPhase {
 	if o == nil {
 		return nil
 	}
-	return o.LifecyclesPhaseEntity
+	return o.LifecyclesPhase
 }

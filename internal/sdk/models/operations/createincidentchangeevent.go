@@ -34,9 +34,9 @@ type CreateIncidentChangeEventResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Add a related change to an incident. Changes added to an incident can be causes, fixes, or suspects. To remove a change from an incident, the type field should be set to dismissed.
-	IncidentsRelatedChangeEventEntity *shared.IncidentsRelatedChangeEventEntity
+	IncidentsRelatedChangeEvent *shared.IncidentsRelatedChangeEvent
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *CreateIncidentChangeEventResponse) GetContentType() string {
@@ -60,16 +60,16 @@ func (o *CreateIncidentChangeEventResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateIncidentChangeEventResponse) GetIncidentsRelatedChangeEventEntity() *shared.IncidentsRelatedChangeEventEntity {
+func (o *CreateIncidentChangeEventResponse) GetIncidentsRelatedChangeEvent() *shared.IncidentsRelatedChangeEvent {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRelatedChangeEventEntity
+	return o.IncidentsRelatedChangeEvent
 }
 
-func (o *CreateIncidentChangeEventResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *CreateIncidentChangeEventResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

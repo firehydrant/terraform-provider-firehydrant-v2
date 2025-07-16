@@ -34,7 +34,7 @@ type UpdateSeverityMatrixImpactResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a severity matrix impact
-	SeverityMatrixImpactEntity *shared.SeverityMatrixImpactEntity
+	SeverityMatrixImpact *shared.SeverityMatrixImpact
 }
 
 func (o *UpdateSeverityMatrixImpactResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateSeverityMatrixImpactResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateSeverityMatrixImpactResponse) GetSeverityMatrixImpactEntity() *shared.SeverityMatrixImpactEntity {
+func (o *UpdateSeverityMatrixImpactResponse) GetSeverityMatrixImpact() *shared.SeverityMatrixImpact {
 	if o == nil {
 		return nil
 	}
-	return o.SeverityMatrixImpactEntity
+	return o.SeverityMatrixImpact
 }

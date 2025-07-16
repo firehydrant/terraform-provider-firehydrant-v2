@@ -88,7 +88,7 @@ type ListFunctionalitiesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the functionalities that have been added to the organiation
-	FunctionalityEntityPaginated *shared.FunctionalityEntityPaginated
+	FunctionalityPaginated *shared.FunctionalityPaginated
 }
 
 func (o *ListFunctionalitiesResponse) GetContentType() string {
@@ -112,9 +112,9 @@ func (o *ListFunctionalitiesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListFunctionalitiesResponse) GetFunctionalityEntityPaginated() *shared.FunctionalityEntityPaginated {
+func (o *ListFunctionalitiesResponse) GetFunctionalityPaginated() *shared.FunctionalityPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.FunctionalityEntityPaginated
+	return o.FunctionalityPaginated
 }

@@ -65,7 +65,7 @@ type ListTranscriptEntriesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve the transcript for a specific incident
-	PublicAPIV1IncidentsTranscriptEntity *shared.PublicAPIV1IncidentsTranscriptEntity
+	PublicAPIV1IncidentsTranscript *shared.PublicAPIV1IncidentsTranscript
 }
 
 func (o *ListTranscriptEntriesResponse) GetContentType() string {
@@ -89,9 +89,9 @@ func (o *ListTranscriptEntriesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListTranscriptEntriesResponse) GetPublicAPIV1IncidentsTranscriptEntity() *shared.PublicAPIV1IncidentsTranscriptEntity {
+func (o *ListTranscriptEntriesResponse) GetPublicAPIV1IncidentsTranscript() *shared.PublicAPIV1IncidentsTranscript {
 	if o == nil {
 		return nil
 	}
-	return o.PublicAPIV1IncidentsTranscriptEntity
+	return o.PublicAPIV1IncidentsTranscript
 }

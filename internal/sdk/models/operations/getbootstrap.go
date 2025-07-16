@@ -15,7 +15,7 @@ type GetBootstrapResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get initial application configuration
-	PublicAPIV1BootstrapEntity *shared.PublicAPIV1BootstrapEntity
+	PublicAPIV1Bootstrap *shared.PublicAPIV1Bootstrap
 }
 
 func (o *GetBootstrapResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetBootstrapResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetBootstrapResponse) GetPublicAPIV1BootstrapEntity() *shared.PublicAPIV1BootstrapEntity {
+func (o *GetBootstrapResponse) GetPublicAPIV1Bootstrap() *shared.PublicAPIV1Bootstrap {
 	if o == nil {
 		return nil
 	}
-	return o.PublicAPIV1BootstrapEntity
+	return o.PublicAPIV1Bootstrap
 }

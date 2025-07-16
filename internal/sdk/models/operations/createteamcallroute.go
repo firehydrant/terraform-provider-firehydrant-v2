@@ -34,7 +34,7 @@ type CreateTeamCallRouteResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a call route for a team
-	SignalsAPICallRouteEntity *shared.SignalsAPICallRouteEntity
+	SignalsAPICallRoute *shared.SignalsAPICallRoute
 }
 
 func (o *CreateTeamCallRouteResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateTeamCallRouteResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateTeamCallRouteResponse) GetSignalsAPICallRouteEntity() *shared.SignalsAPICallRouteEntity {
+func (o *CreateTeamCallRouteResponse) GetSignalsAPICallRoute() *shared.SignalsAPICallRoute {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPICallRouteEntity
+	return o.SignalsAPICallRoute
 }

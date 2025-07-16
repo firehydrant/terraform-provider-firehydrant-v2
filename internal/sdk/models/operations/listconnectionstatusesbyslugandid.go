@@ -34,7 +34,7 @@ type ListConnectionStatusesBySlugAndIDResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a single integration connection status
-	IntegrationsConnectionStatusEntity *shared.IntegrationsConnectionStatusEntity
+	IntegrationsConnectionStatus *shared.IntegrationsConnectionStatus
 }
 
 func (o *ListConnectionStatusesBySlugAndIDResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListConnectionStatusesBySlugAndIDResponse) GetRawResponse() *http.Respo
 	return o.RawResponse
 }
 
-func (o *ListConnectionStatusesBySlugAndIDResponse) GetIntegrationsConnectionStatusEntity() *shared.IntegrationsConnectionStatusEntity {
+func (o *ListConnectionStatusesBySlugAndIDResponse) GetIntegrationsConnectionStatus() *shared.IntegrationsConnectionStatus {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsConnectionStatusEntity
+	return o.IntegrationsConnectionStatus
 }

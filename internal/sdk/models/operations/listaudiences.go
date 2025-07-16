@@ -39,7 +39,7 @@ type ListAudiencesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all audiences
-	AudiencesEntitiesAudienceEntity *shared.AudiencesEntitiesAudienceEntity
+	Audiences *shared.Audiences
 }
 
 func (o *ListAudiencesResponse) GetContentType() string {
@@ -63,9 +63,9 @@ func (o *ListAudiencesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListAudiencesResponse) GetAudiencesEntitiesAudienceEntity() *shared.AudiencesEntitiesAudienceEntity {
+func (o *ListAudiencesResponse) GetAudiences() *shared.Audiences {
 	if o == nil {
 		return nil
 	}
-	return o.AudiencesEntitiesAudienceEntity
+	return o.Audiences
 }

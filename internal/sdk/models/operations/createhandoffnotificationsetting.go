@@ -15,7 +15,7 @@ type CreateHandoffNotificationSettingResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a Signals notification policy.
-	SignalsAPINotificationPolicyItemEntity *shared.SignalsAPINotificationPolicyItemEntity
+	SignalsAPINotificationPolicyItem *shared.SignalsAPINotificationPolicyItem
 }
 
 func (o *CreateHandoffNotificationSettingResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateHandoffNotificationSettingResponse) GetRawResponse() *http.Respon
 	return o.RawResponse
 }
 
-func (o *CreateHandoffNotificationSettingResponse) GetSignalsAPINotificationPolicyItemEntity() *shared.SignalsAPINotificationPolicyItemEntity {
+func (o *CreateHandoffNotificationSettingResponse) GetSignalsAPINotificationPolicyItem() *shared.SignalsAPINotificationPolicyItem {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPINotificationPolicyItemEntity
+	return o.SignalsAPINotificationPolicyItem
 }

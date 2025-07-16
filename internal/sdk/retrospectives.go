@@ -140,12 +140,12 @@ func (s *Retrospectives) ListIncidentRetrospectives(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveEntityPaginated
+			var out shared.IncidentsRetrospectivePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveEntityPaginated = &out
+			res.IncidentsRetrospectivePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -277,12 +277,12 @@ func (s *Retrospectives) CreateIncidentRetrospective(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveEntity
+			var out shared.IncidentsRetrospective
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveEntity = &out
+			res.IncidentsRetrospective = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -414,12 +414,12 @@ func (s *Retrospectives) ExportIncidentRetrospectives(ctx context.Context, reque
 				return nil, err
 			}
 
-			var out shared.IncidentsExportRetrospectivesResultEntity
+			var out shared.IncidentsExportRetrospectivesResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsExportRetrospectivesResultEntity = &out
+			res.IncidentsExportRetrospectivesResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -551,12 +551,12 @@ func (s *Retrospectives) ShareIncidentRetrospectives(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.IncidentsShareRetrospectivesResultEntity
+			var out shared.IncidentsShareRetrospectivesResult
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsShareRetrospectivesResultEntity = &out
+			res.IncidentsShareRetrospectivesResult = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -688,12 +688,12 @@ func (s *Retrospectives) UpdateIncidentRetrospective(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveEntity
+			var out shared.IncidentsRetrospective
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveEntity = &out
+			res.IncidentsRetrospective = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -825,12 +825,12 @@ func (s *Retrospectives) CreateIncidentRetrospectiveField(ctx context.Context, r
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveFieldEntity
+			var out shared.IncidentsRetrospectiveField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveFieldEntity = &out
+			res.IncidentsRetrospectiveField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -955,12 +955,12 @@ func (s *Retrospectives) GetIncidentRetrospectiveField(ctx context.Context, requ
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveFieldEntity
+			var out shared.IncidentsRetrospectiveField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveFieldEntity = &out
+			res.IncidentsRetrospectiveField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1092,12 +1092,12 @@ func (s *Retrospectives) UpdateIncidentRetrospectiveField(ctx context.Context, r
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveFieldEntity
+			var out shared.IncidentsRetrospectiveField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveFieldEntity = &out
+			res.IncidentsRetrospectiveField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1226,12 +1226,12 @@ func (s *Retrospectives) DeleteIncidentRetrospectiveDynamicInput(ctx context.Con
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveFieldEntity
+			var out shared.IncidentsRetrospectiveField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveFieldEntity = &out
+			res.IncidentsRetrospectiveField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1356,12 +1356,12 @@ func (s *Retrospectives) CreateIncidentRetrospectiveDynamicInput(ctx context.Con
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveFieldEntity
+			var out shared.IncidentsRetrospectiveField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveFieldEntity = &out
+			res.IncidentsRetrospectiveField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1490,12 +1490,12 @@ func (s *Retrospectives) ListPostMortemQuestions(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.PostMortemsQuestionTypeEntityPaginated
+			var out shared.PostMortemsQuestionTypePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsQuestionTypeEntityPaginated = &out
+			res.PostMortemsQuestionTypePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1627,12 +1627,12 @@ func (s *Retrospectives) UpdatePostMortemQuestions(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.PostMortemsQuestionTypeEntity
+			var out shared.PostMortemsQuestionType
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsQuestionTypeEntity = &out
+			res.PostMortemsQuestionType = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1871,12 +1871,12 @@ func (s *Retrospectives) ListPostMortemReports(ctx context.Context, request oper
 				return nil, err
 			}
 
-			var out shared.PostMortemsPostMortemReportEntityPaginated
+			var out shared.PostMortemsPostMortemReportPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsPostMortemReportEntityPaginated = &out
+			res.PostMortemsPostMortemReportPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2008,12 +2008,12 @@ func (s *Retrospectives) CreatePostMortemReport(ctx context.Context, request sha
 				return nil, err
 			}
 
-			var out shared.PostMortemsPostMortemReportEntity
+			var out shared.PostMortemsPostMortemReport
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsPostMortemReportEntity = &out
+			res.PostMortemsPostMortemReport = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2138,12 +2138,12 @@ func (s *Retrospectives) GetPostMortemReport(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.PostMortemsPostMortemReportEntity
+			var out shared.PostMortemsPostMortemReport
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsPostMortemReportEntity = &out
+			res.PostMortemsPostMortemReport = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2275,12 +2275,12 @@ func (s *Retrospectives) UpdatePostMortemReport(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.PostMortemsPostMortemReportEntity
+			var out shared.PostMortemsPostMortemReport
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsPostMortemReportEntity = &out
+			res.PostMortemsPostMortemReport = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2412,12 +2412,12 @@ func (s *Retrospectives) UpdatePostMortemField(ctx context.Context, request oper
 				return nil, err
 			}
 
-			var out shared.PostMortemsSectionFieldEntity
+			var out shared.PostMortemsSectionField
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsSectionFieldEntity = &out
+			res.PostMortemsSectionField = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2549,12 +2549,12 @@ func (s *Retrospectives) PublishPostMortemReport(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.PostMortemsPostMortemReportEntity
+			var out shared.PostMortemsPostMortemReport
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsPostMortemReportEntity = &out
+			res.PostMortemsPostMortemReport = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2570,12 +2570,12 @@ func (s *Retrospectives) PublishPostMortemReport(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2704,12 +2704,12 @@ func (s *Retrospectives) ListPostMortemReasons(ctx context.Context, request oper
 				return nil, err
 			}
 
-			var out shared.PostMortemsReasonEntityPaginated
+			var out shared.PostMortemsReasonPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsReasonEntityPaginated = &out
+			res.PostMortemsReasonPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2841,12 +2841,12 @@ func (s *Retrospectives) CreatePostMortemReason(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.PostMortemsReasonEntity
+			var out shared.PostMortemsReason
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsReasonEntity = &out
+			res.PostMortemsReason = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2978,12 +2978,12 @@ func (s *Retrospectives) ReorderPostMortemReasons(ctx context.Context, request o
 				return nil, err
 			}
 
-			var out shared.PostMortemsReasonEntity
+			var out shared.PostMortemsReason
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsReasonEntity = &out
+			res.PostMortemsReason = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3108,12 +3108,12 @@ func (s *Retrospectives) DeletePostMortemReason(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.PostMortemsReasonEntity
+			var out shared.PostMortemsReason
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsReasonEntity = &out
+			res.PostMortemsReason = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3245,12 +3245,12 @@ func (s *Retrospectives) UpdatePostMortemReason(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.PostMortemsReasonEntity
+			var out shared.PostMortemsReason
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PostMortemsReasonEntity = &out
+			res.PostMortemsReason = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3379,12 +3379,12 @@ func (s *Retrospectives) ListRetrospectiveTemplates(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.RetrospectivesIndexTemplateEntityPaginated
+			var out shared.RetrospectivesIndexTemplatePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RetrospectivesIndexTemplateEntityPaginated = &out
+			res.RetrospectivesIndexTemplatePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3516,12 +3516,12 @@ func (s *Retrospectives) CreateRetrospectiveTemplate(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.RetrospectivesTemplateEntity
+			var out shared.RetrospectivesTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RetrospectivesTemplateEntity = &out
+			res.RetrospectivesTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3646,12 +3646,12 @@ func (s *Retrospectives) DeleteRetrospectiveTemplate(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.RetrospectivesTemplateEntity
+			var out shared.RetrospectivesTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RetrospectivesTemplateEntity = &out
+			res.RetrospectivesTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3776,12 +3776,12 @@ func (s *Retrospectives) GetRetrospectiveTemplate(ctx context.Context, request o
 				return nil, err
 			}
 
-			var out shared.RetrospectivesTemplateEntity
+			var out shared.RetrospectivesTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RetrospectivesTemplateEntity = &out
+			res.RetrospectivesTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3913,12 +3913,12 @@ func (s *Retrospectives) UpdateRetrospectiveTemplate(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.RetrospectivesTemplateEntity
+			var out shared.RetrospectivesTemplate
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.RetrospectivesTemplateEntity = &out
+			res.RetrospectivesTemplate = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4047,12 +4047,12 @@ func (s *Retrospectives) ListRetrospectives(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.IncidentsRetrospectiveEntityPaginated
+			var out shared.IncidentsRetrospectivePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRetrospectiveEntityPaginated = &out
+			res.IncidentsRetrospectivePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
