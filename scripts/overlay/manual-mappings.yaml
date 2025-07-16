@@ -64,6 +64,12 @@ operations:
     method: "delete"
     action: "ignore"
 
+  # The patch is causing generation issues
+  # Temporary workaround to avoid compilation errors
+  - path: "/v1/incidents/{incident_id}/retrospectives/{retrospective_id}/fields/{field_id}"
+    method: "patch"
+    action: "ignore"
+
   # Manual Entity Mappings
   # Signals Event Sources
   - path: "/v1/signals/event_sources/{transposer_slug}"
@@ -190,7 +196,7 @@ operations:
     method: "delete"
     action: "match"
     value: "team_id:team.id"
-    
+
 # Task Lists
   - path: "/v1/task_lists"
     method: "get"
