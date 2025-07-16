@@ -26,7 +26,7 @@ type ListFieldMapAvailableFieldsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get a description of the fields to which data can be mapped
-	FieldMappingMappableFieldEntity *shared.FieldMappingMappableFieldEntity
+	FieldMappingMappableField *shared.FieldMappingMappableField
 }
 
 func (o *ListFieldMapAvailableFieldsResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListFieldMapAvailableFieldsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListFieldMapAvailableFieldsResponse) GetFieldMappingMappableFieldEntity() *shared.FieldMappingMappableFieldEntity {
+func (o *ListFieldMapAvailableFieldsResponse) GetFieldMappingMappableField() *shared.FieldMappingMappableField {
 	if o == nil {
 		return nil
 	}
-	return o.FieldMappingMappableFieldEntity
+	return o.FieldMappingMappableField
 }

@@ -140,12 +140,12 @@ func (s *Teams) ListSchedules(ctx context.Context, request operations.ListSchedu
 				return nil, err
 			}
 
-			var out shared.ScheduleEntityPaginated
+			var out shared.SchedulePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ScheduleEntityPaginated = &out
+			res.SchedulePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -274,12 +274,12 @@ func (s *Teams) ListTeams(ctx context.Context, request operations.ListTeamsReque
 				return nil, err
 			}
 
-			var out shared.TeamEntityPaginated
+			var out shared.TeamPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TeamEntityPaginated = &out
+			res.TeamPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -411,12 +411,12 @@ func (s *Teams) CreateTeam(ctx context.Context, request shared.CreateTeam, opts 
 				return nil, err
 			}
 
-			var out shared.TeamEntity
+			var out shared.Team
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TeamEntity = &out
+			res.Team = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -541,12 +541,12 @@ func (s *Teams) DeleteTeam(ctx context.Context, request operations.DeleteTeamReq
 				return nil, err
 			}
 
-			var out shared.TeamEntity
+			var out shared.Team
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TeamEntity = &out
+			res.Team = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -675,12 +675,12 @@ func (s *Teams) GetTeam(ctx context.Context, request operations.GetTeamRequest, 
 				return nil, err
 			}
 
-			var out shared.TeamEntity
+			var out shared.Team
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TeamEntity = &out
+			res.Team = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -812,12 +812,12 @@ func (s *Teams) UpdateTeam(ctx context.Context, request operations.UpdateTeamReq
 				return nil, err
 			}
 
-			var out shared.TeamEntity
+			var out shared.Team
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TeamEntity = &out
+			res.Team = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

@@ -35,7 +35,7 @@ type DeleteEmailSubscriberResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Unsubscribes one or more status page subscribers.
-	NuncEmailSubscribersEntity *shared.NuncEmailSubscribersEntity
+	NuncEmailSubscribers *shared.NuncEmailSubscribers
 }
 
 func (o *DeleteEmailSubscriberResponse) GetContentType() string {
@@ -59,9 +59,9 @@ func (o *DeleteEmailSubscriberResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteEmailSubscriberResponse) GetNuncEmailSubscribersEntity() *shared.NuncEmailSubscribersEntity {
+func (o *DeleteEmailSubscriberResponse) GetNuncEmailSubscribers() *shared.NuncEmailSubscribers {
 	if o == nil {
 		return nil
 	}
-	return o.NuncEmailSubscribersEntity
+	return o.NuncEmailSubscribers
 }

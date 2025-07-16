@@ -44,7 +44,7 @@ type GenerateAudienceSummaryResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Generate a new audience-specific summary for an incident
-	AIEntitiesIncidentSummaryEntity *shared.AIEntitiesIncidentSummaryEntity
+	AIIncidentSummary *shared.AIIncidentSummary
 }
 
 func (o *GenerateAudienceSummaryResponse) GetContentType() string {
@@ -68,9 +68,9 @@ func (o *GenerateAudienceSummaryResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GenerateAudienceSummaryResponse) GetAIEntitiesIncidentSummaryEntity() *shared.AIEntitiesIncidentSummaryEntity {
+func (o *GenerateAudienceSummaryResponse) GetAIIncidentSummary() *shared.AIIncidentSummary {
 	if o == nil {
 		return nil
 	}
-	return o.AIEntitiesIncidentSummaryEntity
+	return o.AIIncidentSummary
 }

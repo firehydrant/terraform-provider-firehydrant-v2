@@ -27,7 +27,7 @@ type DeleteChecklistTemplateResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Archive a checklist template
-	ChecklistTemplateEntity *shared.ChecklistTemplateEntity
+	ChecklistTemplate *shared.ChecklistTemplate
 }
 
 func (o *DeleteChecklistTemplateResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *DeleteChecklistTemplateResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteChecklistTemplateResponse) GetChecklistTemplateEntity() *shared.ChecklistTemplateEntity {
+func (o *DeleteChecklistTemplateResponse) GetChecklistTemplate() *shared.ChecklistTemplate {
 	if o == nil {
 		return nil
 	}
-	return o.ChecklistTemplateEntity
+	return o.ChecklistTemplate
 }

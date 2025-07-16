@@ -329,7 +329,7 @@ type ListTicketFunnelMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Returns a report with task and follow up creation and completion data
-	MetricsTicketFunnelMetricsEntity *shared.MetricsTicketFunnelMetricsEntity
+	MetricsTicketFunnelMetrics *shared.MetricsTicketFunnelMetrics
 }
 
 func (o *ListTicketFunnelMetricsResponse) GetContentType() string {
@@ -353,9 +353,9 @@ func (o *ListTicketFunnelMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListTicketFunnelMetricsResponse) GetMetricsTicketFunnelMetricsEntity() *shared.MetricsTicketFunnelMetricsEntity {
+func (o *ListTicketFunnelMetricsResponse) GetMetricsTicketFunnelMetrics() *shared.MetricsTicketFunnelMetrics {
 	if o == nil {
 		return nil
 	}
-	return o.MetricsTicketFunnelMetricsEntity
+	return o.MetricsTicketFunnelMetrics
 }

@@ -26,7 +26,7 @@ type GetIncidentRoleResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a single incident role from its ID
-	IncidentRoleEntity *shared.IncidentRoleEntity
+	IncidentRole *shared.IncidentRole
 }
 
 func (o *GetIncidentRoleResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetIncidentRoleResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetIncidentRoleResponse) GetIncidentRoleEntity() *shared.IncidentRoleEntity {
+func (o *GetIncidentRoleResponse) GetIncidentRole() *shared.IncidentRole {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentRoleEntity
+	return o.IncidentRole
 }

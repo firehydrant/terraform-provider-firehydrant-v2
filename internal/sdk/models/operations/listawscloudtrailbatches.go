@@ -43,7 +43,7 @@ type ListAwsCloudtrailBatchesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists CloudTrail batches for the authenticated organization.
-	IntegrationsAwsCloudtrailBatchEntityPaginated *shared.IntegrationsAwsCloudtrailBatchEntityPaginated
+	IntegrationsAwsCloudtrailBatchPaginated *shared.IntegrationsAwsCloudtrailBatchPaginated
 }
 
 func (o *ListAwsCloudtrailBatchesResponse) GetContentType() string {
@@ -67,9 +67,9 @@ func (o *ListAwsCloudtrailBatchesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListAwsCloudtrailBatchesResponse) GetIntegrationsAwsCloudtrailBatchEntityPaginated() *shared.IntegrationsAwsCloudtrailBatchEntityPaginated {
+func (o *ListAwsCloudtrailBatchesResponse) GetIntegrationsAwsCloudtrailBatchPaginated() *shared.IntegrationsAwsCloudtrailBatchPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsAwsCloudtrailBatchEntityPaginated
+	return o.IntegrationsAwsCloudtrailBatchPaginated
 }

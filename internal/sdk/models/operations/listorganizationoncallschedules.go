@@ -27,7 +27,7 @@ type ListOrganizationOnCallSchedulesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all users who are currently on-call across the entire organization.
-	SignalsAPIOrganizationOnCallScheduleEntityPaginated *shared.SignalsAPIOrganizationOnCallScheduleEntityPaginated
+	SignalsAPIOrganizationOnCallSchedulePaginated *shared.SignalsAPIOrganizationOnCallSchedulePaginated
 }
 
 func (o *ListOrganizationOnCallSchedulesResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *ListOrganizationOnCallSchedulesResponse) GetRawResponse() *http.Respons
 	return o.RawResponse
 }
 
-func (o *ListOrganizationOnCallSchedulesResponse) GetSignalsAPIOrganizationOnCallScheduleEntityPaginated() *shared.SignalsAPIOrganizationOnCallScheduleEntityPaginated {
+func (o *ListOrganizationOnCallSchedulesResponse) GetSignalsAPIOrganizationOnCallSchedulePaginated() *shared.SignalsAPIOrganizationOnCallSchedulePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIOrganizationOnCallScheduleEntityPaginated
+	return o.SignalsAPIOrganizationOnCallSchedulePaginated
 }

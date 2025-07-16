@@ -61,7 +61,7 @@ type ListAwsConnectionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists the available and configured AWS integration connections for the authenticated organization.
-	IntegrationsAwsConnectionEntityPaginated *shared.IntegrationsAwsConnectionEntityPaginated
+	IntegrationsAwsConnectionPaginated *shared.IntegrationsAwsConnectionPaginated
 }
 
 func (o *ListAwsConnectionsResponse) GetContentType() string {
@@ -85,9 +85,9 @@ func (o *ListAwsConnectionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListAwsConnectionsResponse) GetIntegrationsAwsConnectionEntityPaginated() *shared.IntegrationsAwsConnectionEntityPaginated {
+func (o *ListAwsConnectionsResponse) GetIntegrationsAwsConnectionPaginated() *shared.IntegrationsAwsConnectionPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsAwsConnectionEntityPaginated
+	return o.IntegrationsAwsConnectionPaginated
 }

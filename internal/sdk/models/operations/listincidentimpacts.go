@@ -34,7 +34,7 @@ type ListIncidentImpactsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List impacted infrastructure on an incident by specifying type
-	IncidentImpactEntityPaginated *shared.IncidentImpactEntityPaginated
+	IncidentImpactPaginated *shared.IncidentImpactPaginated
 }
 
 func (o *ListIncidentImpactsResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListIncidentImpactsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentImpactsResponse) GetIncidentImpactEntityPaginated() *shared.IncidentImpactEntityPaginated {
+func (o *ListIncidentImpactsResponse) GetIncidentImpactPaginated() *shared.IncidentImpactPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentImpactEntityPaginated
+	return o.IncidentImpactPaginated
 }

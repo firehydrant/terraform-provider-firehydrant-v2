@@ -42,7 +42,7 @@ type ListPostMortemReasonsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all contributing factors to an incident
-	PostMortemsReasonEntityPaginated *shared.PostMortemsReasonEntityPaginated
+	PostMortemsReasonPaginated *shared.PostMortemsReasonPaginated
 }
 
 func (o *ListPostMortemReasonsResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *ListPostMortemReasonsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListPostMortemReasonsResponse) GetPostMortemsReasonEntityPaginated() *shared.PostMortemsReasonEntityPaginated {
+func (o *ListPostMortemReasonsResponse) GetPostMortemsReasonPaginated() *shared.PostMortemsReasonPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsReasonEntityPaginated
+	return o.PostMortemsReasonPaginated
 }

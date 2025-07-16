@@ -34,7 +34,7 @@ type GetTicketingFieldMapResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve field map for a ticketing project
-	TicketingProjectFieldMapEntity *shared.TicketingProjectFieldMapEntity
+	TicketingProjectFieldMap *shared.TicketingProjectFieldMap
 }
 
 func (o *GetTicketingFieldMapResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *GetTicketingFieldMapResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetTicketingFieldMapResponse) GetTicketingProjectFieldMapEntity() *shared.TicketingProjectFieldMapEntity {
+func (o *GetTicketingFieldMapResponse) GetTicketingProjectFieldMap() *shared.TicketingProjectFieldMap {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingProjectFieldMapEntity
+	return o.TicketingProjectFieldMap
 }

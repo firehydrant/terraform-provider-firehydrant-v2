@@ -26,7 +26,7 @@ type GetAlertResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a single alert
-	AlertsAlertEntity *shared.AlertsAlertEntity
+	Alerts *shared.Alerts
 }
 
 func (o *GetAlertResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetAlertResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetAlertResponse) GetAlertsAlertEntity() *shared.AlertsAlertEntity {
+func (o *GetAlertResponse) GetAlerts() *shared.Alerts {
 	if o == nil {
 		return nil
 	}
-	return o.AlertsAlertEntity
+	return o.Alerts
 }

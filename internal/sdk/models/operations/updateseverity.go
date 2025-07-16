@@ -34,7 +34,7 @@ type UpdateSeverityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a specific severity
-	SeverityEntity *shared.SeverityEntity
+	Severity *shared.Severity
 }
 
 func (o *UpdateSeverityResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateSeverityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateSeverityResponse) GetSeverityEntity() *shared.SeverityEntity {
+func (o *UpdateSeverityResponse) GetSeverity() *shared.Severity {
 	if o == nil {
 		return nil
 	}
-	return o.SeverityEntity
+	return o.Severity
 }

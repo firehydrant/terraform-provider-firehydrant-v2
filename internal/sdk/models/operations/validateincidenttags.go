@@ -15,7 +15,7 @@ type ValidateIncidentTagsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Validate the format of a list of tags
-	TagEntity *shared.TagEntity
+	Tag *shared.Tag
 }
 
 func (o *ValidateIncidentTagsResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *ValidateIncidentTagsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ValidateIncidentTagsResponse) GetTagEntity() *shared.TagEntity {
+func (o *ValidateIncidentTagsResponse) GetTag() *shared.Tag {
 	if o == nil {
 		return nil
 	}
-	return o.TagEntity
+	return o.Tag
 }

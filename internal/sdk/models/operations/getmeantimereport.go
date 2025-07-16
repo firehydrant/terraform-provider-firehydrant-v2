@@ -148,7 +148,7 @@ type GetMeanTimeReportResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Returns a report with time bucketed analytics data
-	ReportEntity *shared.ReportEntity
+	Report *shared.Report
 }
 
 func (o *GetMeanTimeReportResponse) GetContentType() string {
@@ -172,9 +172,9 @@ func (o *GetMeanTimeReportResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetMeanTimeReportResponse) GetReportEntity() *shared.ReportEntity {
+func (o *GetMeanTimeReportResponse) GetReport() *shared.Report {
 	if o == nil {
 		return nil
 	}
-	return o.ReportEntity
+	return o.Report
 }

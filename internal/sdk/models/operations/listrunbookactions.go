@@ -52,7 +52,7 @@ type ListRunbookActionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all runbook actions available through your connected integrations
-	RunbooksActionsEntityPaginated *shared.RunbooksActionsEntityPaginated
+	RunbooksActionsPaginated *shared.RunbooksActionsPaginated
 }
 
 func (o *ListRunbookActionsResponse) GetContentType() string {
@@ -76,9 +76,9 @@ func (o *ListRunbookActionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListRunbookActionsResponse) GetRunbooksActionsEntityPaginated() *shared.RunbooksActionsEntityPaginated {
+func (o *ListRunbookActionsResponse) GetRunbooksActionsPaginated() *shared.RunbooksActionsPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.RunbooksActionsEntityPaginated
+	return o.RunbooksActionsPaginated
 }

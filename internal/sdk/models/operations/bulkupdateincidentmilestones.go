@@ -40,7 +40,7 @@ type BulkUpdateIncidentMilestonesResponse struct {
 	// a 422 response will instead be returned. This includes milestones
 	// not explicitly submitted or updated in this request.
 	//
-	IncidentsMilestoneEntityPaginated *shared.IncidentsMilestoneEntityPaginated
+	IncidentsMilestonePaginated *shared.IncidentsMilestonePaginated
 }
 
 func (o *BulkUpdateIncidentMilestonesResponse) GetContentType() string {
@@ -64,9 +64,9 @@ func (o *BulkUpdateIncidentMilestonesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *BulkUpdateIncidentMilestonesResponse) GetIncidentsMilestoneEntityPaginated() *shared.IncidentsMilestoneEntityPaginated {
+func (o *BulkUpdateIncidentMilestonesResponse) GetIncidentsMilestonePaginated() *shared.IncidentsMilestonePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsMilestoneEntityPaginated
+	return o.IncidentsMilestonePaginated
 }

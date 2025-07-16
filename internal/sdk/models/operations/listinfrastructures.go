@@ -61,7 +61,7 @@ type ListInfrastructuresResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists functionality, service and environment objects
-	InfrastructureSearchEntity *shared.InfrastructureSearchEntity
+	InfrastructureSearch *shared.InfrastructureSearch
 }
 
 func (o *ListInfrastructuresResponse) GetContentType() string {
@@ -85,9 +85,9 @@ func (o *ListInfrastructuresResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListInfrastructuresResponse) GetInfrastructureSearchEntity() *shared.InfrastructureSearchEntity {
+func (o *ListInfrastructuresResponse) GetInfrastructureSearch() *shared.InfrastructureSearch {
 	if o == nil {
 		return nil
 	}
-	return o.InfrastructureSearchEntity
+	return o.InfrastructureSearch
 }

@@ -45,7 +45,7 @@ type UpdateTeamOnCallScheduleResponse struct {
 	// `name` and `description` will be ignored if the schedule has more than one rotation. If the schedule
 	// has only one rotation, you can continue to update that rotation using the rotation-specific parameters.
 	//
-	SignalsAPIOnCallScheduleEntity *shared.SignalsAPIOnCallScheduleEntity
+	SignalsAPIOnCallSchedule *shared.SignalsAPIOnCallSchedule
 }
 
 func (o *UpdateTeamOnCallScheduleResponse) GetContentType() string {
@@ -69,9 +69,9 @@ func (o *UpdateTeamOnCallScheduleResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateTeamOnCallScheduleResponse) GetSignalsAPIOnCallScheduleEntity() *shared.SignalsAPIOnCallScheduleEntity {
+func (o *UpdateTeamOnCallScheduleResponse) GetSignalsAPIOnCallSchedule() *shared.SignalsAPIOnCallSchedule {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIOnCallScheduleEntity
+	return o.SignalsAPIOnCallSchedule
 }

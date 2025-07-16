@@ -26,7 +26,7 @@ type GetServiceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves a single service by ID
-	ServiceEntity *shared.ServiceEntity
+	Service *shared.Service
 }
 
 func (o *GetServiceResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetServiceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetServiceResponse) GetServiceEntity() *shared.ServiceEntity {
+func (o *GetServiceResponse) GetService() *shared.Service {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceEntity
+	return o.Service
 }

@@ -26,7 +26,7 @@ type ListFunctionalityServicesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List services for a functionality
-	FunctionalityWithAllServicesEntity *shared.FunctionalityWithAllServicesEntity
+	FunctionalityWithAllServices *shared.FunctionalityWithAllServices
 }
 
 func (o *ListFunctionalityServicesResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListFunctionalityServicesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListFunctionalityServicesResponse) GetFunctionalityWithAllServicesEntity() *shared.FunctionalityWithAllServicesEntity {
+func (o *ListFunctionalityServicesResponse) GetFunctionalityWithAllServices() *shared.FunctionalityWithAllServices {
 	if o == nil {
 		return nil
 	}
-	return o.FunctionalityWithAllServicesEntity
+	return o.FunctionalityWithAllServices
 }

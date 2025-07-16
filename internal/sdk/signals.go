@@ -257,12 +257,12 @@ func (s *Signals) ListSignalsEmailTargets(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SignalsAPIEmailTargetEntityPaginated
+			var out shared.SignalsAPIEmailTargetPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIEmailTargetEntityPaginated = &out
+			res.SignalsAPIEmailTargetPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -394,12 +394,12 @@ func (s *Signals) CreateSignalsEmailTarget(ctx context.Context, request shared.C
 				return nil, err
 			}
 
-			var out shared.SignalsAPIEmailTargetEntity
+			var out shared.SignalsAPIEmailTarget
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIEmailTargetEntity = &out
+			res.SignalsAPIEmailTarget = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -634,12 +634,12 @@ func (s *Signals) GetSignalsEmailTarget(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.SignalsAPIEmailTargetEntity
+			var out shared.SignalsAPIEmailTarget
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIEmailTargetEntity = &out
+			res.SignalsAPIEmailTarget = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -771,12 +771,12 @@ func (s *Signals) UpdateSignalsEmailTarget(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.SignalsAPIEmailTargetEntity
+			var out shared.SignalsAPIEmailTarget
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIEmailTargetEntity = &out
+			res.SignalsAPIEmailTarget = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -905,12 +905,12 @@ func (s *Signals) ListSignalsEventSources(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SignalsAPITransposerListEntity
+			var out shared.SignalsAPITransposerList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPITransposerListEntity = &out
+			res.SignalsAPITransposerList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1042,12 +1042,12 @@ func (s *Signals) CreateSignalsEventSource(ctx context.Context, request shared.C
 				return nil, err
 			}
 
-			var out shared.SignalsAPITransposerEntity
+			var out shared.SignalsAPITransposer
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPITransposerEntity = &out
+			res.SignalsAPITransposer = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1172,12 +1172,12 @@ func (s *Signals) DeleteSignalsEventSource(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.SignalsAPITransposerEntity
+			var out shared.SignalsAPITransposer
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPITransposerEntity = &out
+			res.SignalsAPITransposer = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1302,12 +1302,12 @@ func (s *Signals) GetSignalsEventSource(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.SignalsAPITransposerEntity
+			var out shared.SignalsAPITransposer
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPITransposerEntity = &out
+			res.SignalsAPITransposer = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1432,12 +1432,12 @@ func (s *Signals) ListSignalsAlertGroupingConfigurations(ctx context.Context, op
 				return nil, err
 			}
 
-			var out shared.SignalsAPIGroupingEntityPaginated
+			var out shared.SignalsAPIGroupingPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIGroupingEntityPaginated = &out
+			res.SignalsAPIGroupingPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1569,12 +1569,12 @@ func (s *Signals) CreateSignalsAlertGroupingConfiguration(ctx context.Context, r
 				return nil, err
 			}
 
-			var out shared.SignalsAPIGroupingEntity
+			var out shared.SignalsAPIGrouping
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIGroupingEntity = &out
+			res.SignalsAPIGrouping = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1699,12 +1699,12 @@ func (s *Signals) DeleteSignalsAlertGroupingConfiguration(ctx context.Context, r
 				return nil, err
 			}
 
-			var out shared.SignalsAPIGroupingEntity
+			var out shared.SignalsAPIGrouping
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIGroupingEntity = &out
+			res.SignalsAPIGrouping = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1829,12 +1829,12 @@ func (s *Signals) GetSignalsAlertGroupingConfiguration(ctx context.Context, requ
 				return nil, err
 			}
 
-			var out shared.SignalsAPIGroupingEntity
+			var out shared.SignalsAPIGrouping
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIGroupingEntity = &out
+			res.SignalsAPIGrouping = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1966,12 +1966,12 @@ func (s *Signals) UpdateSignalsAlertGroupingConfiguration(ctx context.Context, r
 				return nil, err
 			}
 
-			var out shared.SignalsAPIGroupingEntity
+			var out shared.SignalsAPIGrouping
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIGroupingEntity = &out
+			res.SignalsAPIGrouping = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2096,12 +2096,12 @@ func (s *Signals) GetSignalsHackerMode(ctx context.Context, opts ...operations.O
 				return nil, err
 			}
 
-			var out shared.SignalsAPIHackerModeEntity
+			var out shared.SignalsAPIHackerMode
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIHackerModeEntity = &out
+			res.SignalsAPIHackerMode = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2230,12 +2230,12 @@ func (s *Signals) GetSignalsIngestURL(ctx context.Context, request operations.Ge
 				return nil, err
 			}
 
-			var out shared.SignalsAPIIngestKeyEntity
+			var out shared.SignalsAPIIngestKey
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIIngestKeyEntity = &out
+			res.SignalsAPIIngestKey = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2364,12 +2364,12 @@ func (s *Signals) ListNotificationPolicySettings(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.SignalsAPINotificationPolicyItemEntityPaginated
+			var out shared.SignalsAPINotificationPolicyItemPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPINotificationPolicyItemEntityPaginated = &out
+			res.SignalsAPINotificationPolicyItemPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2501,12 +2501,12 @@ func (s *Signals) CreateHandoffNotificationSetting(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.SignalsAPINotificationPolicyItemEntity
+			var out shared.SignalsAPINotificationPolicyItem
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPINotificationPolicyItemEntity = &out
+			res.SignalsAPINotificationPolicyItem = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2741,12 +2741,12 @@ func (s *Signals) GetNotificationPolicy(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.SignalsAPINotificationPolicyItemEntity
+			var out shared.SignalsAPINotificationPolicyItem
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPINotificationPolicyItemEntity = &out
+			res.SignalsAPINotificationPolicyItem = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2988,12 +2988,12 @@ func (s *Signals) ListSignalsTransposers(ctx context.Context, opts ...operations
 				return nil, err
 			}
 
-			var out shared.SignalsAPITransposerListEntity
+			var out shared.SignalsAPITransposerList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPITransposerListEntity = &out
+			res.SignalsAPITransposerList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3122,12 +3122,12 @@ func (s *Signals) ListSignalsWebhookTargets(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.SignalsAPIWebhookTargetEntityPaginated
+			var out shared.SignalsAPIWebhookTargetPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIWebhookTargetEntityPaginated = &out
+			res.SignalsAPIWebhookTargetPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3259,12 +3259,12 @@ func (s *Signals) CreateSignalsWebhookTarget(ctx context.Context, request shared
 				return nil, err
 			}
 
-			var out shared.SignalsAPIWebhookTargetEntity
+			var out shared.SignalsAPIWebhookTarget
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIWebhookTargetEntity = &out
+			res.SignalsAPIWebhookTarget = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3499,12 +3499,12 @@ func (s *Signals) GetSignalsWebhookTarget(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SignalsAPIWebhookTargetEntity
+			var out shared.SignalsAPIWebhookTarget
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIWebhookTargetEntity = &out
+			res.SignalsAPIWebhookTarget = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3636,12 +3636,12 @@ func (s *Signals) UpdateSignalsWebhookTarget(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.SignalsAPIWebhookTargetEntity
+			var out shared.SignalsAPIWebhookTarget
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIWebhookTargetEntity = &out
+			res.SignalsAPIWebhookTarget = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3770,12 +3770,12 @@ func (s *Signals) ListOrganizationOnCallSchedules(ctx context.Context, request o
 				return nil, err
 			}
 
-			var out shared.SignalsAPIOrganizationOnCallScheduleEntityPaginated
+			var out shared.SignalsAPIOrganizationOnCallSchedulePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIOrganizationOnCallScheduleEntityPaginated = &out
+			res.SignalsAPIOrganizationOnCallSchedulePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3904,12 +3904,12 @@ func (s *Signals) ListTeamEscalationPolicies(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.SignalsAPIEscalationPolicyEntityPaginated
+			var out shared.SignalsAPIEscalationPolicyPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIEscalationPolicyEntityPaginated = &out
+			res.SignalsAPIEscalationPolicyPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4041,12 +4041,12 @@ func (s *Signals) CreateTeamEscalationPolicy(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.SignalsAPIEscalationPolicyEntity
+			var out shared.SignalsAPIEscalationPolicy
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIEscalationPolicyEntity = &out
+			res.SignalsAPIEscalationPolicy = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4281,12 +4281,12 @@ func (s *Signals) GetTeamEscalationPolicy(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SignalsAPIEscalationPolicyEntity
+			var out shared.SignalsAPIEscalationPolicy
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIEscalationPolicyEntity = &out
+			res.SignalsAPIEscalationPolicy = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4418,12 +4418,12 @@ func (s *Signals) UpdateTeamEscalationPolicy(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.SignalsAPIEscalationPolicyEntity
+			var out shared.SignalsAPIEscalationPolicy
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIEscalationPolicyEntity = &out
+			res.SignalsAPIEscalationPolicy = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4552,12 +4552,12 @@ func (s *Signals) ListTeamOnCallSchedules(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SignalsAPIOnCallScheduleEntityPaginated
+			var out shared.SignalsAPIOnCallSchedulePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIOnCallScheduleEntityPaginated = &out
+			res.SignalsAPIOnCallSchedulePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4689,12 +4689,12 @@ func (s *Signals) CreateTeamOnCallSchedule(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.SignalsAPIOnCallScheduleEntity
+			var out shared.SignalsAPIOnCallSchedule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIOnCallScheduleEntity = &out
+			res.SignalsAPIOnCallSchedule = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4933,12 +4933,12 @@ func (s *Signals) GetTeamOnCallSchedule(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.SignalsAPIOnCallScheduleEntity
+			var out shared.SignalsAPIOnCallSchedule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIOnCallScheduleEntity = &out
+			res.SignalsAPIOnCallSchedule = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5072,12 +5072,12 @@ func (s *Signals) UpdateTeamOnCallSchedule(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.SignalsAPIOnCallScheduleEntity
+			var out shared.SignalsAPIOnCallSchedule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIOnCallScheduleEntity = &out
+			res.SignalsAPIOnCallSchedule = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5209,12 +5209,12 @@ func (s *Signals) CreateOnCallShift(ctx context.Context, request operations.Crea
 				return nil, err
 			}
 
-			var out shared.SignalsAPIOnCallShiftEntity
+			var out shared.SignalsAPIOnCallShift
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIOnCallShiftEntity = &out
+			res.SignalsAPIOnCallShift = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5449,12 +5449,12 @@ func (s *Signals) GetOnCallShift(ctx context.Context, request operations.GetOnCa
 				return nil, err
 			}
 
-			var out shared.SignalsAPIOnCallShiftEntity
+			var out shared.SignalsAPIOnCallShift
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIOnCallShiftEntity = &out
+			res.SignalsAPIOnCallShift = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5586,12 +5586,12 @@ func (s *Signals) UpdateOnCallShift(ctx context.Context, request operations.Upda
 				return nil, err
 			}
 
-			var out shared.SignalsAPIOnCallShiftEntity
+			var out shared.SignalsAPIOnCallShift
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIOnCallShiftEntity = &out
+			res.SignalsAPIOnCallShift = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5720,12 +5720,12 @@ func (s *Signals) ListTeamSignalRules(ctx context.Context, request operations.Li
 				return nil, err
 			}
 
-			var out shared.SignalsAPIRuleEntityPaginated
+			var out shared.SignalsAPIRulePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIRuleEntityPaginated = &out
+			res.SignalsAPIRulePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5857,12 +5857,12 @@ func (s *Signals) CreateTeamSignalRule(ctx context.Context, request operations.C
 				return nil, err
 			}
 
-			var out shared.SignalsAPIRuleEntity
+			var out shared.SignalsAPIRule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIRuleEntity = &out
+			res.SignalsAPIRule = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6097,12 +6097,12 @@ func (s *Signals) GetTeamSignalRule(ctx context.Context, request operations.GetT
 				return nil, err
 			}
 
-			var out shared.SignalsAPIRuleEntity
+			var out shared.SignalsAPIRule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIRuleEntity = &out
+			res.SignalsAPIRule = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6234,12 +6234,12 @@ func (s *Signals) UpdateTeamSignalRule(ctx context.Context, request operations.U
 				return nil, err
 			}
 
-			var out shared.SignalsAPIRuleEntity
+			var out shared.SignalsAPIRule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIRuleEntity = &out
+			res.SignalsAPIRule = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

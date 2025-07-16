@@ -26,7 +26,7 @@ type GetSignalsWebhookTargetResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get a Signals webhook target by ID
-	SignalsAPIWebhookTargetEntity *shared.SignalsAPIWebhookTargetEntity
+	SignalsAPIWebhookTarget *shared.SignalsAPIWebhookTarget
 }
 
 func (o *GetSignalsWebhookTargetResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetSignalsWebhookTargetResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSignalsWebhookTargetResponse) GetSignalsAPIWebhookTargetEntity() *shared.SignalsAPIWebhookTargetEntity {
+func (o *GetSignalsWebhookTargetResponse) GetSignalsAPIWebhookTarget() *shared.SignalsAPIWebhookTarget {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIWebhookTargetEntity
+	return o.SignalsAPIWebhookTarget
 }

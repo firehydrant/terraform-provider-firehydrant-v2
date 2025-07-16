@@ -26,7 +26,7 @@ type DeleteTaskListResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a task list
-	TaskListEntity *shared.TaskListEntity
+	TaskList *shared.TaskList
 }
 
 func (o *DeleteTaskListResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteTaskListResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteTaskListResponse) GetTaskListEntity() *shared.TaskListEntity {
+func (o *DeleteTaskListResponse) GetTaskList() *shared.TaskList {
 	if o == nil {
 		return nil
 	}
-	return o.TaskListEntity
+	return o.TaskList
 }

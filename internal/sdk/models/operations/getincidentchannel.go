@@ -26,7 +26,7 @@ type GetIncidentChannelResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Gives chat channel information for the specified incident
-	IncidentsChannelEntity *shared.IncidentsChannelEntity
+	IncidentsChannel *shared.IncidentsChannel
 }
 
 func (o *GetIncidentChannelResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetIncidentChannelResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetIncidentChannelResponse) GetIncidentsChannelEntity() *shared.IncidentsChannelEntity {
+func (o *GetIncidentChannelResponse) GetIncidentsChannel() *shared.IncidentsChannel {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsChannelEntity
+	return o.IncidentsChannel
 }

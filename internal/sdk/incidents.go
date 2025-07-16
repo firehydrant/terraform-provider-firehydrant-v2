@@ -143,12 +143,12 @@ func (s *Incidents) VoteAiIncidentSummary(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.AIEntitiesIncidentSummaryEntity
+			var out shared.AIIncidentSummary
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AIEntitiesIncidentSummaryEntity = &out
+			res.AIIncidentSummary = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -387,12 +387,12 @@ func (s *Incidents) ListIncidents(ctx context.Context, request operations.ListIn
 				return nil, err
 			}
 
-			var out shared.IncidentEntityPaginated
+			var out shared.IncidentPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntityPaginated = &out
+			res.IncidentPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -524,12 +524,12 @@ func (s *Incidents) CreateIncident(ctx context.Context, request shared.CreateInc
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -654,12 +654,12 @@ func (s *Incidents) DeleteIncident(ctx context.Context, request operations.Delet
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -784,12 +784,12 @@ func (s *Incidents) GetIncident(ctx context.Context, request operations.GetIncid
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -921,12 +921,12 @@ func (s *Incidents) UpdateIncident(ctx context.Context, request operations.Updat
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1055,12 +1055,12 @@ func (s *Incidents) ListIncidentAttachments(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.AttachmentsTypedAttachmentEntityPaginated
+			var out shared.AttachmentsTypedAttachmentPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AttachmentsTypedAttachmentEntityPaginated = &out
+			res.AttachmentsTypedAttachmentPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1192,12 +1192,12 @@ func (s *Incidents) CreateIncidentAttachment(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.IncidentAttachmentEntity
+			var out shared.IncidentAttachment
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentAttachmentEntity = &out
+			res.IncidentAttachment = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1322,12 +1322,12 @@ func (s *Incidents) GetIncidentChannel(ctx context.Context, request operations.G
 				return nil, err
 			}
 
-			var out shared.IncidentsChannelEntity
+			var out shared.IncidentsChannel
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsChannelEntity = &out
+			res.IncidentsChannel = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1452,12 +1452,12 @@ func (s *Incidents) CloseIncident(ctx context.Context, request operations.CloseI
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1582,12 +1582,12 @@ func (s *Incidents) ListIncidentConferenceBridges(ctx context.Context, request o
 				return nil, err
 			}
 
-			var out shared.IncidentsConferenceBridgeEntity
+			var out shared.IncidentsConferenceBridge
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsConferenceBridgeEntity = &out
+			res.IncidentsConferenceBridge = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1712,12 +1712,12 @@ func (s *Incidents) GetConferenceBridgeTranslation(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.IncidentsConferenceBridgeEntity
+			var out shared.IncidentsConferenceBridge
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsConferenceBridgeEntity = &out
+			res.IncidentsConferenceBridge = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1846,12 +1846,12 @@ func (s *Incidents) ListIncidentEvents(ctx context.Context, request operations.L
 				return nil, err
 			}
 
-			var out shared.IncidentEventEntityPaginated
+			var out shared.IncidentEventPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEventEntityPaginated = &out
+			res.IncidentEventPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1976,12 +1976,12 @@ func (s *Incidents) DeleteIncidentEvent(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.IncidentEventEntity
+			var out shared.IncidentEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEventEntity = &out
+			res.IncidentEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2106,12 +2106,12 @@ func (s *Incidents) GetIncidentEvent(ctx context.Context, request operations.Get
 				return nil, err
 			}
 
-			var out shared.IncidentEventEntity
+			var out shared.IncidentEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEventEntity = &out
+			res.IncidentEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2236,12 +2236,12 @@ func (s *Incidents) UpdateIncidentEvent(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.IncidentEventEntity
+			var out shared.IncidentEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEventEntity = &out
+			res.IncidentEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2373,12 +2373,12 @@ func (s *Incidents) CreateIncidentChatMessage(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.EventGenericChatMessageEntity
+			var out shared.EventGenericChatMessage
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EventGenericChatMessageEntity = &out
+			res.EventGenericChatMessage = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2503,12 +2503,12 @@ func (s *Incidents) DeleteIncidentChatMessage(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.EventGenericChatMessageEntity
+			var out shared.EventGenericChatMessage
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EventGenericChatMessageEntity = &out
+			res.EventGenericChatMessage = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2640,12 +2640,12 @@ func (s *Incidents) UpdateIncidentChatMessage(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.EventGenericChatMessageEntity
+			var out shared.EventGenericChatMessage
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EventGenericChatMessageEntity = &out
+			res.EventGenericChatMessage = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2783,12 +2783,12 @@ func (s *Incidents) UpdateIncidentImpactPatch(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2926,12 +2926,12 @@ func (s *Incidents) UpdateIncidentImpactPut(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3056,12 +3056,12 @@ func (s *Incidents) ListIncidentImpacts(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.IncidentImpactEntityPaginated
+			var out shared.IncidentImpactPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentImpactEntityPaginated = &out
+			res.IncidentImpactPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3193,12 +3193,12 @@ func (s *Incidents) CreateIncidentImpact(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.IncidentImpactEntity
+			var out shared.IncidentImpact
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentImpactEntity = &out
+			res.IncidentImpact = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3214,12 +3214,12 @@ func (s *Incidents) CreateIncidentImpact(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3345,12 +3345,12 @@ func (s *Incidents) DeleteIncidentImpact(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3479,12 +3479,12 @@ func (s *Incidents) ListIncidentLinks(ctx context.Context, request operations.Li
 				return nil, err
 			}
 
-			var out shared.AttachmentsLinkEntityPaginated
+			var out shared.AttachmentsLinkPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AttachmentsLinkEntityPaginated = &out
+			res.AttachmentsLinkPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3616,12 +3616,12 @@ func (s *Incidents) CreateIncidentLink(ctx context.Context, request operations.C
 				return nil, err
 			}
 
-			var out shared.AttachmentsLinkEntity
+			var out shared.AttachmentsLink
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AttachmentsLinkEntity = &out
+			res.AttachmentsLink = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3973,12 +3973,12 @@ func (s *Incidents) ListIncidentMilestones(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.IncidentsMilestoneEntityPaginated
+			var out shared.IncidentsMilestonePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsMilestoneEntityPaginated = &out
+			res.IncidentsMilestonePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4115,12 +4115,12 @@ func (s *Incidents) BulkUpdateIncidentMilestones(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.IncidentsMilestoneEntityPaginated
+			var out shared.IncidentsMilestonePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsMilestoneEntityPaginated = &out
+			res.IncidentsMilestonePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4252,12 +4252,12 @@ func (s *Incidents) CreateIncidentNote(ctx context.Context, request operations.C
 				return nil, err
 			}
 
-			var out shared.EventNoteEntity
+			var out shared.EventNote
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EventNoteEntity = &out
+			res.EventNote = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4389,12 +4389,12 @@ func (s *Incidents) UpdateIncidentNote(ctx context.Context, request operations.U
 				return nil, err
 			}
 
-			var out shared.EventNoteEntity
+			var out shared.EventNote
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EventNoteEntity = &out
+			res.EventNote = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4523,12 +4523,12 @@ func (s *Incidents) ListIncidentChangeEvents(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.IncidentsRelatedChangeEventEntityPaginated
+			var out shared.IncidentsRelatedChangeEventPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRelatedChangeEventEntityPaginated = &out
+			res.IncidentsRelatedChangeEventPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4660,12 +4660,12 @@ func (s *Incidents) CreateIncidentChangeEvent(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.IncidentsRelatedChangeEventEntity
+			var out shared.IncidentsRelatedChangeEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRelatedChangeEventEntity = &out
+			res.IncidentsRelatedChangeEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4683,12 +4683,12 @@ func (s *Incidents) CreateIncidentChangeEvent(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4820,12 +4820,12 @@ func (s *Incidents) UpdateIncidentChangeEvent(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.IncidentsRelatedChangeEventEntity
+			var out shared.IncidentsRelatedChangeEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRelatedChangeEventEntity = &out
+			res.IncidentsRelatedChangeEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4843,12 +4843,12 @@ func (s *Incidents) UpdateIncidentChangeEvent(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -4973,12 +4973,12 @@ func (s *Incidents) GetIncidentRelationships(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.IncidentsRelationshipsEntity
+			var out shared.IncidentsRelationships
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRelationshipsEntity = &out
+			res.IncidentsRelationships = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5110,12 +5110,12 @@ func (s *Incidents) ResolveIncident(ctx context.Context, request operations.Reso
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5244,12 +5244,12 @@ func (s *Incidents) ListIncidentRoleAssignments(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.IncidentsRoleAssignmentEntityPaginated
+			var out shared.IncidentsRoleAssignmentPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRoleAssignmentEntityPaginated = &out
+			res.IncidentsRoleAssignmentPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5381,12 +5381,12 @@ func (s *Incidents) CreateIncidentRoleAssignment(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.IncidentsRoleAssignmentEntity
+			var out shared.IncidentsRoleAssignment
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRoleAssignmentEntity = &out
+			res.IncidentsRoleAssignment = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5511,12 +5511,12 @@ func (s *Incidents) DeleteIncidentRoleAssignment(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.IncidentsRoleAssignmentEntity
+			var out shared.IncidentsRoleAssignment
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRoleAssignmentEntity = &out
+			res.IncidentsRoleAssignment = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5645,12 +5645,12 @@ func (s *Incidents) ListSimilarIncidents(ctx context.Context, request operations
 				return nil, err
 			}
 
-			var out shared.SimilarIncidentEntityPaginated
+			var out shared.SimilarIncidentPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SimilarIncidentEntityPaginated = &out
+			res.SimilarIncidentPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5775,12 +5775,12 @@ func (s *Incidents) ListIncidentStatusPages(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.IncidentsStatusPageEntityPaginated
+			var out shared.IncidentsStatusPagePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsStatusPageEntityPaginated = &out
+			res.IncidentsStatusPagePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -5912,12 +5912,12 @@ func (s *Incidents) CreateIncidentStatusPage(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.IncidentsStatusPageEntity
+			var out shared.IncidentsStatusPage
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsStatusPageEntity = &out
+			res.IncidentsStatusPage = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6280,12 +6280,12 @@ func (s *Incidents) ListTranscriptEntries(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.PublicAPIV1IncidentsTranscriptEntity
+			var out shared.PublicAPIV1IncidentsTranscript
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PublicAPIV1IncidentsTranscriptEntity = &out
+			res.PublicAPIV1IncidentsTranscript = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6527,12 +6527,12 @@ func (s *Incidents) DeleteTranscriptEntry(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.PublicAPIV1IncidentsTranscriptEntity
+			var out shared.PublicAPIV1IncidentsTranscript
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.PublicAPIV1IncidentsTranscriptEntity = &out
+			res.PublicAPIV1IncidentsTranscript = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6657,12 +6657,12 @@ func (s *Incidents) UnarchiveIncident(ctx context.Context, request operations.Un
 				return nil, err
 			}
 
-			var out shared.IncidentEntity
+			var out shared.Incident
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentEntity = &out
+			res.Incident = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6787,12 +6787,12 @@ func (s *Incidents) GetIncidentUser(ctx context.Context, request operations.GetI
 				return nil, err
 			}
 
-			var out shared.IncidentsRoleAssignmentEntity
+			var out shared.IncidentsRoleAssignment
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.IncidentsRoleAssignmentEntity = &out
+			res.IncidentsRoleAssignment = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -6921,12 +6921,12 @@ func (s *Incidents) ListScheduledMaintenances(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.ScheduledMaintenanceEntity
+			var out shared.ScheduledMaintenance
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ScheduledMaintenanceEntity = &out
+			res.ScheduledMaintenance = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -7058,12 +7058,12 @@ func (s *Incidents) CreateScheduledMaintenance(ctx context.Context, request shar
 				return nil, err
 			}
 
-			var out shared.ScheduledMaintenanceEntity
+			var out shared.ScheduledMaintenance
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ScheduledMaintenanceEntity = &out
+			res.ScheduledMaintenance = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -7079,12 +7079,12 @@ func (s *Incidents) CreateScheduledMaintenance(ctx context.Context, request shar
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -7319,12 +7319,12 @@ func (s *Incidents) GetScheduledMaintenance(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.ScheduledMaintenanceEntity
+			var out shared.ScheduledMaintenance
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ScheduledMaintenanceEntity = &out
+			res.ScheduledMaintenance = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -7456,12 +7456,12 @@ func (s *Incidents) UpdateScheduledMaintenance(ctx context.Context, request oper
 				return nil, err
 			}
 
-			var out shared.ScheduledMaintenanceEntity
+			var out shared.ScheduledMaintenance
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ScheduledMaintenanceEntity = &out
+			res.ScheduledMaintenance = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

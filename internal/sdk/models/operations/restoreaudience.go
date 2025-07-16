@@ -27,7 +27,7 @@ type RestoreAudienceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Restore a previously archived audience
-	AudiencesEntitiesAudienceEntity *shared.AudiencesEntitiesAudienceEntity
+	Audiences *shared.Audiences
 }
 
 func (o *RestoreAudienceResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *RestoreAudienceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *RestoreAudienceResponse) GetAudiencesEntitiesAudienceEntity() *shared.AudiencesEntitiesAudienceEntity {
+func (o *RestoreAudienceResponse) GetAudiences() *shared.Audiences {
 	if o == nil {
 		return nil
 	}
-	return o.AudiencesEntitiesAudienceEntity
+	return o.Audiences
 }

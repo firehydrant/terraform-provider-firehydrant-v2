@@ -26,7 +26,7 @@ type DeleteServiceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Deletes the service from FireHydrant.
-	ServiceEntity *shared.ServiceEntity
+	Service *shared.Service
 }
 
 func (o *DeleteServiceResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteServiceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteServiceResponse) GetServiceEntity() *shared.ServiceEntity {
+func (o *DeleteServiceResponse) GetService() *shared.Service {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceEntity
+	return o.Service
 }

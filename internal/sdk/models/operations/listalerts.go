@@ -124,7 +124,7 @@ type ListAlertsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve all alerts from third parties
-	AlertsAlertEntityPaginated *shared.AlertsAlertEntityPaginated
+	AlertsPaginated *shared.AlertsPaginated
 }
 
 func (o *ListAlertsResponse) GetContentType() string {
@@ -148,9 +148,9 @@ func (o *ListAlertsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListAlertsResponse) GetAlertsAlertEntityPaginated() *shared.AlertsAlertEntityPaginated {
+func (o *ListAlertsResponse) GetAlertsPaginated() *shared.AlertsPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.AlertsAlertEntityPaginated
+	return o.AlertsPaginated
 }

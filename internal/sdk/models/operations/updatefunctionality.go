@@ -34,7 +34,7 @@ type UpdateFunctionalityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a functionalities attributes
-	FunctionalityEntity *shared.FunctionalityEntity
+	Functionality *shared.Functionality
 }
 
 func (o *UpdateFunctionalityResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateFunctionalityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateFunctionalityResponse) GetFunctionalityEntity() *shared.FunctionalityEntity {
+func (o *UpdateFunctionalityResponse) GetFunctionality() *shared.Functionality {
 	if o == nil {
 		return nil
 	}
-	return o.FunctionalityEntity
+	return o.Functionality
 }

@@ -42,7 +42,7 @@ type ConvertIncidentTaskResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Convert a task to a follow-up
-	TaskEntityPaginated *shared.TaskEntityPaginated
+	TaskPaginated *shared.TaskPaginated
 }
 
 func (o *ConvertIncidentTaskResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *ConvertIncidentTaskResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ConvertIncidentTaskResponse) GetTaskEntityPaginated() *shared.TaskEntityPaginated {
+func (o *ConvertIncidentTaskResponse) GetTaskPaginated() *shared.TaskPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.TaskEntityPaginated
+	return o.TaskPaginated
 }

@@ -15,7 +15,7 @@ type ListLifecyclePhasesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the lifecycle phases and milestones in the organization
-	LifecyclesPhaseEntityList *shared.LifecyclesPhaseEntityList
+	LifecyclesPhaseList *shared.LifecyclesPhaseList
 }
 
 func (o *ListLifecyclePhasesResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *ListLifecyclePhasesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListLifecyclePhasesResponse) GetLifecyclesPhaseEntityList() *shared.LifecyclesPhaseEntityList {
+func (o *ListLifecyclePhasesResponse) GetLifecyclesPhaseList() *shared.LifecyclesPhaseList {
 	if o == nil {
 		return nil
 	}
-	return o.LifecyclesPhaseEntityList
+	return o.LifecyclesPhaseList
 }

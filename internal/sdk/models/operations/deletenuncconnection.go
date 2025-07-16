@@ -26,7 +26,7 @@ type DeleteNuncConnectionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a FireHydrant hosted status page, stopping updates of your incidents to it.
-	NuncConnectionEntity *shared.NuncConnectionEntity
+	NuncConnection *shared.NuncConnection
 }
 
 func (o *DeleteNuncConnectionResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteNuncConnectionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteNuncConnectionResponse) GetNuncConnectionEntity() *shared.NuncConnectionEntity {
+func (o *DeleteNuncConnectionResponse) GetNuncConnection() *shared.NuncConnection {
 	if o == nil {
 		return nil
 	}
-	return o.NuncConnectionEntity
+	return o.NuncConnection
 }

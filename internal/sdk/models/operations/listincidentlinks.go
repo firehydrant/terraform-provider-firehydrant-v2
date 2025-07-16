@@ -42,7 +42,7 @@ type ListIncidentLinksResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all the editable, external incident links attached to an incident
-	AttachmentsLinkEntityPaginated *shared.AttachmentsLinkEntityPaginated
+	AttachmentsLinkPaginated *shared.AttachmentsLinkPaginated
 }
 
 func (o *ListIncidentLinksResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *ListIncidentLinksResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentLinksResponse) GetAttachmentsLinkEntityPaginated() *shared.AttachmentsLinkEntityPaginated {
+func (o *ListIncidentLinksResponse) GetAttachmentsLinkPaginated() *shared.AttachmentsLinkPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.AttachmentsLinkEntityPaginated
+	return o.AttachmentsLinkPaginated
 }

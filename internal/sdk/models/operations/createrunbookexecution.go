@@ -15,7 +15,7 @@ type CreateRunbookExecutionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Attaches a runbook to an incident and executes it
-	RunbooksExecutionEntity *shared.RunbooksExecutionEntity
+	RunbooksExecution *shared.RunbooksExecution
 }
 
 func (o *CreateRunbookExecutionResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateRunbookExecutionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateRunbookExecutionResponse) GetRunbooksExecutionEntity() *shared.RunbooksExecutionEntity {
+func (o *CreateRunbookExecutionResponse) GetRunbooksExecution() *shared.RunbooksExecution {
 	if o == nil {
 		return nil
 	}
-	return o.RunbooksExecutionEntity
+	return o.RunbooksExecution
 }

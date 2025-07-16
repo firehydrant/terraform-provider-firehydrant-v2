@@ -140,12 +140,12 @@ func (s *Audiences) ListAudiences(ctx context.Context, request operations.ListAu
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceEntity
+			var out shared.Audiences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceEntity = &out
+			res.Audiences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -277,12 +277,12 @@ func (s *Audiences) CreateAudience(ctx context.Context, request shared.CreateAud
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceEntity
+			var out shared.Audiences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceEntity = &out
+			res.Audiences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -407,12 +407,12 @@ func (s *Audiences) GetMemberDefaultAudience(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceEntity
+			var out shared.Audiences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceEntity = &out
+			res.Audiences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -544,12 +544,12 @@ func (s *Audiences) SetMemberDefaultAudience(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceEntity
+			var out shared.Audiences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceEntity = &out
+			res.Audiences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -674,12 +674,12 @@ func (s *Audiences) ListAudienceSummaries(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceSummariesEntity
+			var out shared.AudiencesAudienceSummaries
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceSummariesEntity = &out
+			res.AudiencesAudienceSummaries = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -804,12 +804,12 @@ func (s *Audiences) ArchiveAudience(ctx context.Context, request operations.Arch
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceEntity
+			var out shared.Audiences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceEntity = &out
+			res.Audiences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -934,12 +934,12 @@ func (s *Audiences) GetAudience(ctx context.Context, request operations.GetAudie
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceEntity
+			var out shared.Audiences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceEntity = &out
+			res.Audiences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1071,12 +1071,12 @@ func (s *Audiences) UpdateAudience(ctx context.Context, request operations.Updat
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceEntity
+			var out shared.Audiences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceEntity = &out
+			res.Audiences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1201,12 +1201,12 @@ func (s *Audiences) RestoreAudience(ctx context.Context, request operations.Rest
 				return nil, err
 			}
 
-			var out shared.AudiencesEntitiesAudienceEntity
+			var out shared.Audiences
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AudiencesEntitiesAudienceEntity = &out
+			res.Audiences = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1331,12 +1331,12 @@ func (s *Audiences) GetAudienceSummary(ctx context.Context, request operations.G
 				return nil, err
 			}
 
-			var out shared.AIEntitiesIncidentSummaryEntity
+			var out shared.AIIncidentSummary
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AIEntitiesIncidentSummaryEntity = &out
+			res.AIIncidentSummary = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1468,12 +1468,12 @@ func (s *Audiences) GenerateAudienceSummary(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.AIEntitiesIncidentSummaryEntity
+			var out shared.AIIncidentSummary
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.AIEntitiesIncidentSummaryEntity = &out
+			res.AIIncidentSummary = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

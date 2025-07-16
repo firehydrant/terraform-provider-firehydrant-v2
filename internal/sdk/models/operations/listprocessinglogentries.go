@@ -70,7 +70,7 @@ type ListProcessingLogEntriesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Processing Log Entries for a specific alert
-	AlertsProcessingLogEntryEntityPaginated *shared.AlertsProcessingLogEntryEntityPaginated
+	AlertsProcessingLogEntryPaginated *shared.AlertsProcessingLogEntryPaginated
 }
 
 func (o *ListProcessingLogEntriesResponse) GetContentType() string {
@@ -94,9 +94,9 @@ func (o *ListProcessingLogEntriesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListProcessingLogEntriesResponse) GetAlertsProcessingLogEntryEntityPaginated() *shared.AlertsProcessingLogEntryEntityPaginated {
+func (o *ListProcessingLogEntriesResponse) GetAlertsProcessingLogEntryPaginated() *shared.AlertsProcessingLogEntryPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.AlertsProcessingLogEntryEntityPaginated
+	return o.AlertsProcessingLogEntryPaginated
 }

@@ -50,7 +50,7 @@ type SearchZendeskTicketsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Search for Zendesk tickets
-	IntegrationsZendeskSearchTicketsPaginatedEntity *shared.IntegrationsZendeskSearchTicketsPaginatedEntity
+	IntegrationsZendeskSearchTicketsPaginated *shared.IntegrationsZendeskSearchTicketsPaginated
 }
 
 func (o *SearchZendeskTicketsResponse) GetContentType() string {
@@ -74,9 +74,9 @@ func (o *SearchZendeskTicketsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *SearchZendeskTicketsResponse) GetIntegrationsZendeskSearchTicketsPaginatedEntity() *shared.IntegrationsZendeskSearchTicketsPaginatedEntity {
+func (o *SearchZendeskTicketsResponse) GetIntegrationsZendeskSearchTicketsPaginated() *shared.IntegrationsZendeskSearchTicketsPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsZendeskSearchTicketsPaginatedEntity
+	return o.IntegrationsZendeskSearchTicketsPaginated
 }

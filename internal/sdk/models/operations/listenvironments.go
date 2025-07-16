@@ -52,7 +52,7 @@ type ListEnvironmentsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the environments that have been added to the organiation
-	EnvironmentEntryEntityPaginated *shared.EnvironmentEntryEntityPaginated
+	EnvironmentEntryPaginated *shared.EnvironmentEntryPaginated
 }
 
 func (o *ListEnvironmentsResponse) GetContentType() string {
@@ -76,9 +76,9 @@ func (o *ListEnvironmentsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListEnvironmentsResponse) GetEnvironmentEntryEntityPaginated() *shared.EnvironmentEntryEntityPaginated {
+func (o *ListEnvironmentsResponse) GetEnvironmentEntryPaginated() *shared.EnvironmentEntryPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.EnvironmentEntryEntityPaginated
+	return o.EnvironmentEntryPaginated
 }

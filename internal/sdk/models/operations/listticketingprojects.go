@@ -74,7 +74,7 @@ type ListTicketingProjectsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all ticketing projects available to the organization
-	TicketingProjectsProjectListItemEntity *shared.TicketingProjectsProjectListItemEntity
+	TicketingProjectsProjectListItem *shared.TicketingProjectsProjectListItem
 }
 
 func (o *ListTicketingProjectsResponse) GetContentType() string {
@@ -98,9 +98,9 @@ func (o *ListTicketingProjectsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListTicketingProjectsResponse) GetTicketingProjectsProjectListItemEntity() *shared.TicketingProjectsProjectListItemEntity {
+func (o *ListTicketingProjectsResponse) GetTicketingProjectsProjectListItem() *shared.TicketingProjectsProjectListItem {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingProjectsProjectListItemEntity
+	return o.TicketingProjectsProjectListItem
 }

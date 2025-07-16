@@ -27,7 +27,7 @@ type ListSignalsEmailTargetsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all Signals email targets for a team.
-	SignalsAPIEmailTargetEntityPaginated *shared.SignalsAPIEmailTargetEntityPaginated
+	SignalsAPIEmailTargetPaginated *shared.SignalsAPIEmailTargetPaginated
 }
 
 func (o *ListSignalsEmailTargetsResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *ListSignalsEmailTargetsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSignalsEmailTargetsResponse) GetSignalsAPIEmailTargetEntityPaginated() *shared.SignalsAPIEmailTargetEntityPaginated {
+func (o *ListSignalsEmailTargetsResponse) GetSignalsAPIEmailTargetPaginated() *shared.SignalsAPIEmailTargetPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIEmailTargetEntityPaginated
+	return o.SignalsAPIEmailTargetPaginated
 }

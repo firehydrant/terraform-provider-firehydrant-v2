@@ -34,7 +34,7 @@ type CreateIncidentAttachmentResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Allows adding image attachments to an incident
-	IncidentAttachmentEntity *shared.IncidentAttachmentEntity
+	IncidentAttachment *shared.IncidentAttachment
 }
 
 func (o *CreateIncidentAttachmentResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateIncidentAttachmentResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateIncidentAttachmentResponse) GetIncidentAttachmentEntity() *shared.IncidentAttachmentEntity {
+func (o *CreateIncidentAttachmentResponse) GetIncidentAttachment() *shared.IncidentAttachment {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentAttachmentEntity
+	return o.IncidentAttachment
 }

@@ -51,7 +51,7 @@ type ListIncidentRetrospectivesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve retrospectives attached to an incident
-	IncidentsRetrospectiveEntityPaginated *shared.IncidentsRetrospectiveEntityPaginated
+	IncidentsRetrospectivePaginated *shared.IncidentsRetrospectivePaginated
 }
 
 func (o *ListIncidentRetrospectivesResponse) GetContentType() string {
@@ -75,9 +75,9 @@ func (o *ListIncidentRetrospectivesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentRetrospectivesResponse) GetIncidentsRetrospectiveEntityPaginated() *shared.IncidentsRetrospectiveEntityPaginated {
+func (o *ListIncidentRetrospectivesResponse) GetIncidentsRetrospectivePaginated() *shared.IncidentsRetrospectivePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRetrospectiveEntityPaginated
+	return o.IncidentsRetrospectivePaginated
 }

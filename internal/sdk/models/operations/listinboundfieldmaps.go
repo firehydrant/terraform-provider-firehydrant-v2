@@ -51,7 +51,7 @@ type ListInboundFieldMapsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all inbound field maps for a ticketing project
-	TicketingProjectInboundFieldMapEntity *shared.TicketingProjectInboundFieldMapEntity
+	TicketingProjectInboundFieldMap *shared.TicketingProjectInboundFieldMap
 }
 
 func (o *ListInboundFieldMapsResponse) GetContentType() string {
@@ -75,9 +75,9 @@ func (o *ListInboundFieldMapsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListInboundFieldMapsResponse) GetTicketingProjectInboundFieldMapEntity() *shared.TicketingProjectInboundFieldMapEntity {
+func (o *ListInboundFieldMapsResponse) GetTicketingProjectInboundFieldMap() *shared.TicketingProjectInboundFieldMap {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingProjectInboundFieldMapEntity
+	return o.TicketingProjectInboundFieldMap
 }

@@ -42,7 +42,7 @@ type CreateIncidentRetrospectiveDynamicInputResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Add a new dynamic input field to a dynamic input group
-	IncidentsRetrospectiveFieldEntity *shared.IncidentsRetrospectiveFieldEntity
+	IncidentsRetrospectiveField *shared.IncidentsRetrospectiveField
 }
 
 func (o *CreateIncidentRetrospectiveDynamicInputResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *CreateIncidentRetrospectiveDynamicInputResponse) GetRawResponse() *http
 	return o.RawResponse
 }
 
-func (o *CreateIncidentRetrospectiveDynamicInputResponse) GetIncidentsRetrospectiveFieldEntity() *shared.IncidentsRetrospectiveFieldEntity {
+func (o *CreateIncidentRetrospectiveDynamicInputResponse) GetIncidentsRetrospectiveField() *shared.IncidentsRetrospectiveField {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRetrospectiveFieldEntity
+	return o.IncidentsRetrospectiveField
 }

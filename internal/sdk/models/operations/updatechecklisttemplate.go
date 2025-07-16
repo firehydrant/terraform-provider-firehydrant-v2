@@ -34,7 +34,7 @@ type UpdateChecklistTemplateResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a checklist templates attributes
-	ChecklistTemplateEntity *shared.ChecklistTemplateEntity
+	ChecklistTemplate *shared.ChecklistTemplate
 }
 
 func (o *UpdateChecklistTemplateResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateChecklistTemplateResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateChecklistTemplateResponse) GetChecklistTemplateEntity() *shared.ChecklistTemplateEntity {
+func (o *UpdateChecklistTemplateResponse) GetChecklistTemplate() *shared.ChecklistTemplate {
 	if o == nil {
 		return nil
 	}
-	return o.ChecklistTemplateEntity
+	return o.ChecklistTemplate
 }

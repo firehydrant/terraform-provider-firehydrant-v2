@@ -27,7 +27,7 @@ type DeleteStatuspageConnectionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Deletes the given Statuspage integration connection.
-	IntegrationsStatuspageConnectionEntity *shared.IntegrationsStatuspageConnectionEntity
+	IntegrationsStatuspageConnection *shared.IntegrationsStatuspageConnection
 }
 
 func (o *DeleteStatuspageConnectionResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *DeleteStatuspageConnectionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteStatuspageConnectionResponse) GetIntegrationsStatuspageConnectionEntity() *shared.IntegrationsStatuspageConnectionEntity {
+func (o *DeleteStatuspageConnectionResponse) GetIntegrationsStatuspageConnection() *shared.IntegrationsStatuspageConnection {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsStatuspageConnectionEntity
+	return o.IntegrationsStatuspageConnection
 }

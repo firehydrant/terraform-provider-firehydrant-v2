@@ -46,11 +46,11 @@ func (o *UpdateRunbookOwnerInput) GetID() *string {
 	return o.ID
 }
 
-type Service struct {
+type UpdateRunbookService struct {
 	ID *string `json:"id,omitempty"`
 }
 
-func (o *Service) GetID() *string {
+func (o *UpdateRunbookService) GetID() *string {
 	if o == nil {
 		return nil
 	}
@@ -138,7 +138,7 @@ type UpdateRunbook struct {
 	Name                            *string       `json:"name,omitempty"`
 	// An object representing a Team that owns the runbook
 	OwnerInput *UpdateRunbookOwnerInput  `json:"owner,omitempty"`
-	Services   []Service                 `json:"services,omitempty"`
+	Services   []UpdateRunbookService    `json:"services,omitempty"`
 	Severities []UpdateRunbookSeverity   `json:"severities,omitempty"`
 	StepsInput []UpdateRunbookStepsInput `json:"steps,omitempty"`
 	Summary    *string                   `json:"summary,omitempty"`
@@ -188,7 +188,7 @@ func (o *UpdateRunbook) GetOwnerInput() *UpdateRunbookOwnerInput {
 	return o.OwnerInput
 }
 
-func (o *UpdateRunbook) GetServices() []Service {
+func (o *UpdateRunbook) GetServices() []UpdateRunbookService {
 	if o == nil {
 		return nil
 	}

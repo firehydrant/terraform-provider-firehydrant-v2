@@ -42,9 +42,9 @@ type UpdateIncidentChangeEventResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a change attached to an incident
-	IncidentsRelatedChangeEventEntity *shared.IncidentsRelatedChangeEventEntity
+	IncidentsRelatedChangeEvent *shared.IncidentsRelatedChangeEvent
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *UpdateIncidentChangeEventResponse) GetContentType() string {
@@ -68,16 +68,16 @@ func (o *UpdateIncidentChangeEventResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateIncidentChangeEventResponse) GetIncidentsRelatedChangeEventEntity() *shared.IncidentsRelatedChangeEventEntity {
+func (o *UpdateIncidentChangeEventResponse) GetIncidentsRelatedChangeEvent() *shared.IncidentsRelatedChangeEvent {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRelatedChangeEventEntity
+	return o.IncidentsRelatedChangeEvent
 }
 
-func (o *UpdateIncidentChangeEventResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *UpdateIncidentChangeEventResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

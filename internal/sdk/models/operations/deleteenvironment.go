@@ -27,7 +27,7 @@ type DeleteEnvironmentResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Archive an environment
-	EnvironmentEntryEntity *shared.EnvironmentEntryEntity
+	EnvironmentEntry *shared.EnvironmentEntry
 }
 
 func (o *DeleteEnvironmentResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *DeleteEnvironmentResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteEnvironmentResponse) GetEnvironmentEntryEntity() *shared.EnvironmentEntryEntity {
+func (o *DeleteEnvironmentResponse) GetEnvironmentEntry() *shared.EnvironmentEntry {
 	if o == nil {
 		return nil
 	}
-	return o.EnvironmentEntryEntity
+	return o.EnvironmentEntry
 }

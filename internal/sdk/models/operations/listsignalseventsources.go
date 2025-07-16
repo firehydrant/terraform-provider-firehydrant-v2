@@ -54,7 +54,7 @@ type ListSignalsEventSourcesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all Signals event sources for the authenticated user.
-	SignalsAPITransposerListEntity *shared.SignalsAPITransposerListEntity
+	SignalsAPITransposerList *shared.SignalsAPITransposerList
 }
 
 func (o *ListSignalsEventSourcesResponse) GetContentType() string {
@@ -78,9 +78,9 @@ func (o *ListSignalsEventSourcesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSignalsEventSourcesResponse) GetSignalsAPITransposerListEntity() *shared.SignalsAPITransposerListEntity {
+func (o *ListSignalsEventSourcesResponse) GetSignalsAPITransposerList() *shared.SignalsAPITransposerList {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPITransposerListEntity
+	return o.SignalsAPITransposerList
 }

@@ -26,7 +26,7 @@ type GetIncidentResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a single incident from its ID
-	IncidentEntity *shared.IncidentEntity
+	Incident *shared.Incident
 }
 
 func (o *GetIncidentResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetIncidentResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetIncidentResponse) GetIncidentEntity() *shared.IncidentEntity {
+func (o *GetIncidentResponse) GetIncident() *shared.Incident {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentEntity
+	return o.Incident
 }

@@ -15,7 +15,7 @@ type CreateServiceDependencyResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Creates a service dependency relationship between two services
-	ServiceDependencyEntity *shared.ServiceDependencyEntity
+	ServiceDependency *shared.ServiceDependency
 }
 
 func (o *CreateServiceDependencyResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateServiceDependencyResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateServiceDependencyResponse) GetServiceDependencyEntity() *shared.ServiceDependencyEntity {
+func (o *CreateServiceDependencyResponse) GetServiceDependency() *shared.ServiceDependency {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceDependencyEntity
+	return o.ServiceDependency
 }

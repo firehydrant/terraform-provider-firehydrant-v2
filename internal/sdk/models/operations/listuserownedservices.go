@@ -42,7 +42,7 @@ type ListUserOwnedServicesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves a list of services owned by the teams a user is on
-	TeamEntityPaginateds []shared.TeamEntityPaginated
+	TeamPaginateds []shared.TeamPaginated
 }
 
 func (o *ListUserOwnedServicesResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *ListUserOwnedServicesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListUserOwnedServicesResponse) GetTeamEntityPaginateds() []shared.TeamEntityPaginated {
+func (o *ListUserOwnedServicesResponse) GetTeamPaginateds() []shared.TeamPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.TeamEntityPaginateds
+	return o.TeamPaginateds
 }

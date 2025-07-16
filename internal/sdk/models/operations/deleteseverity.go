@@ -26,7 +26,7 @@ type DeleteSeverityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a specific severity
-	SeverityEntity *shared.SeverityEntity
+	Severity *shared.Severity
 }
 
 func (o *DeleteSeverityResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteSeverityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteSeverityResponse) GetSeverityEntity() *shared.SeverityEntity {
+func (o *DeleteSeverityResponse) GetSeverity() *shared.Severity {
 	if o == nil {
 		return nil
 	}
-	return o.SeverityEntity
+	return o.Severity
 }

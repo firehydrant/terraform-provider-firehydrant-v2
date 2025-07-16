@@ -26,7 +26,7 @@ type DeleteSignalsAlertGroupingConfigurationResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a Signals alert grouping rule by ID.
-	SignalsAPIGroupingEntity *shared.SignalsAPIGroupingEntity
+	SignalsAPIGrouping *shared.SignalsAPIGrouping
 }
 
 func (o *DeleteSignalsAlertGroupingConfigurationResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteSignalsAlertGroupingConfigurationResponse) GetRawResponse() *http
 	return o.RawResponse
 }
 
-func (o *DeleteSignalsAlertGroupingConfigurationResponse) GetSignalsAPIGroupingEntity() *shared.SignalsAPIGroupingEntity {
+func (o *DeleteSignalsAlertGroupingConfigurationResponse) GetSignalsAPIGrouping() *shared.SignalsAPIGrouping {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIGroupingEntity
+	return o.SignalsAPIGrouping
 }

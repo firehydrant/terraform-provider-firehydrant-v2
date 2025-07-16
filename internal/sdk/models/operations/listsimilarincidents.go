@@ -54,7 +54,7 @@ type ListSimilarIncidentsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a list of similar incidents
-	SimilarIncidentEntityPaginated *shared.SimilarIncidentEntityPaginated
+	SimilarIncidentPaginated *shared.SimilarIncidentPaginated
 }
 
 func (o *ListSimilarIncidentsResponse) GetContentType() string {
@@ -78,9 +78,9 @@ func (o *ListSimilarIncidentsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSimilarIncidentsResponse) GetSimilarIncidentEntityPaginated() *shared.SimilarIncidentEntityPaginated {
+func (o *ListSimilarIncidentsResponse) GetSimilarIncidentPaginated() *shared.SimilarIncidentPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SimilarIncidentEntityPaginated
+	return o.SimilarIncidentPaginated
 }

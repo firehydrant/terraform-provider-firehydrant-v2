@@ -26,7 +26,7 @@ type GetRunbookExecutionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a runbook execution by ID
-	RunbooksExecutionEntity *shared.RunbooksExecutionEntity
+	RunbooksExecution *shared.RunbooksExecution
 }
 
 func (o *GetRunbookExecutionResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetRunbookExecutionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetRunbookExecutionResponse) GetRunbooksExecutionEntity() *shared.RunbooksExecutionEntity {
+func (o *GetRunbookExecutionResponse) GetRunbooksExecution() *shared.RunbooksExecution {
 	if o == nil {
 		return nil
 	}
-	return o.RunbooksExecutionEntity
+	return o.RunbooksExecution
 }

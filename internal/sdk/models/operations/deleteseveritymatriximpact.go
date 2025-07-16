@@ -26,7 +26,7 @@ type DeleteSeverityMatrixImpactResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a specific impact
-	SeverityMatrixImpactEntity *shared.SeverityMatrixImpactEntity
+	SeverityMatrixImpact *shared.SeverityMatrixImpact
 }
 
 func (o *DeleteSeverityMatrixImpactResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteSeverityMatrixImpactResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteSeverityMatrixImpactResponse) GetSeverityMatrixImpactEntity() *shared.SeverityMatrixImpactEntity {
+func (o *DeleteSeverityMatrixImpactResponse) GetSeverityMatrixImpact() *shared.SeverityMatrixImpact {
 	if o == nil {
 		return nil
 	}
-	return o.SeverityMatrixImpactEntity
+	return o.SeverityMatrixImpact
 }

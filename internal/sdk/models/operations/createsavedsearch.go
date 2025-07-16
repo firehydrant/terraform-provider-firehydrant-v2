@@ -34,7 +34,7 @@ type CreateSavedSearchResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new saved search for a particular resource type
-	SavedSearchEntity *shared.SavedSearchEntity
+	SavedSearch *shared.SavedSearch
 }
 
 func (o *CreateSavedSearchResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateSavedSearchResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateSavedSearchResponse) GetSavedSearchEntity() *shared.SavedSearchEntity {
+func (o *CreateSavedSearchResponse) GetSavedSearch() *shared.SavedSearch {
 	if o == nil {
 		return nil
 	}
-	return o.SavedSearchEntity
+	return o.SavedSearch
 }

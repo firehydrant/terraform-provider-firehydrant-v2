@@ -15,9 +15,9 @@ type CreateServiceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Creates a service for the organization, you may also create or attach functionalities to the service on create.
-	ServiceEntity *shared.ServiceEntity
+	Service *shared.Service
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *CreateServiceResponse) GetContentType() string {
@@ -41,16 +41,16 @@ func (o *CreateServiceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateServiceResponse) GetServiceEntity() *shared.ServiceEntity {
+func (o *CreateServiceResponse) GetService() *shared.Service {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceEntity
+	return o.Service
 }
 
-func (o *CreateServiceResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *CreateServiceResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

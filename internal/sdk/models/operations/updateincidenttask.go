@@ -42,7 +42,7 @@ type UpdateIncidentTaskResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a task's attributes
-	TaskEntity *shared.TaskEntity
+	Task *shared.Task
 }
 
 func (o *UpdateIncidentTaskResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *UpdateIncidentTaskResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateIncidentTaskResponse) GetTaskEntity() *shared.TaskEntity {
+func (o *UpdateIncidentTaskResponse) GetTask() *shared.Task {
 	if o == nil {
 		return nil
 	}
-	return o.TaskEntity
+	return o.Task
 }

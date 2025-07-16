@@ -26,7 +26,7 @@ type GetNotificationPolicyResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get a Signals notification policy by ID
-	SignalsAPINotificationPolicyItemEntity *shared.SignalsAPINotificationPolicyItemEntity
+	SignalsAPINotificationPolicyItem *shared.SignalsAPINotificationPolicyItem
 }
 
 func (o *GetNotificationPolicyResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetNotificationPolicyResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetNotificationPolicyResponse) GetSignalsAPINotificationPolicyItemEntity() *shared.SignalsAPINotificationPolicyItemEntity {
+func (o *GetNotificationPolicyResponse) GetSignalsAPINotificationPolicyItem() *shared.SignalsAPINotificationPolicyItem {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPINotificationPolicyItemEntity
+	return o.SignalsAPINotificationPolicyItem
 }

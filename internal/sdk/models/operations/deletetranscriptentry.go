@@ -34,7 +34,7 @@ type DeleteTranscriptEntryResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a transcript from an incident
-	PublicAPIV1IncidentsTranscriptEntity *shared.PublicAPIV1IncidentsTranscriptEntity
+	PublicAPIV1IncidentsTranscript *shared.PublicAPIV1IncidentsTranscript
 }
 
 func (o *DeleteTranscriptEntryResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *DeleteTranscriptEntryResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteTranscriptEntryResponse) GetPublicAPIV1IncidentsTranscriptEntity() *shared.PublicAPIV1IncidentsTranscriptEntity {
+func (o *DeleteTranscriptEntryResponse) GetPublicAPIV1IncidentsTranscript() *shared.PublicAPIV1IncidentsTranscript {
 	if o == nil {
 		return nil
 	}
-	return o.PublicAPIV1IncidentsTranscriptEntity
+	return o.PublicAPIV1IncidentsTranscript
 }

@@ -34,7 +34,7 @@ type ReorderPostMortemReasonsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update the order of contributing factors in a retrospective report
-	PostMortemsReasonEntity *shared.PostMortemsReasonEntity
+	PostMortemsReason *shared.PostMortemsReason
 }
 
 func (o *ReorderPostMortemReasonsResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ReorderPostMortemReasonsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ReorderPostMortemReasonsResponse) GetPostMortemsReasonEntity() *shared.PostMortemsReasonEntity {
+func (o *ReorderPostMortemReasonsResponse) GetPostMortemsReason() *shared.PostMortemsReason {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsReasonEntity
+	return o.PostMortemsReason
 }

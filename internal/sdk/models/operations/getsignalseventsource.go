@@ -26,7 +26,7 @@ type GetSignalsEventSourceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get a Signals event source by slug
-	SignalsAPITransposerEntity *shared.SignalsAPITransposerEntity
+	SignalsAPITransposer *shared.SignalsAPITransposer
 }
 
 func (o *GetSignalsEventSourceResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetSignalsEventSourceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSignalsEventSourceResponse) GetSignalsAPITransposerEntity() *shared.SignalsAPITransposerEntity {
+func (o *GetSignalsEventSourceResponse) GetSignalsAPITransposer() *shared.SignalsAPITransposer {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPITransposerEntity
+	return o.SignalsAPITransposer
 }

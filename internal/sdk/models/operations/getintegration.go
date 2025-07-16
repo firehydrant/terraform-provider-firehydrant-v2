@@ -27,7 +27,7 @@ type GetIntegrationResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a single integration
-	IntegrationsIntegrationEntity *shared.IntegrationsIntegrationEntity
+	Integrations *shared.Integrations
 }
 
 func (o *GetIntegrationResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *GetIntegrationResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetIntegrationResponse) GetIntegrationsIntegrationEntity() *shared.IntegrationsIntegrationEntity {
+func (o *GetIntegrationResponse) GetIntegrations() *shared.Integrations {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsIntegrationEntity
+	return o.Integrations
 }

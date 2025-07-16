@@ -26,7 +26,7 @@ type DeleteCustomFieldDefinitionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a custom field definition
-	OrganizationsCustomFieldDefinitionEntity *shared.OrganizationsCustomFieldDefinitionEntity
+	OrganizationsCustomFieldDefinition *shared.OrganizationsCustomFieldDefinition
 }
 
 func (o *DeleteCustomFieldDefinitionResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteCustomFieldDefinitionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteCustomFieldDefinitionResponse) GetOrganizationsCustomFieldDefinitionEntity() *shared.OrganizationsCustomFieldDefinitionEntity {
+func (o *DeleteCustomFieldDefinitionResponse) GetOrganizationsCustomFieldDefinition() *shared.OrganizationsCustomFieldDefinition {
 	if o == nil {
 		return nil
 	}
-	return o.OrganizationsCustomFieldDefinitionEntity
+	return o.OrganizationsCustomFieldDefinition
 }

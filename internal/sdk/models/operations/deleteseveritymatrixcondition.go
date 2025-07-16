@@ -26,7 +26,7 @@ type DeleteSeverityMatrixConditionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a specific condition
-	SeverityMatrixConditionEntity *shared.SeverityMatrixConditionEntity
+	SeverityMatrixCondition *shared.SeverityMatrixCondition
 }
 
 func (o *DeleteSeverityMatrixConditionResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteSeverityMatrixConditionResponse) GetRawResponse() *http.Response 
 	return o.RawResponse
 }
 
-func (o *DeleteSeverityMatrixConditionResponse) GetSeverityMatrixConditionEntity() *shared.SeverityMatrixConditionEntity {
+func (o *DeleteSeverityMatrixConditionResponse) GetSeverityMatrixCondition() *shared.SeverityMatrixCondition {
 	if o == nil {
 		return nil
 	}
-	return o.SeverityMatrixConditionEntity
+	return o.SeverityMatrixCondition
 }

@@ -45,19 +45,19 @@ func (o *AuthorsInput) GetSourceID() string {
 	return o.SourceID
 }
 
-type ChangeIdentity struct {
+type CreateChangeEventChangeIdentity struct {
 	Type  string `json:"type"`
 	Value string `json:"value"`
 }
 
-func (o *ChangeIdentity) GetType() string {
+func (o *CreateChangeEventChangeIdentity) GetType() string {
 	if o == nil {
 		return ""
 	}
 	return o.Type
 }
 
-func (o *ChangeIdentity) GetValue() string {
+func (o *CreateChangeEventChangeIdentity) GetValue() string {
 	if o == nil {
 		return ""
 	}
@@ -71,7 +71,7 @@ type CreateChangeEvent struct {
 	// Array of additional authors to add to the change event, the creating actor will automatically be added as an author
 	AuthorsInput []AuthorsInput `json:"authors,omitempty"`
 	// If provided and valid, the event will be linked to all changes that have the same identities. Identity *values* must be unique.
-	ChangeIdentities []ChangeIdentity `json:"change_identities,omitempty"`
+	ChangeIdentities []CreateChangeEventChangeIdentity `json:"change_identities,omitempty"`
 	// An array of change IDs
 	Changes     []string   `json:"changes,omitempty"`
 	Description *string    `json:"description,omitempty"`
@@ -112,7 +112,7 @@ func (o *CreateChangeEvent) GetAuthorsInput() []AuthorsInput {
 	return o.AuthorsInput
 }
 
-func (o *CreateChangeEvent) GetChangeIdentities() []ChangeIdentity {
+func (o *CreateChangeEvent) GetChangeIdentities() []CreateChangeEventChangeIdentity {
 	if o == nil {
 		return nil
 	}

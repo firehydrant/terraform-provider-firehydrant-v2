@@ -26,7 +26,7 @@ type GetTaskListResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves a single task list by ID
-	TaskListEntity *shared.TaskListEntity
+	TaskList *shared.TaskList
 }
 
 func (o *GetTaskListResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetTaskListResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetTaskListResponse) GetTaskListEntity() *shared.TaskListEntity {
+func (o *GetTaskListResponse) GetTaskList() *shared.TaskList {
 	if o == nil {
 		return nil
 	}
-	return o.TaskListEntity
+	return o.TaskList
 }

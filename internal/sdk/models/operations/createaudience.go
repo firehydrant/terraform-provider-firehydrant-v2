@@ -15,7 +15,7 @@ type CreateAudienceResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new audience
-	AudiencesEntitiesAudienceEntity *shared.AudiencesEntitiesAudienceEntity
+	Audiences *shared.Audiences
 }
 
 func (o *CreateAudienceResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateAudienceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateAudienceResponse) GetAudiencesEntitiesAudienceEntity() *shared.AudiencesEntitiesAudienceEntity {
+func (o *CreateAudienceResponse) GetAudiences() *shared.Audiences {
 	if o == nil {
 		return nil
 	}
-	return o.AudiencesEntitiesAudienceEntity
+	return o.Audiences
 }

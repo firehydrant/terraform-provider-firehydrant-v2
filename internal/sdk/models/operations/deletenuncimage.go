@@ -34,7 +34,7 @@ type DeleteNuncImageResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete an image attached to a FireHydrant status page
-	NuncConnectionEntity *shared.NuncConnectionEntity
+	NuncConnection *shared.NuncConnection
 }
 
 func (o *DeleteNuncImageResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *DeleteNuncImageResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteNuncImageResponse) GetNuncConnectionEntity() *shared.NuncConnectionEntity {
+func (o *DeleteNuncImageResponse) GetNuncConnection() *shared.NuncConnection {
 	if o == nil {
 		return nil
 	}
-	return o.NuncConnectionEntity
+	return o.NuncConnection
 }

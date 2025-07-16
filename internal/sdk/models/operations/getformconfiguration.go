@@ -26,7 +26,7 @@ type GetFormConfigurationResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get a form configuration
-	FormConfigurationEntity *shared.FormConfigurationEntity
+	FormConfiguration *shared.FormConfiguration
 }
 
 func (o *GetFormConfigurationResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetFormConfigurationResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetFormConfigurationResponse) GetFormConfigurationEntity() *shared.FormConfigurationEntity {
+func (o *GetFormConfigurationResponse) GetFormConfiguration() *shared.FormConfiguration {
 	if o == nil {
 		return nil
 	}
-	return o.FormConfigurationEntity
+	return o.FormConfiguration
 }

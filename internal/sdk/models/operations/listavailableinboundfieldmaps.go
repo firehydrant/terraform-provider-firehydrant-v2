@@ -26,7 +26,7 @@ type ListAvailableInboundFieldMapsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Returns metadata for the fields that are available for inbound field mapping.
-	TicketingProjectInboundMappableFieldEntity *shared.TicketingProjectInboundMappableFieldEntity
+	TicketingProjectInboundMappableField *shared.TicketingProjectInboundMappableField
 }
 
 func (o *ListAvailableInboundFieldMapsResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListAvailableInboundFieldMapsResponse) GetRawResponse() *http.Response 
 	return o.RawResponse
 }
 
-func (o *ListAvailableInboundFieldMapsResponse) GetTicketingProjectInboundMappableFieldEntity() *shared.TicketingProjectInboundMappableFieldEntity {
+func (o *ListAvailableInboundFieldMapsResponse) GetTicketingProjectInboundMappableField() *shared.TicketingProjectInboundMappableField {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingProjectInboundMappableFieldEntity
+	return o.TicketingProjectInboundMappableField
 }

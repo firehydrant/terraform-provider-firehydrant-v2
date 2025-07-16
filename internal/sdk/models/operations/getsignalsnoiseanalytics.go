@@ -139,7 +139,7 @@ type GetSignalsNoiseAnalyticsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get noise metrics for Signals alerts
-	SignalsAPIAnalyticsNoiseMetricsEntity *shared.SignalsAPIAnalyticsNoiseMetricsEntity
+	SignalsAPIAnalyticsNoiseMetrics *shared.SignalsAPIAnalyticsNoiseMetrics
 }
 
 func (o *GetSignalsNoiseAnalyticsResponse) GetContentType() string {
@@ -163,9 +163,9 @@ func (o *GetSignalsNoiseAnalyticsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetSignalsNoiseAnalyticsResponse) GetSignalsAPIAnalyticsNoiseMetricsEntity() *shared.SignalsAPIAnalyticsNoiseMetricsEntity {
+func (o *GetSignalsNoiseAnalyticsResponse) GetSignalsAPIAnalyticsNoiseMetrics() *shared.SignalsAPIAnalyticsNoiseMetrics {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIAnalyticsNoiseMetricsEntity
+	return o.SignalsAPIAnalyticsNoiseMetrics
 }

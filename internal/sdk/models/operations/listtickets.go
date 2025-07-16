@@ -70,7 +70,7 @@ type ListTicketsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the tickets that have been added to the organiation
-	TicketingTicketEntity *shared.TicketingTicketEntity
+	TicketingTicket *shared.TicketingTicket
 }
 
 func (o *ListTicketsResponse) GetContentType() string {
@@ -94,9 +94,9 @@ func (o *ListTicketsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListTicketsResponse) GetTicketingTicketEntity() *shared.TicketingTicketEntity {
+func (o *ListTicketsResponse) GetTicketingTicket() *shared.TicketingTicket {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingTicketEntity
+	return o.TicketingTicket
 }

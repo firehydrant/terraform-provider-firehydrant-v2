@@ -51,7 +51,7 @@ type DeleteIncidentRetrospectiveDynamicInputResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a dynamic input on a dynamic input group
-	IncidentsRetrospectiveFieldEntity *shared.IncidentsRetrospectiveFieldEntity
+	IncidentsRetrospectiveField *shared.IncidentsRetrospectiveField
 }
 
 func (o *DeleteIncidentRetrospectiveDynamicInputResponse) GetContentType() string {
@@ -75,9 +75,9 @@ func (o *DeleteIncidentRetrospectiveDynamicInputResponse) GetRawResponse() *http
 	return o.RawResponse
 }
 
-func (o *DeleteIncidentRetrospectiveDynamicInputResponse) GetIncidentsRetrospectiveFieldEntity() *shared.IncidentsRetrospectiveFieldEntity {
+func (o *DeleteIncidentRetrospectiveDynamicInputResponse) GetIncidentsRetrospectiveField() *shared.IncidentsRetrospectiveField {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRetrospectiveFieldEntity
+	return o.IncidentsRetrospectiveField
 }

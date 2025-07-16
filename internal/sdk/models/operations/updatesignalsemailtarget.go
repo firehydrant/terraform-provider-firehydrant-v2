@@ -34,7 +34,7 @@ type UpdateSignalsEmailTargetResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a Signals email target by ID
-	SignalsAPIEmailTargetEntity *shared.SignalsAPIEmailTargetEntity
+	SignalsAPIEmailTarget *shared.SignalsAPIEmailTarget
 }
 
 func (o *UpdateSignalsEmailTargetResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateSignalsEmailTargetResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateSignalsEmailTargetResponse) GetSignalsAPIEmailTargetEntity() *shared.SignalsAPIEmailTargetEntity {
+func (o *UpdateSignalsEmailTargetResponse) GetSignalsAPIEmailTarget() *shared.SignalsAPIEmailTarget {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIEmailTargetEntity
+	return o.SignalsAPIEmailTarget
 }

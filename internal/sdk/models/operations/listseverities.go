@@ -34,7 +34,7 @@ type ListSeveritiesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists severities
-	SeverityEntityPaginated *shared.SeverityEntityPaginated
+	SeverityPaginated *shared.SeverityPaginated
 }
 
 func (o *ListSeveritiesResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListSeveritiesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSeveritiesResponse) GetSeverityEntityPaginated() *shared.SeverityEntityPaginated {
+func (o *ListSeveritiesResponse) GetSeverityPaginated() *shared.SeverityPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SeverityEntityPaginated
+	return o.SeverityPaginated
 }

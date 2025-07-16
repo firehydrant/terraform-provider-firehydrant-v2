@@ -34,7 +34,7 @@ type CreateIncidentNoteResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new note on for an incident. The visibility field on a note determines where it gets posted.
-	EventNoteEntity *shared.EventNoteEntity
+	EventNote *shared.EventNote
 }
 
 func (o *CreateIncidentNoteResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateIncidentNoteResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateIncidentNoteResponse) GetEventNoteEntity() *shared.EventNoteEntity {
+func (o *CreateIncidentNoteResponse) GetEventNote() *shared.EventNote {
 	if o == nil {
 		return nil
 	}
-	return o.EventNoteEntity
+	return o.EventNote
 }

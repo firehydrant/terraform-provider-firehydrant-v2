@@ -34,7 +34,7 @@ type GetRunbookExecutionStepScriptResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves the bash script from a "script" step.
-	RunbooksExecutionEntity *shared.RunbooksExecutionEntity
+	RunbooksExecution *shared.RunbooksExecution
 }
 
 func (o *GetRunbookExecutionStepScriptResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *GetRunbookExecutionStepScriptResponse) GetRawResponse() *http.Response 
 	return o.RawResponse
 }
 
-func (o *GetRunbookExecutionStepScriptResponse) GetRunbooksExecutionEntity() *shared.RunbooksExecutionEntity {
+func (o *GetRunbookExecutionStepScriptResponse) GetRunbooksExecution() *shared.RunbooksExecution {
 	if o == nil {
 		return nil
 	}
-	return o.RunbooksExecutionEntity
+	return o.RunbooksExecution
 }

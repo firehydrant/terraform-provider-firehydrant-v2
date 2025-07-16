@@ -513,12 +513,12 @@ func (s *StatusPages) ListNuncConnections(ctx context.Context, opts ...operation
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntityPaginated
+			var out shared.NuncConnectionPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntityPaginated = &out
+			res.NuncConnectionPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -650,12 +650,12 @@ func (s *StatusPages) CreateNuncConnection(ctx context.Context, request shared.C
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntity
+			var out shared.NuncConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntity = &out
+			res.NuncConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -780,12 +780,12 @@ func (s *StatusPages) DeleteNuncConnection(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntity
+			var out shared.NuncConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntity = &out
+			res.NuncConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -910,12 +910,12 @@ func (s *StatusPages) GetNuncConnection(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntity
+			var out shared.NuncConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntity = &out
+			res.NuncConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1047,12 +1047,12 @@ func (s *StatusPages) UpdateNuncConnection(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntity
+			var out shared.NuncConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntity = &out
+			res.NuncConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1184,12 +1184,12 @@ func (s *StatusPages) CreateNuncComponentGroup(ctx context.Context, request oper
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntity
+			var out shared.NuncConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntity = &out
+			res.NuncConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1541,12 +1541,12 @@ func (s *StatusPages) DeleteNuncImage(ctx context.Context, request operations.De
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntity
+			var out shared.NuncConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntity = &out
+			res.NuncConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1678,12 +1678,12 @@ func (s *StatusPages) UpdateNuncImage(ctx context.Context, request operations.Up
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntity
+			var out shared.NuncConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntity = &out
+			res.NuncConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1808,12 +1808,12 @@ func (s *StatusPages) CreateNuncLink(ctx context.Context, request operations.Cre
 				return nil, err
 			}
 
-			var out shared.NuncConnectionEntity
+			var out shared.NuncConnection
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncConnectionEntity = &out
+			res.NuncConnection = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2169,12 +2169,12 @@ func (s *StatusPages) DeleteEmailSubscriber(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.NuncEmailSubscribersEntity
+			var out shared.NuncEmailSubscribers
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncEmailSubscribersEntity = &out
+			res.NuncEmailSubscribers = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2299,12 +2299,12 @@ func (s *StatusPages) ListEmailSubscribers(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.NuncEmailSubscribersEntity
+			var out shared.NuncEmailSubscribers
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncEmailSubscribersEntity = &out
+			res.NuncEmailSubscribers = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2436,12 +2436,12 @@ func (s *StatusPages) CreateEmailSubscriber(ctx context.Context, request operati
 				return nil, err
 			}
 
-			var out shared.NuncEmailSubscribersEntity
+			var out shared.NuncEmailSubscribers
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.NuncEmailSubscribersEntity = &out
+			res.NuncEmailSubscribers = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

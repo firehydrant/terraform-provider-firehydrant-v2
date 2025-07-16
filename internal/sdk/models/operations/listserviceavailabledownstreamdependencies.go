@@ -26,7 +26,7 @@ type ListServiceAvailableDownstreamDependenciesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves all services that are available to be downstream dependencies
-	ServiceEntityLite *shared.ServiceEntityLite
+	ServiceLite *shared.ServiceLite
 }
 
 func (o *ListServiceAvailableDownstreamDependenciesResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListServiceAvailableDownstreamDependenciesResponse) GetRawResponse() *h
 	return o.RawResponse
 }
 
-func (o *ListServiceAvailableDownstreamDependenciesResponse) GetServiceEntityLite() *shared.ServiceEntityLite {
+func (o *ListServiceAvailableDownstreamDependenciesResponse) GetServiceLite() *shared.ServiceLite {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceEntityLite
+	return o.ServiceLite
 }

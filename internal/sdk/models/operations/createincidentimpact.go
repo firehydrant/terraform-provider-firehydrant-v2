@@ -42,9 +42,9 @@ type CreateIncidentImpactResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Add impacted infrastructure to an incident
-	IncidentImpactEntity *shared.IncidentImpactEntity
+	IncidentImpact *shared.IncidentImpact
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *CreateIncidentImpactResponse) GetContentType() string {
@@ -68,16 +68,16 @@ func (o *CreateIncidentImpactResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateIncidentImpactResponse) GetIncidentImpactEntity() *shared.IncidentImpactEntity {
+func (o *CreateIncidentImpactResponse) GetIncidentImpact() *shared.IncidentImpact {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentImpactEntity
+	return o.IncidentImpact
 }
 
-func (o *CreateIncidentImpactResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *CreateIncidentImpactResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

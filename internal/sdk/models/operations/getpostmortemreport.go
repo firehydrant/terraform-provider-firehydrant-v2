@@ -26,7 +26,7 @@ type GetPostMortemReportResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get a report
-	PostMortemsPostMortemReportEntity *shared.PostMortemsPostMortemReportEntity
+	PostMortemsPostMortemReport *shared.PostMortemsPostMortemReport
 }
 
 func (o *GetPostMortemReportResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetPostMortemReportResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetPostMortemReportResponse) GetPostMortemsPostMortemReportEntity() *shared.PostMortemsPostMortemReportEntity {
+func (o *GetPostMortemReportResponse) GetPostMortemsPostMortemReport() *shared.PostMortemsPostMortemReport {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsPostMortemReportEntity
+	return o.PostMortemsPostMortemReport
 }

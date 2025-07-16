@@ -26,7 +26,7 @@ type CloseIncidentResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Closes an incident and optionally close all children
-	IncidentEntity *shared.IncidentEntity
+	Incident *shared.Incident
 }
 
 func (o *CloseIncidentResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *CloseIncidentResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CloseIncidentResponse) GetIncidentEntity() *shared.IncidentEntity {
+func (o *CloseIncidentResponse) GetIncident() *shared.Incident {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentEntity
+	return o.Incident
 }

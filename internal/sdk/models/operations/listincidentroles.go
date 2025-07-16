@@ -34,7 +34,7 @@ type ListIncidentRolesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the incident roles in the organization
-	IncidentRoleEntityPaginated *shared.IncidentRoleEntityPaginated
+	IncidentRolePaginated *shared.IncidentRolePaginated
 }
 
 func (o *ListIncidentRolesResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListIncidentRolesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentRolesResponse) GetIncidentRoleEntityPaginated() *shared.IncidentRoleEntityPaginated {
+func (o *ListIncidentRolesResponse) GetIncidentRolePaginated() *shared.IncidentRolePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentRoleEntityPaginated
+	return o.IncidentRolePaginated
 }

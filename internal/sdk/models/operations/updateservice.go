@@ -36,7 +36,7 @@ type UpdateServiceResponse struct {
 	// Update a services attributes, you may also add or remove functionalities from the service as well.
 	// Note: You may not remove or add individual label key/value pairs. You must include the entire object to override label values.
 	//
-	ServiceEntity *shared.ServiceEntity
+	Service *shared.Service
 }
 
 func (o *UpdateServiceResponse) GetContentType() string {
@@ -60,9 +60,9 @@ func (o *UpdateServiceResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateServiceResponse) GetServiceEntity() *shared.ServiceEntity {
+func (o *UpdateServiceResponse) GetService() *shared.Service {
 	if o == nil {
 		return nil
 	}
-	return o.ServiceEntity
+	return o.Service
 }

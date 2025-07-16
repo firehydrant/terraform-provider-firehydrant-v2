@@ -26,7 +26,7 @@ type GetChangeEventResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a change event
-	ChangeEventEntity *shared.ChangeEventEntity
+	ChangeEvent *shared.ChangeEvent
 }
 
 func (o *GetChangeEventResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetChangeEventResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetChangeEventResponse) GetChangeEventEntity() *shared.ChangeEventEntity {
+func (o *GetChangeEventResponse) GetChangeEvent() *shared.ChangeEvent {
 	if o == nil {
 		return nil
 	}
-	return o.ChangeEventEntity
+	return o.ChangeEvent
 }

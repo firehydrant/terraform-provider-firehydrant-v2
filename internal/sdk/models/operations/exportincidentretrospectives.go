@@ -34,7 +34,7 @@ type ExportIncidentRetrospectivesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Export incident's retrospective(s) using their templates
-	IncidentsExportRetrospectivesResultEntity *shared.IncidentsExportRetrospectivesResultEntity
+	IncidentsExportRetrospectivesResult *shared.IncidentsExportRetrospectivesResult
 }
 
 func (o *ExportIncidentRetrospectivesResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ExportIncidentRetrospectivesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ExportIncidentRetrospectivesResponse) GetIncidentsExportRetrospectivesResultEntity() *shared.IncidentsExportRetrospectivesResultEntity {
+func (o *ExportIncidentRetrospectivesResponse) GetIncidentsExportRetrospectivesResult() *shared.IncidentsExportRetrospectivesResult {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsExportRetrospectivesResultEntity
+	return o.IncidentsExportRetrospectivesResult
 }

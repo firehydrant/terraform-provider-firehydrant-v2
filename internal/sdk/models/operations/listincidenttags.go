@@ -26,7 +26,7 @@ type ListIncidentTagsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all of the incident tags in the organization
-	TagEntityPaginated *shared.TagEntityPaginated
+	TagPaginated *shared.TagPaginated
 }
 
 func (o *ListIncidentTagsResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListIncidentTagsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentTagsResponse) GetTagEntityPaginated() *shared.TagEntityPaginated {
+func (o *ListIncidentTagsResponse) GetTagPaginated() *shared.TagPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.TagEntityPaginated
+	return o.TagPaginated
 }

@@ -51,7 +51,7 @@ type ListIncidentChangeEventsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List related changes that have been attached to an incident
-	IncidentsRelatedChangeEventEntityPaginated *shared.IncidentsRelatedChangeEventEntityPaginated
+	IncidentsRelatedChangeEventPaginated *shared.IncidentsRelatedChangeEventPaginated
 }
 
 func (o *ListIncidentChangeEventsResponse) GetContentType() string {
@@ -75,9 +75,9 @@ func (o *ListIncidentChangeEventsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentChangeEventsResponse) GetIncidentsRelatedChangeEventEntityPaginated() *shared.IncidentsRelatedChangeEventEntityPaginated {
+func (o *ListIncidentChangeEventsResponse) GetIncidentsRelatedChangeEventPaginated() *shared.IncidentsRelatedChangeEventPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsRelatedChangeEventEntityPaginated
+	return o.IncidentsRelatedChangeEventPaginated
 }

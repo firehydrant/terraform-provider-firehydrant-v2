@@ -15,7 +15,7 @@ type CreateSignalsEmailTargetResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a Signals email target for a team.
-	SignalsAPIEmailTargetEntity *shared.SignalsAPIEmailTargetEntity
+	SignalsAPIEmailTarget *shared.SignalsAPIEmailTarget
 }
 
 func (o *CreateSignalsEmailTargetResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateSignalsEmailTargetResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateSignalsEmailTargetResponse) GetSignalsAPIEmailTargetEntity() *shared.SignalsAPIEmailTargetEntity {
+func (o *CreateSignalsEmailTargetResponse) GetSignalsAPIEmailTarget() *shared.SignalsAPIEmailTarget {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIEmailTargetEntity
+	return o.SignalsAPIEmailTarget
 }

@@ -34,7 +34,7 @@ type UpdateCallRouteResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a call route by ID
-	SignalsAPICallRouteEntity *shared.SignalsAPICallRouteEntity
+	SignalsAPICallRoute *shared.SignalsAPICallRoute
 }
 
 func (o *UpdateCallRouteResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateCallRouteResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateCallRouteResponse) GetSignalsAPICallRouteEntity() *shared.SignalsAPICallRouteEntity {
+func (o *UpdateCallRouteResponse) GetSignalsAPICallRoute() *shared.SignalsAPICallRoute {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPICallRouteEntity
+	return o.SignalsAPICallRoute
 }

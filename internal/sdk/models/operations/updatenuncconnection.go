@@ -34,7 +34,7 @@ type UpdateNuncConnectionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update your company's information and other components in the specified FireHydrant hosted status page.
-	NuncConnectionEntity *shared.NuncConnectionEntity
+	NuncConnection *shared.NuncConnection
 }
 
 func (o *UpdateNuncConnectionResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateNuncConnectionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateNuncConnectionResponse) GetNuncConnectionEntity() *shared.NuncConnectionEntity {
+func (o *UpdateNuncConnectionResponse) GetNuncConnection() *shared.NuncConnection {
 	if o == nil {
 		return nil
 	}
-	return o.NuncConnectionEntity
+	return o.NuncConnection
 }

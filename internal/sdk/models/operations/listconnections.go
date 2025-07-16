@@ -27,7 +27,7 @@ type ListConnectionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List available integration connections
-	IntegrationsConnectionEntityPaginated *shared.IntegrationsConnectionEntityPaginated
+	IntegrationsConnectionPaginated *shared.IntegrationsConnectionPaginated
 }
 
 func (o *ListConnectionsResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *ListConnectionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListConnectionsResponse) GetIntegrationsConnectionEntityPaginated() *shared.IntegrationsConnectionEntityPaginated {
+func (o *ListConnectionsResponse) GetIntegrationsConnectionPaginated() *shared.IntegrationsConnectionPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsConnectionEntityPaginated
+	return o.IntegrationsConnectionPaginated
 }

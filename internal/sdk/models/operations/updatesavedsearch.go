@@ -42,7 +42,7 @@ type UpdateSavedSearchResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a specific saved search
-	SavedSearchEntity *shared.SavedSearchEntity
+	SavedSearch *shared.SavedSearch
 }
 
 func (o *UpdateSavedSearchResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *UpdateSavedSearchResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateSavedSearchResponse) GetSavedSearchEntity() *shared.SavedSearchEntity {
+func (o *UpdateSavedSearchResponse) GetSavedSearch() *shared.SavedSearch {
 	if o == nil {
 		return nil
 	}
-	return o.SavedSearchEntity
+	return o.SavedSearch
 }

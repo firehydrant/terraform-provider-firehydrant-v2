@@ -26,7 +26,7 @@ type DeleteRetrospectiveTemplateResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete a single retrospective template
-	RetrospectivesTemplateEntity *shared.RetrospectivesTemplateEntity
+	RetrospectivesTemplate *shared.RetrospectivesTemplate
 }
 
 func (o *DeleteRetrospectiveTemplateResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteRetrospectiveTemplateResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteRetrospectiveTemplateResponse) GetRetrospectivesTemplateEntity() *shared.RetrospectivesTemplateEntity {
+func (o *DeleteRetrospectiveTemplateResponse) GetRetrospectivesTemplate() *shared.RetrospectivesTemplate {
 	if o == nil {
 		return nil
 	}
-	return o.RetrospectivesTemplateEntity
+	return o.RetrospectivesTemplate
 }

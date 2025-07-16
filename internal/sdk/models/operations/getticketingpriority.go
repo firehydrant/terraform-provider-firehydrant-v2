@@ -26,7 +26,7 @@ type GetTicketingPriorityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a single ticketing priority by ID
-	TicketingPriorityEntity *shared.TicketingPriorityEntity
+	TicketingPriority *shared.TicketingPriority
 }
 
 func (o *GetTicketingPriorityResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetTicketingPriorityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetTicketingPriorityResponse) GetTicketingPriorityEntity() *shared.TicketingPriorityEntity {
+func (o *GetTicketingPriorityResponse) GetTicketingPriority() *shared.TicketingPriority {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingPriorityEntity
+	return o.TicketingPriority
 }

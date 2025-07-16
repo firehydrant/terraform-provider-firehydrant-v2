@@ -15,7 +15,7 @@ type ListNuncConnectionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists the information displayed as part of your FireHydrant hosted status pages.
-	NuncConnectionEntityPaginated *shared.NuncConnectionEntityPaginated
+	NuncConnectionPaginated *shared.NuncConnectionPaginated
 }
 
 func (o *ListNuncConnectionsResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *ListNuncConnectionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListNuncConnectionsResponse) GetNuncConnectionEntityPaginated() *shared.NuncConnectionEntityPaginated {
+func (o *ListNuncConnectionsResponse) GetNuncConnectionPaginated() *shared.NuncConnectionPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.NuncConnectionEntityPaginated
+	return o.NuncConnectionPaginated
 }

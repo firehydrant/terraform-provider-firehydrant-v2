@@ -15,9 +15,9 @@ type CreateChangeResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new change entry
-	ChangeEntity *shared.ChangeEntity
+	Change *shared.Change
 	// Bad Request
-	ErrorEntity *shared.ErrorEntity
+	Error *shared.Error
 }
 
 func (o *CreateChangeResponse) GetContentType() string {
@@ -41,16 +41,16 @@ func (o *CreateChangeResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateChangeResponse) GetChangeEntity() *shared.ChangeEntity {
+func (o *CreateChangeResponse) GetChange() *shared.Change {
 	if o == nil {
 		return nil
 	}
-	return o.ChangeEntity
+	return o.Change
 }
 
-func (o *CreateChangeResponse) GetErrorEntity() *shared.ErrorEntity {
+func (o *CreateChangeResponse) GetError() *shared.Error {
 	if o == nil {
 		return nil
 	}
-	return o.ErrorEntity
+	return o.Error
 }

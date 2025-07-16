@@ -27,7 +27,7 @@ type GetStatuspageConnectionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve the information about the Statuspage connection.
-	IntegrationsStatuspageConnectionEntity *shared.IntegrationsStatuspageConnectionEntity
+	IntegrationsStatuspageConnection *shared.IntegrationsStatuspageConnection
 }
 
 func (o *GetStatuspageConnectionResponse) GetContentType() string {
@@ -51,9 +51,9 @@ func (o *GetStatuspageConnectionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetStatuspageConnectionResponse) GetIntegrationsStatuspageConnectionEntity() *shared.IntegrationsStatuspageConnectionEntity {
+func (o *GetStatuspageConnectionResponse) GetIntegrationsStatuspageConnection() *shared.IntegrationsStatuspageConnection {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsStatuspageConnectionEntity
+	return o.IntegrationsStatuspageConnection
 }

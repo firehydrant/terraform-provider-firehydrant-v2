@@ -26,7 +26,7 @@ type ListIncidentAlertsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List alerts that have been attached to an incident
-	IncidentsAlertEntityPaginated *shared.IncidentsAlertEntityPaginated
+	IncidentsAlertPaginated *shared.IncidentsAlertPaginated
 }
 
 func (o *ListIncidentAlertsResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListIncidentAlertsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListIncidentAlertsResponse) GetIncidentsAlertEntityPaginated() *shared.IncidentsAlertEntityPaginated {
+func (o *ListIncidentAlertsResponse) GetIncidentsAlertPaginated() *shared.IncidentsAlertPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsAlertEntityPaginated
+	return o.IncidentsAlertPaginated
 }

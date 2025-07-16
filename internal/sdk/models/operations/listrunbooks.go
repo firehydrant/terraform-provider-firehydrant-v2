@@ -79,7 +79,7 @@ type ListRunbooksResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists all available runbooks.
-	RunbookEntity *shared.RunbookEntity
+	Runbook *shared.Runbook
 }
 
 func (o *ListRunbooksResponse) GetContentType() string {
@@ -103,9 +103,9 @@ func (o *ListRunbooksResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListRunbooksResponse) GetRunbookEntity() *shared.RunbookEntity {
+func (o *ListRunbooksResponse) GetRunbook() *shared.Runbook {
 	if o == nil {
 		return nil
 	}
-	return o.RunbookEntity
+	return o.Runbook
 }

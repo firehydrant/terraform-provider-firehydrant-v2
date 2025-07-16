@@ -34,7 +34,7 @@ type UpdateCustomFieldDefinitionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a single custom field definition
-	OrganizationsCustomFieldDefinitionEntity *shared.OrganizationsCustomFieldDefinitionEntity
+	OrganizationsCustomFieldDefinition *shared.OrganizationsCustomFieldDefinition
 }
 
 func (o *UpdateCustomFieldDefinitionResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *UpdateCustomFieldDefinitionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateCustomFieldDefinitionResponse) GetOrganizationsCustomFieldDefinitionEntity() *shared.OrganizationsCustomFieldDefinitionEntity {
+func (o *UpdateCustomFieldDefinitionResponse) GetOrganizationsCustomFieldDefinition() *shared.OrganizationsCustomFieldDefinition {
 	if o == nil {
 		return nil
 	}
-	return o.OrganizationsCustomFieldDefinitionEntity
+	return o.OrganizationsCustomFieldDefinition
 }

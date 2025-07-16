@@ -140,12 +140,12 @@ func (s *Changes) ListChangeTypes(ctx context.Context, request operations.ListCh
 				return nil, err
 			}
 
-			var out shared.ChangeTypeEntityPaginated
+			var out shared.ChangeTypePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeTypeEntityPaginated = &out
+			res.ChangeTypePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -391,12 +391,12 @@ func (s *Changes) CreateChange(ctx context.Context, request shared.CreateChange,
 				return nil, err
 			}
 
-			var out shared.ChangeEntity
+			var out shared.Change
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeEntity = &out
+			res.Change = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -412,12 +412,12 @@ func (s *Changes) CreateChange(ctx context.Context, request shared.CreateChange,
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -546,12 +546,12 @@ func (s *Changes) ListChangeEvents(ctx context.Context, request operations.ListC
 				return nil, err
 			}
 
-			var out shared.ChangeEventSlimEntityPaginated
+			var out shared.ChangeEventSlimPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeEventSlimEntityPaginated = &out
+			res.ChangeEventSlimPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -683,12 +683,12 @@ func (s *Changes) CreateChangeEvent(ctx context.Context, request shared.CreateCh
 				return nil, err
 			}
 
-			var out shared.ChangeEventEntity
+			var out shared.ChangeEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeEventEntity = &out
+			res.ChangeEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -923,12 +923,12 @@ func (s *Changes) GetChangeEvent(ctx context.Context, request operations.GetChan
 				return nil, err
 			}
 
-			var out shared.ChangeEventEntity
+			var out shared.ChangeEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeEventEntity = &out
+			res.ChangeEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1060,12 +1060,12 @@ func (s *Changes) UpdateChangeEvent(ctx context.Context, request operations.Upda
 				return nil, err
 			}
 
-			var out shared.ChangeEventEntity
+			var out shared.ChangeEvent
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeEventEntity = &out
+			res.ChangeEvent = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1307,12 +1307,12 @@ func (s *Changes) UpdateChange(ctx context.Context, request operations.UpdateCha
 				return nil, err
 			}
 
-			var out shared.ChangeEntity
+			var out shared.Change
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeEntity = &out
+			res.Change = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1441,12 +1441,12 @@ func (s *Changes) ListChangeIdentities(ctx context.Context, request operations.L
 				return nil, err
 			}
 
-			var out shared.ChangeIdentityEntityPaginated
+			var out shared.ChangeIdentityPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeIdentityEntityPaginated = &out
+			res.ChangeIdentityPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1578,12 +1578,12 @@ func (s *Changes) CreateChangeIdentity(ctx context.Context, request operations.C
 				return nil, err
 			}
 
-			var out shared.ChangeIdentityEntity
+			var out shared.ChangeIdentity
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeIdentityEntity = &out
+			res.ChangeIdentity = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1599,12 +1599,12 @@ func (s *Changes) CreateChangeIdentity(ctx context.Context, request operations.C
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1730,12 +1730,12 @@ func (s *Changes) DeleteChangeIdentity(ctx context.Context, request operations.D
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1867,12 +1867,12 @@ func (s *Changes) UpdateChangeIdentity(ctx context.Context, request operations.U
 				return nil, err
 			}
 
-			var out shared.ChangeIdentityEntity
+			var out shared.ChangeIdentity
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ChangeIdentityEntity = &out
+			res.ChangeIdentity = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1888,12 +1888,12 @@ func (s *Changes) UpdateChangeIdentity(ctx context.Context, request operations.U
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

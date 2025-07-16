@@ -26,7 +26,7 @@ type DeleteIncidentTypeResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Archives an incident type which will hide it from lists and metrics
-	IncidentTypeEntity *shared.IncidentTypeEntity
+	IncidentType *shared.IncidentType
 }
 
 func (o *DeleteIncidentTypeResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *DeleteIncidentTypeResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteIncidentTypeResponse) GetIncidentTypeEntity() *shared.IncidentTypeEntity {
+func (o *DeleteIncidentTypeResponse) GetIncidentType() *shared.IncidentType {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentTypeEntity
+	return o.IncidentType
 }

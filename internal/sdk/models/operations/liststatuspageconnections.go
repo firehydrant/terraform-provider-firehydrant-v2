@@ -34,7 +34,7 @@ type ListStatuspageConnectionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists the available and configured Statuspage integrations connections for the authenticated organization.
-	IntegrationsStatuspageConnectionEntityPaginated *shared.IntegrationsStatuspageConnectionEntityPaginated
+	IntegrationsStatuspageConnectionPaginated *shared.IntegrationsStatuspageConnectionPaginated
 }
 
 func (o *ListStatuspageConnectionsResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListStatuspageConnectionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListStatuspageConnectionsResponse) GetIntegrationsStatuspageConnectionEntityPaginated() *shared.IntegrationsStatuspageConnectionEntityPaginated {
+func (o *ListStatuspageConnectionsResponse) GetIntegrationsStatuspageConnectionPaginated() *shared.IntegrationsStatuspageConnectionPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsStatuspageConnectionEntityPaginated
+	return o.IntegrationsStatuspageConnectionPaginated
 }

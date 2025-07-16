@@ -15,7 +15,7 @@ type CreateRetrospectiveTemplateResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Create a new retrospective template
-	RetrospectivesTemplateEntity *shared.RetrospectivesTemplateEntity
+	RetrospectivesTemplate *shared.RetrospectivesTemplate
 }
 
 func (o *CreateRetrospectiveTemplateResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateRetrospectiveTemplateResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateRetrospectiveTemplateResponse) GetRetrospectivesTemplateEntity() *shared.RetrospectivesTemplateEntity {
+func (o *CreateRetrospectiveTemplateResponse) GetRetrospectivesTemplate() *shared.RetrospectivesTemplate {
 	if o == nil {
 		return nil
 	}
-	return o.RetrospectivesTemplateEntity
+	return o.RetrospectivesTemplate
 }

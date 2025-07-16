@@ -26,7 +26,7 @@ type GetAwsCloudtrailBatchResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve a single CloudTrail batch.
-	IntegrationsAwsCloudtrailBatchEntity *shared.IntegrationsAwsCloudtrailBatchEntity
+	IntegrationsAwsCloudtrailBatch *shared.IntegrationsAwsCloudtrailBatch
 }
 
 func (o *GetAwsCloudtrailBatchResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetAwsCloudtrailBatchResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetAwsCloudtrailBatchResponse) GetIntegrationsAwsCloudtrailBatchEntity() *shared.IntegrationsAwsCloudtrailBatchEntity {
+func (o *GetAwsCloudtrailBatchResponse) GetIntegrationsAwsCloudtrailBatch() *shared.IntegrationsAwsCloudtrailBatch {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsAwsCloudtrailBatchEntity
+	return o.IntegrationsAwsCloudtrailBatch
 }

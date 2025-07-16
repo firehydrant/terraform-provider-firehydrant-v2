@@ -34,7 +34,7 @@ type GetTicketingProjectConfigResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieve configuration for a ticketing project
-	TicketingProjectConfigEntity *shared.TicketingProjectConfigEntity
+	TicketingProjectConfig *shared.TicketingProjectConfig
 }
 
 func (o *GetTicketingProjectConfigResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *GetTicketingProjectConfigResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetTicketingProjectConfigResponse) GetTicketingProjectConfigEntity() *shared.TicketingProjectConfigEntity {
+func (o *GetTicketingProjectConfigResponse) GetTicketingProjectConfig() *shared.TicketingProjectConfig {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingProjectConfigEntity
+	return o.TicketingProjectConfig
 }

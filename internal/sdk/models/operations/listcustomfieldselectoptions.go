@@ -44,7 +44,7 @@ type ListCustomFieldSelectOptionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get the permissible values for the a currently active custom select or multi-select field.
-	OrganizationsCustomFieldDefinitionEntity *shared.OrganizationsCustomFieldDefinitionEntity
+	OrganizationsCustomFieldDefinition *shared.OrganizationsCustomFieldDefinition
 }
 
 func (o *ListCustomFieldSelectOptionsResponse) GetContentType() string {
@@ -68,9 +68,9 @@ func (o *ListCustomFieldSelectOptionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListCustomFieldSelectOptionsResponse) GetOrganizationsCustomFieldDefinitionEntity() *shared.OrganizationsCustomFieldDefinitionEntity {
+func (o *ListCustomFieldSelectOptionsResponse) GetOrganizationsCustomFieldDefinition() *shared.OrganizationsCustomFieldDefinition {
 	if o == nil {
 		return nil
 	}
-	return o.OrganizationsCustomFieldDefinitionEntity
+	return o.OrganizationsCustomFieldDefinition
 }

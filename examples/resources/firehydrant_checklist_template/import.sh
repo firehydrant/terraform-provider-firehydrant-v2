@@ -1,0 +1,1 @@
+terraform import firehydrant_checklist_template.my_firehydrant_checklist_template ""

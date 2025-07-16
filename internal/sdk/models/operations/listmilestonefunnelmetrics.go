@@ -329,7 +329,7 @@ type ListMilestoneFunnelMetricsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Returns a report with time bucketed milestone data
-	MetricsMilestonesFunnelEntity *shared.MetricsMilestonesFunnelEntity
+	MetricsMilestonesFunnel *shared.MetricsMilestonesFunnel
 }
 
 func (o *ListMilestoneFunnelMetricsResponse) GetContentType() string {
@@ -353,9 +353,9 @@ func (o *ListMilestoneFunnelMetricsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListMilestoneFunnelMetricsResponse) GetMetricsMilestonesFunnelEntity() *shared.MetricsMilestonesFunnelEntity {
+func (o *ListMilestoneFunnelMetricsResponse) GetMetricsMilestonesFunnel() *shared.MetricsMilestonesFunnel {
 	if o == nil {
 		return nil
 	}
-	return o.MetricsMilestonesFunnelEntity
+	return o.MetricsMilestonesFunnel
 }

@@ -26,7 +26,7 @@ type GetAwsConnectionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves the information about the AWS connection.
-	IntegrationsAwsConnectionEntity *shared.IntegrationsAwsConnectionEntity
+	IntegrationsAwsConnection *shared.IntegrationsAwsConnection
 }
 
 func (o *GetAwsConnectionResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetAwsConnectionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetAwsConnectionResponse) GetIntegrationsAwsConnectionEntity() *shared.IntegrationsAwsConnectionEntity {
+func (o *GetAwsConnectionResponse) GetIntegrationsAwsConnection() *shared.IntegrationsAwsConnection {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsAwsConnectionEntity
+	return o.IntegrationsAwsConnection
 }

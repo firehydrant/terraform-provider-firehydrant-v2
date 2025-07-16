@@ -42,7 +42,7 @@ type UpdateNuncImageResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Add or replace an image attached to a FireHydrant status page
-	NuncConnectionEntity *shared.NuncConnectionEntity
+	NuncConnection *shared.NuncConnection
 }
 
 func (o *UpdateNuncImageResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *UpdateNuncImageResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateNuncImageResponse) GetNuncConnectionEntity() *shared.NuncConnectionEntity {
+func (o *UpdateNuncImageResponse) GetNuncConnection() *shared.NuncConnection {
 	if o == nil {
 		return nil
 	}
-	return o.NuncConnectionEntity
+	return o.NuncConnection
 }

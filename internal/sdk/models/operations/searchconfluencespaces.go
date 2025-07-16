@@ -35,7 +35,7 @@ type SearchConfluenceSpacesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Lists available space keys for the Confluence integration connection.
-	IntegrationsConfluenceCloudSpaceKeyEntity *shared.IntegrationsConfluenceCloudSpaceKeyEntity
+	IntegrationsConfluenceCloudSpaceKey *shared.IntegrationsConfluenceCloudSpaceKey
 }
 
 func (o *SearchConfluenceSpacesResponse) GetContentType() string {
@@ -59,9 +59,9 @@ func (o *SearchConfluenceSpacesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *SearchConfluenceSpacesResponse) GetIntegrationsConfluenceCloudSpaceKeyEntity() *shared.IntegrationsConfluenceCloudSpaceKeyEntity {
+func (o *SearchConfluenceSpacesResponse) GetIntegrationsConfluenceCloudSpaceKey() *shared.IntegrationsConfluenceCloudSpaceKey {
 	if o == nil {
 		return nil
 	}
-	return o.IntegrationsConfluenceCloudSpaceKeyEntity
+	return o.IntegrationsConfluenceCloudSpaceKey
 }

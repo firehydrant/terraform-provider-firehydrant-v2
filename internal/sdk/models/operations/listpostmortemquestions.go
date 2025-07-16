@@ -34,7 +34,7 @@ type ListPostMortemQuestionsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List the questions configured to be provided and filled out on each retrospective report.
-	PostMortemsQuestionTypeEntityPaginated *shared.PostMortemsQuestionTypeEntityPaginated
+	PostMortemsQuestionTypePaginated *shared.PostMortemsQuestionTypePaginated
 }
 
 func (o *ListPostMortemQuestionsResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *ListPostMortemQuestionsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListPostMortemQuestionsResponse) GetPostMortemsQuestionTypeEntityPaginated() *shared.PostMortemsQuestionTypeEntityPaginated {
+func (o *ListPostMortemQuestionsResponse) GetPostMortemsQuestionTypePaginated() *shared.PostMortemsQuestionTypePaginated {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsQuestionTypeEntityPaginated
+	return o.PostMortemsQuestionTypePaginated
 }

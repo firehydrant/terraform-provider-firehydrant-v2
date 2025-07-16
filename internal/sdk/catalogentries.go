@@ -143,12 +143,12 @@ func (s *CatalogEntries) IngestCatalogData(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.ImportsImportEntity
+			var out shared.Imports
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ImportsImportEntity = &out
+			res.Imports = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -387,12 +387,12 @@ func (s *CatalogEntries) ListEnvironments(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.EnvironmentEntryEntityPaginated
+			var out shared.EnvironmentEntryPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EnvironmentEntryEntityPaginated = &out
+			res.EnvironmentEntryPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -524,12 +524,12 @@ func (s *CatalogEntries) CreateEnvironment(ctx context.Context, request shared.C
 				return nil, err
 			}
 
-			var out shared.EnvironmentEntryEntity
+			var out shared.EnvironmentEntry
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EnvironmentEntryEntity = &out
+			res.EnvironmentEntry = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -654,12 +654,12 @@ func (s *CatalogEntries) DeleteEnvironment(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.EnvironmentEntryEntity
+			var out shared.EnvironmentEntry
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EnvironmentEntryEntity = &out
+			res.EnvironmentEntry = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -784,12 +784,12 @@ func (s *CatalogEntries) GetEnvironment(ctx context.Context, request operations.
 				return nil, err
 			}
 
-			var out shared.EnvironmentEntryEntity
+			var out shared.EnvironmentEntry
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EnvironmentEntryEntity = &out
+			res.EnvironmentEntry = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -921,12 +921,12 @@ func (s *CatalogEntries) UpdateEnvironment(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.EnvironmentEntryEntity
+			var out shared.EnvironmentEntry
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.EnvironmentEntryEntity = &out
+			res.EnvironmentEntry = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1055,12 +1055,12 @@ func (s *CatalogEntries) ListFunctionalities(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.FunctionalityEntityPaginated
+			var out shared.FunctionalityPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FunctionalityEntityPaginated = &out
+			res.FunctionalityPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1192,12 +1192,12 @@ func (s *CatalogEntries) CreateFunctionality(ctx context.Context, request shared
 				return nil, err
 			}
 
-			var out shared.FunctionalityEntity
+			var out shared.Functionality
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FunctionalityEntity = &out
+			res.Functionality = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1322,12 +1322,12 @@ func (s *CatalogEntries) DeleteFunctionality(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.FunctionalityEntity
+			var out shared.Functionality
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FunctionalityEntity = &out
+			res.Functionality = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1452,12 +1452,12 @@ func (s *CatalogEntries) GetFunctionality(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.FunctionalityEntity
+			var out shared.Functionality
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FunctionalityEntity = &out
+			res.Functionality = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1589,12 +1589,12 @@ func (s *CatalogEntries) UpdateFunctionality(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.FunctionalityEntity
+			var out shared.Functionality
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FunctionalityEntity = &out
+			res.Functionality = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1719,12 +1719,12 @@ func (s *CatalogEntries) ListFunctionalityServices(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.FunctionalityWithAllServicesEntity
+			var out shared.FunctionalityWithAllServices
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.FunctionalityWithAllServicesEntity = &out
+			res.FunctionalityWithAllServices = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1853,12 +1853,12 @@ func (s *CatalogEntries) ListInfrastructures(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.InfrastructureSearchEntity
+			var out shared.InfrastructureSearch
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.InfrastructureSearchEntity = &out
+			res.InfrastructureSearch = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1990,12 +1990,12 @@ func (s *CatalogEntries) CreateServiceDependency(ctx context.Context, request sh
 				return nil, err
 			}
 
-			var out shared.ServiceDependencyEntity
+			var out shared.ServiceDependency
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceDependencyEntity = &out
+			res.ServiceDependency = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2120,12 +2120,12 @@ func (s *CatalogEntries) DeleteServiceDependency(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.ServiceDependencyEntity
+			var out shared.ServiceDependency
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceDependencyEntity = &out
+			res.ServiceDependency = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2250,12 +2250,12 @@ func (s *CatalogEntries) GetServiceDependency(ctx context.Context, request opera
 				return nil, err
 			}
 
-			var out shared.ServiceDependencyEntity
+			var out shared.ServiceDependency
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceDependencyEntity = &out
+			res.ServiceDependency = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2387,12 +2387,12 @@ func (s *CatalogEntries) UpdateServiceDependency(ctx context.Context, request op
 				return nil, err
 			}
 
-			var out shared.ServiceDependencyEntity
+			var out shared.ServiceDependency
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceDependencyEntity = &out
+			res.ServiceDependency = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2521,12 +2521,12 @@ func (s *CatalogEntries) ListServices(ctx context.Context, request operations.Li
 				return nil, err
 			}
 
-			var out shared.ServiceEntityPaginated
+			var out shared.ServicePaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceEntityPaginated = &out
+			res.ServicePaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2658,12 +2658,12 @@ func (s *CatalogEntries) CreateService(ctx context.Context, request shared.Creat
 				return nil, err
 			}
 
-			var out shared.ServiceEntity
+			var out shared.Service
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceEntity = &out
+			res.Service = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2679,12 +2679,12 @@ func (s *CatalogEntries) CreateService(ctx context.Context, request shared.Creat
 				return nil, err
 			}
 
-			var out shared.ErrorEntity
+			var out shared.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ErrorEntity = &out
+			res.Error = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2816,12 +2816,12 @@ func (s *CatalogEntries) CreateServiceLinks(ctx context.Context, request shared.
 				return nil, err
 			}
 
-			var out []shared.ServiceLinkEntity
+			var out []shared.ServiceLink
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceLinkEntities = out
+			res.ServiceLinks = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2946,12 +2946,12 @@ func (s *CatalogEntries) DeleteService(ctx context.Context, request operations.D
 				return nil, err
 			}
 
-			var out shared.ServiceEntity
+			var out shared.Service
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceEntity = &out
+			res.Service = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3076,12 +3076,12 @@ func (s *CatalogEntries) GetService(ctx context.Context, request operations.GetS
 				return nil, err
 			}
 
-			var out shared.ServiceEntity
+			var out shared.Service
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceEntity = &out
+			res.Service = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3214,12 +3214,12 @@ func (s *CatalogEntries) UpdateService(ctx context.Context, request operations.U
 				return nil, err
 			}
 
-			var out shared.ServiceEntity
+			var out shared.Service
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceEntity = &out
+			res.Service = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3344,12 +3344,12 @@ func (s *CatalogEntries) ListServiceAvailableDownstreamDependencies(ctx context.
 				return nil, err
 			}
 
-			var out shared.ServiceEntityLite
+			var out shared.ServiceLite
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceEntityLite = &out
+			res.ServiceLite = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3474,12 +3474,12 @@ func (s *CatalogEntries) ListServiceAvailableUpstreamDependencies(ctx context.Co
 				return nil, err
 			}
 
-			var out shared.ServiceEntityLite
+			var out shared.ServiceLite
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceEntityLite = &out
+			res.ServiceLite = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3725,12 +3725,12 @@ func (s *CatalogEntries) GetServiceDependencies(ctx context.Context, request ope
 				return nil, err
 			}
 
-			var out shared.ServiceWithAllDependenciesEntity
+			var out shared.ServiceWithAllDependencies
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ServiceWithAllDependenciesEntity = &out
+			res.ServiceWithAllDependencies = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -3969,12 +3969,12 @@ func (s *CatalogEntries) ListUserOwnedServices(ctx context.Context, request oper
 				return nil, err
 			}
 
-			var out []shared.TeamEntityPaginated
+			var out []shared.TeamPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.TeamEntityPaginateds = out
+			res.TeamPaginateds = out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

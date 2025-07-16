@@ -42,7 +42,7 @@ type GetOnCallShiftResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Get a Signals on-call shift by ID
-	SignalsAPIOnCallShiftEntity *shared.SignalsAPIOnCallShiftEntity
+	SignalsAPIOnCallShift *shared.SignalsAPIOnCallShift
 }
 
 func (o *GetOnCallShiftResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *GetOnCallShiftResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetOnCallShiftResponse) GetSignalsAPIOnCallShiftEntity() *shared.SignalsAPIOnCallShiftEntity {
+func (o *GetOnCallShiftResponse) GetSignalsAPIOnCallShift() *shared.SignalsAPIOnCallShift {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIOnCallShiftEntity
+	return o.SignalsAPIOnCallShift
 }

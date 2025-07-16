@@ -140,12 +140,12 @@ func (s *MetricsReporting) ListIncidentMetrics(ctx context.Context, request oper
 				return nil, err
 			}
 
-			var out shared.MetricsMetricsEntity
+			var out shared.Metrics
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.MetricsMetricsEntity = &out
+			res.Metrics = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -281,12 +281,12 @@ func (s *MetricsReporting) ListMilestoneFunnelMetrics(ctx context.Context, reque
 				return nil, err
 			}
 
-			var out shared.MetricsMilestonesFunnelEntity
+			var out shared.MetricsMilestonesFunnel
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.MetricsMilestonesFunnelEntity = &out
+			res.MetricsMilestonesFunnel = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -422,12 +422,12 @@ func (s *MetricsReporting) ListMttxMetrics(ctx context.Context, request operatio
 				return nil, err
 			}
 
-			var out shared.MetricsMttxDataEntity
+			var out shared.MetricsMttxData
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.MetricsMttxDataEntity = &out
+			res.MetricsMttxData = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -556,12 +556,12 @@ func (s *MetricsReporting) ListRetrospectiveMetrics(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.MetricsRetrospectiveEntity
+			var out shared.MetricsRetrospective
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.MetricsRetrospectiveEntity = &out
+			res.MetricsRetrospective = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -697,12 +697,12 @@ func (s *MetricsReporting) ListTicketFunnelMetrics(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.MetricsTicketFunnelMetricsEntity
+			var out shared.MetricsTicketFunnelMetrics
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.MetricsTicketFunnelMetricsEntity = &out
+			res.MetricsTicketFunnelMetrics = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -831,12 +831,12 @@ func (s *MetricsReporting) ListUserInvolvementMetrics(ctx context.Context, reque
 				return nil, err
 			}
 
-			var out shared.MetricsMetricsEntity
+			var out shared.Metrics
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.MetricsMetricsEntity = &out
+			res.Metrics = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -965,12 +965,12 @@ func (s *MetricsReporting) ListInfrastructureTypeMetrics(ctx context.Context, re
 				return nil, err
 			}
 
-			var out shared.MetricsInfrastructureListEntity
+			var out shared.MetricsInfrastructureList
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.MetricsInfrastructureListEntity = &out
+			res.MetricsInfrastructureList = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1099,12 +1099,12 @@ func (s *MetricsReporting) ListInfrastructureMetrics(ctx context.Context, reques
 				return nil, err
 			}
 
-			var out shared.MetricsInfrastructureMetricsEntity
+			var out shared.MetricsInfrastructureMetrics
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.MetricsInfrastructureMetricsEntity = &out
+			res.MetricsInfrastructureMetrics = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1233,12 +1233,12 @@ func (s *MetricsReporting) GetMeanTimeReport(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.ReportEntity
+			var out shared.Report
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.ReportEntity = &out
+			res.Report = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1367,12 +1367,12 @@ func (s *MetricsReporting) ListSavedSearches(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.SavedSearchEntity
+			var out shared.SavedSearch
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SavedSearchEntity = &out
+			res.SavedSearch = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1504,12 +1504,12 @@ func (s *MetricsReporting) CreateSavedSearch(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.SavedSearchEntity
+			var out shared.SavedSearch
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SavedSearchEntity = &out
+			res.SavedSearch = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1634,12 +1634,12 @@ func (s *MetricsReporting) DeleteSavedSearch(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.SavedSearchEntity
+			var out shared.SavedSearch
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SavedSearchEntity = &out
+			res.SavedSearch = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1764,12 +1764,12 @@ func (s *MetricsReporting) GetSavedSearch(ctx context.Context, request operation
 				return nil, err
 			}
 
-			var out shared.SavedSearchEntity
+			var out shared.SavedSearch
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SavedSearchEntity = &out
+			res.SavedSearch = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1901,12 +1901,12 @@ func (s *MetricsReporting) UpdateSavedSearch(ctx context.Context, request operat
 				return nil, err
 			}
 
-			var out shared.SavedSearchEntity
+			var out shared.SavedSearch
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SavedSearchEntity = &out
+			res.SavedSearch = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2035,12 +2035,12 @@ func (s *MetricsReporting) GetSignalsGroupedMetrics(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.SignalsAPIAnalyticsGroupedMetricsEntity
+			var out shared.SignalsAPIAnalyticsGroupedMetrics
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIAnalyticsGroupedMetricsEntity = &out
+			res.SignalsAPIAnalyticsGroupedMetrics = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2169,12 +2169,12 @@ func (s *MetricsReporting) GetSignalsMttxAnalytics(ctx context.Context, request 
 				return nil, err
 			}
 
-			var out shared.SignalsAPIAnalyticsMttxMetricsEntity
+			var out shared.SignalsAPIAnalyticsMttxMetrics
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIAnalyticsMttxMetricsEntity = &out
+			res.SignalsAPIAnalyticsMttxMetrics = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2303,12 +2303,12 @@ func (s *MetricsReporting) GetSignalsNoiseAnalytics(ctx context.Context, request
 				return nil, err
 			}
 
-			var out shared.SignalsAPIAnalyticsNoiseMetricsEntity
+			var out shared.SignalsAPIAnalyticsNoiseMetrics
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIAnalyticsNoiseMetricsEntity = &out
+			res.SignalsAPIAnalyticsNoiseMetrics = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -2558,12 +2558,12 @@ func (s *MetricsReporting) GetSignalsTimeseriesAnalytics(ctx context.Context, re
 				return nil, err
 			}
 
-			var out shared.SignalsAPIAnalyticsTimeseriesPointEntity
+			var out shared.SignalsAPIAnalyticsTimeseriesPoint
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.SignalsAPIAnalyticsTimeseriesPointEntity = &out
+			res.SignalsAPIAnalyticsTimeseriesPoint = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

@@ -34,7 +34,7 @@ type CreateIncidentStatusPageResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Add a status page to an incident.
-	IncidentsStatusPageEntity *shared.IncidentsStatusPageEntity
+	IncidentsStatusPage *shared.IncidentsStatusPage
 }
 
 func (o *CreateIncidentStatusPageResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *CreateIncidentStatusPageResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateIncidentStatusPageResponse) GetIncidentsStatusPageEntity() *shared.IncidentsStatusPageEntity {
+func (o *CreateIncidentStatusPageResponse) GetIncidentsStatusPage() *shared.IncidentsStatusPage {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentsStatusPageEntity
+	return o.IncidentsStatusPage
 }

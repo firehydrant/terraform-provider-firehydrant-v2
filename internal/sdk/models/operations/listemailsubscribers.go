@@ -26,7 +26,7 @@ type ListEmailSubscribersResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves the list of subscribers for a status page.
-	NuncEmailSubscribersEntity *shared.NuncEmailSubscribersEntity
+	NuncEmailSubscribers *shared.NuncEmailSubscribers
 }
 
 func (o *ListEmailSubscribersResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *ListEmailSubscribersResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListEmailSubscribersResponse) GetNuncEmailSubscribersEntity() *shared.NuncEmailSubscribersEntity {
+func (o *ListEmailSubscribersResponse) GetNuncEmailSubscribers() *shared.NuncEmailSubscribers {
 	if o == nil {
 		return nil
 	}
-	return o.NuncEmailSubscribersEntity
+	return o.NuncEmailSubscribers
 }

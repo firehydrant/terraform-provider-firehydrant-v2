@@ -65,7 +65,7 @@ type ListPostMortemReportsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all reports
-	PostMortemsPostMortemReportEntityPaginated *shared.PostMortemsPostMortemReportEntityPaginated
+	PostMortemsPostMortemReportPaginated *shared.PostMortemsPostMortemReportPaginated
 }
 
 func (o *ListPostMortemReportsResponse) GetContentType() string {
@@ -89,9 +89,9 @@ func (o *ListPostMortemReportsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListPostMortemReportsResponse) GetPostMortemsPostMortemReportEntityPaginated() *shared.PostMortemsPostMortemReportEntityPaginated {
+func (o *ListPostMortemReportsResponse) GetPostMortemsPostMortemReportPaginated() *shared.PostMortemsPostMortemReportPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.PostMortemsPostMortemReportEntityPaginated
+	return o.PostMortemsPostMortemReportPaginated
 }

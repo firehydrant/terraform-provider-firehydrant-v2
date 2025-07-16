@@ -15,7 +15,7 @@ type CreateFunctionalityResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Creates a functionality for the organization
-	FunctionalityEntity *shared.FunctionalityEntity
+	Functionality *shared.Functionality
 }
 
 func (o *CreateFunctionalityResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *CreateFunctionalityResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *CreateFunctionalityResponse) GetFunctionalityEntity() *shared.FunctionalityEntity {
+func (o *CreateFunctionalityResponse) GetFunctionality() *shared.Functionality {
 	if o == nil {
 		return nil
 	}
-	return o.FunctionalityEntity
+	return o.Functionality
 }

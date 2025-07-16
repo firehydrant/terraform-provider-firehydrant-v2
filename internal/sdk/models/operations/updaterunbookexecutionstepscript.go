@@ -42,7 +42,7 @@ type UpdateRunbookExecutionStepScriptResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Updates the execution's step.
-	RunbooksExecutionEntity *shared.RunbooksExecutionEntity
+	RunbooksExecution *shared.RunbooksExecution
 }
 
 func (o *UpdateRunbookExecutionStepScriptResponse) GetContentType() string {
@@ -66,9 +66,9 @@ func (o *UpdateRunbookExecutionStepScriptResponse) GetRawResponse() *http.Respon
 	return o.RawResponse
 }
 
-func (o *UpdateRunbookExecutionStepScriptResponse) GetRunbooksExecutionEntity() *shared.RunbooksExecutionEntity {
+func (o *UpdateRunbookExecutionStepScriptResponse) GetRunbooksExecution() *shared.RunbooksExecution {
 	if o == nil {
 		return nil
 	}
-	return o.RunbooksExecutionEntity
+	return o.RunbooksExecution
 }

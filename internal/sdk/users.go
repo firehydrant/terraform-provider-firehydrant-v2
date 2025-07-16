@@ -136,12 +136,12 @@ func (s *Users) GetCurrentUser(ctx context.Context, opts ...operations.Option) (
 				return nil, err
 			}
 
-			var out shared.CurrentUserEntity
+			var out shared.CurrentUser
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.CurrentUserEntity = &out
+			res.CurrentUser = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -270,12 +270,12 @@ func (s *Users) ListUsers(ctx context.Context, request operations.ListUsersReque
 				return nil, err
 			}
 
-			var out shared.UserEntityPaginated
+			var out shared.UserPaginated
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.UserEntityPaginated = &out
+			res.UserPaginated = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -400,12 +400,12 @@ func (s *Users) GetUser(ctx context.Context, request operations.GetUserRequest, 
 				return nil, err
 			}
 
-			var out shared.UserEntity
+			var out shared.User
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
 
-			res.UserEntity = &out
+			res.User = &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

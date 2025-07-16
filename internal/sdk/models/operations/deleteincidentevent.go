@@ -34,7 +34,7 @@ type DeleteIncidentEventResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Delete an event for an incident
-	IncidentEventEntity *shared.IncidentEventEntity
+	IncidentEvent *shared.IncidentEvent
 }
 
 func (o *DeleteIncidentEventResponse) GetContentType() string {
@@ -58,9 +58,9 @@ func (o *DeleteIncidentEventResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *DeleteIncidentEventResponse) GetIncidentEventEntity() *shared.IncidentEventEntity {
+func (o *DeleteIncidentEventResponse) GetIncidentEvent() *shared.IncidentEvent {
 	if o == nil {
 		return nil
 	}
-	return o.IncidentEventEntity
+	return o.IncidentEvent
 }

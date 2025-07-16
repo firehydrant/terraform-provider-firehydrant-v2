@@ -43,7 +43,7 @@ type ListSignalsWebhookTargetsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List all Signals webhook targets.
-	SignalsAPIWebhookTargetEntityPaginated *shared.SignalsAPIWebhookTargetEntityPaginated
+	SignalsAPIWebhookTargetPaginated *shared.SignalsAPIWebhookTargetPaginated
 }
 
 func (o *ListSignalsWebhookTargetsResponse) GetContentType() string {
@@ -67,9 +67,9 @@ func (o *ListSignalsWebhookTargetsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListSignalsWebhookTargetsResponse) GetSignalsAPIWebhookTargetEntityPaginated() *shared.SignalsAPIWebhookTargetEntityPaginated {
+func (o *ListSignalsWebhookTargetsResponse) GetSignalsAPIWebhookTargetPaginated() *shared.SignalsAPIWebhookTargetPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIWebhookTargetEntityPaginated
+	return o.SignalsAPIWebhookTargetPaginated
 }

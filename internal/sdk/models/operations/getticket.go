@@ -26,7 +26,7 @@ type GetTicketResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Retrieves a single ticket by ID
-	TicketingTicketEntity *shared.TicketingTicketEntity
+	TicketingTicket *shared.TicketingTicket
 }
 
 func (o *GetTicketResponse) GetContentType() string {
@@ -50,9 +50,9 @@ func (o *GetTicketResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetTicketResponse) GetTicketingTicketEntity() *shared.TicketingTicketEntity {
+func (o *GetTicketResponse) GetTicketingTicket() *shared.TicketingTicket {
 	if o == nil {
 		return nil
 	}
-	return o.TicketingTicketEntity
+	return o.TicketingTicket
 }

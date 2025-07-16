@@ -36,7 +36,7 @@ type ListEntitlementsResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// List the organization's entitlements
-	EntitlementEntityPaginated *shared.EntitlementEntityPaginated
+	EntitlementPaginated *shared.EntitlementPaginated
 }
 
 func (o *ListEntitlementsResponse) GetContentType() string {
@@ -60,9 +60,9 @@ func (o *ListEntitlementsResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *ListEntitlementsResponse) GetEntitlementEntityPaginated() *shared.EntitlementEntityPaginated {
+func (o *ListEntitlementsResponse) GetEntitlementPaginated() *shared.EntitlementPaginated {
 	if o == nil {
 		return nil
 	}
-	return o.EntitlementEntityPaginated
+	return o.EntitlementPaginated
 }

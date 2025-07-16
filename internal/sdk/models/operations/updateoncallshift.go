@@ -50,7 +50,7 @@ type UpdateOnCallShiftResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Update a Signals on-call shift by ID
-	SignalsAPIOnCallShiftEntity *shared.SignalsAPIOnCallShiftEntity
+	SignalsAPIOnCallShift *shared.SignalsAPIOnCallShift
 }
 
 func (o *UpdateOnCallShiftResponse) GetContentType() string {
@@ -74,9 +74,9 @@ func (o *UpdateOnCallShiftResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *UpdateOnCallShiftResponse) GetSignalsAPIOnCallShiftEntity() *shared.SignalsAPIOnCallShiftEntity {
+func (o *UpdateOnCallShiftResponse) GetSignalsAPIOnCallShift() *shared.SignalsAPIOnCallShift {
 	if o == nil {
 		return nil
 	}
-	return o.SignalsAPIOnCallShiftEntity
+	return o.SignalsAPIOnCallShift
 }
