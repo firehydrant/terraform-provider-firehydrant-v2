@@ -247,7 +247,6 @@ func (p *FirehydrantProvider) DataSources(ctx context.Context) []func() datasour
 		NewIncidentsChannelDataSource,
 		NewIncidentsConferenceBridgeDataSource,
 		NewIncidentsConferenceBridgesDataSource,
-		NewIncidentsRetrospectiveFieldDataSource,
 		NewIncidentsRoleAssignmentDataSource,
 		NewIncidentTypeDataSource,
 		NewIntegrationsDataSource,

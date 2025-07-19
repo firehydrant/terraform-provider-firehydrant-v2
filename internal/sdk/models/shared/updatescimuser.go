@@ -45,6 +45,36 @@ func (o *UpdateScimUserName) GetGivenName() string {
 	return o.GivenName
 }
 
+type UpdateScimUserPhoneNumber struct {
+	// Boolean which signifies if a phone number is intended as the primary phone for the User
+	Primary *bool `json:"primary,omitempty"`
+	// Type of phone number (mobile, work, home, etc.)
+	Type *string `json:"type,omitempty"`
+	// String that represents a phone number for the User
+	Value string `json:"value"`
+}
+
+func (o *UpdateScimUserPhoneNumber) GetPrimary() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Primary
+}
+
+func (o *UpdateScimUserPhoneNumber) GetType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Type
+}
+
+func (o *UpdateScimUserPhoneNumber) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
 // UpdateScimUser - PUT SCIM endpoint to update a User. This endpoint is used to replace a resource's attributes.
 type UpdateScimUser struct {
 	// Boolean that represents whether user is active
@@ -53,6 +83,8 @@ type UpdateScimUser struct {
 	Emails []UpdateScimUserEmail `json:"emails,omitempty"`
 	// The components of the user's name
 	Name *UpdateScimUserName `json:"name,omitempty"`
+	// Phone numbers for the User
+	PhoneNumbers []UpdateScimUserPhoneNumber `json:"phoneNumbers,omitempty"`
 	// Roles for the User. Options are owner, member, collaborator, or viewer. Roles may be specified as strings or SCIM role objects.
 	Roles map[string]any `json:"roles,omitempty"`
 	// A service provider's unique identifier for the user
@@ -78,6 +110,13 @@ func (o *UpdateScimUser) GetName() *UpdateScimUserName {
 		return nil
 	}
 	return o.Name
+}
+
+func (o *UpdateScimUser) GetPhoneNumbers() []UpdateScimUserPhoneNumber {
+	if o == nil {
+		return nil
+	}
+	return o.PhoneNumbers
 }
 
 func (o *UpdateScimUser) GetRoles() map[string]any {

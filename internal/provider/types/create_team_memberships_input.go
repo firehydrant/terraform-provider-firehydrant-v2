@@ -7,7 +7,8 @@ import (
 )
 
 type CreateTeamMembershipsInput struct {
-	IncidentRoleID types.String `tfsdk:"incident_role_id"`
-	ScheduleID     types.String `tfsdk:"schedule_id"`
-	UserID         types.String `tfsdk:"user_id"`
+	IncidentRoleID          types.String `tfsdk:"incident_role_id"`
+	ScheduleID              types.String `tfsdk:"schedule_id"`
+	SignalsOnCallScheduleID types.String `tfsdk:"signals_on_call_schedule_id"`
+	UserID                  types.String `tfsdk:"user_id"`
 }

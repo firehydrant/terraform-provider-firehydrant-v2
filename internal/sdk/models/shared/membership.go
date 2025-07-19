@@ -4,7 +4,6 @@ package shared
 
 type Membership struct {
 	DefaultIncidentRole   *NullableIncidentRole `json:"default_incident_role,omitempty"`
-	Role                  *NullableSuccinct     `json:"role,omitempty"`
 	Schedule              *NullableSchedule     `json:"schedule,omitempty"`
 	SignalsOnCallSchedule *NullableSuccinct     `json:"signals_on_call_schedule,omitempty"`
 	User                  *NullableUser         `json:"user,omitempty"`
@@ -15,13 +14,6 @@ func (o *Membership) GetDefaultIncidentRole() *NullableIncidentRole {
 		return nil
 	}
 	return o.DefaultIncidentRole
-}
-
-func (o *Membership) GetRole() *NullableSuccinct {
-	if o == nil {
-		return nil
-	}
-	return o.Role
 }
 
 func (o *Membership) GetSchedule() *NullableSchedule {

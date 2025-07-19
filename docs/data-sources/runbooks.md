@@ -73,7 +73,7 @@ data "firehydrant_runbooks" "my_runbooks" {
 - `label` (String)
 - `liked` (Boolean) Whether or not the current actor has voted positively
 - `likes` (Number)
-- `logic` (Map of String) An unstructured object of key/value pairs describing the logic for applying the rule.
+- `logic` (String) JSON stringified object of key/value pairs describing the logic for applying the rule.
 - `logo_url` (String)
 - `name` (String) A query to search runbooks by their name
 - `nat_ip` (String)

@@ -7,6 +7,6 @@ import (
 )
 
 type NullableRules struct {
-	Logic    map[string]types.String `tfsdk:"logic"`
+	Logic    types.String            `tfsdk:"logic"`
 	UserData *NullableFHTypesGeneric `tfsdk:"user_data"`
 }
