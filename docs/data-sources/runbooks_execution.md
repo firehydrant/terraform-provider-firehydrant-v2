@@ -65,7 +65,7 @@ Read-Only:
 
 Read-Only:
 
-- `logic` (Map of String) An unstructured object of key/value pairs describing the logic for applying the rule.
+- `logic` (String) JSON stringified object of key/value pairs describing the logic for applying the rule.
 - `user_data` (Attributes) (see [below for nested schema](#nestedatt--runbook--attachment_rule--user_data))
 
 <a id="nestedatt--runbook--attachment_rule--user_data"></a>
@@ -197,7 +197,7 @@ Read-Only:
 
 Read-Only:
 
-- `logic` (Map of String) An unstructured object of key/value pairs describing the logic for applying the rule.
+- `logic` (String) JSON stringified object of key/value pairs describing the logic for applying the rule.
 - `user_data` (Attributes) (see [below for nested schema](#nestedatt--steps--rule--user_data))
 
 <a id="nestedatt--steps--rule--user_data"></a>

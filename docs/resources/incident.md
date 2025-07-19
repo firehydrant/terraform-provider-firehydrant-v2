@@ -71,28 +71,28 @@ resource "firehydrant_incident" "my_incident" {
 
 ### Required
 
-- `name` (String) Requires replacement if changed.
+- `name` (String)
 
 ### Optional
 
 - `alert_ids` (List of String) List of alert IDs that this incident should be associated to. Requires replacement if changed.
 - `custom_fields_input` (Attributes List) An array of custom fields to set on the incident. Requires replacement if changed. (see [below for nested schema](#nestedatt--custom_fields_input))
-- `customer_impact_summary` (String) Requires replacement if changed.
-- `description` (String) Requires replacement if changed.
+- `customer_impact_summary` (String)
+- `description` (String)
 - `external_links` (String) Requires replacement if changed.
 - `impacts_input` (Attributes List) An array of impacted infrastructure. Requires replacement if changed. (see [below for nested schema](#nestedatt--impacts_input))
-- `incident_type_id` (String) The ID of the incident type. This will copy values from the incident type (if any) unless they are being overridden via parameters in this request. Requires replacement if changed.
-- `labels` (Attributes) Key:value pairs to track custom data for the incident. Requires replacement if changed. (see [below for nested schema](#nestedatt--labels))
+- `incident_type_id` (String) The ID of the incident type. This will copy values from the incident type (if any) unless they are being overridden via parameters in this request.
+- `labels` (Attributes) Key:value pairs to track custom data for the incident (see [below for nested schema](#nestedatt--labels))
 - `milestones_input` (Attributes List) An array of milestones to set on an incident. This can be used to create an already-resolved incident. Requires replacement if changed. (see [below for nested schema](#nestedatt--milestones_input))
-- `priority` (String) Requires replacement if changed.
+- `priority` (String)
 - `restricted` (Boolean) Requires replacement if changed.
 - `runbook_ids` (List of String) List of ids of Runbooks to attach to this incident. Foregoes any conditions these Runbooks may have guarding automatic attachment. Requires replacement if changed.
-- `severity` (String) Requires replacement if changed.
-- `severity_condition_id` (String) Requires replacement if changed.
-- `severity_impact_id` (String) Requires replacement if changed.
+- `severity` (String)
+- `severity_condition_id` (String)
+- `severity_impact_id` (String)
 - `skip_incident_type_values` (Boolean) If true, the incident type values will not be copied to the incident. This is useful when creating an incident from an incident type, but you want to set the values manually. Default: false; Requires replacement if changed.
-- `summary` (String) Requires replacement if changed.
-- `tag_list` (List of String) List of tags for the incident. Requires replacement if changed.
+- `summary` (String)
+- `tag_list` (List of String) List of tags for the incident
 - `team_ids` (List of String) IDs of teams you wish to assign to this incident. Requires replacement if changed.
 
 ### Read-Only

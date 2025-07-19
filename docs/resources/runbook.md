@@ -123,7 +123,7 @@ Optional:
 
 Read-Only:
 
-- `logic` (Map of String) An unstructured object of key/value pairs describing the logic for applying the rule.
+- `logic` (String) JSON stringified object of key/value pairs describing the logic for applying the rule.
 - `user_data` (Attributes) (see [below for nested schema](#nestedatt--attachment_rule--user_data))
 
 <a id="nestedatt--attachment_rule--user_data"></a>
@@ -206,7 +206,7 @@ Read-Only:
 - `default_rule_data` (Attributes) (see [below for nested schema](#nestedatt--steps--action--default_rule_data))
 - `description` (String)
 - `id` (String)
-- `integration` (Attributes) Integrations model (see [below for nested schema](#nestedatt--steps--action--integration))
+- `integration` (Attributes) Integrations_Integration model (see [below for nested schema](#nestedatt--steps--action--integration))
 - `name` (String)
 - `prerequisites` (Attributes List) (see [below for nested schema](#nestedatt--steps--action--prerequisites))
 - `repeatable` (Boolean)
@@ -386,7 +386,7 @@ Read-Only:
 
 Read-Only:
 
-- `logic` (Map of String) An unstructured object of key/value pairs describing the logic for applying the rule.
+- `logic` (String) JSON stringified object of key/value pairs describing the logic for applying the rule.
 - `user_data` (Attributes) (see [below for nested schema](#nestedatt--steps--rule--user_data))
 
 <a id="nestedatt--steps--rule--user_data"></a>

@@ -65,7 +65,7 @@ type RunbooksDataSourceModel struct {
 	Label                           types.String                                    `tfsdk:"label"`
 	Liked                           types.Bool                                      `tfsdk:"liked"`
 	Likes                           types.Int32                                     `tfsdk:"likes"`
-	Logic                           map[string]types.String                         `tfsdk:"logic"`
+	Logic                           types.String                                    `tfsdk:"logic"`
 	LogoURL                         types.String                                    `tfsdk:"logo_url"`
 	Name                            types.String                                    `queryParam:"style=form,explode=true,name=name" tfsdk:"name"`
 	NatIP                           types.String                                    `tfsdk:"nat_ip"`
@@ -226,10 +226,9 @@ func (r *RunbooksDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			"likes": schema.Int32Attribute{
 				Computed: true,
 			},
-			"logic": schema.MapAttribute{
+			"logic": schema.StringAttribute{
 				Computed:    true,
-				ElementType: types.StringType,
-				Description: `An unstructured object of key/value pairs describing the logic for applying the rule.`,
+				Description: `JSON stringified object of key/value pairs describing the logic for applying the rule.`,
 			},
 			"logo_url": schema.StringAttribute{
 				Computed: true,

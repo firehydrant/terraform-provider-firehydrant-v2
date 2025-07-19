@@ -5,9 +5,10 @@ resource "firehydrant_team" "my_team" {
   ]
   memberships_input = [
     {
-      incident_role_id = "...my_incident_role_id..."
-      schedule_id      = "...my_schedule_id..."
-      user_id          = "...my_user_id..."
+      incident_role_id            = "...my_incident_role_id..."
+      schedule_id                 = "...my_schedule_id..."
+      signals_on_call_schedule_id = "...my_signals_on_call_schedule_id..."
+      user_id                     = "...my_user_id..."
     }
   ]
   ms_teams_channel_input = {

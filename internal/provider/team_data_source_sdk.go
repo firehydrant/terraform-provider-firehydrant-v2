@@ -4,7 +4,6 @@ package provider
 
 import (
 	"context"
-	"encoding/json"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/provider/typeconvert"
 	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/operations"
@@ -150,13 +149,6 @@ func (r *TeamDataSourceModel) RefreshFromSharedTeam(ctx context.Context, resp *s
 					memberships.DefaultIncidentRole.Summary = types.StringPointerValue(membershipsItem.DefaultIncidentRole.Summary)
 					memberships.DefaultIncidentRole.UpdatedAt = types.StringPointerValue(typeconvert.TimePointerToStringPointer(membershipsItem.DefaultIncidentRole.UpdatedAt))
 				}
-				if membershipsItem.Role == nil {
-					memberships.Role = nil
-				} else {
-					memberships.Role = &tfTypes.NullableSuccinct{}
-					memberships.Role.ID = types.StringPointerValue(membershipsItem.Role.ID)
-					memberships.Role.Name = types.StringPointerValue(membershipsItem.Role.Name)
-				}
 				if membershipsItem.Schedule == nil {
 					memberships.Schedule = nil
 				} else {
@@ -209,7 +201,6 @@ func (r *TeamDataSourceModel) RefreshFromSharedTeam(ctx context.Context, resp *s
 					r.Memberships = append(r.Memberships, memberships)
 				} else {
 					r.Memberships[membershipsCount].DefaultIncidentRole = memberships.DefaultIncidentRole
-					r.Memberships[membershipsCount].Role = memberships.Role
 					r.Memberships[membershipsCount].Schedule = memberships.Schedule
 					r.Memberships[membershipsCount].SignalsOnCallSchedule = memberships.SignalsOnCallSchedule
 					r.Memberships[membershipsCount].User = memberships.User
@@ -1335,13 +1326,7 @@ func (r *TeamDataSourceModel) RefreshFromSharedTeam(ctx context.Context, resp *s
 					ownedRunbooks.AttachmentRule = nil
 				} else {
 					ownedRunbooks.AttachmentRule = &tfTypes.NullableRules{}
-					if ownedRunbooksItem.AttachmentRule.Logic != nil {
-						ownedRunbooks.AttachmentRule.Logic = make(map[string]types.String, len(ownedRunbooksItem.AttachmentRule.Logic))
-						for key, value := range ownedRunbooksItem.AttachmentRule.Logic {
-							result, _ := json.Marshal(value)
-							ownedRunbooks.AttachmentRule.Logic[key] = types.StringValue(string(result))
-						}
-					}
+					ownedRunbooks.AttachmentRule.Logic = types.StringPointerValue(ownedRunbooksItem.AttachmentRule.Logic)
 					if ownedRunbooksItem.AttachmentRule.UserData == nil {
 						ownedRunbooks.AttachmentRule.UserData = nil
 					} else {

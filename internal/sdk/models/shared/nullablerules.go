@@ -3,12 +3,12 @@
 package shared
 
 type NullableRules struct {
-	// An unstructured object of key/value pairs describing the logic for applying the rule.
-	Logic    map[string]any          `json:"logic,omitempty"`
+	// JSON stringified object of key/value pairs describing the logic for applying the rule.
+	Logic    *string                 `json:"logic,omitempty"`
 	UserData *NullableFHTypesGeneric `json:"user_data,omitempty"`
 }
 
-func (o *NullableRules) GetLogic() map[string]any {
+func (o *NullableRules) GetLogic() *string {
 	if o == nil {
 		return nil
 	}

@@ -4,7 +4,6 @@ package provider
 
 import (
 	"context"
-	"encoding/json"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/provider/typeconvert"
 	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/operations"
@@ -37,13 +36,7 @@ func (r *RunbooksExecutionDataSourceModel) RefreshFromSharedRunbooksExecution(ct
 				r.Runbook.AttachmentRule = nil
 			} else {
 				r.Runbook.AttachmentRule = &tfTypes.NullableRules{}
-				if resp.Runbook.AttachmentRule.Logic != nil {
-					r.Runbook.AttachmentRule.Logic = make(map[string]types.String, len(resp.Runbook.AttachmentRule.Logic))
-					for key, value := range resp.Runbook.AttachmentRule.Logic {
-						result, _ := json.Marshal(value)
-						r.Runbook.AttachmentRule.Logic[key] = types.StringValue(string(result))
-					}
-				}
+				r.Runbook.AttachmentRule.Logic = types.StringPointerValue(resp.Runbook.AttachmentRule.Logic)
 				if resp.Runbook.AttachmentRule.UserData == nil {
 					r.Runbook.AttachmentRule.UserData = nil
 				} else {
@@ -167,13 +160,7 @@ func (r *RunbooksExecutionDataSourceModel) RefreshFromSharedRunbooksExecution(ct
 				r.Steps.Rule = nil
 			} else {
 				r.Steps.Rule = &tfTypes.NullableRules{}
-				if resp.Steps.Rule.Logic != nil {
-					r.Steps.Rule.Logic = make(map[string]types.String, len(resp.Steps.Rule.Logic))
-					for key1, value1 := range resp.Steps.Rule.Logic {
-						result1, _ := json.Marshal(value1)
-						r.Steps.Rule.Logic[key1] = types.StringValue(string(result1))
-					}
-				}
+				r.Steps.Rule.Logic = types.StringPointerValue(resp.Steps.Rule.Logic)
 				if resp.Steps.Rule.UserData == nil {
 					r.Steps.Rule.UserData = nil
 				} else {
