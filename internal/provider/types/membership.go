@@ -4,7 +4,6 @@ package types
 
 type Membership struct {
 	DefaultIncidentRole   *NullableIncidentRole `tfsdk:"default_incident_role"`
-	Role                  *NullableSuccinct     `tfsdk:"role"`
 	Schedule              *NullableSchedule     `tfsdk:"schedule"`
 	SignalsOnCallSchedule *NullableSuccinct     `tfsdk:"signals_on_call_schedule"`
 	User                  *NullableUser         `tfsdk:"user"`

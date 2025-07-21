@@ -20,9 +20,10 @@ resource "firehydrant_team" "my_team" {
   ]
   memberships_input = [
     {
-      incident_role_id = "...my_incident_role_id..."
-      schedule_id      = "...my_schedule_id..."
-      user_id          = "...my_user_id..."
+      incident_role_id            = "...my_incident_role_id..."
+      schedule_id                 = "...my_schedule_id..."
+      signals_on_call_schedule_id = "...my_signals_on_call_schedule_id..."
+      user_id                     = "...my_user_id..."
     }
   ]
   ms_teams_channel_input = {
@@ -76,9 +77,10 @@ resource "firehydrant_team" "my_team" {
 
 Optional:
 
-- `incident_role_id` (String) An incident role ID that this user will automatically assigned if this team is assigned to an incident
-- `schedule_id` (String)
-- `user_id` (String)
+- `incident_role_id` (String) An incident role ID that the user will automatically assigned if this team is assigned to an incident
+- `schedule_id` (String) The ID of a third-party on-call schedule to add to the team, allowing you to specify that whoever is on call for this schedule when the team is assigned to an incident gets added to the incident and optionally assigned to the configured incident role. This parameter is mutually exclusive with user_id and signals_on_call_schedule_id.
+- `signals_on_call_schedule_id` (String) The ID of a Signals on-call schedule to add to the team, allowing you to specify that whoever is on call for this schedule when the team is assigned to an incident gets added to the incident and optionally assigned to the configured incident role.. This parameter is mutually exclusive with user_id and schedule_id.
+- `user_id` (String) The ID of a user to add to the team. This parameter is mutually exclusive with schedule_id and signals_on_call_schedule_id.
 
 
 <a id="nestedatt--ms_teams_channel_input"></a>
@@ -189,7 +191,6 @@ Read-Only:
 Read-Only:
 
 - `default_incident_role` (Attributes) IncidentRole model (see [below for nested schema](#nestedatt--memberships--default_incident_role))
-- `role` (Attributes) (see [below for nested schema](#nestedatt--memberships--role))
 - `schedule` (Attributes) (see [below for nested schema](#nestedatt--memberships--schedule))
 - `signals_on_call_schedule` (Attributes) (see [below for nested schema](#nestedatt--memberships--signals_on_call_schedule))
 - `user` (Attributes) User model (see [below for nested schema](#nestedatt--memberships--user))
@@ -206,15 +207,6 @@ Read-Only:
 - `name` (String)
 - `summary` (String)
 - `updated_at` (String)
-
-
-<a id="nestedatt--memberships--role"></a>
-### Nested Schema for `memberships.role`
-
-Read-Only:
-
-- `id` (String)
-- `name` (String)
 
 
 <a id="nestedatt--memberships--schedule"></a>
@@ -1167,7 +1159,7 @@ Read-Only:
 
 Read-Only:
 
-- `logic` (Map of String) An unstructured object of key/value pairs describing the logic for applying the rule.
+- `logic` (String) JSON stringified object of key/value pairs describing the logic for applying the rule.
 - `user_data` (Attributes) (see [below for nested schema](#nestedatt--owned_runbooks--attachment_rule--user_data))
 
 <a id="nestedatt--owned_runbooks--attachment_rule--user_data"></a>

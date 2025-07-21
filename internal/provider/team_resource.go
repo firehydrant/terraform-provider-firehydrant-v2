@@ -8,7 +8,6 @@ import (
 	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/validators"
-	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -291,17 +290,6 @@ func (r *TeamResource) Schema(ctx context.Context, req resource.SchemaRequest, r
 							},
 							Description: `IncidentRole model`,
 						},
-						"role": schema.SingleNestedAttribute{
-							Computed: true,
-							Attributes: map[string]schema.Attribute{
-								"id": schema.StringAttribute{
-									Computed: true,
-								},
-								"name": schema.StringAttribute{
-									Computed: true,
-								},
-							},
-						},
 						"schedule": schema.SingleNestedAttribute{
 							Computed: true,
 							Attributes: map[string]schema.Attribute{
@@ -389,13 +377,19 @@ func (r *TeamResource) Schema(ctx context.Context, req resource.SchemaRequest, r
 					Attributes: map[string]schema.Attribute{
 						"incident_role_id": schema.StringAttribute{
 							Optional:    true,
-							Description: `An incident role ID that this user will automatically assigned if this team is assigned to an incident`,
+							Description: `An incident role ID that the user will automatically assigned if this team is assigned to an incident`,
 						},
 						"schedule_id": schema.StringAttribute{
-							Optional: true,
+							Optional:    true,
+							Description: `The ID of a third-party on-call schedule to add to the team, allowing you to specify that whoever is on call for this schedule when the team is assigned to an incident gets added to the incident and optionally assigned to the configured incident role. This parameter is mutually exclusive with user_id and signals_on_call_schedule_id.`,
+						},
+						"signals_on_call_schedule_id": schema.StringAttribute{
+							Optional:    true,
+							Description: `The ID of a Signals on-call schedule to add to the team, allowing you to specify that whoever is on call for this schedule when the team is assigned to an incident gets added to the incident and optionally assigned to the configured incident role.. This parameter is mutually exclusive with user_id and schedule_id.`,
 						},
 						"user_id": schema.StringAttribute{
-							Optional: true,
+							Optional:    true,
+							Description: `The ID of a user to add to the team. This parameter is mutually exclusive with schedule_id and signals_on_call_schedule_id.`,
 						},
 					},
 				},
@@ -2062,13 +2056,9 @@ func (r *TeamResource) Schema(ctx context.Context, req resource.SchemaRequest, r
 						"attachment_rule": schema.SingleNestedAttribute{
 							Computed: true,
 							Attributes: map[string]schema.Attribute{
-								"logic": schema.MapAttribute{
+								"logic": schema.StringAttribute{
 									Computed:    true,
-									ElementType: types.StringType,
-									Description: `An unstructured object of key/value pairs describing the logic for applying the rule.`,
-									Validators: []validator.Map{
-										mapvalidator.ValueStringsAre(validators.IsValidJSON()),
-									},
+									Description: `JSON stringified object of key/value pairs describing the logic for applying the rule.`,
 								},
 								"user_data": schema.SingleNestedAttribute{
 									Computed: true,

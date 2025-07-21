@@ -38,6 +38,7 @@ type RunbooksExecutionDataSourceModel struct {
 	Status              types.String                                  `tfsdk:"status"`
 	StatusReason        types.String                                  `tfsdk:"status_reason"`
 	StatusReasonMessage types.String                                  `tfsdk:"status_reason_message"`
+	StepID              types.String                                  `tfsdk:"step_id"`
 	Steps               *tfTypes.NullableRunbooksExecutionStep        `tfsdk:"steps"`
 	UpdatedAt           types.String                                  `tfsdk:"updated_at"`
 }
@@ -85,10 +86,9 @@ func (r *RunbooksExecutionDataSource) Schema(ctx context.Context, req datasource
 					"attachment_rule": schema.SingleNestedAttribute{
 						Computed: true,
 						Attributes: map[string]schema.Attribute{
-							"logic": schema.MapAttribute{
+							"logic": schema.StringAttribute{
 								Computed:    true,
-								ElementType: types.StringType,
-								Description: `An unstructured object of key/value pairs describing the logic for applying the rule.`,
+								Description: `JSON stringified object of key/value pairs describing the logic for applying the rule.`,
 							},
 							"user_data": schema.SingleNestedAttribute{
 								Computed: true,
@@ -188,6 +188,9 @@ func (r *RunbooksExecutionDataSource) Schema(ctx context.Context, req datasource
 			},
 			"status_reason_message": schema.StringAttribute{
 				Computed: true,
+			},
+			"step_id": schema.StringAttribute{
+				Required: true,
 			},
 			"steps": schema.SingleNestedAttribute{
 				Computed: true,
@@ -322,10 +325,9 @@ func (r *RunbooksExecutionDataSource) Schema(ctx context.Context, req datasource
 					"rule": schema.SingleNestedAttribute{
 						Computed: true,
 						Attributes: map[string]schema.Attribute{
-							"logic": schema.MapAttribute{
+							"logic": schema.StringAttribute{
 								Computed:    true,
-								ElementType: types.StringType,
-								Description: `An unstructured object of key/value pairs describing the logic for applying the rule.`,
+								Description: `JSON stringified object of key/value pairs describing the logic for applying the rule.`,
 							},
 							"user_data": schema.SingleNestedAttribute{
 								Computed: true,
@@ -396,13 +398,13 @@ func (r *RunbooksExecutionDataSource) Read(ctx context.Context, req datasource.R
 		return
 	}
 
-	request, requestDiags := data.ToOperationsGetRunbookExecutionRequest(ctx)
+	request, requestDiags := data.ToOperationsGetRunbookExecutionStepScriptRequest(ctx)
 	resp.Diagnostics.Append(requestDiags...)
 
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	res, err := r.client.Runbooks.GetRunbookExecution(ctx, *request)
+	res, err := r.client.Runbooks.GetRunbookExecutionStepScript(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {

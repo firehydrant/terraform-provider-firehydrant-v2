@@ -45,6 +45,36 @@ func (o *CreateScimUserName) GetGivenName() string {
 	return o.GivenName
 }
 
+type CreateScimUserPhoneNumber struct {
+	// Boolean which signifies if a phone number is intended as the primary phone for the User
+	Primary *bool `json:"primary,omitempty"`
+	// Type of phone number (mobile, work, home, etc.)
+	Type *string `json:"type,omitempty"`
+	// String that represents a phone number for the User
+	Value string `json:"value"`
+}
+
+func (o *CreateScimUserPhoneNumber) GetPrimary() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Primary
+}
+
+func (o *CreateScimUserPhoneNumber) GetType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Type
+}
+
+func (o *CreateScimUserPhoneNumber) GetValue() string {
+	if o == nil {
+		return ""
+	}
+	return o.Value
+}
+
 // CreateScimUser - SCIM endpoint to create and provision a new User. This endpoint will provision the User, which allows them to accept their account throught their IDP or via the Forgot Password flow.
 type CreateScimUser struct {
 	// Email addresses for the User
@@ -53,6 +83,8 @@ type CreateScimUser struct {
 	Name CreateScimUserName `json:"name"`
 	// This attribute is intended to be used as a means to set, replace, or compare (i.e., filter for equality) a password
 	Password *string `json:"password,omitempty"`
+	// Phone numbers for the User
+	PhoneNumbers []CreateScimUserPhoneNumber `json:"phoneNumbers,omitempty"`
 	// Roles for the User. Options are owner, member, collaborator, or viewer. Roles may be specified as strings or SCIM role objects.
 	Roles map[string]any `json:"roles,omitempty"`
 	// A service provider's unique identifier for the user
@@ -78,6 +110,13 @@ func (o *CreateScimUser) GetPassword() *string {
 		return nil
 	}
 	return o.Password
+}
+
+func (o *CreateScimUser) GetPhoneNumbers() []CreateScimUserPhoneNumber {
+	if o == nil {
+		return nil
+	}
+	return o.PhoneNumbers
 }
 
 func (o *CreateScimUser) GetRoles() map[string]any {

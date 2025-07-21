@@ -286,13 +286,6 @@ func (r *IncidentTypeResourceModel) RefreshFromSharedIncidentType(ctx context.Co
 								memberships.DefaultIncidentRole.Summary = types.StringPointerValue(membershipsItem.DefaultIncidentRole.Summary)
 								memberships.DefaultIncidentRole.UpdatedAt = types.StringPointerValue(typeconvert.TimePointerToStringPointer(membershipsItem.DefaultIncidentRole.UpdatedAt))
 							}
-							if membershipsItem.Role == nil {
-								memberships.Role = nil
-							} else {
-								memberships.Role = &tfTypes.NullableSuccinct{}
-								memberships.Role.ID = types.StringPointerValue(membershipsItem.Role.ID)
-								memberships.Role.Name = types.StringPointerValue(membershipsItem.Role.Name)
-							}
 							if membershipsItem.Schedule == nil {
 								memberships.Schedule = nil
 							} else {
@@ -345,7 +338,6 @@ func (r *IncidentTypeResourceModel) RefreshFromSharedIncidentType(ctx context.Co
 								teams.Memberships = append(teams.Memberships, memberships)
 							} else {
 								teams.Memberships[membershipsCount].DefaultIncidentRole = memberships.DefaultIncidentRole
-								teams.Memberships[membershipsCount].Role = memberships.Role
 								teams.Memberships[membershipsCount].Schedule = memberships.Schedule
 								teams.Memberships[membershipsCount].SignalsOnCallSchedule = memberships.SignalsOnCallSchedule
 								teams.Memberships[membershipsCount].User = memberships.User
@@ -1405,13 +1397,7 @@ func (r *IncidentTypeResourceModel) RefreshFromSharedIncidentType(ctx context.Co
 								ownedRunbooks.AttachmentRule = nil
 							} else {
 								ownedRunbooks.AttachmentRule = &tfTypes.NullableRules{}
-								if ownedRunbooksItem.AttachmentRule.Logic != nil {
-									ownedRunbooks.AttachmentRule.Logic = make(map[string]types.String, len(ownedRunbooksItem.AttachmentRule.Logic))
-									for key1, value1 := range ownedRunbooksItem.AttachmentRule.Logic {
-										result1, _ := json.Marshal(value1)
-										ownedRunbooks.AttachmentRule.Logic[key1] = types.StringValue(string(result1))
-									}
-								}
+								ownedRunbooks.AttachmentRule.Logic = types.StringPointerValue(ownedRunbooksItem.AttachmentRule.Logic)
 								if ownedRunbooksItem.AttachmentRule.UserData == nil {
 									ownedRunbooks.AttachmentRule.UserData = nil
 								} else {

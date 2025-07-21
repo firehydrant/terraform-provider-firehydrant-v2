@@ -63,10 +63,9 @@ func (r *RunbookDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 			"attachment_rule": schema.SingleNestedAttribute{
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
-					"logic": schema.MapAttribute{
+					"logic": schema.StringAttribute{
 						Computed:    true,
-						ElementType: types.StringType,
-						Description: `An unstructured object of key/value pairs describing the logic for applying the rule.`,
+						Description: `JSON stringified object of key/value pairs describing the logic for applying the rule.`,
 					},
 					"user_data": schema.SingleNestedAttribute{
 						Computed: true,
@@ -473,10 +472,9 @@ func (r *RunbookDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 						"rule": schema.SingleNestedAttribute{
 							Computed: true,
 							Attributes: map[string]schema.Attribute{
-								"logic": schema.MapAttribute{
+								"logic": schema.StringAttribute{
 									Computed:    true,
-									ElementType: types.StringType,
-									Description: `An unstructured object of key/value pairs describing the logic for applying the rule.`,
+									Description: `JSON stringified object of key/value pairs describing the logic for applying the rule.`,
 								},
 								"user_data": schema.SingleNestedAttribute{
 									Computed: true,
