@@ -234,7 +234,6 @@ Read-Only:
 Read-Only:
 
 - `default_incident_role` (Attributes) IncidentRole model (see [below for nested schema](#nestedatt--template_values--teams--memberships--default_incident_role))
-- `role` (Attributes) (see [below for nested schema](#nestedatt--template_values--teams--memberships--role))
 - `schedule` (Attributes) (see [below for nested schema](#nestedatt--template_values--teams--memberships--schedule))
 - `signals_on_call_schedule` (Attributes) (see [below for nested schema](#nestedatt--template_values--teams--memberships--signals_on_call_schedule))
 - `user` (Attributes) User model (see [below for nested schema](#nestedatt--template_values--teams--memberships--user))
@@ -251,15 +250,6 @@ Read-Only:
 - `name` (String)
 - `summary` (String)
 - `updated_at` (String)
-
-
-<a id="nestedatt--template_values--teams--memberships--role"></a>
-### Nested Schema for `template_values.teams.memberships.role`
-
-Read-Only:
-
-- `id` (String)
-- `name` (String)
 
 
 <a id="nestedatt--template_values--teams--memberships--schedule"></a>
@@ -1212,7 +1202,7 @@ Read-Only:
 
 Read-Only:
 
-- `logic` (Map of String) An unstructured object of key/value pairs describing the logic for applying the rule.
+- `logic` (String) JSON stringified object of key/value pairs describing the logic for applying the rule.
 - `user_data` (Attributes) (see [below for nested schema](#nestedatt--template_values--teams--owned_runbooks--attachment_rule--user_data))
 
 <a id="nestedatt--template_values--teams--owned_runbooks--attachment_rule--user_data"></a>
