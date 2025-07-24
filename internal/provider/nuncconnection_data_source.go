@@ -50,7 +50,6 @@ type NuncConnectionDataSourceModel struct {
 	LinkColor             types.String                        `tfsdk:"link_color"`
 	Links                 []tfTypes.Links                     `tfsdk:"links"`
 	Logo                  *tfTypes.NullableMediaImage         `tfsdk:"logo"`
-	NuncConnectionID      types.String                        `tfsdk:"nunc_connection_id"`
 	OpenGraphImage        *tfTypes.NullableMediaImage         `tfsdk:"open_graph_image"`
 	OperationalMessage    types.String                        `tfsdk:"operational_message"`
 	PrimaryColor          types.String                        `tfsdk:"primary_color"`
@@ -212,9 +211,6 @@ func (r *NuncConnectionDataSource) Schema(ctx context.Context, req datasource.Sc
 						Computed: true,
 					},
 				},
-			},
-			"nunc_connection_id": schema.StringAttribute{
-				Required: true,
 			},
 			"open_graph_image": schema.SingleNestedAttribute{
 				Computed: true,

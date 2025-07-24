@@ -126,7 +126,7 @@ func (r *NuncConnectionDataSourceModel) ToOperationsGetNuncConnectionRequest(ctx
 	var diags diag.Diagnostics
 
 	var nuncConnectionID string
-	nuncConnectionID = r.NuncConnectionID.ValueString()
+	nuncConnectionID = r.ID.ValueString()
 
 	out := operations.GetNuncConnectionRequest{
 		NuncConnectionID: nuncConnectionID,

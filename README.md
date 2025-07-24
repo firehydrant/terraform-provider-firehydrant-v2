@@ -139,7 +139,7 @@ terraform {
   required_providers {
     firehydrant = {
       source  = "firehydrant/firehydrant"
-      version = "0.3.1"
+      version = "0.4.0"
     }
   }
 }
@@ -162,6 +162,7 @@ provider "firehydrant" {
 * [firehydrant_incident](docs/resources/incident.md)
 * [firehydrant_incident_role](docs/resources/incident_role.md)
 * [firehydrant_incident_type](docs/resources/incident_type.md)
+* [firehydrant_nunc_connection](docs/resources/nunc_connection.md)
 * [firehydrant_priority](docs/resources/priority.md)
 * [firehydrant_retrospectives_template](docs/resources/retrospectives_template.md)
 * [firehydrant_runbook](docs/resources/runbook.md)
