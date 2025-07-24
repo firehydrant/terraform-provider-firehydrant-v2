@@ -5,9 +5,6 @@ package provider
 import (
 	"context"
 	"fmt"
-	speakeasy_listplanmodifier "github.com/firehydrant/terraform-provider-firehydrant/internal/planmodifiers/listplanmodifier"
-	speakeasy_objectplanmodifier "github.com/firehydrant/terraform-provider-firehydrant/internal/planmodifiers/objectplanmodifier"
-	speakeasy_stringplanmodifier "github.com/firehydrant/terraform-provider-firehydrant/internal/planmodifiers/stringplanmodifier"
 	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/validators"
@@ -330,11 +327,6 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 			"customer_impact_summary": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Description: `Requires replacement if changed.`,
 			},
 			"customers_impacted": schema.Int32Attribute{
 				Computed: true,
@@ -342,11 +334,6 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 			"description": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Description: `Requires replacement if changed.`,
 			},
 			"discarded_at": schema.StringAttribute{
 				Computed:    true,
@@ -718,23 +705,16 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 				},
 			},
 			"incident_type_id": schema.StringAttribute{
-				Optional: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-				},
-				Description: `The ID of the incident type. This will copy values from the incident type (if any) unless they are being overridden via parameters in this request. Requires replacement if changed.`,
+				Optional:    true,
+				Description: `The ID of the incident type. This will copy values from the incident type (if any) unless they are being overridden via parameters in this request.`,
 			},
 			"incident_url": schema.StringAttribute{
 				Computed: true,
 			},
 			"labels": schema.SingleNestedAttribute{
-				Computed: true,
-				Optional: true,
-				PlanModifiers: []planmodifier.Object{
-					objectplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
-				},
-				Description: `Key:value pairs to track custom data for the incident. Requires replacement if changed.`,
+				Computed:    true,
+				Optional:    true,
+				Description: `Key:value pairs to track custom data for the incident`,
 			},
 			"last_note": schema.SingleNestedAttribute{
 				Computed: true,
@@ -1018,11 +998,6 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 			},
 			"name": schema.StringAttribute{
 				Required: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Description: `Requires replacement if changed.`,
 			},
 			"number": schema.Int32Attribute{
 				Computed:    true,
@@ -1045,11 +1020,6 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 			"priority": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Description: `Requires replacement if changed.`,
 			},
 			"private_id": schema.StringAttribute{
 				Computed: true,
@@ -1209,11 +1179,6 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 			"severity": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Description: `Requires replacement if changed.`,
 			},
 			"severity_color": schema.StringAttribute{
 				Computed: true,
@@ -1223,10 +1188,6 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 			},
 			"severity_condition_id": schema.StringAttribute{
 				Optional: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-				},
-				Description: `Requires replacement if changed.`,
 			},
 			"severity_condition_object": schema.SingleNestedAttribute{
 				Computed: true,
@@ -1249,10 +1210,6 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 			},
 			"severity_impact_id": schema.StringAttribute{
 				Optional: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-				},
-				Description: `Requires replacement if changed.`,
 			},
 			"severity_impact_object": schema.SingleNestedAttribute{
 				Computed: true,
@@ -1339,21 +1296,12 @@ func (r *IncidentResource) Schema(ctx context.Context, req resource.SchemaReques
 			"summary": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
-				},
-				Description: `Requires replacement if changed.`,
 			},
 			"tag_list": schema.ListAttribute{
-				Computed: true,
-				Optional: true,
-				PlanModifiers: []planmodifier.List{
-					listplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_listplanmodifier.SuppressDiff(speakeasy_listplanmodifier.ExplicitSuppress),
-				},
+				Computed:    true,
+				Optional:    true,
 				ElementType: types.StringType,
-				Description: `List of tags for the incident. Requires replacement if changed.`,
+				Description: `List of tags for the incident`,
 			},
 			"team_assignments": schema.ListNestedAttribute{
 				Computed: true,
@@ -1795,13 +1743,13 @@ func (r *IncidentResource) Update(ctx context.Context, req resource.UpdateReques
 		return
 	}
 
-	request, requestDiags := data.ToOperationsCloseIncidentRequest(ctx)
+	request, requestDiags := data.ToOperationsUpdateIncidentRequest(ctx)
 	resp.Diagnostics.Append(requestDiags...)
 
 	if resp.Diagnostics.HasError() {
 		return
 	}
-	res, err := r.client.Incidents.CloseIncident(ctx, *request)
+	res, err := r.client.Incidents.UpdateIncident(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {
@@ -1822,6 +1770,43 @@ func (r *IncidentResource) Update(ctx context.Context, req resource.UpdateReques
 		return
 	}
 	resp.Diagnostics.Append(data.RefreshFromSharedIncident(ctx, res.Incident)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	resp.Diagnostics.Append(refreshPlan(ctx, plan, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	request1, request1Diags := data.ToOperationsGetIncidentRequest(ctx)
+	resp.Diagnostics.Append(request1Diags...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	res1, err := r.client.Incidents.GetIncident(ctx, *request1)
+	if err != nil {
+		resp.Diagnostics.AddError("failure to invoke API", err.Error())
+		if res1 != nil && res1.RawResponse != nil {
+			resp.Diagnostics.AddError("unexpected http request/response", debugResponse(res1.RawResponse))
+		}
+		return
+	}
+	if res1 == nil {
+		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res1))
+		return
+	}
+	if res1.StatusCode != 200 {
+		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res1.StatusCode), debugResponse(res1.RawResponse))
+		return
+	}
+	if !(res1.Incident != nil) {
+		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res1.RawResponse))
+		return
+	}
+	resp.Diagnostics.Append(data.RefreshFromSharedIncident(ctx, res1.Incident)...)
 
 	if resp.Diagnostics.HasError() {
 		return

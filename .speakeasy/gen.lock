@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 74a1a2a8-f6b2-4a51-9f9c-8b04f085a82b
 management:
-  docChecksum: c9b8fcf08b983d559fe597f5aa348a7e
+  docChecksum: 7c598acced9db4227b3b4490306110d8
   docVersion: 0.0.1
-  speakeasyVersion: 1.583.0
-  generationVersion: 2.658.3
-  releaseVersion: 0.3.1
-  configChecksum: 2b199b627a3f0cd34a5c94e92e494aed
+  speakeasyVersion: 1.587.1
+  generationVersion: 2.662.0
+  releaseVersion: 0.4.0
+  configChecksum: 81b80b922a94874d6986a4d6660ac351
   repoURL: https://github.com/firehydrant/terraform-provider-firehydrant-v2.git
   published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.2.1
-    core: 3.41.16
+    core: 3.42.0
     devContainers: 0.0.0
     getRequestBodies: 2.81.1
     globalSecurity: 2.81.12
@@ -114,6 +114,8 @@ generatedFiles:
   - examples/resources/firehydrant_incident_role/resource.tf
   - examples/resources/firehydrant_incident_type/import.sh
   - examples/resources/firehydrant_incident_type/resource.tf
+  - examples/resources/firehydrant_nunc_connection/import.sh
+  - examples/resources/firehydrant_nunc_connection/resource.tf
   - examples/resources/firehydrant_priority/import.sh
   - examples/resources/firehydrant_priority/resource.tf
   - examples/resources/firehydrant_retrospectives_template/import.sh
@@ -240,6 +242,8 @@ generatedFiles:
   - internal/provider/metrics_infrastructuremetricses_data_source_sdk.go
   - internal/provider/nuncconnection_data_source.go
   - internal/provider/nuncconnection_data_source_sdk.go
+  - internal/provider/nuncconnection_resource.go
+  - internal/provider/nuncconnection_resource_sdk.go
   - internal/provider/nuncemailsubscriberses_data_source.go
   - internal/provider/nuncemailsubscriberses_data_source_sdk.go
   - internal/provider/organizations_customfielddefinitions_data_source.go

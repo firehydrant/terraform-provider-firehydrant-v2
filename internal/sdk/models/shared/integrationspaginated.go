@@ -2,7 +2,7 @@
 
 package shared
 
-// IntegrationsPaginated model
+// IntegrationsPaginated - Integrations_IntegrationPaginated model
 type IntegrationsPaginated struct {
 	Data       []Integrations      `json:"data,omitempty"`
 	Pagination *NullablePagination `json:"pagination,omitempty"`
