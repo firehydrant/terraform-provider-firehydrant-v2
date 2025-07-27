@@ -179,18 +179,14 @@ func (r *RunbooksExecutionDataSourceModel) RefreshFromSharedRunbooksExecution(ct
 	return diags
 }
 
-func (r *RunbooksExecutionDataSourceModel) ToOperationsGetRunbookExecutionStepScriptRequest(ctx context.Context) (*operations.GetRunbookExecutionStepScriptRequest, diag.Diagnostics) {
+func (r *RunbooksExecutionDataSourceModel) ToOperationsGetRunbookExecutionRequest(ctx context.Context) (*operations.GetRunbookExecutionRequest, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
 	var executionID string
 	executionID = r.ID.ValueString()
 
-	var stepID string
-	stepID = r.StepID.ValueString()
-
-	out := operations.GetRunbookExecutionStepScriptRequest{
+	out := operations.GetRunbookExecutionRequest{
 		ExecutionID: executionID,
-		StepID:      stepID,
 	}
 
 	return &out, diags

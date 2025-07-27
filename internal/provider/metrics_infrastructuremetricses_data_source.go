@@ -6,8 +6,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk"
+	"github.com/firehydrant/terraform-provider-firehydrant/internal/validators"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 )
@@ -55,6 +57,9 @@ func (r *MetricsInfrastructureMetricsesDataSource) Schema(ctx context.Context, r
 			"end_date": schema.StringAttribute{
 				Optional:    true,
 				Description: `The end date to return metrics from, defaults to today`,
+				Validators: []validator.String{
+					validators.IsValidDate(),
+				},
 			},
 			"id": schema.StringAttribute{
 				Computed:    true,
@@ -90,6 +95,9 @@ func (r *MetricsInfrastructureMetricsesDataSource) Schema(ctx context.Context, r
 			"start_date": schema.StringAttribute{
 				Optional:    true,
 				Description: `The start date to return metrics from; defaults to 30 days ago`,
+				Validators: []validator.String{
+					validators.IsValidDate(),
+				},
 			},
 			"total_time": schema.Int32Attribute{
 				Computed:    true,
