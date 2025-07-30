@@ -28,13 +28,11 @@ type OrganizationsCustomFieldDefinitionsDataSource struct {
 
 // OrganizationsCustomFieldDefinitionsDataSourceModel describes the data model.
 type OrganizationsCustomFieldDefinitionsDataSourceModel struct {
-	AllVersions           types.Bool     `queryParam:"style=form,explode=true,name=all_versions" tfsdk:"all_versions"`
 	Description           types.String   `tfsdk:"description"`
 	DisplayName           types.String   `tfsdk:"display_name"`
 	FieldID               types.String   `tfsdk:"field_id"`
 	FieldType             types.String   `tfsdk:"field_type"`
 	PermissibleValues     []types.String `tfsdk:"permissible_values"`
-	Query                 types.String   `queryParam:"style=form,explode=true,name=query" tfsdk:"query"`
 	Required              types.Bool     `tfsdk:"required"`
 	RequiredAtMilestoneID types.String   `tfsdk:"required_at_milestone_id"`
 	Slug                  types.String   `tfsdk:"slug"`
@@ -51,10 +49,6 @@ func (r *OrganizationsCustomFieldDefinitionsDataSource) Schema(ctx context.Conte
 		MarkdownDescription: "OrganizationsCustomFieldDefinitions DataSource",
 
 		Attributes: map[string]schema.Attribute{
-			"all_versions": schema.BoolAttribute{
-				Optional:    true,
-				Description: `If true, return all versions of the custom field definition.`,
-			},
 			"description": schema.StringAttribute{
 				Computed: true,
 			},
@@ -70,10 +64,6 @@ func (r *OrganizationsCustomFieldDefinitionsDataSource) Schema(ctx context.Conte
 			"permissible_values": schema.ListAttribute{
 				Computed:    true,
 				ElementType: types.StringType,
-			},
-			"query": schema.StringAttribute{
-				Optional:    true,
-				Description: `Text string of a query for filtering values.`,
 			},
 			"required": schema.BoolAttribute{
 				Computed: true,
@@ -127,13 +117,7 @@ func (r *OrganizationsCustomFieldDefinitionsDataSource) Read(ctx context.Context
 		return
 	}
 
-	request, requestDiags := data.ToOperationsListCustomFieldSelectOptionsRequest(ctx)
-	resp.Diagnostics.Append(requestDiags...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-	res, err := r.client.IncidentSettings.ListCustomFieldSelectOptions(ctx, *request)
+	res, err := r.client.IncidentSettings.ListCustomFieldDefinitions(ctx)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {

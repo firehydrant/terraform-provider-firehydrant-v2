@@ -129,7 +129,7 @@ Read-Only:
 - `default_rule_data` (Attributes) (see [below for nested schema](#nestedatt--steps--action--default_rule_data))
 - `description` (String)
 - `id` (String)
-- `integration` (Attributes) Integrations model (see [below for nested schema](#nestedatt--steps--action--integration))
+- `integration` (Attributes) Integrations_Integration model (see [below for nested schema](#nestedatt--steps--action--integration))
 - `name` (String)
 - `prerequisites` (Attributes List) (see [below for nested schema](#nestedatt--steps--action--prerequisites))
 - `repeatable` (Boolean)

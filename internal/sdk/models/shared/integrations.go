@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// Integrations model
+// Integrations - Integrations_Integration model
 type Integrations struct {
 	Connections []IntegrationsConnection             `json:"connections,omitempty"`
 	CreatedAt   *time.Time                           `json:"created_at,omitempty"`
