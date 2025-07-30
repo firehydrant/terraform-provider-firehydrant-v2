@@ -415,7 +415,7 @@ func (r *RunbookDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 											Computed: true,
 										},
 									},
-									Description: `Integrations model`,
+									Description: `Integrations_Integration model`,
 								},
 								"name": schema.StringAttribute{
 									Computed: true,

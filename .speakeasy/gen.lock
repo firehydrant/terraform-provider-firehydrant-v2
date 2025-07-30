@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 74a1a2a8-f6b2-4a51-9f9c-8b04f085a82b
 management:
-  docChecksum: 7c598acced9db4227b3b4490306110d8
+  docChecksum: 01bb1a0f01c6b38af90d4f7cff16cd45
   docVersion: 0.0.1
-  speakeasyVersion: 1.587.1
-  generationVersion: 2.662.0
-  releaseVersion: 0.4.0
-  configChecksum: 81b80b922a94874d6986a4d6660ac351
+  speakeasyVersion: 1.592.1
+  generationVersion: 2.667.0
+  releaseVersion: 0.5.0
+  configChecksum: 9d793fdfa782d68dc756fc2a126690e4
   repoURL: https://github.com/firehydrant/terraform-provider-firehydrant-v2.git
   published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.2.1
-    core: 3.42.0
+    core: 3.43.1
     devContainers: 0.0.0
     getRequestBodies: 2.81.1
     globalSecurity: 2.81.12
