@@ -12,16 +12,50 @@ import (
 type ManualMapping struct {
 	Path   string `yaml:"path"`
 	Method string `yaml:"method"`
-	Action string `yaml:"action"` // "ignore", "entity", "match"
+	Action string `yaml:"action"` // "ignore", "entity", "match", "enable"
 	Value  string `yaml:"value,omitempty"`
 
 	// For entity mappings
 	Schema   string `yaml:"schema,omitempty"`
 	Property string `yaml:"property,omitempty"`
+
+	// For entity enabling
+	Entity string `yaml:"entity,omitempty"`
+}
+
+type EntityConfig struct {
+	EnabledEntities    map[string]bool
+	HasExplicitEnabled bool
 }
 
 type ManualMappings struct {
 	Operations []ManualMapping `yaml:"operations"`
+}
+
+func buildEntityConfig(manualMappings *ManualMappings) *EntityConfig {
+	enabled := make(map[string]bool)
+	hasExplicit := false
+
+	for _, mapping := range manualMappings.Operations {
+		if mapping.Action == "enable" && mapping.Entity != "" {
+			enabled[mapping.Entity] = true
+			hasExplicit = true
+		}
+	}
+
+	HasExplicitEnabled := (len(enabled) == 0 && !hasExplicit)
+
+	return &EntityConfig{
+		EnabledEntities:    enabled,
+		HasExplicitEnabled: HasExplicitEnabled,
+	}
+}
+
+func (ec *EntityConfig) ShouldProcessEntity(entityName string) bool {
+	if ec.HasExplicitEnabled {
+		return true
+	}
+	return ec.EnabledEntities[entityName]
 }
 
 func loadManualMappings(mappingsPath string) *ManualMappings {
