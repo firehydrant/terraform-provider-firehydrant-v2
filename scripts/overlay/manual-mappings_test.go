@@ -29,6 +29,10 @@ func TestLoadManualMappings(t *testing.T) {
 		testMappings := ManualMappings{
 			Operations: []ManualMapping{
 				{
+					Action: "enable",
+					Entity: "UserEntity",
+				},
+				{
 					Path:   "/users/{id}",
 					Method: "get",
 					Action: "match",
@@ -79,54 +83,62 @@ func TestLoadManualMappings(t *testing.T) {
 		if mappings == nil {
 			t.Error("expected non-nil mappings")
 		}
-		if mappings == nil || len(mappings.Operations) != 5 {
-			t.Errorf("expected 5 operations, got %d", len(mappings.Operations))
+		if mappings == nil || len(mappings.Operations) != 6 {
+			t.Errorf("expected 6 operations, got %d", len(mappings.Operations))
+		}
+
+		// Verify enable operation
+		if mappings.Operations[0].Action != "enable" {
+			t.Errorf("expected action 'enable', got '%s'", mappings.Operations[0].Action)
+		}
+		if mappings.Operations[0].Entity != "UserEntity" {
+			t.Errorf("expected entity 'UserEntity', got '%s'", mappings.Operations[0].Entity)
 		}
 
 		// Verify first operation
-		if mappings.Operations[0].Path != "/users/{id}" {
-			t.Errorf("expected path '/users/{id}', got '%s'", mappings.Operations[0].Path)
+		if mappings.Operations[1].Path != "/users/{id}" {
+			t.Errorf("expected path '/users/{id}', got '%s'", mappings.Operations[1].Path)
 		}
-		if mappings.Operations[0].Action != "match" {
-			t.Errorf("expected action 'match', got '%s'", mappings.Operations[0].Action)
+		if mappings.Operations[1].Action != "match" {
+			t.Errorf("expected action 'match', got '%s'", mappings.Operations[1].Action)
 		}
-		if mappings.Operations[0].Value != "id:user_id" {
-			t.Errorf("expected value 'id:user_id', got '%s'", mappings.Operations[0].Value)
+		if mappings.Operations[1].Value != "id:user_id" {
+			t.Errorf("expected value 'id:user_id', got '%s'", mappings.Operations[1].Value)
 		}
 
 		// Verify ignore operation
-		if mappings.Operations[1].Action != "ignore" {
-			t.Errorf("expected action 'ignore', got '%s'", mappings.Operations[1].Action)
+		if mappings.Operations[2].Action != "ignore" {
+			t.Errorf("expected action 'ignore', got '%s'", mappings.Operations[2].Action)
 		}
 
 		// Verify entity operation
-		if mappings.Operations[2].Action != "entity" {
-			t.Errorf("expected action 'entity', got '%s'", mappings.Operations[2].Action)
+		if mappings.Operations[3].Action != "entity" {
+			t.Errorf("expected action 'entity', got '%s'", mappings.Operations[3].Action)
 		}
-		if mappings.Operations[2].Value != "CustomEntity" {
-			t.Errorf("expected value 'CustomEntity', got '%s'", mappings.Operations[2].Value)
+		if mappings.Operations[3].Value != "CustomEntity" {
+			t.Errorf("expected value 'CustomEntity', got '%s'", mappings.Operations[3].Value)
 		}
 
 		// Verify property ignore operation
-		if mappings.Operations[3].Action != "ignore_property" {
-			t.Errorf("expected action 'ignore_property', got '%s'", mappings.Operations[3].Action)
+		if mappings.Operations[4].Action != "ignore_property" {
+			t.Errorf("expected action 'ignore_property', got '%s'", mappings.Operations[4].Action)
 		}
-		if mappings.Operations[3].Schema != "UserEntity" {
-			t.Errorf("expected schema 'UserEntity', got '%s'", mappings.Operations[3].Schema)
+		if mappings.Operations[4].Schema != "UserEntity" {
+			t.Errorf("expected schema 'UserEntity', got '%s'", mappings.Operations[4].Schema)
 		}
-		if mappings.Operations[3].Property != "internal_field" {
-			t.Errorf("expected property 'internal_field', got '%s'", mappings.Operations[3].Property)
+		if mappings.Operations[4].Property != "internal_field" {
+			t.Errorf("expected property 'internal_field', got '%s'", mappings.Operations[4].Property)
 		}
 
 		// Verify additional properties operation
-		if mappings.Operations[4].Action != "additional_properties" {
-			t.Errorf("expected action 'additional_properties', got '%s'", mappings.Operations[4].Action)
+		if mappings.Operations[5].Action != "additional_properties" {
+			t.Errorf("expected action 'additional_properties', got '%s'", mappings.Operations[5].Action)
 		}
-		if mappings.Operations[4].Schema != "ConfigEntity" {
-			t.Errorf("expected schema 'ConfigEntity', got '%s'", mappings.Operations[4].Schema)
+		if mappings.Operations[5].Schema != "ConfigEntity" {
+			t.Errorf("expected schema 'ConfigEntity', got '%s'", mappings.Operations[5].Schema)
 		}
-		if mappings.Operations[4].Property != "metadata" {
-			t.Errorf("expected property 'metadata', got '%s'", mappings.Operations[4].Property)
+		if mappings.Operations[5].Property != "metadata" {
+			t.Errorf("expected property 'metadata', got '%s'", mappings.Operations[5].Property)
 		}
 	})
 
@@ -698,6 +710,7 @@ func TestManualMappingStruct(t *testing.T) {
 		Value:    "param:field",
 		Schema:   "TestEntity",
 		Property: "test_property",
+		Entity:   "UserEntity",
 	}
 
 	if mapping.Path != "/test/path" {
@@ -718,12 +731,19 @@ func TestManualMappingStruct(t *testing.T) {
 	if mapping.Property != "test_property" {
 		t.Errorf("expected property 'test_property', got '%s'", mapping.Property)
 	}
+	if mapping.Entity != "UserEntity" {
+		t.Errorf("expected entity 'UserEntity', got '%s'", mapping.Entity)
+	}
 }
 
 // Test ManualMappings struct
 func TestManualMappingsStruct(t *testing.T) {
 	mappings := ManualMappings{
 		Operations: []ManualMapping{
+			{
+				Action: "enable",
+				Entity: "UserEntity",
+			},
 			{
 				Path:   "/test1",
 				Method: "GET",
@@ -738,15 +758,76 @@ func TestManualMappingsStruct(t *testing.T) {
 		},
 	}
 
-	if len(mappings.Operations) != 2 {
-		t.Errorf("expected 2 operations, got %d", len(mappings.Operations))
+	if len(mappings.Operations) != 3 {
+		t.Errorf("expected 3 operations, got %d", len(mappings.Operations))
 	}
 
-	if mappings.Operations[0].Path != "/test1" {
-		t.Errorf("expected first operation path '/test1', got '%s'", mappings.Operations[0].Path)
+	if mappings.Operations[0].Action != "enable" {
+		t.Errorf("expected first operation action 'enable', got '%s'", mappings.Operations[0].Action)
 	}
 
-	if mappings.Operations[1].Action != "match" {
-		t.Errorf("expected second operation action 'match', got '%s'", mappings.Operations[1].Action)
+	if mappings.Operations[1].Path != "/test1" {
+		t.Errorf("expected second operation path '/test1', got '%s'", mappings.Operations[1].Path)
 	}
+
+	if mappings.Operations[2].Action != "match" {
+		t.Errorf("expected third operation action 'match', got '%s'", mappings.Operations[2].Action)
+	}
+}
+func TestBuildEntityConfig(t *testing.T) {
+	t.Run("no enable actions", func(t *testing.T) {
+		mappings := &ManualMappings{
+			Operations: []ManualMapping{
+				{Path: "/users/{id}", Method: "get", Action: "match", Value: "id:user_id"},
+			},
+		}
+		config := buildEntityConfig(mappings)
+		if !config.HasExplicitEnabled {
+			t.Error("expected HasExplicitEnabled=true when no enable actions present")
+		}
+		if len(config.EnabledEntities) != 0 {
+			t.Error("expected empty EnabledEntities when no enable actions present")
+		}
+	})
+
+	t.Run("with enable actions", func(t *testing.T) {
+		mappings := &ManualMappings{
+			Operations: []ManualMapping{
+				{Action: "enable", Entity: "UserEntity"},
+				{Action: "enable", Entity: "ProductEntity"},
+			},
+		}
+		config := buildEntityConfig(mappings)
+		if config.HasExplicitEnabled {
+			t.Error("expected HasExplicitEnabled=false when enable actions present")
+		}
+		if len(config.EnabledEntities) != 2 {
+			t.Errorf("expected 2 enabled entities, got %d", len(config.EnabledEntities))
+		}
+		if !config.EnabledEntities["UserEntity"] || !config.EnabledEntities["ProductEntity"] {
+			t.Error("expected UserEntity and ProductEntity to be enabled")
+		}
+	})
+}
+
+func TestEntityConfigShouldProcessEntity(t *testing.T) {
+	t.Run("process all entities", func(t *testing.T) {
+		config := &EntityConfig{EnabledEntities: make(map[string]bool), HasExplicitEnabled: true}
+		if !config.ShouldProcessEntity("AnyEntity") {
+			t.Error("expected to process entity when HasExplicitEnabled=true")
+		}
+	})
+
+	t.Run("process only enabled entities", func(t *testing.T) {
+		config := &EntityConfig{
+			EnabledEntities:    map[string]bool{"UserEntity": true},
+			HasExplicitEnabled: false,
+		}
+		if !config.ShouldProcessEntity("UserEntity") {
+			t.Error("expected to process enabled entity")
+		}
+		if config.ShouldProcessEntity("DisabledEntity") {
+			t.Error("expected not to process disabled entity")
+		}
+	})
 }
