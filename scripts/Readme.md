@@ -4,9 +4,10 @@ This directory contains scripts for processing OpenAPI specifications to generat
 
 ## Overview
 
-Our pipeline consists of two main phases:
+Our pipeline consists of three main phases:
 1. **Normalization**: Lightweight schema cleanup and reserved keyword handling
 2. **Overlay Generation**: Creates Speakeasy annotations for Terraform provider generation with field mapping and readonly marking
+3. **Name Convention Normalization**: Second normalization phase which updates our naming conventions to be more user-friendly and in line with the V1 provider
 
 ## Workflow
 
@@ -45,17 +46,42 @@ go run ./scripts/overlay <input.json> [manual-mappings.yaml]
 
 **What it does:**
 - Identifies viable Terraform resources (must have at least CREATE and READ operations)
-- Adds `x-speakeasy-entity` annotations to entity schemas
-- Maps CRUD operations using `x-speakeasy-entity-operation`
+- Adds `x-speakeasy-entity` annotations to all viable entity schemas (for schema resolution)
+- Maps CRUD operations using `x-speakeasy-entity-operation` (only for enabled entities)
 - Uses `x-speakeasy-name-override` to map request field names to response field names
 - Marks response-only fields with `x-speakeasy-param-readonly: true`
 - Handles nested readonly properties within manageable fields
 - Only uses `x-speakeasy-ignore` for truly incompatible properties
-- Applies manual mappings for edge cases
+- Applies manual mappings for edge cases and gradual entity rollout
+
+### `naming`
+
+Updates naming conventions in the spec and the overlay, generally removing entity suffixes for a better user experience.
+
+**Usage:**
+```bash
+go run ./scripts/naming <input.json> <terraform-overlay.yaml>
+```
 
 See speakeasy extensions: https://www.speakeasy.com/docs/speakeasy-reference/extensions
 
 ## Key Concepts
+
+### Gradual Provider Rollout
+
+The pipeline supports gradual rollout of entities through the `enable` action in manual mappings:
+
+- **Default behavior**: All viable entities are enabled for provider generation
+- **Explicit enabling**: When any `enable` action is present, only explicitly enabled entities generate resources/datasources
+- **Schema resolution**: All viable entities receive `x-speakeasy-entity` annotations to ensure proper SDK generation, regardless of enabled status
+- **Operation generation**: Only enabled entities receive `x-speakeasy-entity-operation` annotations for actual provider functionality
+
+This approach allows for:
+- Safe, incremental rollout of new resources
+- Testing individual entities without affecting others
+- Maintaining schema relationships across all entities
+
+### Normalization vs. Overlay Generation
 
 1. **During Normalization**:
    - Inline request parameter extraction into request schemas
@@ -95,10 +121,18 @@ Instead of modifying schemas during normalization, we use Speakeasy annotations 
 
 ## Manual Mappings
 
-The `manual-mappings.yaml` file allows for handling edge cases:
+The `manual-mappings.yaml` file allows for handling edge cases and controlling provider rollout:
 
 ```yaml
 operations:
+  # Entity enablement - enables gradual rollout
+  - action: "enable"
+    entity: "ServiceEntity"
+  
+  - action: "enable"
+    entity: "TeamEntity"
+  
+  # Operation overrides
   - path: /api/v1/special/resource
     method: post
     action: entity
@@ -113,20 +147,24 @@ operations:
     action: match
     value: "resource_id:id"
     
-properties:
-  - schema: SomeEntity
-    property: problematic_field
-    action: ignore_property
+  # Property-level controls
+  - action: "ignore_property"
+    schema: "SomeEntity"
+    property: "problematic_field"
 
-field_mappings:
-  - request_schema: create_user
-    response_schema: UserEntity
-    mappings:
-      - request_field: user_name
-        response_field: name
-      - request_field: user_email
-        response_field: email
+  - action: "additional_properties"
+    schema: "FlexibleEntity"
+    property: "dynamic_config"
 ```
+
+### Action Types
+
+- **`enable`**: Enable specific entity for provider generation. If any `enable` actions exist, only listed entities will generate resources/datasources
+- **`ignore`**: Skip operation entirely (won't get any x-speakeasy annotations)
+- **`entity`**: Force operation to map to specific entity
+- **`match`**: Override parameter mapping (value = "param_name:field_name")
+- **`ignore_property`**: Ignore a specific property on an entity
+- **`additional_properties`**: Add additionalProperties: true to handle dynamic/flexible schemas
 
 ## Example
 
@@ -177,8 +215,8 @@ The normalization process will:
 4. Perform minimal cleanup operations
 
 The overlay generation will:
-1. Mark `UserEntity` with `x-speakeasy-entity`
-2. Map CRUD operations
+1. Mark `UserEntity` with `x-speakeasy-entity` (for schema resolution)
+2. Map CRUD operations with `x-speakeasy-entity-operation` (only if enabled)
 3. Add `x-speakeasy-name-override: "name"` to `create_user.user_name`
 4. Add `x-speakeasy-name-override: "email"` to `create_user.user_email`
 5. Mark `UserEntity.id` as `x-speakeasy-param-readonly: true`
@@ -202,6 +240,7 @@ Run scripts locally. Use `speakeasy run` to attempt to generate the provider.
 - Verify `x-speakeasy-param-readonly: true` usage on response-only fields
 - Look for nested readonly properties within manageable fields
 - Ensure required fields weren't incorrectly ignored
+- Verify entity enablement is working as expected (check logs for enabled vs. total entities)
 
 To view the combined normalized spec + overlay run `speakeasy overlay apply -s {specPath} -o {overlayPath} > {outputPath}` This output will always be in yaml, so name accordingly
 
@@ -242,15 +281,15 @@ The release process consists of three main GitHub Actions workflows:
 
 ```mermaid
 flowchart TD
-    A [Daily: SDK Generation Workflow] --> [Speakeasy Bot Opens PR]
-    B --> Merge PR to main
-    C --> {PR Contains /internal Changes?}
-    C -->|Yes| [Tag Release Workflow Triggered]
-    C -->|No| [No release]
-    D --> [Extract Version from PR Title]
-    E --> [Create Git Tag]
-    F --> [Release Workflow Triggered]
-    G --> [GoReleaser Publishes Provider]
+    A[Daily: SDK Generation Workflow] --> B[Speakeasy Bot Opens PR]
+    B --> C[Merge PR to main]
+    C --> D{PR Contains /internal Changes?}
+    D -->|Yes| E[Tag Release Workflow Triggered]
+    D -->|No| F[No release]
+    E --> G[Extract Version from PR Title]
+    G --> H[Create Git Tag]
+    H --> I[Release Workflow Triggered]
+    I --> J[GoReleaser Publishes Provider]
 ```
 
 ### Workflow Details
@@ -355,6 +394,21 @@ Ensure these secrets are configured in GitHub:
 - `FH_OPS_SSH_KEY` (for accessing developers repo)
 - `SPEAKEASY_API_KEY` (for SDK generation)
 
+## Local Development
+To generate a provider locally, update the workflow.yaml file located ./.speakeasy/workflow.yaml to use an openapi spec and terraform yaml in the root of the repo
+```
+        inputs:
+            - location: ./openapi.json
+        overlays:
+            - location: ./terraform-overlay.yaml
+```
+
+Get a recent version of our openapi3 spec from the developers repo > https://github.com/firehydrant/developers/blob/main/docs/public/openapi3_doc.json
+
+Copy this file to the root of the repo with a different name than openapi.json.
+
+Run the scripts outlined above in ##scripts, afterward run ```speakeasy run``` and continue to local testing
+
 ## Provider Local Testing
 
 After `speakeasy run` has successfully completed. 
@@ -373,12 +427,12 @@ provider_installation {
 ```
 This will tell terraform to use your local build instead of downloading the latest published version
 
-Add a test.tf terraform config to the root directory for your chosen resource testing, Can be modeled after the corresponding entity file in docs>resources, which will be generated with `speakeasy run`.
+Add a test.tf terraform config to the root directory for your chosen resource testing. This can be modeled after the corresponding entity file in docs>resources, which will be generated with `speakeasy run`.
 
-add terraform.tfvars to directory root with:
+Add terraform.tfvars to directory root with:
 ``` 
 api_key = {staging apikey}
 ```
 
 Run `go build -o terraform-provider-firehydrant` so you have a local binary to use
-after that you can terraform init, plan, apply, destroy etc to test against staging
+After that you can terraform init, plan, apply, destroy etc to test against staging
