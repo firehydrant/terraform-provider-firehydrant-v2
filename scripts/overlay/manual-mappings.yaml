@@ -5,6 +5,8 @@
 # - "ignore_property": Ignore a specific property on an entity, specify schema and property
 # - "additional_properties": Add additionalProperties: true to a specific property on an entity, specify schema and property
 #    this is a workaround for empty hashes in our Grape API
+# - "enable": Enable an entity for gradual provider rollout. With no enable action types, all entities are enabled by default.
+#    there is no explicit "disable", if there is a single enable action then ONLY entities which are enable will be processed
 
 operations:
   # IGNORE: Skip operations that shouldn't be treated as entity operations
@@ -62,6 +64,13 @@ operations:
     action: "ignore"
   - path: "/v1/teams/{team_id}/on_call_schedules/{schedule_id}/shifts/{shift_id}"
     method: "delete"
+    action: "ignore"
+
+
+  # The patch is causing generation issues
+  # Temporary workaround to avoid compilation errors
+  - path: "/v1/incidents/{incident_id}/retrospectives/{retrospective_id}/fields/{field_id}"
+    method: "patch"
     action: "ignore"
 
   # Manual Entity Mappings
@@ -467,3 +476,6 @@ operations:
     schema: "Integrations_Aws_CloudtrailBatchEntity"
     property: "connection"
 
+
+  - action: "enable"
+    entity: "FunctionalityEntity"

@@ -30,6 +30,10 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	overlay.Info.Version = "1.0.0"
 	overlay.Info.Description = "Auto-generated overlay for Terraform resources"
 
+	// Entity configuration contains information about which entities are enabled
+	// or if we should process all entities by default
+	entityConfig := buildEntityConfig(manualMappings)
+
 	specData, _ := json.Marshal(spec)
 	var rawSpec map[string]interface{}
 	json.Unmarshal(specData, &rawSpec)
@@ -38,8 +42,15 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 
 	viableResources := make(map[string]*ResourceInfo)
 	nonViableResources := make([]string, 0)
+	disabledResources := make([]string, 0)
 
 	for name, resource := range resources {
+		if !entityConfig.ShouldProcessEntity(resource.EntityName) {
+			// We track disabled resources but still include them as viable so
+			// they receive the appropriate speakeasy extensions incase they are related to our enabled entities via sub/parent relationships
+			disabledResources = append(disabledResources, name)
+		}
+
 		if isTerraformViable(resource, manualMappings, schemas) {
 			viableResources[name] = resource
 		} else {
@@ -48,6 +59,13 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	}
 
 	fmt.Printf("\n=== Overlay Generation Analysis ===\n")
+	if len(entityConfig.EnabledEntities) > 0 {
+		fmt.Printf("Using Explicitly Enabled Entities\n")
+		fmt.Printf("Enabled entities: %d\n", len(entityConfig.EnabledEntities))
+	} else if entityConfig.HasExplicitEnabled {
+		fmt.Printf("All entities enabled by default\n")
+	}
+
 	fmt.Printf("Viable for Terraform: %d\n", len(viableResources))
 	fmt.Printf("Skipped (non-viable): %d\n", len(nonViableResources))
 
@@ -246,7 +264,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 
 		for crudType, opInfo := range resource.Operations {
 			// manual ignores are the only ignore operations that we should have in our overlay
-			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) {
+			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) || !entityConfig.ShouldProcessEntity(resource.EntityName) {
 				continue
 			}
 
@@ -375,7 +393,7 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 				continue
 			}
 
-			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) {
+			if shouldIgnoreOperation(opInfo.Path, opInfo.Method, manualMappings) || !entityConfig.ShouldProcessEntity(resource.EntityName) {
 				continue
 			}
 
@@ -433,7 +451,14 @@ func generateOverlay(resources map[string]*ResourceInfo, spec OpenAPISpec, manua
 	fmt.Println("Total manual property ignores applied:", manualIgnoreCount)
 
 	fmt.Printf("\n=== Overlay Generation Complete ===\n")
-	fmt.Printf("Generated %d actions for %d viable resources and %d data sources\n", len(overlay.Actions), len(viableResources), len(viableDatasources)+len(viableResources))
+	if len(entityConfig.EnabledEntities) > 0 {
+		fmt.Printf("Generated %d actions for %d enabled viable resources and %d enabled data sources\n",
+			len(overlay.Actions), len(viableResources), len(viableDatasources))
+		fmt.Printf("Disabled %d entities due to explicit enable configuration\n", len(disabledResources))
+	} else {
+		fmt.Printf("Generated %d actions for %d viable resources and %d data sources (all entities enabled by default)\n",
+			len(overlay.Actions), len(viableResources), len(viableDatasources))
+	}
 
 	totalIgnores := 0
 	totalMatches := 0
