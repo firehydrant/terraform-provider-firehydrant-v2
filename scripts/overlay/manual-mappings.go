@@ -8,12 +8,23 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type ManualMappingAction string
+
+const (
+	Ignore               ManualMappingAction = "ignore"
+	Entity               ManualMappingAction = "entity"
+	Match                ManualMappingAction = "match"
+	Enable               ManualMappingAction = "enable"
+	IgnoreProperty       ManualMappingAction = "ignore_property"
+	AdditionalProperties ManualMappingAction = "additional_properties"
+)
+
 // Manual mapping configuration, corresponds with the manual-mappings.yaml file
 type ManualMapping struct {
-	Path   string `yaml:"path"`
-	Method string `yaml:"method"`
-	Action string `yaml:"action"` // "ignore", "entity", "match", "enable"
-	Value  string `yaml:"value,omitempty"`
+	Path   string              `yaml:"path"`
+	Method string              `yaml:"method"`
+	Action ManualMappingAction `yaml:"action"`
+	Value  string              `yaml:"value,omitempty"`
 
 	// For entity mappings
 	Schema   string `yaml:"schema,omitempty"`
@@ -37,7 +48,7 @@ func buildEntityConfig(manualMappings *ManualMappings) *EntityConfig {
 	hasExplicit := false
 
 	for _, mapping := range manualMappings.Operations {
-		if mapping.Action == "enable" && mapping.Entity != "" {
+		if mapping.Action == Enable && mapping.Entity != "" {
 			enabled[mapping.Entity] = true
 			hasExplicit = true
 		}
@@ -77,7 +88,7 @@ func loadManualMappings(mappingsPath string) *ManualMappings {
 
 func getManualParameterMatch(path, method, paramName string, manualMappings *ManualMappings) (string, bool) {
 	for _, mapping := range manualMappings.Operations {
-		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == "match" {
+		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == Match {
 			parts := strings.SplitN(mapping.Value, ":", 2)
 			if len(parts) == 2 && parts[0] == paramName {
 				return parts[1], true
@@ -89,7 +100,7 @@ func getManualParameterMatch(path, method, paramName string, manualMappings *Man
 
 func shouldIgnoreOperation(path, method string, manualMappings *ManualMappings) bool {
 	for _, mapping := range manualMappings.Operations {
-		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == "ignore" {
+		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == Ignore {
 			fmt.Println("  Ignoring operation:", method, path)
 			return true
 		}
@@ -99,7 +110,7 @@ func shouldIgnoreOperation(path, method string, manualMappings *ManualMappings) 
 
 func getManualEntityMapping(path, method string, manualMappings *ManualMappings) (string, bool) {
 	for _, mapping := range manualMappings.Operations {
-		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == "entity" {
+		if mapping.Path == path && strings.EqualFold(mapping.Method, method) && mapping.Action == Entity {
 			return mapping.Value, true
 		}
 	}
@@ -110,7 +121,7 @@ func getManualPropertyIgnores(manualMappings *ManualMappings) map[string][]strin
 	ignores := make(map[string][]string)
 
 	for _, mapping := range manualMappings.Operations {
-		if mapping.Action == "ignore_property" && mapping.Schema != "" && mapping.Property != "" {
+		if mapping.Action == IgnoreProperty && mapping.Schema != "" && mapping.Property != "" {
 			ignores[mapping.Schema] = append(ignores[mapping.Schema], mapping.Property)
 		}
 	}
@@ -123,7 +134,7 @@ func getAdditionalPropertiesMappings(manualMappings *ManualMappings) map[string]
 	additionalProps := make(map[string][]string)
 
 	for _, mapping := range manualMappings.Operations {
-		if mapping.Action == "additional_properties" && mapping.Schema != "" && mapping.Property != "" {
+		if mapping.Action == AdditionalProperties && mapping.Schema != "" && mapping.Property != "" {
 			additionalProps[mapping.Schema] = append(additionalProps[mapping.Schema], mapping.Property)
 		}
 	}

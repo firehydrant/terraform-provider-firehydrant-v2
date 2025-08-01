@@ -29,33 +29,33 @@ func TestLoadManualMappings(t *testing.T) {
 		testMappings := ManualMappings{
 			Operations: []ManualMapping{
 				{
-					Action: "enable",
+					Action: Enable,
 					Entity: "UserEntity",
 				},
 				{
 					Path:   "/users/{id}",
 					Method: "get",
-					Action: "match",
+					Action: Match,
 					Value:  "id:user_id",
 				},
 				{
 					Path:   "/admin/debug",
 					Method: "get",
-					Action: "ignore",
+					Action: Ignore,
 				},
 				{
 					Path:   "/special/endpoint",
 					Method: "post",
-					Action: "entity",
+					Action: Entity,
 					Value:  "CustomEntity",
 				},
 				{
-					Action:   "ignore_property",
+					Action:   IgnoreProperty,
 					Schema:   "UserEntity",
 					Property: "internal_field",
 				},
 				{
-					Action:   "additional_properties",
+					Action:   AdditionalProperties,
 					Schema:   "ConfigEntity",
 					Property: "metadata",
 				},
@@ -88,7 +88,7 @@ func TestLoadManualMappings(t *testing.T) {
 		}
 
 		// Verify enable operation
-		if mappings.Operations[0].Action != "enable" {
+		if mappings.Operations[0].Action != Enable {
 			t.Errorf("expected action 'enable', got '%s'", mappings.Operations[0].Action)
 		}
 		if mappings.Operations[0].Entity != "UserEntity" {
@@ -99,7 +99,7 @@ func TestLoadManualMappings(t *testing.T) {
 		if mappings.Operations[1].Path != "/users/{id}" {
 			t.Errorf("expected path '/users/{id}', got '%s'", mappings.Operations[1].Path)
 		}
-		if mappings.Operations[1].Action != "match" {
+		if mappings.Operations[1].Action != Match {
 			t.Errorf("expected action 'match', got '%s'", mappings.Operations[1].Action)
 		}
 		if mappings.Operations[1].Value != "id:user_id" {
@@ -107,12 +107,12 @@ func TestLoadManualMappings(t *testing.T) {
 		}
 
 		// Verify ignore operation
-		if mappings.Operations[2].Action != "ignore" {
+		if mappings.Operations[2].Action != Ignore {
 			t.Errorf("expected action 'ignore', got '%s'", mappings.Operations[2].Action)
 		}
 
 		// Verify entity operation
-		if mappings.Operations[3].Action != "entity" {
+		if mappings.Operations[3].Action != Entity {
 			t.Errorf("expected action 'entity', got '%s'", mappings.Operations[3].Action)
 		}
 		if mappings.Operations[3].Value != "CustomEntity" {
@@ -120,7 +120,7 @@ func TestLoadManualMappings(t *testing.T) {
 		}
 
 		// Verify property ignore operation
-		if mappings.Operations[4].Action != "ignore_property" {
+		if mappings.Operations[4].Action != IgnoreProperty {
 			t.Errorf("expected action 'ignore_property', got '%s'", mappings.Operations[4].Action)
 		}
 		if mappings.Operations[4].Schema != "UserEntity" {
@@ -131,7 +131,7 @@ func TestLoadManualMappings(t *testing.T) {
 		}
 
 		// Verify additional properties operation
-		if mappings.Operations[5].Action != "additional_properties" {
+		if mappings.Operations[5].Action != AdditionalProperties {
 			t.Errorf("expected action 'additional_properties', got '%s'", mappings.Operations[5].Action)
 		}
 		if mappings.Operations[5].Schema != "ConfigEntity" {
@@ -190,31 +190,31 @@ func TestGetManualParameterMatch(t *testing.T) {
 			{
 				Path:   "/users/{user_id}",
 				Method: "get",
-				Action: "match",
+				Action: Match,
 				Value:  "user_id:id",
 			},
 			{
 				Path:   "/posts/{post_id}",
 				Method: "get",
-				Action: "match",
+				Action: Match,
 				Value:  "post_id:slug",
 			},
 			{
 				Path:   "/complex/{param}",
 				Method: "post",
-				Action: "match",
+				Action: Match,
 				Value:  "param:nested.field.id",
 			},
 			{
 				Path:   "/wrong-action/{id}",
 				Method: "get",
-				Action: "ignore", // Not a match action
+				Action: Ignore, // Not a match action
 				Value:  "id:something",
 			},
 			{
 				Path:   "/malformed/{id}",
 				Method: "get",
-				Action: "match",
+				Action: Match,
 				Value:  "malformed_value", // No colon separator
 			},
 		},
@@ -333,17 +333,17 @@ func TestShouldIgnoreOperation(t *testing.T) {
 			{
 				Path:   "/internal/debug",
 				Method: "get",
-				Action: "ignore",
+				Action: Ignore,
 			},
 			{
 				Path:   "/admin/reset",
 				Method: "post",
-				Action: "ignore",
+				Action: Ignore,
 			},
 			{
 				Path:   "/not-ignored",
 				Method: "get",
-				Action: "match", // Different action, should not ignore
+				Action: Match, // Different action, should not ignore
 				Value:  "param:field",
 			},
 		},
@@ -403,19 +403,19 @@ func TestGetManualEntityMapping(t *testing.T) {
 			{
 				Path:   "/special/endpoint",
 				Method: "get",
-				Action: "entity",
+				Action: Entity,
 				Value:  "SpecialEntity",
 			},
 			{
 				Path:   "/custom/resource",
 				Method: "post",
-				Action: "entity",
+				Action: Entity,
 				Value:  "CustomResourceEntity",
 			},
 			{
 				Path:   "/not-entity",
 				Method: "get",
-				Action: "ignore", // Different action
+				Action: Ignore, // Different action
 			},
 		},
 	}
@@ -481,38 +481,38 @@ func TestGetManualPropertyIgnores(t *testing.T) {
 	mappings := &ManualMappings{
 		Operations: []ManualMapping{
 			{
-				Action:   "ignore_property",
+				Action:   IgnoreProperty,
 				Schema:   "UserEntity",
 				Property: "internal_field",
 			},
 			{
-				Action:   "ignore_property",
+				Action:   IgnoreProperty,
 				Schema:   "UserEntity",
 				Property: "debug_info",
 			},
 			{
-				Action:   "ignore_property",
+				Action:   IgnoreProperty,
 				Schema:   "ProductEntity",
 				Property: "admin_notes",
 			},
 			{
-				Action:   "ignore_property",
+				Action:   IgnoreProperty,
 				Schema:   "UserEntity",
 				Property: "temp_data",
 			},
 			{
 				// Missing schema - should be ignored
-				Action:   "ignore_property",
+				Action:   IgnoreProperty,
 				Property: "orphaned_property",
 			},
 			{
 				// Missing property - should be ignored
-				Action: "ignore_property",
+				Action: IgnoreProperty,
 				Schema: "EmptyEntity",
 			},
 			{
 				// Different action - should be ignored
-				Action:   "match",
+				Action:   Match,
 				Schema:   "UserEntity",
 				Property: "not_ignored",
 			},
@@ -565,38 +565,38 @@ func TestGetAdditionalPropertiesMappings(t *testing.T) {
 	mappings := &ManualMappings{
 		Operations: []ManualMapping{
 			{
-				Action:   "additional_properties",
+				Action:   AdditionalProperties,
 				Schema:   "UserEntity",
 				Property: "metadata",
 			},
 			{
-				Action:   "additional_properties",
+				Action:   AdditionalProperties,
 				Schema:   "UserEntity",
 				Property: "settings.preferences",
 			},
 			{
-				Action:   "additional_properties",
+				Action:   AdditionalProperties,
 				Schema:   "ProductEntity",
 				Property: "custom_fields",
 			},
 			{
-				Action:   "additional_properties",
+				Action:   AdditionalProperties,
 				Schema:   "UserEntity",
 				Property: "dynamic.config.values",
 			},
 			{
 				// Missing schema - should be ignored
-				Action:   "additional_properties",
+				Action:   AdditionalProperties,
 				Property: "orphaned",
 			},
 			{
 				// Missing property - should be ignored
-				Action: "additional_properties",
+				Action: AdditionalProperties,
 				Schema: "EmptyEntity",
 			},
 			{
 				// Different action - should be ignored
-				Action:   "ignore",
+				Action:   IgnoreProperty,
 				Schema:   "UserEntity",
 				Property: "not_additional",
 			},
@@ -706,7 +706,7 @@ func TestManualMappingStruct(t *testing.T) {
 	mapping := ManualMapping{
 		Path:     "/test/path",
 		Method:   "GET",
-		Action:   "match",
+		Action:   Match,
 		Value:    "param:field",
 		Schema:   "TestEntity",
 		Property: "test_property",
@@ -719,7 +719,7 @@ func TestManualMappingStruct(t *testing.T) {
 	if mapping.Method != "GET" {
 		t.Errorf("expected method 'GET', got '%s'", mapping.Method)
 	}
-	if mapping.Action != "match" {
+	if mapping.Action != Match {
 		t.Errorf("expected action 'match', got '%s'", mapping.Action)
 	}
 	if mapping.Value != "param:field" {
@@ -741,18 +741,18 @@ func TestManualMappingsStruct(t *testing.T) {
 	mappings := ManualMappings{
 		Operations: []ManualMapping{
 			{
-				Action: "enable",
+				Action: Enable,
 				Entity: "UserEntity",
 			},
 			{
 				Path:   "/test1",
 				Method: "GET",
-				Action: "ignore",
+				Action: IgnoreProperty,
 			},
 			{
 				Path:   "/test2",
 				Method: "POST",
-				Action: "match",
+				Action: Match,
 				Value:  "param:field",
 			},
 		},
@@ -762,7 +762,7 @@ func TestManualMappingsStruct(t *testing.T) {
 		t.Errorf("expected 3 operations, got %d", len(mappings.Operations))
 	}
 
-	if mappings.Operations[0].Action != "enable" {
+	if mappings.Operations[0].Action != Enable {
 		t.Errorf("expected first operation action 'enable', got '%s'", mappings.Operations[0].Action)
 	}
 
@@ -770,7 +770,7 @@ func TestManualMappingsStruct(t *testing.T) {
 		t.Errorf("expected second operation path '/test1', got '%s'", mappings.Operations[1].Path)
 	}
 
-	if mappings.Operations[2].Action != "match" {
+	if mappings.Operations[2].Action != Match {
 		t.Errorf("expected third operation action 'match', got '%s'", mappings.Operations[2].Action)
 	}
 }
@@ -778,7 +778,7 @@ func TestBuildEntityConfig(t *testing.T) {
 	t.Run("no enable actions", func(t *testing.T) {
 		mappings := &ManualMappings{
 			Operations: []ManualMapping{
-				{Path: "/users/{id}", Method: "get", Action: "match", Value: "id:user_id"},
+				{Path: "/users/{id}", Method: "get", Action: Match, Value: "id:user_id"},
 			},
 		}
 		config := buildEntityConfig(mappings)
@@ -793,8 +793,8 @@ func TestBuildEntityConfig(t *testing.T) {
 	t.Run("with enable actions", func(t *testing.T) {
 		mappings := &ManualMappings{
 			Operations: []ManualMapping{
-				{Action: "enable", Entity: "UserEntity"},
-				{Action: "enable", Entity: "ProductEntity"},
+				{Action: Enable, Entity: "UserEntity"},
+				{Action: Enable, Entity: "ProductEntity"},
 			},
 		}
 		config := buildEntityConfig(mappings)
