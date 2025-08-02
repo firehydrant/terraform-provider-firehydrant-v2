@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// NullableIntegrations - Integrations_Integration model
+// NullableIntegrations - Integrations model
 type NullableIntegrations struct {
 	Connections []IntegrationsConnection             `json:"connections,omitempty"`
 	CreatedAt   *time.Time                           `json:"created_at,omitempty"`

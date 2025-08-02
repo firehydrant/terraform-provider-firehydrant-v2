@@ -9,26 +9,27 @@ import (
 
 // Team model
 type Team struct {
-	CreatedAt                      *time.Time                                   `json:"created_at,omitempty"`
-	CreatedBy                      *NullableAuthor                              `json:"created_by,omitempty"`
-	DefaultSignalsEscalationPolicy *NullableSuccinct                            `json:"default_signals_escalation_policy,omitempty"`
-	Description                    *string                                      `json:"description,omitempty"`
-	Functionalities                []FunctionalityLite                          `json:"functionalities,omitempty"`
-	ID                             *string                                      `json:"id,omitempty"`
-	InSupportHours                 *bool                                        `json:"in_support_hours,omitempty"`
-	Memberships                    []Membership                                 `json:"memberships,omitempty"`
-	MsTeamsChannel                 *NullableIntegrationsMicrosoftTeamsV2Channel `json:"ms_teams_channel,omitempty"`
-	Name                           *string                                      `json:"name,omitempty"`
-	OwnedChecklistTemplates        []ChecklistTemplate                          `json:"owned_checklist_templates,omitempty"`
-	OwnedFunctionalities           []FunctionalityLite                          `json:"owned_functionalities,omitempty"`
-	OwnedRunbooks                  []SlimRunbook                                `json:"owned_runbooks,omitempty"`
-	OwnedServices                  []ServiceLite                                `json:"owned_services,omitempty"`
-	RespondingServices             []ServiceLite                                `json:"responding_services,omitempty"`
-	Services                       []ServiceLite                                `json:"services,omitempty"`
-	SignalsIcalURL                 *string                                      `json:"signals_ical_url,omitempty"`
-	SlackChannel                   *NullableIntegrationsSlackSlackChannel       `json:"slack_channel,omitempty"`
-	Slug                           *string                                      `json:"slug,omitempty"`
-	UpdatedAt                      *time.Time                                   `json:"updated_at,omitempty"`
+	CreatedAt                         *time.Time                                   `json:"created_at,omitempty"`
+	CreatedBy                         *NullableAuthor                              `json:"created_by,omitempty"`
+	DefaultSignalsEscalationPolicy    *NullableSuccinct                            `json:"default_signals_escalation_policy,omitempty"`
+	Description                       *string                                      `json:"description,omitempty"`
+	Functionalities                   []FunctionalityLite                          `json:"functionalities,omitempty"`
+	ID                                *string                                      `json:"id,omitempty"`
+	InSupportHours                    *bool                                        `json:"in_support_hours,omitempty"`
+	Memberships                       []Membership                                 `json:"memberships,omitempty"`
+	MsTeamsChannel                    *NullableIntegrationsMicrosoftTeamsV2Channel `json:"ms_teams_channel,omitempty"`
+	Name                              *string                                      `json:"name,omitempty"`
+	OwnedChecklistTemplates           []ChecklistTemplate                          `json:"owned_checklist_templates,omitempty"`
+	OwnedFunctionalities              []FunctionalityLite                          `json:"owned_functionalities,omitempty"`
+	OwnedRunbooks                     []SlimRunbook                                `json:"owned_runbooks,omitempty"`
+	OwnedServices                     []ServiceLite                                `json:"owned_services,omitempty"`
+	RespondingServices                []ServiceLite                                `json:"responding_services,omitempty"`
+	RestrictSignalsResourceManagement *bool                                        `json:"restrict_signals_resource_management,omitempty"`
+	Services                          []ServiceLite                                `json:"services,omitempty"`
+	SignalsIcalURL                    *string                                      `json:"signals_ical_url,omitempty"`
+	SlackChannel                      *NullableIntegrationsSlackSlackChannel       `json:"slack_channel,omitempty"`
+	Slug                              *string                                      `json:"slug,omitempty"`
+	UpdatedAt                         *time.Time                                   `json:"updated_at,omitempty"`
 }
 
 func (t Team) MarshalJSON() ([]byte, error) {
@@ -145,6 +146,13 @@ func (o *Team) GetRespondingServices() []ServiceLite {
 		return nil
 	}
 	return o.RespondingServices
+}
+
+func (o *Team) GetRestrictSignalsResourceManagement() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RestrictSignalsResourceManagement
 }
 
 func (o *Team) GetServices() []ServiceLite {
