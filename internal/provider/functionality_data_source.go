@@ -176,6 +176,9 @@ func (r *FunctionalityDataSource) Schema(ctx context.Context, req datasource.Sch
 					"name": schema.StringAttribute{
 						Computed: true,
 					},
+					"restrict_signals_resource_management": schema.BoolAttribute{
+						Computed: true,
+					},
 					"signals_ical_url": schema.StringAttribute{
 						Computed: true,
 					},
@@ -267,6 +270,9 @@ func (r *FunctionalityDataSource) Schema(ctx context.Context, req datasource.Sch
 							Computed: true,
 						},
 						"name": schema.StringAttribute{
+							Computed: true,
+						},
+						"restrict_signals_resource_management": schema.BoolAttribute{
 							Computed: true,
 						},
 						"signals_ical_url": schema.StringAttribute{
