@@ -7,13 +7,14 @@ import (
 )
 
 type TeamLite struct {
-	CreatedAt      types.String    `tfsdk:"created_at"`
-	CreatedBy      *NullableAuthor `tfsdk:"created_by"`
-	Description    types.String    `tfsdk:"description"`
-	ID             types.String    `tfsdk:"id"`
-	InSupportHours types.Bool      `tfsdk:"in_support_hours"`
-	Name           types.String    `tfsdk:"name"`
-	SignalsIcalURL types.String    `tfsdk:"signals_ical_url"`
-	Slug           types.String    `tfsdk:"slug"`
-	UpdatedAt      types.String    `tfsdk:"updated_at"`
+	CreatedAt                         types.String    `tfsdk:"created_at"`
+	CreatedBy                         *NullableAuthor `tfsdk:"created_by"`
+	Description                       types.String    `tfsdk:"description"`
+	ID                                types.String    `tfsdk:"id"`
+	InSupportHours                    types.Bool      `tfsdk:"in_support_hours"`
+	Name                              types.String    `tfsdk:"name"`
+	RestrictSignalsResourceManagement types.Bool      `tfsdk:"restrict_signals_resource_management"`
+	SignalsIcalURL                    types.String    `tfsdk:"signals_ical_url"`
+	Slug                              types.String    `tfsdk:"slug"`
+	UpdatedAt                         types.String    `tfsdk:"updated_at"`
 }

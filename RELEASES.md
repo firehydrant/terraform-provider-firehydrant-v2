@@ -199,3 +199,13 @@ Based on:
 - [terraform v0.5.0] .
 ### Releases
 - [Terraform v0.5.0] https://registry.terraform.io/providers/firehydrant/firehydrant/0.5.0 - .
+
+## 2025-08-09 00:03:47
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.600.2 (2.677.3) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [terraform v0.6.0] .
+### Releases
+- [Terraform v0.6.0] https://registry.terraform.io/providers/firehydrant/firehydrant/0.6.0 - .
