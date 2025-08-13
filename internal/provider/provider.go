@@ -157,10 +157,10 @@ func (p *FirehydrantProvider) Configure(ctx context.Context, req provider.Config
 		return
 	}
 
-	ServerURL := data.ServerURL.ValueString()
+	serverUrl := data.ServerURL.ValueString()
 
-	if ServerURL == "" {
-		ServerURL = "https://api.firehydrant.io/"
+	if serverUrl == "" {
+		serverUrl = "https://api.firehydrant.io/"
 	}
 
 	security := shared.Security{}
@@ -185,7 +185,7 @@ func (p *FirehydrantProvider) Configure(ctx context.Context, req provider.Config
 	httpClient.Transport = NewProviderHTTPTransport(providerHTTPTransportOpts)
 
 	opts := []sdk.SDKOption{
-		sdk.WithServerURL(ServerURL),
+		sdk.WithServerURL(serverUrl),
 		sdk.WithSecurity(security),
 		sdk.WithClient(httpClient),
 	}
@@ -198,115 +198,13 @@ func (p *FirehydrantProvider) Configure(ctx context.Context, req provider.Config
 
 func (p *FirehydrantProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewChangeEventResource,
-		NewChecklistTemplateResource,
-		NewEnvironmentEntryResource,
 		NewFunctionalityResource,
-		NewIncidentResource,
-		NewIncidentRoleResource,
-		NewIncidentTypeResource,
-		NewNuncConnectionResource,
-		NewPriorityResource,
-		NewRetrospectivesTemplateResource,
-		NewRunbookResource,
-		NewScheduledMaintenanceResource,
-		NewServiceResource,
-		NewServiceDependencyResource,
-		NewSeverityResource,
-		NewSeverityMatrixConditionResource,
-		NewSignalsAPICallRouteResource,
-		NewSignalsAPIEmailTargetResource,
-		NewSignalsAPIEscalationPolicyResource,
-		NewSignalsAPIGroupingResource,
-		NewSignalsAPINotificationPolicyItemResource,
-		NewSignalsAPIOnCallScheduleResource,
-		NewSignalsAPIRuleResource,
-		NewSignalsAPITransposerResource,
-		NewSignalsAPIWebhookTargetResource,
-		NewTaskListResource,
-		NewTeamResource,
-		NewTicketingPriorityResource,
-		NewTicketingTicketResource,
-		NewWebhooksResource,
 	}
 }
 
 func (p *FirehydrantProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
-		NewAIIncidentSummaryDataSource,
-		NewAlertsDataSource,
-		NewAudiencesDataSource,
-		NewAudiencesAudiencesDataSource,
-		NewChangeEventDataSource,
-		NewChecklistTemplateDataSource,
-		NewCurrentUsersDataSource,
-		NewEnvironmentEntryDataSource,
 		NewFunctionalityDataSource,
-		NewIncidentDataSource,
-		NewIncidentEventDataSource,
-		NewIncidentRoleDataSource,
-		NewIncidentsChannelDataSource,
-		NewIncidentsConferenceBridgeDataSource,
-		NewIncidentsConferenceBridgesDataSource,
-		NewIncidentsRetrospectiveFieldDataSource,
-		NewIncidentsRoleAssignmentDataSource,
-		NewIncidentTypeDataSource,
-		NewIntegrationsDataSource,
-		NewIntegrationsAwsCloudtrailBatchDataSource,
-		NewIntegrationsAwsConnectionDataSource,
-		NewIntegrationsSlackUsergroupsDataSource,
-		NewIntegrationsSlackWorkspacesDataSource,
-		NewIntegrationsStatuspageConnectionDataSource,
-		NewIntegrationsStatuspagePagesDataSource,
-		NewMetricsInfrastructureMetricsesDataSource,
-		NewNuncConnectionDataSource,
-		NewNuncEmailSubscribersesDataSource,
-		NewOrganizationsCustomFieldDefinitionsDataSource,
-		NewPostMortemsPostMortemReportDataSource,
-		NewPrioritiesDataSource,
-		NewPriorityDataSource,
-		NewPublicAPIV1IncidentsTranscriptsDataSource,
-		NewRetrospectivesTemplateDataSource,
-		NewRunbookDataSource,
-		NewRunbooksDataSource,
-		NewRunbooksExecutionDataSource,
-		NewSavedSearchDataSource,
-		NewScheduledMaintenanceDataSource,
-		NewScheduledMaintenancesDataSource,
-		NewServiceDataSource,
-		NewServiceDependencyDataSource,
-		NewSeverityDataSource,
-		NewSeverityMatrixConditionDataSource,
-		NewSeverityMatrixConditionsDataSource,
-		NewSeverityMatrixImpactsDataSource,
-		NewSignalsAPICallRouteDataSource,
-		NewSignalsAPIEmailTargetDataSource,
-		NewSignalsAPIEscalationPolicyDataSource,
-		NewSignalsAPIGroupingDataSource,
-		NewSignalsAPIGroupingsDataSource,
-		NewSignalsAPINotificationPolicyItemDataSource,
-		NewSignalsAPIOnCallScheduleDataSource,
-		NewSignalsAPIOnCallShiftDataSource,
-		NewSignalsAPIRuleDataSource,
-		NewSignalsAPITransposerDataSource,
-		NewSignalsAPITransposersDataSource,
-		NewSignalsAPIWebhookTargetDataSource,
-		NewTaskListDataSource,
-		NewTaskListsDataSource,
-		NewTeamDataSource,
-		NewTicketingPrioritiesDataSource,
-		NewTicketingPriorityDataSource,
-		NewTicketingProjectConfigDataSource,
-		NewTicketingProjectFieldMapDataSource,
-		NewTicketingProjectInboundFieldMapDataSource,
-		NewTicketingProjectInboundFieldMapsDataSource,
-		NewTicketingProjectsProjectListItemDataSource,
-		NewTicketingProjectsProjectListItemsDataSource,
-		NewTicketingTicketDataSource,
-		NewTicketingTicketsDataSource,
-		NewUserDataSource,
-		NewWebhooksDataSource,
-		NewWebhooksWebhooksDataSource,
 	}
 }
 

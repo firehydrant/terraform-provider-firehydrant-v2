@@ -8,15 +8,16 @@ import (
 )
 
 type NullableTeamLite struct {
-	CreatedAt      *time.Time      `json:"created_at,omitempty"`
-	CreatedBy      *NullableAuthor `json:"created_by,omitempty"`
-	Description    *string         `json:"description,omitempty"`
-	ID             *string         `json:"id,omitempty"`
-	InSupportHours *bool           `json:"in_support_hours,omitempty"`
-	Name           *string         `json:"name,omitempty"`
-	SignalsIcalURL *string         `json:"signals_ical_url,omitempty"`
-	Slug           *string         `json:"slug,omitempty"`
-	UpdatedAt      *time.Time      `json:"updated_at,omitempty"`
+	CreatedAt                         *time.Time      `json:"created_at,omitempty"`
+	CreatedBy                         *NullableAuthor `json:"created_by,omitempty"`
+	Description                       *string         `json:"description,omitempty"`
+	ID                                *string         `json:"id,omitempty"`
+	InSupportHours                    *bool           `json:"in_support_hours,omitempty"`
+	Name                              *string         `json:"name,omitempty"`
+	RestrictSignalsResourceManagement *bool           `json:"restrict_signals_resource_management,omitempty"`
+	SignalsIcalURL                    *string         `json:"signals_ical_url,omitempty"`
+	Slug                              *string         `json:"slug,omitempty"`
+	UpdatedAt                         *time.Time      `json:"updated_at,omitempty"`
 }
 
 func (n NullableTeamLite) MarshalJSON() ([]byte, error) {
@@ -70,6 +71,13 @@ func (o *NullableTeamLite) GetName() *string {
 		return nil
 	}
 	return o.Name
+}
+
+func (o *NullableTeamLite) GetRestrictSignalsResourceManagement() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RestrictSignalsResourceManagement
 }
 
 func (o *NullableTeamLite) GetSignalsIcalURL() *string {

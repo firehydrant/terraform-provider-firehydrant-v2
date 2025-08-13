@@ -1,1 +1,0 @@
-terraform import firehydrant_retrospectives_template.my_firehydrant_retrospectives_template ""
