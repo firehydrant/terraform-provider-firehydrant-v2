@@ -1,1 +1,0 @@
-terraform import firehydrant_ticketing_ticket.my_firehydrant_ticketing_ticket ""

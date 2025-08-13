@@ -3,9 +3,17 @@
 package shared
 
 type NullableSignalsAPICallRouteStep struct {
-	Position *int                      `json:"position,omitempty"`
-	Target   *NullableSignalsAPITarget `json:"target,omitempty"`
-	Timeout  *string                   `json:"timeout,omitempty"`
+	OnCallRotation *NullableSuccinct         `json:"on_call_rotation,omitempty"`
+	Position       *int                      `json:"position,omitempty"`
+	Target         *NullableSignalsAPITarget `json:"target,omitempty"`
+	Timeout        *string                   `json:"timeout,omitempty"`
+}
+
+func (o *NullableSignalsAPICallRouteStep) GetOnCallRotation() *NullableSuccinct {
+	if o == nil {
+		return nil
+	}
+	return o.OnCallRotation
 }
 
 func (o *NullableSignalsAPICallRouteStep) GetPosition() *int {

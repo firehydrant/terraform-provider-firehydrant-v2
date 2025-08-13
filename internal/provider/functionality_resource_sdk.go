@@ -9,6 +9,7 @@ import (
 	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/operations"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk/models/shared"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -29,11 +30,10 @@ func (r *FunctionalityResourceModel) RefreshFromSharedFunctionality(ctx context.
 		r.Description = types.StringPointerValue(resp.Description)
 		if resp.ExternalResources != nil {
 			r.ExternalResources = []tfTypes.ExternalResource{}
-			if len(r.ExternalResources) > len(resp.ExternalResources) {
-				r.ExternalResources = r.ExternalResources[:len(resp.ExternalResources)]
-			}
-			for externalResourcesCount, externalResourcesItem := range resp.ExternalResources {
+
+			for _, externalResourcesItem := range resp.ExternalResources {
 				var externalResources tfTypes.ExternalResource
+
 				externalResources.ConnectionFullFaviconURL = types.StringPointerValue(externalResourcesItem.ConnectionFullFaviconURL)
 				externalResources.ConnectionID = types.StringPointerValue(externalResourcesItem.ConnectionID)
 				externalResources.ConnectionName = types.StringPointerValue(externalResourcesItem.ConnectionName)
@@ -43,48 +43,30 @@ func (r *FunctionalityResourceModel) RefreshFromSharedFunctionality(ctx context.
 				externalResources.RemoteID = types.StringPointerValue(externalResourcesItem.RemoteID)
 				externalResources.RemoteURL = types.StringPointerValue(externalResourcesItem.RemoteURL)
 				externalResources.UpdatedAt = types.StringPointerValue(typeconvert.TimePointerToStringPointer(externalResourcesItem.UpdatedAt))
-				if externalResourcesCount+1 > len(r.ExternalResources) {
-					r.ExternalResources = append(r.ExternalResources, externalResources)
-				} else {
-					r.ExternalResources[externalResourcesCount].ConnectionFullFaviconURL = externalResources.ConnectionFullFaviconURL
-					r.ExternalResources[externalResourcesCount].ConnectionID = externalResources.ConnectionID
-					r.ExternalResources[externalResourcesCount].ConnectionName = externalResources.ConnectionName
-					r.ExternalResources[externalResourcesCount].ConnectionType = externalResources.ConnectionType
-					r.ExternalResources[externalResourcesCount].CreatedAt = externalResources.CreatedAt
-					r.ExternalResources[externalResourcesCount].Name = externalResources.Name
-					r.ExternalResources[externalResourcesCount].RemoteID = externalResources.RemoteID
-					r.ExternalResources[externalResourcesCount].RemoteURL = externalResources.RemoteURL
-					r.ExternalResources[externalResourcesCount].UpdatedAt = externalResources.UpdatedAt
-				}
+
+				r.ExternalResources = append(r.ExternalResources, externalResources)
 			}
 		}
 		r.ID = types.StringPointerValue(resp.ID)
 		if resp.Labels != nil {
-			r.Labels = make(map[string]types.String, len(resp.Labels))
+			r.Labels = make(map[string]jsontypes.Normalized, len(resp.Labels))
 			for key, value := range resp.Labels {
 				result, _ := json.Marshal(value)
-				r.Labels[key] = types.StringValue(string(result))
+				r.Labels[key] = jsontypes.NewNormalizedValue(string(result))
 			}
 		}
 		if resp.Links != nil {
 			r.Links = []tfTypes.Links{}
-			if len(r.Links) > len(resp.Links) {
-				r.Links = r.Links[:len(resp.Links)]
-			}
-			for linksCount, linksItem := range resp.Links {
+
+			for _, linksItem := range resp.Links {
 				var links tfTypes.Links
+
 				links.HrefURL = types.StringPointerValue(linksItem.HrefURL)
 				links.IconURL = types.StringPointerValue(linksItem.IconURL)
 				links.ID = types.StringPointerValue(linksItem.ID)
 				links.Name = types.StringPointerValue(linksItem.Name)
-				if linksCount+1 > len(r.Links) {
-					r.Links = append(r.Links, links)
-				} else {
-					r.Links[linksCount].HrefURL = links.HrefURL
-					r.Links[linksCount].IconURL = links.IconURL
-					r.Links[linksCount].ID = links.ID
-					r.Links[linksCount].Name = links.Name
-				}
+
+				r.Links = append(r.Links, links)
 			}
 		}
 		r.Name = types.StringPointerValue(resp.Name)
@@ -106,17 +88,17 @@ func (r *FunctionalityResourceModel) RefreshFromSharedFunctionality(ctx context.
 			r.Owner.ID = types.StringPointerValue(resp.Owner.ID)
 			r.Owner.InSupportHours = types.BoolPointerValue(resp.Owner.InSupportHours)
 			r.Owner.Name = types.StringPointerValue(resp.Owner.Name)
+			r.Owner.RestrictSignalsResourceManagement = types.BoolPointerValue(resp.Owner.RestrictSignalsResourceManagement)
 			r.Owner.SignalsIcalURL = types.StringPointerValue(resp.Owner.SignalsIcalURL)
 			r.Owner.Slug = types.StringPointerValue(resp.Owner.Slug)
 			r.Owner.UpdatedAt = types.StringPointerValue(typeconvert.TimePointerToStringPointer(resp.Owner.UpdatedAt))
 		}
 		if resp.Services != nil {
 			r.Services = []tfTypes.ServiceLite{}
-			if len(r.Services) > len(resp.Services) {
-				r.Services = r.Services[:len(resp.Services)]
-			}
-			for servicesCount, servicesItem := range resp.Services {
+
+			for _, servicesItem := range resp.Services {
 				var services tfTypes.ServiceLite
+
 				services.AlertOnAdd = types.BoolPointerValue(servicesItem.AlertOnAdd)
 				if servicesItem.AllowedParams != nil {
 					services.AllowedParams = make([]types.String, 0, len(servicesItem.AllowedParams))
@@ -137,31 +119,17 @@ func (r *FunctionalityResourceModel) RefreshFromSharedFunctionality(ctx context.
 				services.ServiceTier = types.Int32PointerValue(typeconvert.IntPointerToInt32Pointer(servicesItem.ServiceTier))
 				services.Slug = types.StringPointerValue(servicesItem.Slug)
 				services.UpdatedAt = types.StringPointerValue(typeconvert.TimePointerToStringPointer(servicesItem.UpdatedAt))
-				if servicesCount+1 > len(r.Services) {
-					r.Services = append(r.Services, services)
-				} else {
-					r.Services[servicesCount].AlertOnAdd = services.AlertOnAdd
-					r.Services[servicesCount].AllowedParams = services.AllowedParams
-					r.Services[servicesCount].AutoAddRespondingTeam = services.AutoAddRespondingTeam
-					r.Services[servicesCount].CreatedAt = services.CreatedAt
-					r.Services[servicesCount].Description = services.Description
-					r.Services[servicesCount].ID = services.ID
-					r.Services[servicesCount].Labels = services.Labels
-					r.Services[servicesCount].Name = services.Name
-					r.Services[servicesCount].ServiceTier = services.ServiceTier
-					r.Services[servicesCount].Slug = services.Slug
-					r.Services[servicesCount].UpdatedAt = services.UpdatedAt
-				}
+
+				r.Services = append(r.Services, services)
 			}
 		}
 		r.Slug = types.StringPointerValue(resp.Slug)
 		if resp.Teams != nil {
 			r.Teams = []tfTypes.TeamLite{}
-			if len(r.Teams) > len(resp.Teams) {
-				r.Teams = r.Teams[:len(resp.Teams)]
-			}
-			for teamsCount, teamsItem := range resp.Teams {
+
+			for _, teamsItem := range resp.Teams {
 				var teams tfTypes.TeamLite
+
 				teams.CreatedAt = types.StringPointerValue(typeconvert.TimePointerToStringPointer(teamsItem.CreatedAt))
 				if teamsItem.CreatedBy == nil {
 					teams.CreatedBy = nil
@@ -176,22 +144,12 @@ func (r *FunctionalityResourceModel) RefreshFromSharedFunctionality(ctx context.
 				teams.ID = types.StringPointerValue(teamsItem.ID)
 				teams.InSupportHours = types.BoolPointerValue(teamsItem.InSupportHours)
 				teams.Name = types.StringPointerValue(teamsItem.Name)
+				teams.RestrictSignalsResourceManagement = types.BoolPointerValue(teamsItem.RestrictSignalsResourceManagement)
 				teams.SignalsIcalURL = types.StringPointerValue(teamsItem.SignalsIcalURL)
 				teams.Slug = types.StringPointerValue(teamsItem.Slug)
 				teams.UpdatedAt = types.StringPointerValue(typeconvert.TimePointerToStringPointer(teamsItem.UpdatedAt))
-				if teamsCount+1 > len(r.Teams) {
-					r.Teams = append(r.Teams, teams)
-				} else {
-					r.Teams[teamsCount].CreatedAt = teams.CreatedAt
-					r.Teams[teamsCount].CreatedBy = teams.CreatedBy
-					r.Teams[teamsCount].Description = teams.Description
-					r.Teams[teamsCount].ID = teams.ID
-					r.Teams[teamsCount].InSupportHours = teams.InSupportHours
-					r.Teams[teamsCount].Name = teams.Name
-					r.Teams[teamsCount].SignalsIcalURL = teams.SignalsIcalURL
-					r.Teams[teamsCount].Slug = teams.Slug
-					r.Teams[teamsCount].UpdatedAt = teams.UpdatedAt
-				}
+
+				r.Teams = append(r.Teams, teams)
 			}
 		}
 		r.UpdatedAt = types.StringPointerValue(typeconvert.TimePointerToStringPointer(resp.UpdatedAt))

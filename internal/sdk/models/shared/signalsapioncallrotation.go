@@ -7,21 +7,25 @@ import (
 	"time"
 )
 
+// SignalsAPIOnCallRotation - Signals_API_OnCallRotation model
 type SignalsAPIOnCallRotation struct {
-	Color            *string                           `json:"color,omitempty"`
-	CreatedAt        *time.Time                        `json:"created_at,omitempty"`
-	CreatedBy        *NullableAuthor                   `json:"created_by,omitempty"`
-	Description      *string                           `json:"description,omitempty"`
-	ID               *string                           `json:"id,omitempty"`
-	Members          []Succinct                        `json:"members,omitempty"`
-	Name             *string                           `json:"name,omitempty"`
-	Restrictions     []SignalsAPIOnCallRestriction     `json:"restrictions,omitempty"`
-	Shifts           []SignalsAPIOnCallShift           `json:"shifts,omitempty"`
-	SlackUserGroupID *string                           `json:"slack_user_group_id,omitempty"`
-	Strategy         *NullableSignalsAPIOnCallStrategy `json:"strategy,omitempty"`
-	Team             *NullableSuccinct                 `json:"team,omitempty"`
-	TimeZone         *string                           `json:"time_zone,omitempty"`
-	UpdatedAt        *time.Time                        `json:"updated_at,omitempty"`
+	Color                           *string                           `json:"color,omitempty"`
+	CoverageGapNotificationInterval *string                           `json:"coverage_gap_notification_interval,omitempty"`
+	CreatedAt                       *time.Time                        `json:"created_at,omitempty"`
+	CreatedBy                       *NullableAuthor                   `json:"created_by,omitempty"`
+	Description                     *string                           `json:"description,omitempty"`
+	EnableSlackChannelNotifications *bool                             `json:"enable_slack_channel_notifications,omitempty"`
+	ID                              *string                           `json:"id,omitempty"`
+	Members                         []Succinct                        `json:"members,omitempty"`
+	Name                            *string                           `json:"name,omitempty"`
+	PreventShiftDeletion            *bool                             `json:"prevent_shift_deletion,omitempty"`
+	Restrictions                    []SignalsAPIOnCallRestriction     `json:"restrictions,omitempty"`
+	Shifts                          []SignalsAPIOnCallShift           `json:"shifts,omitempty"`
+	SlackUserGroupID                *string                           `json:"slack_user_group_id,omitempty"`
+	Strategy                        *NullableSignalsAPIOnCallStrategy `json:"strategy,omitempty"`
+	Team                            *NullableSuccinct                 `json:"team,omitempty"`
+	TimeZone                        *string                           `json:"time_zone,omitempty"`
+	UpdatedAt                       *time.Time                        `json:"updated_at,omitempty"`
 }
 
 func (s SignalsAPIOnCallRotation) MarshalJSON() ([]byte, error) {
@@ -40,6 +44,13 @@ func (o *SignalsAPIOnCallRotation) GetColor() *string {
 		return nil
 	}
 	return o.Color
+}
+
+func (o *SignalsAPIOnCallRotation) GetCoverageGapNotificationInterval() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CoverageGapNotificationInterval
 }
 
 func (o *SignalsAPIOnCallRotation) GetCreatedAt() *time.Time {
@@ -63,6 +74,13 @@ func (o *SignalsAPIOnCallRotation) GetDescription() *string {
 	return o.Description
 }
 
+func (o *SignalsAPIOnCallRotation) GetEnableSlackChannelNotifications() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableSlackChannelNotifications
+}
+
 func (o *SignalsAPIOnCallRotation) GetID() *string {
 	if o == nil {
 		return nil
@@ -82,6 +100,13 @@ func (o *SignalsAPIOnCallRotation) GetName() *string {
 		return nil
 	}
 	return o.Name
+}
+
+func (o *SignalsAPIOnCallRotation) GetPreventShiftDeletion() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PreventShiftDeletion
 }
 
 func (o *SignalsAPIOnCallRotation) GetRestrictions() []SignalsAPIOnCallRestriction {

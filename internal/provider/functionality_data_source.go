@@ -7,6 +7,7 @@ import (
 	"fmt"
 	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -29,22 +30,22 @@ type FunctionalityDataSource struct {
 
 // FunctionalityDataSourceModel describes the data model.
 type FunctionalityDataSourceModel struct {
-	ActiveIncidents       []types.String             `tfsdk:"active_incidents"`
-	AlertOnAdd            types.Bool                 `tfsdk:"alert_on_add"`
-	AutoAddRespondingTeam types.Bool                 `tfsdk:"auto_add_responding_team"`
-	CreatedAt             types.String               `tfsdk:"created_at"`
-	Description           types.String               `tfsdk:"description"`
-	ExternalResources     []tfTypes.ExternalResource `tfsdk:"external_resources"`
-	ID                    types.String               `tfsdk:"id"`
-	Labels                map[string]types.String    `tfsdk:"labels"`
-	Links                 []tfTypes.Links            `tfsdk:"links"`
-	Name                  types.String               `tfsdk:"name"`
-	Owner                 *tfTypes.NullableTeamLite  `tfsdk:"owner"`
-	Services              []tfTypes.ServiceLite      `tfsdk:"services"`
-	Slug                  types.String               `tfsdk:"slug"`
-	Teams                 []tfTypes.TeamLite         `tfsdk:"teams"`
-	UpdatedAt             types.String               `tfsdk:"updated_at"`
-	UpdatedBy             *tfTypes.NullableAuthor    `tfsdk:"updated_by"`
+	ActiveIncidents       []types.String                  `tfsdk:"active_incidents"`
+	AlertOnAdd            types.Bool                      `tfsdk:"alert_on_add"`
+	AutoAddRespondingTeam types.Bool                      `tfsdk:"auto_add_responding_team"`
+	CreatedAt             types.String                    `tfsdk:"created_at"`
+	Description           types.String                    `tfsdk:"description"`
+	ExternalResources     []tfTypes.ExternalResource      `tfsdk:"external_resources"`
+	ID                    types.String                    `tfsdk:"id"`
+	Labels                map[string]jsontypes.Normalized `tfsdk:"labels"`
+	Links                 []tfTypes.Links                 `tfsdk:"links"`
+	Name                  types.String                    `tfsdk:"name"`
+	Owner                 *tfTypes.NullableTeamLite       `tfsdk:"owner"`
+	Services              []tfTypes.ServiceLite           `tfsdk:"services"`
+	Slug                  types.String                    `tfsdk:"slug"`
+	Teams                 []tfTypes.TeamLite              `tfsdk:"teams"`
+	UpdatedAt             types.String                    `tfsdk:"updated_at"`
+	UpdatedBy             *tfTypes.NullableAuthor         `tfsdk:"updated_by"`
 }
 
 // Metadata returns the data source type name.
@@ -115,7 +116,7 @@ func (r *FunctionalityDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"labels": schema.MapAttribute{
 				Computed:    true,
-				ElementType: types.StringType,
+				ElementType: jsontypes.NormalizedType{},
 				Description: `An object of label key and values`,
 			},
 			"links": schema.ListNestedAttribute{
@@ -174,6 +175,9 @@ func (r *FunctionalityDataSource) Schema(ctx context.Context, req datasource.Sch
 						Computed: true,
 					},
 					"name": schema.StringAttribute{
+						Computed: true,
+					},
+					"restrict_signals_resource_management": schema.BoolAttribute{
 						Computed: true,
 					},
 					"signals_ical_url": schema.StringAttribute{
@@ -267,6 +271,9 @@ func (r *FunctionalityDataSource) Schema(ctx context.Context, req datasource.Sch
 							Computed: true,
 						},
 						"name": schema.StringAttribute{
+							Computed: true,
+						},
+						"restrict_signals_resource_management": schema.BoolAttribute{
 							Computed: true,
 						},
 						"signals_ical_url": schema.StringAttribute{

@@ -8,6 +8,7 @@ import (
 	tfTypes "github.com/firehydrant/terraform-provider-firehydrant/internal/provider/types"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/sdk"
 	"github.com/firehydrant/terraform-provider-firehydrant/internal/validators"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework-validators/mapvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -41,7 +42,7 @@ type FunctionalityResourceModel struct {
 	ExternalResources      []tfTypes.ExternalResource                          `tfsdk:"external_resources"`
 	ExternalResourcesInput []tfTypes.CreateFunctionalityExternalResourcesInput `tfsdk:"external_resources_input"`
 	ID                     types.String                                        `tfsdk:"id"`
-	Labels                 map[string]types.String                             `tfsdk:"labels"`
+	Labels                 map[string]jsontypes.Normalized                     `tfsdk:"labels"`
 	Links                  []tfTypes.Links                                     `tfsdk:"links"`
 	LinksInput             []tfTypes.CreateFunctionalityLinksInput             `tfsdk:"links_input"`
 	Name                   types.String                                        `tfsdk:"name"`
@@ -148,7 +149,7 @@ func (r *FunctionalityResource) Schema(ctx context.Context, req resource.SchemaR
 			},
 			"labels": schema.MapAttribute{
 				Computed:    true,
-				ElementType: types.StringType,
+				ElementType: jsontypes.NormalizedType{},
 				Description: `A hash of label keys and values`,
 				Validators: []validator.Map{
 					mapvalidator.ValueStringsAre(validators.IsValidJSON()),
@@ -233,6 +234,9 @@ func (r *FunctionalityResource) Schema(ctx context.Context, req resource.SchemaR
 						Computed: true,
 					},
 					"name": schema.StringAttribute{
+						Computed: true,
+					},
+					"restrict_signals_resource_management": schema.BoolAttribute{
 						Computed: true,
 					},
 					"signals_ical_url": schema.StringAttribute{
@@ -358,6 +362,9 @@ func (r *FunctionalityResource) Schema(ctx context.Context, req resource.SchemaR
 							Computed: true,
 						},
 						"name": schema.StringAttribute{
+							Computed: true,
+						},
+						"restrict_signals_resource_management": schema.BoolAttribute{
 							Computed: true,
 						},
 						"signals_ical_url": schema.StringAttribute{

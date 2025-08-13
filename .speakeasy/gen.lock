@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 74a1a2a8-f6b2-4a51-9f9c-8b04f085a82b
 management:
-  docChecksum: 01bb1a0f01c6b38af90d4f7cff16cd45
+  docChecksum: 7510a9517ded9d04db44f735af29dffa
   docVersion: 0.0.1
-  speakeasyVersion: 1.592.1
-  generationVersion: 2.667.0
-  releaseVersion: 0.5.0
-  configChecksum: 9d793fdfa782d68dc756fc2a126690e4
+  speakeasyVersion: 1.603.0
+  generationVersion: 2.681.1
+  releaseVersion: 0.6.0
+  configChecksum: e784af75f922b0e63f502cc58ef56381
   repoURL: https://github.com/firehydrant/terraform-provider-firehydrant-v2.git
   published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.2.1
-    core: 3.43.1
+    core: 3.44.0
     devContainers: 0.0.0
     getRequestBodies: 2.81.1
     globalSecurity: 2.81.12
-    globalServerURLs: 2.82.2
+    globalServerURLs: 2.83.0
     ignores: 2.81.1
     nameOverrides: 2.81.3
     nullables: 0.0.0
@@ -25,141 +25,10 @@ generatedFiles:
   - .gitattributes
   - USAGE.md
   - examples/README.md
-  - examples/data-sources/firehydrant_ai_incident_summary/data-source.tf
-  - examples/data-sources/firehydrant_alerts/data-source.tf
-  - examples/data-sources/firehydrant_audiences/data-source.tf
-  - examples/data-sources/firehydrant_audiences_audiences/data-source.tf
-  - examples/data-sources/firehydrant_change_event/data-source.tf
-  - examples/data-sources/firehydrant_checklist_template/data-source.tf
-  - examples/data-sources/firehydrant_current_users/data-source.tf
-  - examples/data-sources/firehydrant_environment_entry/data-source.tf
   - examples/data-sources/firehydrant_functionality/data-source.tf
-  - examples/data-sources/firehydrant_incident/data-source.tf
-  - examples/data-sources/firehydrant_incident_event/data-source.tf
-  - examples/data-sources/firehydrant_incident_role/data-source.tf
-  - examples/data-sources/firehydrant_incident_type/data-source.tf
-  - examples/data-sources/firehydrant_incidents_channel/data-source.tf
-  - examples/data-sources/firehydrant_incidents_conference_bridge/data-source.tf
-  - examples/data-sources/firehydrant_incidents_conference_bridges/data-source.tf
-  - examples/data-sources/firehydrant_incidents_retrospective_field/data-source.tf
-  - examples/data-sources/firehydrant_incidents_role_assignment/data-source.tf
-  - examples/data-sources/firehydrant_integrations/data-source.tf
-  - examples/data-sources/firehydrant_integrations_aws_cloudtrail_batch/data-source.tf
-  - examples/data-sources/firehydrant_integrations_aws_connection/data-source.tf
-  - examples/data-sources/firehydrant_integrations_slack_usergroups/data-source.tf
-  - examples/data-sources/firehydrant_integrations_slack_workspaces/data-source.tf
-  - examples/data-sources/firehydrant_integrations_statuspage_connection/data-source.tf
-  - examples/data-sources/firehydrant_integrations_statuspage_pages/data-source.tf
-  - examples/data-sources/firehydrant_metrics_infrastructure_metricses/data-source.tf
-  - examples/data-sources/firehydrant_nunc_connection/data-source.tf
-  - examples/data-sources/firehydrant_nunc_email_subscriberses/data-source.tf
-  - examples/data-sources/firehydrant_organizations_custom_field_definitions/data-source.tf
-  - examples/data-sources/firehydrant_post_mortems_post_mortem_report/data-source.tf
-  - examples/data-sources/firehydrant_priorities/data-source.tf
-  - examples/data-sources/firehydrant_priority/data-source.tf
-  - examples/data-sources/firehydrant_public_api_v1_incidents_transcripts/data-source.tf
-  - examples/data-sources/firehydrant_retrospectives_template/data-source.tf
-  - examples/data-sources/firehydrant_runbook/data-source.tf
-  - examples/data-sources/firehydrant_runbooks/data-source.tf
-  - examples/data-sources/firehydrant_runbooks_execution/data-source.tf
-  - examples/data-sources/firehydrant_saved_search/data-source.tf
-  - examples/data-sources/firehydrant_scheduled_maintenance/data-source.tf
-  - examples/data-sources/firehydrant_scheduled_maintenances/data-source.tf
-  - examples/data-sources/firehydrant_service/data-source.tf
-  - examples/data-sources/firehydrant_service_dependency/data-source.tf
-  - examples/data-sources/firehydrant_severity/data-source.tf
-  - examples/data-sources/firehydrant_severity_matrix_condition/data-source.tf
-  - examples/data-sources/firehydrant_severity_matrix_conditions/data-source.tf
-  - examples/data-sources/firehydrant_severity_matrix_impacts/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_call_route/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_email_target/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_escalation_policy/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_grouping/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_groupings/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_notification_policy_item/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_on_call_schedule/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_on_call_shift/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_rule/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_transposer/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_transposers/data-source.tf
-  - examples/data-sources/firehydrant_signals_api_webhook_target/data-source.tf
-  - examples/data-sources/firehydrant_task_list/data-source.tf
-  - examples/data-sources/firehydrant_task_lists/data-source.tf
-  - examples/data-sources/firehydrant_team/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_priorities/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_priority/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_project_config/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_project_field_map/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_project_inbound_field_map/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_project_inbound_field_maps/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_projects_project_list_item/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_projects_project_list_items/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_ticket/data-source.tf
-  - examples/data-sources/firehydrant_ticketing_tickets/data-source.tf
-  - examples/data-sources/firehydrant_user/data-source.tf
-  - examples/data-sources/firehydrant_webhooks/data-source.tf
-  - examples/data-sources/firehydrant_webhooks_webhooks/data-source.tf
   - examples/provider/provider.tf
-  - examples/resources/firehydrant_change_event/import.sh
-  - examples/resources/firehydrant_change_event/resource.tf
-  - examples/resources/firehydrant_checklist_template/import.sh
-  - examples/resources/firehydrant_checklist_template/resource.tf
-  - examples/resources/firehydrant_environment_entry/import.sh
-  - examples/resources/firehydrant_environment_entry/resource.tf
   - examples/resources/firehydrant_functionality/import.sh
   - examples/resources/firehydrant_functionality/resource.tf
-  - examples/resources/firehydrant_incident/import.sh
-  - examples/resources/firehydrant_incident/resource.tf
-  - examples/resources/firehydrant_incident_role/import.sh
-  - examples/resources/firehydrant_incident_role/resource.tf
-  - examples/resources/firehydrant_incident_type/import.sh
-  - examples/resources/firehydrant_incident_type/resource.tf
-  - examples/resources/firehydrant_nunc_connection/import.sh
-  - examples/resources/firehydrant_nunc_connection/resource.tf
-  - examples/resources/firehydrant_priority/import.sh
-  - examples/resources/firehydrant_priority/resource.tf
-  - examples/resources/firehydrant_retrospectives_template/import.sh
-  - examples/resources/firehydrant_retrospectives_template/resource.tf
-  - examples/resources/firehydrant_runbook/import.sh
-  - examples/resources/firehydrant_runbook/resource.tf
-  - examples/resources/firehydrant_scheduled_maintenance/import.sh
-  - examples/resources/firehydrant_scheduled_maintenance/resource.tf
-  - examples/resources/firehydrant_service/import.sh
-  - examples/resources/firehydrant_service/resource.tf
-  - examples/resources/firehydrant_service_dependency/import.sh
-  - examples/resources/firehydrant_service_dependency/resource.tf
-  - examples/resources/firehydrant_severity/import.sh
-  - examples/resources/firehydrant_severity/resource.tf
-  - examples/resources/firehydrant_severity_matrix_condition/import.sh
-  - examples/resources/firehydrant_severity_matrix_condition/resource.tf
-  - examples/resources/firehydrant_signals_api_call_route/import.sh
-  - examples/resources/firehydrant_signals_api_call_route/resource.tf
-  - examples/resources/firehydrant_signals_api_email_target/import.sh
-  - examples/resources/firehydrant_signals_api_email_target/resource.tf
-  - examples/resources/firehydrant_signals_api_escalation_policy/import.sh
-  - examples/resources/firehydrant_signals_api_escalation_policy/resource.tf
-  - examples/resources/firehydrant_signals_api_grouping/import.sh
-  - examples/resources/firehydrant_signals_api_grouping/resource.tf
-  - examples/resources/firehydrant_signals_api_notification_policy_item/import.sh
-  - examples/resources/firehydrant_signals_api_notification_policy_item/resource.tf
-  - examples/resources/firehydrant_signals_api_on_call_schedule/import.sh
-  - examples/resources/firehydrant_signals_api_on_call_schedule/resource.tf
-  - examples/resources/firehydrant_signals_api_rule/import.sh
-  - examples/resources/firehydrant_signals_api_rule/resource.tf
-  - examples/resources/firehydrant_signals_api_transposer/import.sh
-  - examples/resources/firehydrant_signals_api_transposer/resource.tf
-  - examples/resources/firehydrant_signals_api_webhook_target/import.sh
-  - examples/resources/firehydrant_signals_api_webhook_target/resource.tf
-  - examples/resources/firehydrant_task_list/import.sh
-  - examples/resources/firehydrant_task_list/resource.tf
-  - examples/resources/firehydrant_team/import.sh
-  - examples/resources/firehydrant_team/resource.tf
-  - examples/resources/firehydrant_ticketing_priority/import.sh
-  - examples/resources/firehydrant_ticketing_priority/resource.tf
-  - examples/resources/firehydrant_ticketing_ticket/import.sh
-  - examples/resources/firehydrant_ticketing_ticket/resource.tf
-  - examples/resources/firehydrant_webhooks/import.sh
-  - examples/resources/firehydrant_webhooks/resource.tf
   - go.mod
   - go.sum
   - internal/planmodifiers/boolplanmodifier/suppress_diff.go
@@ -174,91 +43,11 @@ generatedFiles:
   - internal/planmodifiers/setplanmodifier/suppress_diff.go
   - internal/planmodifiers/stringplanmodifier/suppress_diff.go
   - internal/planmodifiers/utils/state_check.go
-  - internal/provider/ai_incidentsummary_data_source.go
-  - internal/provider/ai_incidentsummary_data_source_sdk.go
-  - internal/provider/alerts_data_source.go
-  - internal/provider/alerts_data_source_sdk.go
-  - internal/provider/audiences_audiences_data_source.go
-  - internal/provider/audiences_audiences_data_source_sdk.go
-  - internal/provider/audiences_data_source.go
-  - internal/provider/audiences_data_source_sdk.go
-  - internal/provider/changeevent_data_source.go
-  - internal/provider/changeevent_data_source_sdk.go
-  - internal/provider/changeevent_resource.go
-  - internal/provider/changeevent_resource_sdk.go
-  - internal/provider/checklisttemplate_data_source.go
-  - internal/provider/checklisttemplate_data_source_sdk.go
-  - internal/provider/checklisttemplate_resource.go
-  - internal/provider/checklisttemplate_resource_sdk.go
-  - internal/provider/currentusers_data_source.go
-  - internal/provider/currentusers_data_source_sdk.go
-  - internal/provider/environmententry_data_source.go
-  - internal/provider/environmententry_data_source_sdk.go
-  - internal/provider/environmententry_resource.go
-  - internal/provider/environmententry_resource_sdk.go
   - internal/provider/functionality_data_source.go
   - internal/provider/functionality_data_source_sdk.go
   - internal/provider/functionality_resource.go
   - internal/provider/functionality_resource_sdk.go
-  - internal/provider/incident_data_source.go
-  - internal/provider/incident_data_source_sdk.go
-  - internal/provider/incident_resource.go
-  - internal/provider/incident_resource_sdk.go
-  - internal/provider/incidentevent_data_source.go
-  - internal/provider/incidentevent_data_source_sdk.go
-  - internal/provider/incidentrole_data_source.go
-  - internal/provider/incidentrole_data_source_sdk.go
-  - internal/provider/incidentrole_resource.go
-  - internal/provider/incidentrole_resource_sdk.go
-  - internal/provider/incidents_channel_data_source.go
-  - internal/provider/incidents_channel_data_source_sdk.go
-  - internal/provider/incidents_conferencebridge_data_source.go
-  - internal/provider/incidents_conferencebridge_data_source_sdk.go
-  - internal/provider/incidents_conferencebridges_data_source.go
-  - internal/provider/incidents_conferencebridges_data_source_sdk.go
-  - internal/provider/incidents_retrospectivefield_data_source.go
-  - internal/provider/incidents_retrospectivefield_data_source_sdk.go
-  - internal/provider/incidents_roleassignment_data_source.go
-  - internal/provider/incidents_roleassignment_data_source_sdk.go
-  - internal/provider/incidenttype_data_source.go
-  - internal/provider/incidenttype_data_source_sdk.go
-  - internal/provider/incidenttype_resource.go
-  - internal/provider/incidenttype_resource_sdk.go
-  - internal/provider/integrations_aws_cloudtrailbatch_data_source.go
-  - internal/provider/integrations_aws_cloudtrailbatch_data_source_sdk.go
-  - internal/provider/integrations_aws_connection_data_source.go
-  - internal/provider/integrations_aws_connection_data_source_sdk.go
-  - internal/provider/integrations_data_source.go
-  - internal/provider/integrations_data_source_sdk.go
-  - internal/provider/integrations_slack_usergroups_data_source.go
-  - internal/provider/integrations_slack_usergroups_data_source_sdk.go
-  - internal/provider/integrations_slack_workspaces_data_source.go
-  - internal/provider/integrations_slack_workspaces_data_source_sdk.go
-  - internal/provider/integrations_statuspage_connection_data_source.go
-  - internal/provider/integrations_statuspage_connection_data_source_sdk.go
-  - internal/provider/integrations_statuspage_pages_data_source.go
-  - internal/provider/integrations_statuspage_pages_data_source_sdk.go
-  - internal/provider/metrics_infrastructuremetricses_data_source.go
-  - internal/provider/metrics_infrastructuremetricses_data_source_sdk.go
-  - internal/provider/nuncconnection_data_source.go
-  - internal/provider/nuncconnection_data_source_sdk.go
-  - internal/provider/nuncconnection_resource.go
-  - internal/provider/nuncconnection_resource_sdk.go
-  - internal/provider/nuncemailsubscriberses_data_source.go
-  - internal/provider/nuncemailsubscriberses_data_source_sdk.go
-  - internal/provider/organizations_customfielddefinitions_data_source.go
-  - internal/provider/organizations_customfielddefinitions_data_source_sdk.go
-  - internal/provider/postmortems_postmortemreport_data_source.go
-  - internal/provider/postmortems_postmortemreport_data_source_sdk.go
-  - internal/provider/priorities_data_source.go
-  - internal/provider/priorities_data_source_sdk.go
-  - internal/provider/priority_data_source.go
-  - internal/provider/priority_data_source_sdk.go
-  - internal/provider/priority_resource.go
-  - internal/provider/priority_resource_sdk.go
   - internal/provider/provider.go
-  - internal/provider/publicapi_v1_incidents_transcripts_data_source.go
-  - internal/provider/publicapi_v1_incidents_transcripts_data_source_sdk.go
   - internal/provider/reflect/diags.go
   - internal/provider/reflect/doc.go
   - internal/provider/reflect/generic_attr_value.go
@@ -273,343 +62,22 @@ generatedFiles:
   - internal/provider/reflect/primitive.go
   - internal/provider/reflect/slice.go
   - internal/provider/reflect/struct.go
-  - internal/provider/retrospectives_template_data_source.go
-  - internal/provider/retrospectives_template_data_source_sdk.go
-  - internal/provider/retrospectives_template_resource.go
-  - internal/provider/retrospectives_template_resource_sdk.go
-  - internal/provider/runbook_data_source.go
-  - internal/provider/runbook_data_source_sdk.go
-  - internal/provider/runbook_resource.go
-  - internal/provider/runbook_resource_sdk.go
-  - internal/provider/runbooks_data_source.go
-  - internal/provider/runbooks_data_source_sdk.go
-  - internal/provider/runbooks_execution_data_source.go
-  - internal/provider/runbooks_execution_data_source_sdk.go
-  - internal/provider/savedsearch_data_source.go
-  - internal/provider/savedsearch_data_source_sdk.go
-  - internal/provider/scheduledmaintenance_data_source.go
-  - internal/provider/scheduledmaintenance_data_source_sdk.go
-  - internal/provider/scheduledmaintenance_resource.go
-  - internal/provider/scheduledmaintenance_resource_sdk.go
-  - internal/provider/scheduledmaintenances_data_source.go
-  - internal/provider/scheduledmaintenances_data_source_sdk.go
-  - internal/provider/service_data_source.go
-  - internal/provider/service_data_source_sdk.go
-  - internal/provider/service_resource.go
-  - internal/provider/service_resource_sdk.go
-  - internal/provider/servicedependency_data_source.go
-  - internal/provider/servicedependency_data_source_sdk.go
-  - internal/provider/servicedependency_resource.go
-  - internal/provider/servicedependency_resource_sdk.go
-  - internal/provider/severity_data_source.go
-  - internal/provider/severity_data_source_sdk.go
-  - internal/provider/severity_resource.go
-  - internal/provider/severity_resource_sdk.go
-  - internal/provider/severitymatrix_condition_data_source.go
-  - internal/provider/severitymatrix_condition_data_source_sdk.go
-  - internal/provider/severitymatrix_condition_resource.go
-  - internal/provider/severitymatrix_condition_resource_sdk.go
-  - internal/provider/severitymatrix_conditions_data_source.go
-  - internal/provider/severitymatrix_conditions_data_source_sdk.go
-  - internal/provider/severitymatrix_impacts_data_source.go
-  - internal/provider/severitymatrix_impacts_data_source_sdk.go
-  - internal/provider/signals_api_callroute_data_source.go
-  - internal/provider/signals_api_callroute_data_source_sdk.go
-  - internal/provider/signals_api_callroute_resource.go
-  - internal/provider/signals_api_callroute_resource_sdk.go
-  - internal/provider/signals_api_emailtarget_data_source.go
-  - internal/provider/signals_api_emailtarget_data_source_sdk.go
-  - internal/provider/signals_api_emailtarget_resource.go
-  - internal/provider/signals_api_emailtarget_resource_sdk.go
-  - internal/provider/signals_api_escalationpolicy_data_source.go
-  - internal/provider/signals_api_escalationpolicy_data_source_sdk.go
-  - internal/provider/signals_api_escalationpolicy_resource.go
-  - internal/provider/signals_api_escalationpolicy_resource_sdk.go
-  - internal/provider/signals_api_grouping_data_source.go
-  - internal/provider/signals_api_grouping_data_source_sdk.go
-  - internal/provider/signals_api_grouping_resource.go
-  - internal/provider/signals_api_grouping_resource_sdk.go
-  - internal/provider/signals_api_groupings_data_source.go
-  - internal/provider/signals_api_groupings_data_source_sdk.go
-  - internal/provider/signals_api_notificationpolicyitem_data_source.go
-  - internal/provider/signals_api_notificationpolicyitem_data_source_sdk.go
-  - internal/provider/signals_api_notificationpolicyitem_resource.go
-  - internal/provider/signals_api_notificationpolicyitem_resource_sdk.go
-  - internal/provider/signals_api_oncallschedule_data_source.go
-  - internal/provider/signals_api_oncallschedule_data_source_sdk.go
-  - internal/provider/signals_api_oncallschedule_resource.go
-  - internal/provider/signals_api_oncallschedule_resource_sdk.go
-  - internal/provider/signals_api_oncallshift_data_source.go
-  - internal/provider/signals_api_oncallshift_data_source_sdk.go
-  - internal/provider/signals_api_rule_data_source.go
-  - internal/provider/signals_api_rule_data_source_sdk.go
-  - internal/provider/signals_api_rule_resource.go
-  - internal/provider/signals_api_rule_resource_sdk.go
-  - internal/provider/signals_api_transposer_data_source.go
-  - internal/provider/signals_api_transposer_data_source_sdk.go
-  - internal/provider/signals_api_transposer_resource.go
-  - internal/provider/signals_api_transposer_resource_sdk.go
-  - internal/provider/signals_api_transposers_data_source.go
-  - internal/provider/signals_api_transposers_data_source_sdk.go
-  - internal/provider/signals_api_webhooktarget_data_source.go
-  - internal/provider/signals_api_webhooktarget_data_source_sdk.go
-  - internal/provider/signals_api_webhooktarget_resource.go
-  - internal/provider/signals_api_webhooktarget_resource_sdk.go
-  - internal/provider/tasklist_data_source.go
-  - internal/provider/tasklist_data_source_sdk.go
-  - internal/provider/tasklist_resource.go
-  - internal/provider/tasklist_resource_sdk.go
-  - internal/provider/tasklists_data_source.go
-  - internal/provider/tasklists_data_source_sdk.go
-  - internal/provider/team_data_source.go
-  - internal/provider/team_data_source_sdk.go
-  - internal/provider/team_resource.go
-  - internal/provider/team_resource_sdk.go
-  - internal/provider/ticketing_priorities_data_source.go
-  - internal/provider/ticketing_priorities_data_source_sdk.go
-  - internal/provider/ticketing_priority_data_source.go
-  - internal/provider/ticketing_priority_data_source_sdk.go
-  - internal/provider/ticketing_priority_resource.go
-  - internal/provider/ticketing_priority_resource_sdk.go
-  - internal/provider/ticketing_projectconfig_data_source.go
-  - internal/provider/ticketing_projectconfig_data_source_sdk.go
-  - internal/provider/ticketing_projectfieldmap_data_source.go
-  - internal/provider/ticketing_projectfieldmap_data_source_sdk.go
-  - internal/provider/ticketing_projectinboundfieldmap_data_source.go
-  - internal/provider/ticketing_projectinboundfieldmap_data_source_sdk.go
-  - internal/provider/ticketing_projectinboundfieldmaps_data_source.go
-  - internal/provider/ticketing_projectinboundfieldmaps_data_source_sdk.go
-  - internal/provider/ticketing_projects_projectlistitem_data_source.go
-  - internal/provider/ticketing_projects_projectlistitem_data_source_sdk.go
-  - internal/provider/ticketing_projects_projectlistitems_data_source.go
-  - internal/provider/ticketing_projects_projectlistitems_data_source_sdk.go
-  - internal/provider/ticketing_ticket_data_source.go
-  - internal/provider/ticketing_ticket_data_source_sdk.go
-  - internal/provider/ticketing_ticket_resource.go
-  - internal/provider/ticketing_ticket_resource_sdk.go
-  - internal/provider/ticketing_tickets_data_source.go
-  - internal/provider/ticketing_tickets_data_source_sdk.go
   - internal/provider/typeconvert/date.go
   - internal/provider/typeconvert/datetime.go
   - internal/provider/typeconvert/int.go
-  - internal/provider/types/alerts_labels.go
-  - internal/provider/types/alerts_siren_alert.go
-  - internal/provider/types/alerts_siren_alert_labels.go
-  - internal/provider/types/alerts_siren_event.go
-  - internal/provider/types/alerts_siren_event_data.go
-  - internal/provider/types/audiences_detail.go
-  - internal/provider/types/author.go
-  - internal/provider/types/authors_input.go
-  - internal/provider/types/change.go
-  - internal/provider/types/change_event_attachment.go
-  - internal/provider/types/change_identity.go
-  - internal/provider/types/checklist_check.go
-  - internal/provider/types/checklist_check1.go
-  - internal/provider/types/checklist_template.go
-  - internal/provider/types/conversations_api_reference.go
-  - internal/provider/types/create_change_event_attachments_input.go
-  - internal/provider/types/create_change_event_change_identity.go
-  - internal/provider/types/create_checklist_template_connected_services_input.go
   - internal/provider/types/create_functionality_external_resources_input.go
   - internal/provider/types/create_functionality_links_input.go
   - internal/provider/types/create_functionality_owner_input.go
   - internal/provider/types/create_functionality_services_input.go
   - internal/provider/types/create_functionality_teams_input.go
-  - internal/provider/types/create_incident_impacts_input.go
-  - internal/provider/types/create_incident_labels.go
-  - internal/provider/types/create_incident_type_impact.go
-  - internal/provider/types/create_incident_type_template.go
-  - internal/provider/types/create_runbook_attachment_rule_input.go
-  - internal/provider/types/create_runbook_owner_input.go
-  - internal/provider/types/create_runbook_rule.go
-  - internal/provider/types/create_runbook_steps_input.go
-  - internal/provider/types/create_scheduled_maintenance_impacts_input.go
-  - internal/provider/types/create_scheduled_maintenance_labels.go
-  - internal/provider/types/create_scheduled_maintenance_status_pages_input.go
-  - internal/provider/types/create_service_external_resources_input.go
-  - internal/provider/types/create_service_functionalities_input.go
-  - internal/provider/types/create_service_links_input.go
-  - internal/provider/types/create_service_owner_input.go
-  - internal/provider/types/create_service_teams_input.go
-  - internal/provider/types/create_signals_alert_grouping_configuration_action_input.go
-  - internal/provider/types/create_signals_alert_grouping_configuration_fyi.go
-  - internal/provider/types/create_signals_alert_grouping_configuration_strategy.go
-  - internal/provider/types/create_signals_alert_grouping_configuration_substring.go
-  - internal/provider/types/create_signals_email_target_target_input.go
-  - internal/provider/types/create_signals_event_source_data.go
-  - internal/provider/types/create_signals_event_source_example_payload.go
-  - internal/provider/types/create_team_call_route_target_input.go
-  - internal/provider/types/create_team_escalation_policy_handoff_step_input.go
-  - internal/provider/types/create_team_escalation_policy_high.go
-  - internal/provider/types/create_team_escalation_policy_high_handoff_step.go
-  - internal/provider/types/create_team_escalation_policy_low.go
-  - internal/provider/types/create_team_escalation_policy_low_handoff_step.go
-  - internal/provider/types/create_team_escalation_policy_medium.go
-  - internal/provider/types/create_team_escalation_policy_medium_handoff_step.go
-  - internal/provider/types/create_team_escalation_policy_prioritized_settings.go
-  - internal/provider/types/create_team_memberships_input.go
-  - internal/provider/types/create_team_ms_teams_channel_input.go
-  - internal/provider/types/create_team_on_call_schedule_members_input.go
-  - internal/provider/types/create_team_on_call_schedule_restrictions_input.go
-  - internal/provider/types/create_team_on_call_schedule_strategy_input.go
-  - internal/provider/types/custom_fields_field_value.go
-  - internal/provider/types/custom_fields_input.go
-  - internal/provider/types/environment_entry.go
   - internal/provider/types/external_resource.go
-  - internal/provider/types/functionality.go
-  - internal/provider/types/functionality_lite.go
-  - internal/provider/types/functionality_lite_labels.go
-  - internal/provider/types/headers.go
-  - internal/provider/types/imports_import_error.go
-  - internal/provider/types/imports_import_error_data.go
-  - internal/provider/types/incident_event_data.go
-  - internal/provider/types/incident_field_requirement.go
-  - internal/provider/types/incident_labels.go
-  - internal/provider/types/incident_retro_export.go
-  - internal/provider/types/incident_type_template_impact.go
-  - internal/provider/types/incidents_channel.go
-  - internal/provider/types/incidents_conference_bridge.go
-  - internal/provider/types/incidents_conference_bridge_attachment.go
-  - internal/provider/types/incidents_impact.go
-  - internal/provider/types/incidents_lifecycle_measurement.go
-  - internal/provider/types/incidents_lifecycle_milestone.go
-  - internal/provider/types/incidents_lifecycle_phase.go
-  - internal/provider/types/incidents_milestone.go
-  - internal/provider/types/incidents_role_assignment.go
-  - internal/provider/types/incidents_status_page.go
-  - internal/provider/types/incidents_team_assignment_lite.go
-  - internal/provider/types/integrations_connection.go
-  - internal/provider/types/integrations_connection_details.go
-  - internal/provider/types/integrations_slack_slack_channel.go
-  - internal/provider/types/integrations_statuspage_condition.go
-  - internal/provider/types/integrations_statuspage_milestone_mapping.go
-  - internal/provider/types/integrations_statuspage_severity.go
   - internal/provider/types/links.go
-  - internal/provider/types/membership.go
-  - internal/provider/types/milestones_input.go
-  - internal/provider/types/nullable_actor.go
-  - internal/provider/types/nullable_attachments_link.go
   - internal/provider/types/nullable_author.go
-  - internal/provider/types/nullable_calendars_event.go
-  - internal/provider/types/nullable_conversations_api_channel.go
-  - internal/provider/types/nullable_event_note.go
-  - internal/provider/types/nullable_fh_types_generic.go
-  - internal/provider/types/nullable_imports_import_error_resource.go
-  - internal/provider/types/nullable_imports_importable_resource.go
-  - internal/provider/types/nullable_incident.go
-  - internal/provider/types/nullable_incident_labels.go
-  - internal/provider/types/nullable_incident_retro_export.go
-  - internal/provider/types/nullable_incident_role.go
-  - internal/provider/types/nullable_incident_type_template.go
-  - internal/provider/types/nullable_incident_type_template_values.go
-  - internal/provider/types/nullable_incidents_conference_bridge.go
-  - internal/provider/types/nullable_incidents_conference_bridge_attachment.go
-  - internal/provider/types/nullable_incidents_context_object.go
-  - internal/provider/types/nullable_integration.go
-  - internal/provider/types/nullable_integrations.go
-  - internal/provider/types/nullable_integrations_integration_logo.go
-  - internal/provider/types/nullable_integrations_microsoft_teams_v2_channel.go
-  - internal/provider/types/nullable_integrations_slack_slack_channel.go
-  - internal/provider/types/nullable_media_image.go
-  - internal/provider/types/nullable_nunc_component.go
-  - internal/provider/types/nullable_nunc_component_group.go
-  - internal/provider/types/nullable_nunc_condition.go
-  - internal/provider/types/nullable_organization.go
-  - internal/provider/types/nullable_pagination.go
-  - internal/provider/types/nullable_post_mortems_question.go
-  - internal/provider/types/nullable_rules.go
-  - internal/provider/types/nullable_runbooks_action_config.go
-  - internal/provider/types/nullable_runbooks_actions.go
-  - internal/provider/types/nullable_runbooks_actions_default_rule_data.go
-  - internal/provider/types/nullable_runbooks_actions_prerequisite.go
-  - internal/provider/types/nullable_runbooks_element_dynamic_select.go
-  - internal/provider/types/nullable_runbooks_element_dynamic_select_select_option.go
-  - internal/provider/types/nullable_runbooks_element_input.go
-  - internal/provider/types/nullable_runbooks_element_markdown.go
-  - internal/provider/types/nullable_runbooks_element_textarea.go
-  - internal/provider/types/nullable_runbooks_execution_executed_for.go
-  - internal/provider/types/nullable_runbooks_execution_step.go
-  - internal/provider/types/nullable_runbooks_execution_step_config.go
-  - internal/provider/types/nullable_runbooks_execution_step_execution.go
-  - internal/provider/types/nullable_runbooks_execution_step_execution_data.go
-  - internal/provider/types/nullable_runbooks_webhook_delivery.go
-  - internal/provider/types/nullable_schedule.go
-  - internal/provider/types/nullable_service.go
-  - internal/provider/types/nullable_service_managed_by_settings.go
-  - internal/provider/types/nullable_severity_matrix_condition.go
-  - internal/provider/types/nullable_severity_matrix_impact.go
-  - internal/provider/types/nullable_signals_api_call_route_step.go
-  - internal/provider/types/nullable_signals_api_escalation_policy_handoff_step.go
-  - internal/provider/types/nullable_signals_api_grouping_action.go
-  - internal/provider/types/nullable_signals_api_grouping_action_fyi.go
-  - internal/provider/types/nullable_signals_api_grouping_strategy.go
-  - internal/provider/types/nullable_signals_api_grouping_strategy_substring.go
-  - internal/provider/types/nullable_signals_api_on_call_strategy.go
-  - internal/provider/types/nullable_signals_api_rule.go
-  - internal/provider/types/nullable_signals_api_target.go
-  - internal/provider/types/nullable_signals_api_transposer.go
-  - internal/provider/types/nullable_signals_api_transposer_example_payload.go
-  - internal/provider/types/nullable_slim_runbook.go
-  - internal/provider/types/nullable_succinct.go
   - internal/provider/types/nullable_team_lite.go
-  - internal/provider/types/nullable_ticketing_priority.go
-  - internal/provider/types/nullable_ticketing_project_config.go
-  - internal/provider/types/nullable_ticketing_project_config_details.go
-  - internal/provider/types/nullable_ticketing_project_field_map.go
-  - internal/provider/types/nullable_ticketing_project_field_map_cases_else.go
-  - internal/provider/types/nullable_ticketing_project_field_map_external_value.go
-  - internal/provider/types/nullable_ticketing_ticket.go
-  - internal/provider/types/nullable_ticketing_ticket_attachment.go
-  - internal/provider/types/nullable_user.go
-  - internal/provider/types/nullable_votes.go
-  - internal/provider/types/public_apiv1_incidents_succinct.go
-  - internal/provider/types/retrospectives_field.go
-  - internal/provider/types/retrospectives_template_incident_section.go
-  - internal/provider/types/runbook_step.go
-  - internal/provider/types/runbook_step_config.go
-  - internal/provider/types/runbooks_element.go
-  - internal/provider/types/runbooks_element_dynamic_select_select_option.go
-  - internal/provider/types/scheduled_maintenance_labels.go
-  - internal/provider/types/scheduled_maintenances_impact.go
-  - internal/provider/types/scheduled_maintenances_status_page.go
-  - internal/provider/types/service_checklist.go
-  - internal/provider/types/service_checklist_labels.go
   - internal/provider/types/service_lite.go
   - internal/provider/types/service_lite_labels.go
-  - internal/provider/types/service_managed_by_settings.go
-  - internal/provider/types/signals_api_escalation_policy_step.go
-  - internal/provider/types/signals_api_escalation_policy_step1.go
-  - internal/provider/types/signals_api_grouping.go
-  - internal/provider/types/signals_api_notification_policy_item_compliance.go
-  - internal/provider/types/signals_api_notification_priority_policy.go
-  - internal/provider/types/signals_api_on_call_restriction.go
-  - internal/provider/types/signals_api_on_call_rotation.go
-  - internal/provider/types/signals_api_on_call_shift.go
-  - internal/provider/types/signals_api_target.go
-  - internal/provider/types/signals_api_target1.go
-  - internal/provider/types/signals_api_transposer_example_payload.go
-  - internal/provider/types/slim_runbook.go
-  - internal/provider/types/step_element.go
-  - internal/provider/types/succinct.go
-  - internal/provider/types/task_list_item.go
-  - internal/provider/types/task_list_item1.go
-  - internal/provider/types/team.go
   - internal/provider/types/team_lite.go
-  - internal/provider/types/ticketing_project_config_details.go
-  - internal/provider/types/ticketing_project_field_map_body.go
-  - internal/provider/types/ticketing_project_field_map_cases.go
-  - internal/provider/types/ticketing_ticket.go
-  - internal/provider/types/ticketing_ticket_attachment.go
-  - internal/provider/types/update_call_route_steps_input.go
-  - internal/provider/user_data_source.go
-  - internal/provider/user_data_source_sdk.go
   - internal/provider/utils.go
-  - internal/provider/webhooks_data_source.go
-  - internal/provider/webhooks_data_source_sdk.go
-  - internal/provider/webhooks_resource.go
-  - internal/provider/webhooks_resource_sdk.go
-  - internal/provider/webhooks_webhooks_data_source.go
-  - internal/provider/webhooks_webhooks_data_source_sdk.go
   - internal/sdk/.gitattributes
   - internal/sdk/accountsettings.go
   - internal/sdk/alerts.go
@@ -644,6 +112,7 @@ generatedFiles:
   - internal/sdk/models/operations/bulkupdateincidentmilestones.go
   - internal/sdk/models/operations/closeincident.go
   - internal/sdk/models/operations/convertincidenttask.go
+  - internal/sdk/models/operations/copyoncallschedulerotation.go
   - internal/sdk/models/operations/createaudience.go
   - internal/sdk/models/operations/createchange.go
   - internal/sdk/models/operations/createchangeevent.go
@@ -682,6 +151,7 @@ generatedFiles:
   - internal/sdk/models/operations/createnuncconnection.go
   - internal/sdk/models/operations/createnunclink.go
   - internal/sdk/models/operations/createnuncsubscription.go
+  - internal/sdk/models/operations/createoncallschedulerotation.go
   - internal/sdk/models/operations/createoncallshift.go
   - internal/sdk/models/operations/createpostmortemreason.go
   - internal/sdk/models/operations/createpostmortemreport.go
@@ -751,6 +221,7 @@ generatedFiles:
   - internal/sdk/models/operations/deletenuncimage.go
   - internal/sdk/models/operations/deletenunclink.go
   - internal/sdk/models/operations/deletenuncsubscription.go
+  - internal/sdk/models/operations/deleteoncallschedulerotation.go
   - internal/sdk/models/operations/deleteoncallshift.go
   - internal/sdk/models/operations/deletepostmortemreason.go
   - internal/sdk/models/operations/deletepriority.go
@@ -823,6 +294,7 @@ generatedFiles:
   - internal/sdk/models/operations/getmemberdefaultaudience.go
   - internal/sdk/models/operations/getnotificationpolicy.go
   - internal/sdk/models/operations/getnuncconnection.go
+  - internal/sdk/models/operations/getoncallschedulerotation.go
   - internal/sdk/models/operations/getoncallshift.go
   - internal/sdk/models/operations/getoptionsforfield.go
   - internal/sdk/models/operations/getpostmortemquestion.go
@@ -983,9 +455,12 @@ generatedFiles:
   - internal/sdk/models/operations/listwebhookdeliveries.go
   - internal/sdk/models/operations/listwebhooks.go
   - internal/sdk/models/operations/options.go
+  - internal/sdk/models/operations/overrideoncallschedulerotationshifts.go
   - internal/sdk/models/operations/patchscimuser.go
   - internal/sdk/models/operations/ping.go
   - internal/sdk/models/operations/pingnoauth.go
+  - internal/sdk/models/operations/previewoncallschedulerotation.go
+  - internal/sdk/models/operations/previewteamoncallschedule.go
   - internal/sdk/models/operations/publishpostmortemreport.go
   - internal/sdk/models/operations/refreshcatalog.go
   - internal/sdk/models/operations/refreshconnection.go
@@ -1035,6 +510,7 @@ generatedFiles:
   - internal/sdk/models/operations/updatenuncconnection.go
   - internal/sdk/models/operations/updatenuncimage.go
   - internal/sdk/models/operations/updatenunclink.go
+  - internal/sdk/models/operations/updateoncallschedulerotation.go
   - internal/sdk/models/operations/updateoncallshift.go
   - internal/sdk/models/operations/updatepostmortemfield.go
   - internal/sdk/models/operations/updatepostmortemquestions.go
@@ -1107,6 +583,7 @@ generatedFiles:
   - internal/sdk/models/shared/checklisttemplatepaginated.go
   - internal/sdk/models/shared/conversationsapireference.go
   - internal/sdk/models/shared/convertincidenttask.go
+  - internal/sdk/models/shared/copyoncallschedulerotation.go
   - internal/sdk/models/shared/createaudience.go
   - internal/sdk/models/shared/createchange.go
   - internal/sdk/models/shared/createchangeevent.go
@@ -1140,6 +617,7 @@ generatedFiles:
   - internal/sdk/models/shared/createnunccomponentgroup.go
   - internal/sdk/models/shared/createnuncconnection.go
   - internal/sdk/models/shared/createnuncsubscription.go
+  - internal/sdk/models/shared/createoncallschedulerotation.go
   - internal/sdk/models/shared/createoncallshift.go
   - internal/sdk/models/shared/createpostmortemreason.go
   - internal/sdk/models/shared/createpostmortemreport.go
@@ -1361,6 +839,7 @@ generatedFiles:
   - internal/sdk/models/shared/nuncemailsubscribers.go
   - internal/sdk/models/shared/nuncnuncsubscription.go
   - internal/sdk/models/shared/organizationscustomfielddefinition.go
+  - internal/sdk/models/shared/overrideoncallschedulerotationshifts.go
   - internal/sdk/models/shared/patchscimuser.go
   - internal/sdk/models/shared/pong.go
   - internal/sdk/models/shared/postmortemspostmortemreport.go
@@ -1370,6 +849,8 @@ generatedFiles:
   - internal/sdk/models/shared/postmortemsreason.go
   - internal/sdk/models/shared/postmortemsreasonpaginated.go
   - internal/sdk/models/shared/postmortemssectionfield.go
+  - internal/sdk/models/shared/previewoncallschedulerotation.go
+  - internal/sdk/models/shared/previewteamoncallschedule.go
   - internal/sdk/models/shared/priority.go
   - internal/sdk/models/shared/publicapiv1bootstrap.go
   - internal/sdk/models/shared/publicapiv1formconfigurationsselectedvalue.go
@@ -1443,6 +924,9 @@ generatedFiles:
   - internal/sdk/models/shared/signalsapioncallrotation.go
   - internal/sdk/models/shared/signalsapioncallschedule.go
   - internal/sdk/models/shared/signalsapioncallschedulepaginated.go
+  - internal/sdk/models/shared/signalsapioncallschedulepreview.go
+  - internal/sdk/models/shared/signalsapioncallschedulepreviewrotationpreview.go
+  - internal/sdk/models/shared/signalsapioncallschedulepreviewshiftpreview.go
   - internal/sdk/models/shared/signalsapioncallshift.go
   - internal/sdk/models/shared/signalsapiorganizationoncallrotation.go
   - internal/sdk/models/shared/signalsapiorganizationoncallschedule.go
@@ -1511,6 +995,7 @@ generatedFiles:
   - internal/sdk/models/shared/updatenuncconnection.go
   - internal/sdk/models/shared/updatenuncimageform.go
   - internal/sdk/models/shared/updatenunclink.go
+  - internal/sdk/models/shared/updateoncallschedulerotation.go
   - internal/sdk/models/shared/updateoncallshift.go
   - internal/sdk/models/shared/updatepostmortemfield.go
   - internal/sdk/models/shared/updatepostmortemquestions.go
@@ -4912,5 +4397,90 @@ examples:
       parameters:
         path:
           id: "<id>"
+  preview_team_on_call_schedule:
+    speakeasy-default-preview-team-on-call-schedule:
+      parameters:
+        path:
+          team_id: "<id>"
+      requestBody:
+        application/json: {"name": "<value>", "rotations": [{"name": "<value>", "strategy": {"type": "<value>"}, "time_zone": "Europe/Prague"}]}
+      responses:
+        "201":
+          application/json: {}
+  create_on_call_schedule_rotation:
+    speakeasy-default-create-on-call-schedule-rotation:
+      parameters:
+        path:
+          team_id: "<id>"
+          schedule_id: "<id>"
+      requestBody:
+        application/json: {"name": "<value>", "strategy": {"type": "<value>"}, "time_zone": "Antarctica/DumontDUrville"}
+      responses:
+        "201":
+          application/json: {}
+  preview_on_call_schedule_rotation:
+    speakeasy-default-preview-on-call-schedule-rotation:
+      parameters:
+        path:
+          team_id: "<id>"
+          schedule_id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "201":
+          application/json: {}
+  delete_on_call_schedule_rotation:
+    speakeasy-default-delete-on-call-schedule-rotation:
+      parameters:
+        path:
+          rotation_id: "<id>"
+          team_id: "<id>"
+          schedule_id: "<id>"
+  get_on_call_schedule_rotation:
+    speakeasy-default-get-on-call-schedule-rotation:
+      parameters:
+        path:
+          rotation_id: "<id>"
+          team_id: "<id>"
+          schedule_id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+  update_on_call_schedule_rotation:
+    speakeasy-default-update-on-call-schedule-rotation:
+      parameters:
+        path:
+          rotation_id: "<id>"
+          team_id: "<id>"
+          schedule_id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {}
+  copy_on_call_schedule_rotation:
+    speakeasy-default-copy-on-call-schedule-rotation:
+      parameters:
+        path:
+          rotation_id: "<id>"
+          team_id: "<id>"
+          schedule_id: "<id>"
+      requestBody:
+        application/json: {"target_schedule_id": "<id>"}
+      responses:
+        "201":
+          application/json: {}
+  override_on_call_schedule_rotation_shifts:
+    speakeasy-default-override-on-call-schedule-rotation-shifts:
+      parameters:
+        path:
+          rotation_id: "<id>"
+          team_id: "<id>"
+          schedule_id: "<id>"
+      requestBody:
+        application/json: {"end_time": "<value>", "start_time": "<value>"}
+      responses:
+        "201":
+          application/json: {}
 examplesVersion: 1.0.2
 generatedTests: {}
